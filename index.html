@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Digital with David — Travel Smarter. Fly Better. Pay Less.</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy: #0D1B2A;
+    --navy2: #111827;
+    --gold: #C9A84C;
+    --gold-l: #E8D5A3;
+    --gold-d: #8B6914;
+    --cream: #F5F0E8;
+    --off-white: #F0EDE8;
+    --mid: #B0A898;
+    --body: #3A3530;
+    --radius: 12px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--cream);
+    color: var(--body);
+    line-height: 1.6;
+  }
+
+  .gate-overlay {
+    position: fixed; inset: 0; z-index: 999;
+    background: var(--navy);
+    display: flex; align-items: center; justify-content: center;
+    padding: 24px;
+  }
+  .gate-overlay.hidden { display: none; }
+  .gate-box { max-width: 520px; width: 100%; text-align: center; }
+  .gate-eyebrow { color: var(--gold); font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 12px; }
+  .gate-title { color: var(--cream); font-size: 1.6rem; font-weight: 700; margin-bottom: 10px; }
+  .gate-sub { color: var(--mid); font-size: 14px; margin-bottom: 28px; }
+  .gate-options { display: flex; flex-direction: column; gap: 10px; }
+  .gate-option {
+    background: rgba(201,168,76,0.06); border: 1px solid rgba(201,168,76,0.3);
+    border-radius: var(--radius); padding: 14px 18px; text-align: left;
+    cursor: pointer; transition: all 0.2s; color: var(--cream);
+  }
+  .gate-option:hover { background: rgba(201,168,76,0.15); border-color: var(--gold); }
+  .gate-option strong { display: block; font-size: 14px; margin-bottom: 2px; color: var(--gold-l); }
+  .gate-option span { font-size: 12px; color: var(--mid); }
+  .gate-skip {
+    display: inline-block; margin-top: 22px; color: var(--mid); font-size: 12px;
+    text-decoration: underline; cursor: pointer; background: none; border: none;
+  }
+  .gate-skip:hover { color: var(--gold); }
+
+  .img-slot {
+    width: 100%; border-radius: var(--radius); overflow: hidden;
+    line-height: 0;
+  }
+  .img-slot img { width: 100%; height: auto; object-fit: cover; display: block; }
+  .img-slot .img-slot-label {
+    color: var(--gold-l); font-size: 12px; text-align: center; padding: 16px;
+    line-height: 1.5;
+  }
+
+  .contact-section { background: var(--navy); padding: 5rem 0; }
+  .contact-box { max-width: 560px; margin: 0 auto; text-align: center; }
+  .contact-box .section-title { color: var(--cream); }
+  .contact-box .section-sub { color: var(--mid); margin-bottom: 2.5rem; }
+  .contact-form { text-align: left; display: flex; flex-direction: column; gap: 16px; }
+  .contact-form label {
+    display: block; color: var(--gold-l); font-size: 12px;
+    text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px;
+  }
+  .contact-form input, .contact-form select, .contact-form textarea {
+    width: 100%; padding: 12px 14px; border-radius: 10px;
+    border: 1px solid rgba(201,168,76,0.3); background: rgba(255,255,255,0.04);
+    color: var(--cream); font-size: 15px; font-family: inherit;
+  }
+  .contact-form textarea { min-height: 100px; resize: vertical; }
+  .contact-form input::placeholder, .contact-form textarea::placeholder { color: #6B6560; }
+  .contact-form button {
+    margin-top: 8px;
+  }
+  .contact-note { color: var(--mid); font-size: 12px; margin-top: 16px; text-align: center; }
+
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(13,27,42,0.96);
+    backdrop-filter: blur(8px);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 2rem; height: 56px;
+    border-bottom: 1px solid rgba(201,168,76,0.2);
+  }
+  .nav-brand {
+    color: var(--gold); font-weight: 700; font-size: 14px; letter-spacing: 1px;
+    text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 2rem; }
+  .nav-links a {
+    color: var(--mid); text-decoration: none; font-size: 13px;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-cta {
+    background: var(--gold); color: var(--navy) !important;
+    padding: 6px 16px; border-radius: 6px; font-weight: 600 !important;
+    font-size: 13px !important;
+  }
+  .nav-cta:hover { background: var(--gold-l) !important; color: var(--navy) !important; }
+
+  .hero {
+    background: var(--navy);
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center;
+    padding: 100px 2rem 80px;
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 50% 60%, rgba(201,168,76,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-eyebrow {
+    color: var(--gold); font-size: 12px; font-weight: 600;
+    letter-spacing: 3px; text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+  .hero h1 {
+    color: #fff; font-size: clamp(2.4rem, 6vw, 4.5rem);
+    font-weight: 800; line-height: 1.05; letter-spacing: -1px;
+    max-width: 780px; margin-bottom: 1.5rem;
+  }
+  .hero h1 em {
+    font-style: normal; color: var(--gold);
+  }
+  .hero-sub {
+    color: var(--mid); font-size: clamp(1rem, 2vw, 1.15rem);
+    max-width: 520px; margin-bottom: 2.5rem; line-height: 1.7;
+  }
+  .hero-stats {
+    display: flex; gap: 3rem; margin-bottom: 3rem;
+    flex-wrap: wrap; justify-content: center;
+  }
+  .stat { text-align: center; }
+  .stat-num {
+    display: block; color: var(--gold);
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 800; line-height: 1;
+  }
+  .stat-label {
+    color: var(--mid); font-size: 12px; letter-spacing: 1px;
+    text-transform: uppercase; margin-top: 4px;
+  }
+  .hero-cta {
+    display: inline-flex; gap: 1rem; flex-wrap: wrap; justify-content: center;
+  }
+  .btn-primary {
+    background: var(--gold); color: var(--navy);
+    padding: 14px 32px; border-radius: 8px;
+    font-weight: 700; font-size: 15px; text-decoration: none;
+    transition: transform 0.15s, background 0.15s;
+    display: inline-block;
+  }
+  .btn-primary:hover { background: var(--gold-l); transform: translateY(-1px); }
+  .btn-secondary {
+    background: transparent; color: var(--off-white);
+    padding: 14px 32px; border-radius: 8px;
+    border: 1px solid rgba(201,168,76,0.3);
+    font-weight: 600; font-size: 15px; text-decoration: none;
+    transition: border-color 0.15s, color 0.15s;
+    display: inline-block;
+  }
+  .btn-secondary:hover { border-color: var(--gold); color: var(--gold); }
+
+  .proof-strip {
+    background: var(--navy2);
+    border-top: 1px solid rgba(201,168,76,0.15);
+    border-bottom: 1px solid rgba(201,168,76,0.15);
+    padding: 1.2rem 2rem;
+    display: flex; align-items: center; justify-content: center;
+    gap: 3rem; flex-wrap: wrap;
+  }
+  .proof-item {
+    color: var(--mid); font-size: 13px; display: flex;
+    align-items: center; gap: 8px;
+  }
+  .proof-item strong { color: var(--gold-l); }
+  .proof-dot {
+    width: 4px; height: 4px; border-radius: 50%;
+    background: var(--gold-d);
+  }
+
+  section { padding: 80px 2rem; }
+  .container { max-width: 1100px; margin: 0 auto; }
+  .section-eyebrow {
+    color: var(--gold); font-size: 11px; font-weight: 600;
+    letter-spacing: 3px; text-transform: uppercase; margin-bottom: 12px;
+  }
+  .section-title {
+    font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+    font-weight: 800; color: var(--navy);
+    line-height: 1.15; margin-bottom: 16px;
+  }
+  .section-sub {
+    color: #6B6560; font-size: 1rem; max-width: 520px; line-height: 1.7;
+  }
+
+  .what-you-get { background: var(--off-white); }
+  .steps-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem; margin-top: 3rem;
+  }
+  .step-card {
+    background: #fff; border-radius: var(--radius);
+    border: 1px solid rgba(0,0,0,0.07);
+    padding: 1.5rem;
+  }
+  .step-num {
+    width: 36px; height: 36px; border-radius: 8px;
+    background: var(--navy); color: var(--gold);
+    font-weight: 800; font-size: 14px;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 1rem;
+  }
+  .step-card h3 { font-size: 15px; font-weight: 700; color: var(--navy); margin-bottom: 6px; }
+  .step-card p { font-size: 13.5px; color: #6B6560; line-height: 1.6; }
+
+  .products { background: var(--cream); }
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem; margin-top: 3rem; align-items: start;
+  }
+  .product-card {
+    background: #fff; border-radius: var(--radius);
+    border: 1px solid rgba(0,0,0,0.08);
+    overflow: hidden; position: relative;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .product-card:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(0,0,0,0.1); }
+  .product-card.featured {
+    border: 2px solid var(--gold);
+  }
+  .product-badge {
+    position: absolute; top: 16px; right: 16px;
+    background: var(--gold); color: var(--navy);
+    font-size: 10px; font-weight: 700; letter-spacing: 1px;
+    padding: 4px 10px; border-radius: 4px; text-transform: uppercase;
+  }
+  .product-header {
+    background: var(--navy); padding: 1.75rem 1.5rem 1.5rem;
+  }
+  .product-tier {
+    color: var(--gold); font-size: 10px; font-weight: 700;
+    letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px;
+  }
+  .product-header h3 {
+    color: #fff; font-size: 1.2rem; font-weight: 800;
+    line-height: 1.25; margin-bottom: 8px;
+  }
+  .product-header p { color: var(--mid); font-size: 13px; line-height: 1.6; }
+  .product-price {
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid rgba(0,0,0,0.07);
+    display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;
+  }
+  .price-main {
+    font-size: 1.8rem; font-weight: 800; color: var(--navy);
+  }
+  .price-original {
+    font-size: 14px; color: #aaa;
+    text-decoration: line-through;
+  }
+  .price-badge {
+    background: #FEF3C7; color: #92400E;
+    font-size: 11px; font-weight: 700;
+    padding: 2px 8px; border-radius: 4px;
+  }
+  .price-free { font-size: 1.8rem; font-weight: 800; color: var(--gold); }
+  .product-features { padding: 1.25rem 1.5rem; }
+  .product-features ul { list-style: none; }
+  .product-features li {
+    font-size: 13.5px; color: var(--body);
+    padding: 5px 0; display: flex; align-items: flex-start; gap: 8px;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+  }
+  .product-features li:last-child { border-bottom: none; }
+  .product-features li::before {
+    content: '✦'; color: var(--gold); font-size: 10px;
+    margin-top: 3px; flex-shrink: 0;
+  }
+  .product-cta { padding: 0 1.5rem 1.5rem; }
+  .btn-card {
+    display: block; text-align: center; text-decoration: none;
+    padding: 13px; border-radius: 8px; font-weight: 700; font-size: 14px;
+    transition: all 0.15s;
+  }
+  .btn-card-gold {
+    background: var(--gold); color: var(--navy);
+  }
+  .btn-card-gold:hover { background: var(--gold-l); }
+  .btn-card-navy {
+    background: var(--navy); color: var(--gold);
+  }
+  .btn-card-navy:hover { background: #1a2f47; }
+  .btn-card-outline {
+    background: transparent; color: var(--navy);
+    border: 1.5px solid var(--navy);
+  }
+  .btn-card-outline:hover { background: var(--navy); color: var(--gold); }
+  .product-note {
+    text-align: center; font-size: 11.5px; color: #aaa;
+    padding: 0 1.5rem 1.2rem; margin-top: -4px;
+  }
+
+  .about { background: var(--navy); }
+  .about-inner {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 4rem; align-items: center;
+  }
+  .about-text .section-eyebrow { color: var(--gold); }
+  .about-text .section-title { color: #fff; }
+  .about-text p { color: var(--mid); font-size: 15px; line-height: 1.8; margin-bottom: 1rem; }
+  .about-text strong { color: var(--gold-l); }
+  .about-proof {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 1rem; margin-top: 2rem;
+  }
+  .about-stat {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(201,168,76,0.15);
+    border-radius: 10px; padding: 1.2rem;
+  }
+  .about-stat-num {
+    font-size: 1.8rem; font-weight: 800; color: var(--gold);
+    display: block; line-height: 1;
+  }
+  .about-stat-label { color: var(--mid); font-size: 12px; margin-top: 4px; display: block; }
+  .about-visual {
+    background: rgba(201,168,76,0.06);
+    border: 1px solid rgba(201,168,76,0.15);
+    border-radius: var(--radius); padding: 2rem;
+  }
+  .about-quote {
+    color: var(--gold-l); font-size: 1.1rem; font-style: italic;
+    line-height: 1.7; margin-bottom: 1.5rem;
+  }
+  .about-quote-attr { color: var(--mid); font-size: 13px; }
+  .about-route {
+    margin-top: 1.5rem; padding-top: 1.5rem;
+    border-top: 1px solid rgba(201,168,76,0.15);
+  }
+  .route-label { color: var(--gold); font-size: 11px; letter-spacing: 2px; font-weight: 600; margin-bottom: 8px; }
+  .route-path {
+    display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+  }
+  .route-step {
+    background: rgba(201,168,76,0.1); color: var(--gold-l);
+    font-size: 12px; padding: 4px 10px; border-radius: 4px; font-weight: 500;
+  }
+  .route-arrow { color: var(--gold-d); font-size: 12px; }
+
+  .how { background: var(--off-white); }
+  .how-steps {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 0; margin-top: 3rem; position: relative;
+  }
+  .how-step { padding: 2rem 1.5rem; position: relative; text-align: center; }
+  .how-step:not(:last-child)::after {
+    content: '→';
+    position: absolute; right: -8px; top: 50%;
+    transform: translateY(-50%);
+    color: var(--gold); font-size: 1.2rem;
+  }
+  .how-step-num {
+    font-size: 2.5rem; font-weight: 800; color: var(--gold);
+    opacity: 0.3; line-height: 1; margin-bottom: 8px;
+  }
+  .how-step h3 { font-size: 15px; font-weight: 700; color: var(--navy); margin-bottom: 6px; }
+  .how-step p { font-size: 13px; color: #6B6560; line-height: 1.6; }
+
+  footer {
+    background: var(--navy); color: var(--mid);
+    padding: 3rem 2rem; text-align: center;
+    border-top: 1px solid rgba(201,168,76,0.15);
+  }
+  footer .footer-brand {
+    color: var(--gold); font-weight: 700; font-size: 15px;
+    letter-spacing: 1px; display: block; margin-bottom: 8px;
+  }
+  footer p { font-size: 13px; line-height: 1.7; max-width: 400px; margin: 0 auto 1rem; }
+  footer .footer-links { display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; }
+  footer .footer-links a { color: var(--mid); font-size: 12px; text-decoration: none; }
+  footer .footer-links a:hover { color: var(--gold); }
+
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    .hero-stats { gap: 2rem; }
+    .about-inner { grid-template-columns: 1fr; gap: 2rem; }
+    .how-step:not(:last-child)::after { display: none; }
+    .proof-strip { gap: 1.5rem; }
+    .proof-dot { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-brand" href="https://www.instagram.com/digitalwithdavidk" target="_blank">@DIGITALWITHDAVIDK</a>
+  <div class="nav-links">
+    <a href="#products">Guides</a>
+    <a href="#about">About</a>
+    <a href="#contact">Free Consult</a>
+    <a href="#products" class="nav-cta">Get the Free Guide</a>
+  </div>
+</nav>
+
+<div class="gate-overlay" id="gateOverlay">
+  <div class="gate-box">
+
+    <div class="gate-step" id="gateStep1">
+      <p class="gate-eyebrow">Before you dive in</p>
+      <h2 class="gate-title">Are you ready to invest in learning more about travel?</h2>
+      <p class="gate-sub">Or just here to look around — either is fine.</p>
+      <div class="gate-options">
+        <button class="gate-option" onclick="gateStep(2)">
+          <strong>Yes, I'm ready to invest</strong>
+          <span>Let's find the right fit for me</span>
+        </button>
+        <button class="gate-option" onclick="closeGate()">
+          <strong>Just browsing for now</strong>
+          <span>I'll look around on my own</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="gate-step" id="gateStep2" style="display:none;">
+      <p class="gate-eyebrow">Question 2 of 3</p>
+      <h2 class="gate-title">Where are you at with travel & credit card points?</h2>
+      <p class="gate-sub">No wrong answer — just helps me point you right.</p>
+      <div class="gate-options">
+        <button class="gate-option" onclick="gateStep(3)">
+          <strong>Complete beginner</strong>
+          <span>I don't know where to start</span>
+        </button>
+        <button class="gate-option" onclick="gateStep(3)">
+          <strong>Somewhat experienced</strong>
+          <span>I want more niche, advanced tips</span>
+        </button>
+        <button class="gate-option" onclick="gateStep(3)">
+          <strong>Experienced, but want it done-for-me</strong>
+          <span>I'd rather have someone handle it directly</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="gate-step" id="gateStep3" style="display:none;">
+      <p class="gate-eyebrow">Question 3 of 3</p>
+      <h2 class="gate-title">What's your goal right now?</h2>
+      <p class="gate-sub">This is the one that actually points you to the right spot.</p>
+      <div class="gate-options">
+        <button class="gate-option" onclick="routeGate('free-guides')">
+          <strong>Just want the free tips</strong>
+          <span>Give me the checklist and card guide to start</span>
+        </button>
+        <button class="gate-option" onclick="routeGate('blueprint')">
+          <strong>Ready to spend $50–100</strong>
+          <span>For an in-depth, niche guide I can't find online</span>
+        </button>
+        <button class="gate-option" onclick="routeGate('coaching')">
+          <strong>Take me straight to 1-on-1</strong>
+          <span>I want all your knowledge, applied to me directly</span>
+        </button>
+      </div>
+      <p class="gate-sub" style="margin-top:18px;">Not sure? <a href="#contact" onclick="closeGate()" style="color:var(--gold);">Book a free 15-min call instead →</a></p>
+    </div>
+
+    <button class="gate-skip" onclick="closeGate()">Skip, just let me browse →</button>
+  </div>
+</div>
+
+<section class="hero" id="home">
+  <p class="hero-eyebrow"><a href="https://www.instagram.com/digitalwithdavidk" target="_blank" style="color:var(--gold);text-decoration:none;">@digitalwithdavidk</a> &nbsp;·&nbsp; Canadian Travel & Credit Card Hacks</p>
+  <h1>Travel <em>Business Class.</em><br>Pay Economy Prices.</h1>
+  <p class="hero-sub">
+    Lounge access, free flights, hotel upgrades, and zero foreign transaction fees —
+    using credit card points most Canadians leave on the table every single month.
+  </p>
+  <div class="hero-stats">
+    <div class="stat">
+      <span class="stat-num">1.7M+</span>
+      <span class="stat-label">Views in the last 30 days</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">6,256</span>
+      <span class="stat-label">Followers & growing</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">5,600+</span>
+      <span class="stat-label">Combined saves across all reels</span>
+    </div>
+  </div>
+  <div class="hero-cta">
+    <a href="#products" class="btn-primary">Get the Free Travel Guide</a>
+    <a href="#products" class="btn-secondary">See All Resources →</a>
+  </div>
+  <div class="img-slot" style="max-width:720px; margin:40px auto 0;">
+    <img src="images/hero-business-class.jpg" alt="David dining in business class">
+  </div>
+</section>
+
+<div class="proof-strip">
+  <div class="proof-item"><strong>✈️ Vancouver → Seoul</strong> Business Class Round Trip</div>
+  <div class="proof-dot"></div>
+  <div class="proof-item">Economy base + upgrade bids = <strong>$3,700 total</strong></div>
+  <div class="proof-dot"></div>
+  <div class="proof-item">Cash value of those seats: <strong>$8,000–$16,000</strong></div>
+  <div class="proof-dot"></div>
+  <div class="proof-item">Lounge access on <strong>every single flight</strong></div>
+</div>
+
+<section class="what-you-get" id="about">
+  <div class="container">
+    <p class="section-eyebrow">The System</p>
+    <h2 class="section-title">What this is actually about</h2>
+    <div class="img-slot" style="max-width:640px; margin:20px auto;">
+      <img src="images/about-lounge.jpg" alt="Airport lounge David frequents">
+    </div>
+    <p class="section-sub">
+      Most Canadians earn zero points on their biggest expenses and have no idea
+      airport lounges exist. These guides fix that — fast.
+    </p>
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-num">01</div>
+        <h3>Build Your Credit Score</h3>
+        <p>Understand utilisation, payment habits, and which cards to get first to unlock premium travel cards.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">02</div>
+        <h3>Stack the Right Cards</h3>
+        <p>Amex Cobalt for daily spending, Platinum for lounge access and travel insurance, Wealthsimple for abroad.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">03</div>
+        <h3>Earn on Everything</h3>
+        <p>Points on restaurants, streaming, rent via Chexy, and every trip booked through your card's portal.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">04</div>
+        <h3>Travel for Less</h3>
+        <p>Redeem for flights, bid on business class upgrades, access lounges, and get hotel upgrades by asking right.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="how">
+  <div class="container">
+    <p class="section-eyebrow">The Funnel</p>
+    <h2 class="section-title">Start free. Go as deep as you want.</h2>
+    <div class="how-steps">
+      <div class="how-step">
+        <div class="how-step-num">1</div>
+        <h3>Free Guide</h3>
+        <p>Download the travel checklist and start with the right cards.</p>
+      </div>
+      <div class="how-step">
+        <div class="how-step-num">2</div>
+        <h3>Blueprint ($49)</h3>
+        <p>Get the full strategy — lounges, business class, hotel status.</p>
+      </div>
+      <div class="how-step">
+        <div class="how-step-num">3</div>
+        <h3>1-on-1 Call</h3>
+        <p>Build your personal points system with David directly.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="products" id="products">
+  <div class="container">
+    <p class="section-eyebrow">Pick Your Starting Point</p>
+    <h2 class="section-title">Everything you need to travel smarter</h2>
+    <p class="section-sub">
+      Start with the free guide. Upgrade when you're ready.
+      Every resource is built around what I actually use on every trip.
+    </p>
+    <div class="products-grid">
+
+      <div class="product-card" id="free-guides">
+        <div class="product-header">
+          <p class="product-tier">Free Resource</p>
+          <h3>Canadian Travel Checklist</h3>
+          <p>The essential pre-trip guide — packing, finances, lounge access, and the credit cards I use on every flight.</p>
+        </div>
+        <div class="product-price">
+          <span class="price-free">Free</span>
+        </div>
+        <div class="product-features">
+          <ul>
+            <li>Pre-departure checklist</li>
+            <li>Smart packing guide</li>
+            <li>Finances & credit card section</li>
+            <li>Lounge & airport travel tips</li>
+            <li>Links to my referral cards</li>
+          </ul>
+        </div>
+        <div class="product-cta">
+          <a href="https://stan.store/digitalwithdavidk" class="btn-card btn-card-outline">Download Free Guide</a>
+        </div>
+        <p class="product-note">Instant download · No credit card needed</p>
+      </div>
+
+
+      <div class="product-card">
+        <div class="product-header">
+          <p class="product-tier">Free Resource</p>
+          <h3>Canadian Credit Card Guide</h3>
+          <p>The exact cards I use to access airport lounges, earn points on everything, and travel with zero foreign transaction fees — with my personal referral links inside.</p>
+        </div>
+        <div class="product-price">
+          <span class="price-free">Free</span>
+        </div>
+        <div class="product-features">
+          <ul>
+            <li>Amex Cobalt — 5x points on food & delivery</li>
+            <li>Amex Platinum — unlimited lounge access & travel insurance</li>
+            <li>Wealthsimple VIP — no FX fees, 5% back for 30 days</li>
+            <li>Scotiabank Passport Visa Infinite — 6 free lounge passes</li>
+            <li>All referral links included — sign-up bonuses for you, points for both of us</li>
+          </ul>
+        </div>
+        <div class="product-cta">
+          <a href="https://stan.store/digitalwithdavidk" class="btn-card btn-card-outline">Download Free Guide</a>
+        </div>
+        <p class="product-note">Instant download · No credit card needed</p>
+      </div>
+
+      <div class="product-card featured" id="blueprint">
+        <div class="product-badge">Most Popular</div>
+        <div class="product-header">
+          <p class="product-tier">Premium Guide</p>
+          <h3>The Travel Hacking Blueprint</h3>
+          <p>The complete playbook — lounge access, cheaper business class, and negotiation scripts that work.</p>
+        </div>
+        <div class="product-price">
+          <span class="price-main">$49.99</span>
+          <span class="price-original">$100</span>
+          <span class="price-badge">50% OFF — Limited Time</span>
+        </div>
+        <div class="product-features">
+          <ul>
+            <li>Lounge access strategy (Amex + Visa Companion app)</li>
+            <li>Finding business class for less</li>
+            <li>Hotel status benefits most people miss</li>
+            <li>Google Flights price pattern strategy</li>
+            <li>Klook vs Google for experiences</li>
+            <li>Local intelligence — finding the hidden spots</li>
+            <li>Negotiation scripts that actually work</li>
+            <li>All referral links in one place</li>
+          </ul>
+        </div>
+        <div class="product-cta">
+          <a href="https://stan.store/digitalwithdavidk/p/get-my-travel-hack-blueprint-now" class="btn-card btn-card-gold">Get the Blueprint — $49.99</a>
+        </div>
+        <p class="product-note">Price increases soon · Instant download</p>
+      </div>
+
+      <div class="product-card" id="coaching">
+        <div class="product-header">
+          <p class="product-tier">1-on-1 Coaching</p>
+          <h3>Private Travel Strategy Coaching - 1 Month</h3>
+          <p>Direct access to David — custom card stack, redemption plan, and weekly calls.</p>
+        </div>
+        <div class="product-price">
+          <span class="price-main">$497</span>
+          <span style="color:#6B6560; font-size:14px;">/ 1 month</span>
+        </div>
+        <div class="product-features">
+          <ul>
+            <li>Weekly 1-on-1 video call to track your progress</li>
+            <li>Full access to David for the duration of your program</li>
+            <li>Custom credit card stack built around your spending</li>
+            <li>Points accumulation strategy tailored to your goals</li>
+            <li>Lounge access, upgrade bidding, and hotel status setup</li>
+            <li>Flight and hotel redemption roadmap</li>
+          </ul>
+        </div>
+        <div class="product-cta">
+          <a href="https://stan.store/digitalwithdavidk/p/1on1-travel-strategy-call-with-david" class="btn-card btn-card-outline">Book My Spot</a>
+        </div>
+        <p class="product-note">Limited spots · Weekly video calls included</p>
+      </div>
+
+      <div class="product-card featured">
+        <div class="product-badge">Best Value</div>
+        <div class="product-header">
+          <p class="product-tier">1-on-1 Coaching</p>
+          <h3>Private Travel Strategy Coaching - 3 Months</h3>
+          <p>Ongoing access to David — full points strategy built and refined over 3 months of weekly calls.</p>
+        </div>
+        <div class="product-price">
+          <span class="price-main">$997</span>
+          <span style="color:#6B6560; font-size:14px;">/ 3 months</span>
+        </div>
+        <div class="product-features">
+          <ul>
+            <li>Weekly 1-on-1 video call to track your progress</li>
+            <li>Full access to David for the duration of your program</li>
+            <li>Custom credit card stack built around your spending</li>
+            <li>Points accumulation strategy tailored to your goals</li>
+            <li>Lounge access, upgrade bidding, and hotel status setup</li>
+            <li>Flight and hotel redemption roadmap</li>
+            <li>Regular check-ins and ongoing adjustments</li>
+            <li>Saves you $494 vs month-to-month</li>
+          </ul>
+        </div>
+        <div class="product-cta">
+          <a href="https://stan.store/digitalwithdavidk/p/private-travel-coaching--3-months-best-value" class="btn-card btn-card-gold">Book My Spot</a>
+        </div>
+        <p class="product-note">Limited spots · Weekly video calls included</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="about" id="david">
+  <div class="container">
+    <div class="about-inner">
+      <div class="about-text">
+        <div class="img-slot">
+          <img src="images/david-portrait.jpg" alt="David at the airport">
+        </div>
+        <p class="section-eyebrow">Who Is David</p>
+        <h2 class="section-title">Just a regular guy who wanted to travel more.</h2>
+        <p>
+          I'm David — not a trust fund kid, not someone with a private jet budget.
+          I started chasing travel points for one simple reason: I wanted to see more of the world
+          without blowing my savings to do it.
+        </p>
+        <p>
+          I worked a full-time job, ran a couple of businesses, and promoted events on the side —
+          normal, busy-life stuff. I just figured out how to make my everyday spending work harder,
+          and it turned into flying <strong>business class to Seoul and back for $3,700 total</strong> —
+          including the economy base fare.
+        </p>
+        <p>
+          Those two long-haul seats alone had a combined cash value of <strong>$8,000 to $16,000.</strong>
+          No trust fund, no shortcuts — just a credit card stack, upgrade bids, and a system I now teach to anyone who wants it.
+        </p>
+        <p>
+          None of this requires a high income. It requires the right cards and the right information.
+          That's what this page is for.
+        </p>
+        <div class="about-proof">
+          <div class="about-stat">
+            <span class="about-stat-num">1.7M+</span>
+            <span class="about-stat-label">Views in the last 30 days</span>
+          </div>
+          <div class="about-stat">
+            <span class="about-stat-num">$3,700</span>
+            <span class="about-stat-label">YVR → ICN Business Class RT</span>
+          </div>
+          <div class="about-stat">
+            <span class="about-stat-num">5,600+</span>
+            <span class="about-stat-label">Combined saves across all reels</span>
+          </div>
+          <div class="about-stat">
+            <span class="about-stat-num">6,256+</span>
+            <span class="about-stat-label">Followers & climbing</span>
+          </div>
+        </div>
+      </div>
+      <div class="about-visual">
+        <p class="about-quote">
+          "The right credit card stack turns your everyday spending — coffee, groceries, rent —
+          into flights you never actually pay for. Most Canadians are leaving thousands of dollars
+          in points on the table every year."
+        </p>
+        <p class="about-quote-attr">— David, <a href="https://www.instagram.com/digitalwithdavidk" target="_blank" style="color:var(--gold);text-decoration:none;">@digitalwithdavidk</a></p>
+        <div class="about-route">
+          <p class="route-label">The Card Stack I Use</p>
+          <div class="route-path">
+            <span class="route-step">Amex Cobalt</span>
+            <span class="route-arrow">+</span>
+            <span class="route-step">Amex Platinum</span>
+            <span class="route-arrow">+</span>
+            <span class="route-step">Wealthsimple VIP</span>
+            <span class="route-arrow">+</span>
+            <span class="route-step">Chexy for Rent</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="contact-section" id="contact">
+  <div class="contact-box">
+    <p class="section-eyebrow" style="color:var(--gold);">Not sure which fits?</p>
+    <h2 class="section-title">Get a Free 15-Min Discovery Call</h2>
+    <p class="section-sub">Not sure if you need the free guides, the Blueprint, or 1-on-1 coaching? Book a free call and I'll help you figure out exactly what fits — no pressure, no generic pitch.</p>
+    <a href="https://stan.store/digitalwithdavidk/p/not-sure--book-a-discovery-call" class="btn-primary">Book My Free Discovery Call</a>
+    <p class="contact-note">I personally hop on every call — no bots, no sales team.</p>
+  </div>
+</section>
+
+<footer>
+  <a href="https://www.instagram.com/digitalwithdavidk" target="_blank" class="footer-brand">@DIGITALWITHDAVIDK</a>
+  <p>Canadian travel hacks, credit card points strategy, and lounge access — for anyone who wants to travel better without spending more.</p>
+  <div class="footer-links">
+    <a href="https://www.instagram.com/digitalwithdavidk" target="_blank">Instagram</a>
+    <a href="https://stan.store/digitalwithdavidk">Free Guide</a>
+    <a href="https://stan.store/digitalwithdavidk/p/get-my-travel-hack-blueprint-now">Blueprint</a>
+    <a href="https://stan.store/digitalwithdavidk/p/1on1-travel-strategy-call-with-david">Book a Call</a>
+  </div>
+  <p style="margin-top: 1.5rem; font-size: 12px;">© 2026 Digital with David. All rights reserved.</p>
+</footer>
+
+<script>
+  function closeGate() {
+    document.getElementById('gateOverlay').classList.add('hidden');
+    document.body.style.overflow = '';
+  }
+  function gateStep(n) {
+    document.querySelectorAll('.gate-step').forEach(function(el){ el.style.display = 'none'; });
+    document.getElementById('gateStep' + n).style.display = 'block';
+  }
+  function routeGate(targetId) {
+    closeGate();
+    const el = document.getElementById(targetId);
+    if (el) { el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+  }
+  document.body.style.overflow = 'hidden';
+</script>
+</body>
+</html>
