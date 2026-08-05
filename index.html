@@ -246,6 +246,7 @@
   .product-card:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(0,0,0,0.1); }
   .product-image { width: 100%; aspect-ratio: 16/10; overflow: hidden; }
   .product-image img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .product-image.face-crop img { object-position: center 15%; }
   .contact-avatar { width: 88px; height: 88px; border-radius: 50%; object-fit: cover; margin: 0 auto 1rem; display: block; border: 2px solid var(--gold); }
   .product-card.featured {
     border: 2px solid var(--gold);
@@ -681,7 +682,7 @@
       </div>
 
       <div class="product-card" id="coaching">
-        <div class="product-image"><img src="images/product-coaching-portrait.webp" alt="David Duong - private travel coaching" loading="lazy"></div>
+        <div class="product-image face-crop"><img src="images/product-coaching-portrait.webp" alt="David Duong - private travel coaching" loading="lazy"></div>
         <div class="product-header">
           <p class="product-tier">1-on-1 Coaching</p>
           <h3>Private Travel Strategy Coaching - 1 Month</h3>
@@ -709,7 +710,7 @@
 
       <div class="product-card featured">
         <div class="product-badge">Best Value</div>
-        <div class="product-image"><img src="images/product-coaching-portrait.webp" alt="David Duong - private travel coaching" loading="lazy"></div>
+        <div class="product-image face-crop"><img src="images/product-coaching-portrait.webp" alt="David Duong - private travel coaching" loading="lazy"></div>
         <div class="product-header">
           <p class="product-tier">1-on-1 Coaching</p>
           <h3>Private Travel Strategy Coaching - 3 Months</h3>
