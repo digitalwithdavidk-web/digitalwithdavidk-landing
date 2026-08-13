@@ -1,1 +1,273 @@
-<FILE_CONTENT_PLACEHOLDER>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Digital with David — Media Kit</title>
+<style>
+  :root {
+    --navy: #0D1B2A;
+    --navy2: #111827;
+    --gold: #C9A84C;
+    --gold-l: #E8D5A3;
+    --gold-d: #8B6914;
+    --cream: #F5F0E8;
+    --off-white: #F0EDE8;
+    --mid: #B0A898;
+    --body: #3A3530;
+    --radius: 12px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--cream);
+    color: var(--body);
+    line-height: 1.6;
+  }
+  .container { max-width: 1040px; margin: 0 auto; padding: 0 24px; }
+
+  /* HERO */
+  .hero {
+    background: linear-gradient(160deg, var(--navy) 0%, var(--navy2) 100%);
+    color: var(--off-white);
+    padding: 72px 24px 88px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::after {
+    content: "";
+    position: absolute; inset: 0;
+    background: radial-gradient(circle at 85% 15%, rgba(201,168,76,0.18), transparent 55%);
+    pointer-events: none;
+  }
+  .hero-inner { max-width: 1040px; margin: 0 auto; position: relative; }
+  .eyebrow {
+    color: var(--gold-l); font-size: 13px; font-weight: 700; letter-spacing: 2px;
+    text-transform: uppercase; margin-bottom: 18px;
+  }
+  .hero h1 {
+    font-size: clamp(36px, 5vw, 58px); font-weight: 800; line-height: 1.08;
+    letter-spacing: -0.02em; max-width: 760px;
+  }
+  .hero .accent { color: var(--gold-l); }
+  .hero p.sub {
+    margin-top: 20px; font-size: 18px; color: var(--mid); max-width: 560px;
+  }
+  .growth-badge {
+    display: inline-flex; align-items: center; gap: 10px;
+    margin-top: 32px; padding: 12px 20px;
+    background: rgba(201,168,76,0.1); border: 1px solid rgba(201,168,76,0.35);
+    border-radius: 999px; font-size: 15px; color: var(--gold-l); font-weight: 600;
+  }
+
+  /* STAT STRIP */
+  .stat-strip {
+    background: var(--navy2);
+    padding: 0 24px 56px;
+  }
+  .stat-grid {
+    max-width: 1040px; margin: -48px auto 0;
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px;
+    background: rgba(201,168,76,0.25);
+    border-radius: var(--radius); overflow: hidden;
+  }
+  .stat-cell {
+    background: var(--navy); padding: 28px 20px; text-align: center;
+  }
+  .stat-num { font-size: 30px; font-weight: 800; color: var(--gold-l); display: block; }
+  .stat-label { font-size: 12.5px; color: var(--mid); margin-top: 6px; letter-spacing: 0.3px; }
+  @media (max-width: 720px) { .stat-grid { grid-template-columns: repeat(2, 1fr); } }
+
+  /* SECTIONS */
+  section.block { padding: 64px 24px; }
+  section.block.dark { background: var(--navy); color: var(--off-white); }
+  h2.section-title {
+    font-size: 28px; font-weight: 800; margin-bottom: 8px; letter-spacing: -0.01em;
+  }
+  p.section-sub { color: var(--mid); margin-bottom: 36px; max-width: 560px; }
+  .dark h2.section-title { color: var(--off-white); }
+  .dark .gold-text { color: var(--gold-l); }
+
+  /* CALLOUT */
+  .callout {
+    background: var(--off-white); border-left: 4px solid var(--gold);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    padding: 28px 32px; margin: 8px 0 0;
+  }
+  .callout .num { font-size: 40px; font-weight: 800; color: var(--gold-d); }
+  .callout p { margin-top: 8px; font-size: 15.5px; color: var(--body); max-width: 620px; }
+
+  /* AUDIENCE */
+  .audience-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; }
+  @media (max-width: 720px) { .audience-grid { grid-template-columns: 1fr; } }
+  .bar-row { margin-bottom: 14px; }
+  .bar-label { display: flex; justify-content: space-between; font-size: 14px; margin-bottom: 6px; }
+  .bar-label span:last-child { color: var(--gold-l); font-weight: 700; }
+  .bar-track { height: 8px; background: rgba(255,255,255,0.1); border-radius: 4px; overflow: hidden; }
+  .bar-fill { height: 100%; background: var(--gold); border-radius: 4px; }
+  .loc-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.08); font-size: 15px; }
+  .loc-row span:last-child { color: var(--gold-l); font-weight: 700; }
+
+  /* CONTENT PILLARS */
+  .pillar-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+  @media (max-width: 720px) { .pillar-grid { grid-template-columns: 1fr; } }
+  .pillar-card {
+    background: #fff; border: 1px solid rgba(0,0,0,0.08); border-radius: var(--radius);
+    padding: 26px;
+  }
+  .pillar-tag {
+    display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 1px;
+    text-transform: uppercase; color: var(--gold-d); margin-bottom: 10px;
+  }
+  .pillar-card h3 { font-size: 19px; margin-bottom: 8px; }
+  .pillar-card p { font-size: 14.5px; color: var(--mid); }
+
+  /* RATE CARD */
+  .rate-table { width: 100%; border-collapse: collapse; margin-top: 8px; }
+  .rate-table td { padding: 16px 4px; border-bottom: 1px solid rgba(0,0,0,0.08); font-size: 15.5px; }
+  .rate-table tr:last-child td { border-bottom: none; }
+  .rate-table td:last-child { text-align: right; font-weight: 700; color: var(--gold-d); white-space: nowrap; }
+  .rate-note {
+    margin-top: 20px; font-size: 13.5px; color: var(--mid); font-style: italic;
+  }
+
+  /* CONTACT FOOTER */
+  .contact { background: var(--navy); color: var(--off-white); padding: 72px 24px; text-align: center; }
+  .contact h2 { font-size: 30px; margin-bottom: 12px; }
+  .contact p { color: var(--mid); margin-bottom: 28px; }
+  .contact-links { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; }
+  .btn {
+    display: inline-block; padding: 14px 28px; border-radius: 8px; font-weight: 700;
+    text-decoration: none; font-size: 15px;
+  }
+  .btn-primary { background: var(--gold); color: var(--navy); }
+  .btn-outline { border: 1px solid var(--gold-l); color: var(--gold-l); }
+  footer.tiny { text-align: center; padding: 24px; font-size: 12.5px; color: var(--mid); background: var(--navy2); }
+</style>
+</head>
+<body>
+
+  <section class="hero">
+    <div class="hero-inner" style="display:flex; align-items:center; gap:32px; flex-wrap:wrap;">
+      <img src="media-kit-images/portrait.jpg" alt="David Duong" style="width:120px; height:120px; border-radius:50%; object-fit:cover; border:3px solid var(--gold-l); flex-shrink:0;">
+      <div>
+      <div class="eyebrow">Media Kit — 2026</div>
+      <h1>David Duong<br><span class="accent">@digitalwithdavidk</span></h1>
+      <p class="sub">Travel & Canadian credit card creator. I help people in their 20s travel more for less — and I show them exactly how.</p>
+      <div class="growth-badge">📈 5,715 → 10,106 followers in under 3 weeks — 100% organic, zero ads</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="stat-strip">
+    <div class="stat-grid">
+      <div class="stat-cell"><span class="stat-num">10,106</span><span class="stat-label">Followers</span></div>
+      <div class="stat-cell"><span class="stat-num">3M+</span><span class="stat-label">Views since Jul 6</span></div>
+      <div class="stat-cell"><span class="stat-num">97.4%</span><span class="stat-label">Reach from non-followers</span></div>
+      <div class="stat-cell"><span class="stat-num">53.5K+</span><span class="stat-label">Saves</span></div>
+    </div>
+  </div>
+
+  <section class="block">
+    <h2 class="section-title">Why this matters for a partner</h2>
+    <p class="section-sub">Follower count is the least interesting number here. This is the one that actually predicts results.</p>
+    <div class="callout">
+      <span class="num">0.75%</span>
+      <p><strong>View-to-follow conversion rate</strong> on my top-performing content format — roughly 5x higher than my account average. I track this per post, not just guess at it, so I know exactly which formats convert an audience into a following, not just a view count.</p>
+    </div>
+  </section>
+
+  <section class="block dark">
+    <h2 class="section-title">Who's watching</h2>
+    <p class="section-sub" style="color:var(--mid)">Skews young, male, and internationally distributed — a real travel-and-money audience, not a niche echo chamber.</p>
+    <div class="audience-grid">
+      <div>
+        <div class="bar-row">
+          <div class="bar-label"><span>Men</span><span>94.6%</span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:94.6%"></div></div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label"><span>Women</span><span>5.4%</span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:5.4%"></div></div>
+        </div>
+        <div style="height:16px"></div>
+        <div class="bar-row">
+          <div class="bar-label"><span>Age 25–34</span><span>54.3%</span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:54.3%"></div></div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label"><span>Age 18–24</span><span>23.5%</span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:23.5%"></div></div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label"><span>Age 35–44</span><span>16.8%</span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:16.8%"></div></div>
+        </div>
+      </div>
+      <div>
+        <p style="font-size:13px; text-transform:uppercase; letter-spacing:1px; color:var(--gold-l); margin-bottom:12px; font-weight:700;">Top Locations</p>
+        <div class="loc-row"><span>United States</span><span>42.6%</span></div>
+        <div class="loc-row"><span>United Kingdom</span><span>6.8%</span></div>
+        <div class="loc-row"><span>Canada</span><span>6.4%</span></div>
+        <div class="loc-row"><span>India</span><span>5.5%</span></div>
+        <div class="loc-row"><span>Australia</span><span>3.7%</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <h2 class="section-title">Content I create</h2>
+    <p class="section-sub">Four formats, all tested, all with a proven audience reaction — I know exactly which style fits which kind of message.</p>
+    <div class="pillar-grid">
+      <div class="pillar-card">
+        <span class="pillar-tag">Destination Series</span>
+        <h3>"Male Trip" Guides</h3>
+        <p>High-production destination checklists. Aspirational, list-format, my highest-reach series.</p>
+      </div>
+      <div class="pillar-card">
+        <span class="pillar-tag">Lifestyle Series</span>
+        <h3>"Travel Larp"</h3>
+        <p>My best-converting format by a wide margin. Aspirational-lifestyle framing, built for brands selling a feeling, not just a product.</p>
+      </div>
+      <div class="pillar-card">
+        <img src="media-kit-images/cards-photo.jpg" alt="Credit cards" style="width:100%; height:140px; object-fit:cover; border-radius:8px; margin-bottom:14px;">
+        <span class="pillar-tag">Comparison Format</span>
+        <h3>Tier List Rankings</h3>
+        <p>Ranks products/services S through F with a real reason for each placement. A natural fit for any brand that wants to be positioned against competitors.</p>
+      </div>
+      <div class="pillar-card">
+        <span class="pillar-tag">Educational</span>
+        <h3>Tips & How-Tos</h3>
+        <p>Direct, practical advice content. Best fit for straightforward product walkthroughs and feature explainers.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="block dark">
+    <h2 class="section-title">Partnership options</h2>
+    <p class="section-sub" style="color:var(--mid)">Starting rates below — happy to build a custom package around your goals.</p>
+    <table class="rate-table">
+      <tr><td>Single Reel (UGC only, brand-posted)</td><td>$300–400</td></tr>
+      <tr><td>Single Reel (organic — posted to my page)</td><td>$600–800</td></tr>
+      <tr><td>3-Reel Package</td><td>$1,500–2,000</td></tr>
+      <tr><td>Story Set (3 frames)</td><td>$100–150</td></tr>
+      <tr><td>Usage Rights / Whitelisting</td><td>+$150–300</td></tr>
+    </table>
+    <p class="rate-note">Rates reflect an emerging partnership stage — pricing scales with results and case studies over time.</p>
+  </section>
+
+  <section class="contact">
+    <h2>Let's work together</h2>
+    <p>Send over your goals and I'll pitch a format that actually fits.</p>
+    <div class="contact-links">
+      <a class="btn btn-primary" href="mailto:digitalwithdavidk@gmail.com">Email Me</a>
+      <a class="btn btn-outline" href="https://instagram.com/digitalwithdavidk" target="_blank">@digitalwithdavidk</a>
+      <a class="btn btn-outline" href="https://digitalwithdavidk-web.github.io/digitalwithdavidk-landing/" target="_blank">Full Site</a>
+    </div>
+  </section>
+
+  <footer class="tiny">Digital with David — Media Kit — Updated August 2026</footer>
+
+</body>
+</html>
