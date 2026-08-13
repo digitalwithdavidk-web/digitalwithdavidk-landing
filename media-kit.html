@@ -133,6 +133,21 @@
   }
 
   /* CONTACT FOOTER */
+  /* GALLERY */
+  .gallery-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 8px;
+  }
+  .gallery-grid a { display: block; border-radius: var(--radius); overflow: hidden; line-height: 0; }
+  .gallery-grid img {
+    width: 100%; height: 220px; object-fit: cover; display: block;
+    transition: transform 0.25s ease;
+  }
+  .gallery-grid a:hover img { transform: scale(1.05); }
+  @media (max-width: 720px) {
+    .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+    .gallery-grid img { height: 170px; }
+  }
+
   .contact { background: var(--navy); color: var(--off-white); padding: 72px 24px; text-align: center; }
   .contact h2 { font-size: 30px; margin-bottom: 12px; }
   .contact p { color: var(--mid); margin-bottom: 28px; }
@@ -255,6 +270,31 @@
       <tr><td>Usage Rights / Whitelisting</td><td>+$150–300</td></tr>
     </table>
     <p class="rate-note">Rates reflect an emerging partnership stage — pricing scales with results and case studies over time.</p>
+  </section>
+
+  <section class="block">
+    <h2 class="section-title">Photo &amp; content library</h2>
+    <p class="section-sub">A quick look at the on-camera content style — travel, lifestyle, and everyday finance moments. Full-res assets and raw footage available on request for approved partnerships.</p>
+    <div class="gallery-grid">
+      <a href="media-kit-images/gallery-cards.jpg" target="_blank">
+        <img src="media-kit-images/gallery-cards.jpg" alt="David holding a fan of travel credit cards">
+      </a>
+      <a href="media-kit-images/gallery-hotel-arrival.jpg" target="_blank">
+        <img src="media-kit-images/gallery-hotel-arrival.jpg" alt="David arriving at the InterContinental Bangkok Sukhumvit">
+      </a>
+      <a href="media-kit-images/gallery-hallway.jpg" target="_blank">
+        <img src="media-kit-images/gallery-hallway.jpg" alt="David walking through a hotel corridor">
+      </a>
+      <a href="media-kit-images/gallery-cn-tower.jpg" target="_blank">
+        <img src="media-kit-images/gallery-cn-tower.jpg" alt="David in front of the CN Tower in Toronto">
+      </a>
+      <a href="media-kit-images/gallery-jetski.jpg" target="_blank">
+        <img src="media-kit-images/gallery-jetski.jpg" alt="David on a jet ski in Phuket, Thailand">
+      </a>
+      <a href="media-kit-images/gallery-mirror-selfie.jpg" target="_blank">
+        <img src="media-kit-images/gallery-mirror-selfie.jpg" alt="David mirror selfie">
+      </a>
+    </div>
   </section>
 
   <section class="contact">
