@@ -22,22 +22,22 @@
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
-    --navy: #0D1B2A;
-    --navy2: #111827;
-    --gold: #C9A84C;
-    --gold-l: #E8D5A3;
-    --gold-d: #8B6914;
-    --cream: #F5F0E8;
-    --off-white: #F0EDE8;
-    --mid: #B0A898;
-    --body: #3A3530;
+    --navy: #0E2F24;
+    --navy2: #0A241B;
+    --gold: #C9B59C;
+    --gold-l: #EDE6DC;
+    --gold-d: #5E6B5E;
+    --cream: #EDE6DC;
+    --off-white: #E3DACD;
+    --mid: #C0C0C0;
+    --body: #1F1F1F;
     --radius: 12px;
   }
 
   html { scroll-behavior: smooth; }
 
   body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     background: var(--cream);
     color: var(--body);
     line-height: 1.6;
@@ -56,11 +56,11 @@
   .gate-sub { color: var(--mid); font-size: 14px; margin-bottom: 28px; }
   .gate-options { display: flex; flex-direction: column; gap: 10px; }
   .gate-option {
-    background: rgba(201,168,76,0.06); border: 1px solid rgba(201,168,76,0.3);
+    background: rgba(201,181,156,0.06); border: 1px solid rgba(201,181,156,0.3);
     border-radius: var(--radius); padding: 14px 18px; text-align: left;
     cursor: pointer; transition: all 0.2s; color: var(--cream);
   }
-  .gate-option:hover { background: rgba(201,168,76,0.15); border-color: var(--gold); }
+  .gate-option:hover { background: rgba(201,181,156,0.15); border-color: var(--gold); }
   .gate-option strong { display: block; font-size: 14px; margin-bottom: 2px; color: var(--gold-l); }
   .gate-option span { font-size: 12px; color: var(--mid); }
   .gate-skip {
@@ -90,11 +90,11 @@
   }
   .contact-form input, .contact-form select, .contact-form textarea {
     width: 100%; padding: 12px 14px; border-radius: 10px;
-    border: 1px solid rgba(201,168,76,0.3); background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(201,181,156,0.3); background: rgba(255,255,255,0.04);
     color: var(--cream); font-size: 15px; font-family: inherit;
   }
   .contact-form textarea { min-height: 100px; resize: vertical; }
-  .contact-form input::placeholder, .contact-form textarea::placeholder { color: #6B6560; }
+  .contact-form input::placeholder, .contact-form textarea::placeholder { color: #5E6B5E; }
   .contact-form button {
     margin-top: 8px;
   }
@@ -102,11 +102,11 @@
 
   nav {
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    background: rgba(13,27,42,0.96);
+    background: rgba(14,47,36,0.96);
     backdrop-filter: blur(8px);
     display: flex; align-items: center; justify-content: space-between;
     padding: 0 2rem; height: 56px;
-    border-bottom: 1px solid rgba(201,168,76,0.2);
+    border-bottom: 1px solid rgba(201,181,156,0.2);
   }
   .nav-brand {
     color: var(--gold); font-weight: 700; font-size: 14px; letter-spacing: 1px;
@@ -137,7 +137,7 @@
   .hero::before {
     content: '';
     position: absolute; inset: 0;
-    background: radial-gradient(ellipse at 50% 60%, rgba(201,168,76,0.08) 0%, transparent 70%);
+    background: radial-gradient(ellipse at 50% 60%, rgba(201,181,156,0.08) 0%, transparent 70%);
     pointer-events: none;
   }
   .hero-eyebrow {
@@ -185,7 +185,7 @@
   .btn-secondary {
     background: transparent; color: var(--off-white);
     padding: 14px 32px; border-radius: 8px;
-    border: 1px solid rgba(201,168,76,0.3);
+    border: 1px solid rgba(201,181,156,0.3);
     font-weight: 600; font-size: 15px; text-decoration: none;
     transition: border-color 0.15s, color 0.15s;
     display: inline-block;
@@ -194,8 +194,8 @@
 
   .proof-strip {
     background: var(--navy2);
-    border-top: 1px solid rgba(201,168,76,0.15);
-    border-bottom: 1px solid rgba(201,168,76,0.15);
+    border-top: 1px solid rgba(201,181,156,0.15);
+    border-bottom: 1px solid rgba(201,181,156,0.15);
     padding: 1.2rem 2rem;
     display: flex; align-items: center; justify-content: center;
     gap: 3rem; flex-wrap: wrap;
@@ -222,7 +222,7 @@
     line-height: 1.15; margin-bottom: 16px;
   }
   .section-sub {
-    color: #6B6560; font-size: 1rem; max-width: 520px; line-height: 1.7;
+    color: #5E6B5E; font-size: 1rem; max-width: 520px; line-height: 1.7;
   }
 
   .what-you-get { background: var(--off-white); }
@@ -243,7 +243,7 @@
     margin-bottom: 1rem;
   }
   .step-card h3 { font-size: 15px; font-weight: 700; color: var(--navy); margin-bottom: 6px; }
-  .step-card p { font-size: 13.5px; color: #6B6560; line-height: 1.6; }
+  .step-card p { font-size: 13.5px; color: #5E6B5E; line-height: 1.6; }
 
   .products { background: var(--cream); }
   .products-grid {
@@ -296,7 +296,7 @@
     text-decoration: line-through;
   }
   .price-badge {
-    background: #FEF3C7; color: #92400E;
+    background: #EDE6DC; color: #0E2F24;
     font-size: 11px; font-weight: 700;
     padding: 2px 8px; border-radius: 4px;
   }
@@ -326,7 +326,7 @@
   .btn-card-navy {
     background: var(--navy); color: var(--gold);
   }
-  .btn-card-navy:hover { background: #1a2f47; }
+  .btn-card-navy:hover { background: #14382C; }
   .btn-card-outline {
     background: transparent; color: var(--navy);
     border: 1.5px solid var(--navy);
@@ -352,7 +352,7 @@
   }
   .about-stat {
     background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(201,168,76,0.15);
+    border: 1px solid rgba(201,181,156,0.15);
     border-radius: 10px; padding: 1.2rem;
   }
   .about-stat-num {
@@ -361,8 +361,8 @@
   }
   .about-stat-label { color: var(--mid); font-size: 12px; margin-top: 4px; display: block; }
   .about-visual {
-    background: rgba(201,168,76,0.06);
-    border: 1px solid rgba(201,168,76,0.15);
+    background: rgba(201,181,156,0.06);
+    border: 1px solid rgba(201,181,156,0.15);
     border-radius: var(--radius); padding: 2rem;
   }
   .about-quote {
@@ -372,14 +372,14 @@
   .about-quote-attr { color: var(--mid); font-size: 13px; }
   .about-route {
     margin-top: 1.5rem; padding-top: 1.5rem;
-    border-top: 1px solid rgba(201,168,76,0.15);
+    border-top: 1px solid rgba(201,181,156,0.15);
   }
   .route-label { color: var(--gold); font-size: 11px; letter-spacing: 2px; font-weight: 600; margin-bottom: 8px; }
   .route-path {
     display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
   }
   .route-step {
-    background: rgba(201,168,76,0.1); color: var(--gold-l);
+    background: rgba(201,181,156,0.1); color: var(--gold-l);
     font-size: 12px; padding: 4px 10px; border-radius: 4px; font-weight: 500;
   }
   .route-arrow { color: var(--gold-d); font-size: 12px; }
@@ -401,12 +401,12 @@
     opacity: 0.3; line-height: 1; margin-bottom: 8px;
   }
   .how-step h3 { font-size: 15px; font-weight: 700; color: var(--navy); margin-bottom: 6px; }
-  .how-step p { font-size: 13px; color: #6B6560; line-height: 1.6; }
+  .how-step p { font-size: 13px; color: #5E6B5E; line-height: 1.6; }
 
   footer {
     background: var(--navy); color: var(--mid);
     padding: 3rem 2rem; text-align: center;
-    border-top: 1px solid rgba(201,168,76,0.15);
+    border-top: 1px solid rgba(201,181,156,0.15);
   }
   footer .footer-brand {
     color: var(--gold); font-weight: 700; font-size: 15px;
@@ -425,12 +425,20 @@
     .proof-strip { gap: 1.5rem; }
     .proof-dot { display: none; }
   }
+
+/* rebrand: brand accents on light sections */
+body { font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+.what-you-get .section-eyebrow, .how .section-eyebrow, .products .section-eyebrow { color: var(--gold-d); }
+.how .how-step-num { color: var(--navy); }
+.how .how-step:not(:last-child)::after { color: var(--gold-d); }
+.products .price-free { color: var(--navy); }
+.products .product-features li::before { color: var(--navy); }
 </style>
-</head>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet"><link rel="icon" type="image/svg+xml" href="images/brand/dk-emerald.svg"><meta name="theme-color" content="#0E2F24"></head>
 <body>
 
 <nav>
-  <a class="nav-brand" href="https://www.instagram.com/digitalwithdavidk" target="_blank">@DIGITALWITHDAVIDK</a>
+  <a class="nav-brand" href="https://www.instagram.com/digitalwithdavidk" target="_blank"><img src="images/brand/dk-stone.svg" alt="DK" style="height:24px;width:auto;vertical-align:middle;margin-right:10px;display:inline-block">DIGITAL WITH DAVID K.</a>
   <div class="nav-links">
     <a href="#products">Guides</a>
     <a href="#about">About</a>
@@ -504,7 +512,7 @@
 </div>
 
 <section class="hero" id="home">
-  <p class="hero-eyebrow"><a href="https://www.instagram.com/digitalwithdavidk" target="_blank" style="color:var(--gold);text-decoration:none;">@digitalwithdavidk</a> &nbsp;·&nbsp; Canadian Travel & Credit Card Hacks</p>
+  <p class="hero-eyebrow"><a href="https://www.instagram.com/digitalwithdavidk" target="_blank" style="color:var(--gold);text-decoration:none;">@digitalwithdavidk</a> &nbsp;·&nbsp; Turn ordinary spending into extraordinary experiences.</p>
   <h1>Travel <em>Business Class.</em><br>Pay Economy Prices.</h1>
   <p class="hero-sub">
     Lounge access, free flights, hotel upgrades, and zero foreign transaction fees —
@@ -704,7 +712,7 @@
         </div>
         <div class="product-price">
           <span class="price-main">$497</span>
-          <span style="color:#6B6560; font-size:14px;">/ 1 month</span>
+          <span style="color:#5E6B5E; font-size:14px;">/ 1 month</span>
         </div>
         <div class="product-features">
           <ul>
@@ -732,7 +740,7 @@
         </div>
         <div class="product-price">
           <span class="price-main">$997</span>
-          <span style="color:#6B6560; font-size:14px;">/ 3 months</span>
+          <span style="color:#5E6B5E; font-size:14px;">/ 3 months</span>
         </div>
         <div class="product-features">
           <ul>
@@ -839,7 +847,7 @@
 </section>
 
 <footer>
-  <a href="https://www.instagram.com/digitalwithdavidk" target="_blank" class="footer-brand">@DIGITALWITHDAVIDK</a>
+  <a href="https://www.instagram.com/digitalwithdavidk" target="_blank" class="footer-brand"><img src="images/brand/dk-stone.svg" alt="DK" style="height:34px;width:auto;display:block;margin:0 auto 12px">DIGITAL WITH DAVID K.</a><p style="color:var(--gold);font-weight:600;letter-spacing:.04em;margin:.4rem 0 .2rem">Turn ordinary spending into extraordinary experiences.</p>
   <p>Canadian travel hacks, credit card points strategy, and lounge access — for anyone who wants to travel better without spending more.</p>
   <div class="footer-links">
     <a href="https://www.instagram.com/digitalwithdavidk" target="_blank">Instagram</a>
