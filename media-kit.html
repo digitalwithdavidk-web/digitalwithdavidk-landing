@@ -20,21 +20,21 @@
 <meta name="twitter:image" content="https://digitalwithdavidk-web.github.io/digitalwithdavidk-landing/images/og-card.jpg">
 <style>
   :root {
-    --navy: #0D1B2A;
-    --navy2: #111827;
-    --gold: #C9A84C;
-    --gold-l: #E8D5A3;
-    --gold-d: #8B6914;
-    --cream: #F5F0E8;
-    --off-white: #F0EDE8;
-    --mid: #B0A898;
-    --body: #3A3530;
+    --navy: #0E2F24;
+    --navy2: #0A241B;
+    --gold: #C9B59C;
+    --gold-l: #EDE6DC;
+    --gold-d: #5E6B5E;
+    --cream: #EDE6DC;
+    --off-white: #E3DACD;
+    --mid: #C0C0C0;
+    --body: #1F1F1F;
     --radius: 12px;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; overflow-x: hidden; }
   body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     background: var(--cream);
     color: var(--body);
     line-height: 1.6;
@@ -54,7 +54,7 @@
   .hero::after {
     content: "";
     position: absolute; inset: 0;
-    background: radial-gradient(circle at 85% 15%, rgba(201,168,76,0.18), transparent 55%);
+    background: radial-gradient(circle at 85% 15%, rgba(201,181,156,0.18), transparent 55%);
     pointer-events: none;
   }
   .hero-inner {
@@ -63,7 +63,7 @@
   }
   .hero-photo {
     width: 100%; aspect-ratio: 1/1; object-fit: cover; border-radius: var(--radius);
-    border: 1px solid rgba(201,168,76,0.3); box-shadow: 0 20px 50px rgba(0,0,0,0.35);
+    border: 1px solid rgba(201,181,156,0.3); box-shadow: 0 20px 50px rgba(0,0,0,0.35);
   }
   @media (max-width: 780px) {
     .hero-inner { grid-template-columns: 1fr; }
@@ -84,7 +84,7 @@
   .growth-badge {
     display: inline-flex; align-items: center; gap: 10px;
     margin-top: 28px; padding: 12px 18px;
-    background: rgba(201,168,76,0.1); border: 1px solid rgba(201,168,76,0.35);
+    background: rgba(201,181,156,0.1); border: 1px solid rgba(201,181,156,0.35);
     border-radius: 999px; font-size: clamp(12px, 3vw, 15px); color: var(--gold-l); font-weight: 600;
     max-width: 100%;
   }
@@ -97,7 +97,7 @@
   .stat-grid {
     max-width: 1040px; margin: 0 auto;
     display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px;
-    background: rgba(201,168,76,0.25);
+    background: rgba(201,181,156,0.25);
     border-radius: var(--radius);
   }
   .stat-cell {
@@ -182,17 +182,26 @@
   .btn-primary { background: var(--gold); color: var(--navy); }
   .btn-outline { border: 1px solid var(--gold-l); color: var(--gold-l); }
   footer.tiny { text-align: center; padding: 20px; font-size: 12px; color: var(--mid); background: var(--navy2); }
+
+/* rebrand: brand accents on light sections */
+body { font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+.what-you-get .section-eyebrow, .how .section-eyebrow, .products .section-eyebrow { color: var(--gold-d); }
+.how .how-step-num { color: var(--navy); }
+.how .how-step:not(:last-child)::after { color: var(--gold-d); }
+.products .price-free { color: var(--navy); }
+.products .product-features li::before { color: var(--navy); }
+section.block:not(.dark) p.section-sub, .pillar-card p { color: var(--gold-d); }
 </style>
-</head>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet"><link rel="icon" type="image/svg+xml" href="images/brand/dk-emerald.svg"><meta name="theme-color" content="#0E2F24"></head>
 <body>
 
   <section class="hero">
     <div class="hero-inner">
       <div>
-        <div class="eyebrow">Media Kit — 2026</div>
+        <img src="images/brand/dk-stone.svg" alt="DK" style="height:44px;width:auto;display:block;margin:0 0 18px"><div class="eyebrow">Media Kit — 2026</div>
         <h1>David Duong<br><span class="accent">@digitalwithdavidk</span></h1>
-        <p class="sub">Travel & Canadian credit card creator. I help people in their 20s travel more for less — and I show them exactly how.</p>
-        <div class="growth-badge">📈 200 → 30,100 followers in ~10 weeks — 100% organic, zero ads</div>
+        <p style="color:var(--gold);font-weight:600;letter-spacing:.03em;margin:.2rem 0 .8rem">Turn ordinary spending into extraordinary experiences.</p><p class="sub">Travel & Canadian credit card creator. I help people in their 20s travel more for less — and I show them exactly how.</p>
+        <div class="growth-badge">📈 200 → 30,100 followers since July — 100% organic, zero ads</div>
       </div>
       <img src="images/mk-hero-cutout.png" alt="David Duong" style="width:100%;max-width:420px;display:block;margin:0 auto;filter:drop-shadow(0 20px 40px rgba(0,0,0,0.4));">
     </div>
