@@ -1,0 +1,24 @@
+{
+  "paid": {
+    "points": 59200,
+    "cash_cad": 1429,
+    "label": "59,200 points + $1,429",
+    "route": "Vancouver to Seoul",
+    "cabin": "Air Canada business class",
+    "flown": "Oct 2025"
+  },
+  "search": {
+    "origin": "YVR",
+    "destination": "ICN",
+    "cabin": "business",
+    "trip": "one-way",
+    "airline_pref": "Air Canada",
+    "days_out": 14
+  },
+  "today": {
+    "price_cad": 9284,
+    "airline": "Air Canada",
+    "as_of": "2026-10-12",
+    "source": "Google Flights"
+  }
+}
