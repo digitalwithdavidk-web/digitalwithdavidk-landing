@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Digital with David K — Travel Smarter. Fly Better. Pay Less.</title>
+<title>Digital with David K | Travel Smarter. Fly Better. Pay Less.</title>
 <meta name="description" content="Travel and Canadian credit card tips for people in their 20s. Free guides, the $19 Travel Hack Blueprint, and 1:1 travel coaching.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Digital with David K">
@@ -436,6 +436,26 @@ body { font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI',
 .how .how-step:not(:last-child)::after { color: var(--gold-d); }
 .products .price-free { color: var(--navy); }
 .products .product-features li::before { color: var(--navy); }
+
+/* Seoul value bar (round trip, live from prices/seoul.json) */
+.seoul-value { background: var(--navy); padding: 48px 1.25rem; }
+.sv-card { max-width: 720px; margin: 0 auto; background: rgba(255,255,255,0.04); border: 1px solid rgba(201,181,156,0.2); border-radius: 16px; padding: 28px; }
+.sv-eyebrow { color: var(--gold); font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; margin: 0 0 8px; }
+.sv-title { color: #fff; font-size: clamp(1.4rem, 4vw, 2rem); font-weight: 800; margin: 0 0 10px; line-height: 1.2; }
+.sv-line { color: var(--mid); font-size: 15px; line-height: 1.7; margin: 0 0 22px; }
+.sv-line strong { color: var(--gold-l); }
+.sv-bars { display: grid; gap: 16px; }
+.sv-row { display: flex; justify-content: space-between; gap: 12px; color: var(--mid); font-size: 13px; margin-bottom: 6px; }
+.sv-row b { color: var(--gold-l); font-variant-numeric: tabular-nums; }
+.sv-track { height: 12px; border-radius: 12px; background: rgba(255,255,255,0.08); overflow: hidden; }
+.sv-fill { height: 100%; border-radius: 12px; transition: width 1s cubic-bezier(.2,.8,.2,1); }
+.sv-paid { background: var(--gold); }
+.sv-cash { background: var(--mid); opacity: .55; }
+.sv-bar small { display: block; color: var(--mid); font-size: 12px; margin-top: 6px; }
+.sv-save { color: #fff; font-size: 1.1rem; margin: 22px 0 6px; }
+.sv-save b { color: var(--gold); font-size: 1.9rem; font-weight: 800; margin-right: 6px; }
+.sv-note { color: var(--mid); font-size: 12px; line-height: 1.6; margin: 0; }
+@media (max-width: 480px) { .sv-card { padding: 20px; } }
 </style>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet"><link rel="icon" type="image/svg+xml" href="images/brand/dk-emerald.svg"><meta name="theme-color" content="#0E2F24"></head>
 <body>
@@ -456,7 +476,7 @@ body { font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI',
     <div class="gate-step" id="gateStep1">
       <p class="gate-eyebrow">Before you dive in</p>
       <h2 class="gate-title">Are you ready to invest in learning more about travel?</h2>
-      <p class="gate-sub">Or just here to look around — either is fine.</p>
+      <p class="gate-sub">Or just here to look around. Either is fine.</p>
       <div class="gate-options">
         <button class="gate-option" onclick="gateStep(2)">
           <strong>Yes, I'm ready to invest</strong>
@@ -472,7 +492,7 @@ body { font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI',
     <div class="gate-step" id="gateStep2" style="display:none;">
       <p class="gate-eyebrow">Question 2 of 3</p>
       <h2 class="gate-title">Where are you at with travel & credit card points?</h2>
-      <p class="gate-sub">No wrong answer — just helps me point you right.</p>
+      <p class="gate-sub">No wrong answer. It just helps me point you right.</p>
       <div class="gate-options">
         <button class="gate-option" onclick="gateStep(3)">
           <strong>Complete beginner</strong>
@@ -518,7 +538,7 @@ body { font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI',
   <p class="hero-eyebrow"><a href="https://www.instagram.com/digitalwithdavidk" target="_blank" style="color:var(--gold);text-decoration:none;">@digitalwithdavidk</a> &nbsp;·&nbsp; Turn ordinary spending into extraordinary experiences.</p>
   <h1>Travel <em>Business Class.</em><br>Pay Economy Prices.</h1>
   <p class="hero-sub">
-    Lounge access, free flights, hotel upgrades, and zero foreign transaction fees —
+    Lounge access, free flights, hotel upgrades, and zero foreign transaction fees,
     using credit card points most Canadians leave on the table every single month.
   </p>
   <div class="hero-stats">
@@ -545,14 +565,35 @@ body { font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI',
 </section>
 
 <div class="proof-strip">
-  <div class="proof-item"><strong>✈️ Vancouver → Seoul</strong> Air Canada business class</div>
+  <div class="proof-item"><strong>✈️ Seoul and back</strong> Business class both ways</div>
   <div class="proof-dot"></div>
-  <div class="proof-item">I paid <strong data-seoul="paid">59,200 points + $1,429</strong></div>
+  <div class="proof-item">I paid <strong data-seoul="paid">59,200 points + $3,239</strong></div>
   <div class="proof-dot"></div>
-  <div class="proof-item">Same seat on Google Flights today: <strong data-seoul="today">$9,284</strong> <span class="seoul-asof">(as of <span data-seoul="asof">Oct 12, 2026</span>)</span></div>
+  <div class="proof-item">Same trip in cash today: <strong data-seoul="today">$10,060</strong> <span class="seoul-asof">(as of <span data-seoul="asof">Oct 12, 2026</span>)</span></div>
   <div class="proof-dot"></div>
   <div class="proof-item">Lounge access on <strong>every single flight</strong></div>
 </div>
+
+<section class="seoul-value" id="seoul" aria-labelledby="seoul-h">
+  <div class="sv-card">
+    <p class="sv-eyebrow">Real trip. Real receipts.</p>
+    <h2 id="seoul-h" class="sv-title">Business class to Seoul and back.</h2>
+    <p class="sv-line">I paid <strong data-seoul="paid">59,200 points + $3,239</strong>. Same trip in cash today: <strong data-seoul="today">$10,060</strong> <span class="seoul-asof">(as of <span data-seoul="asof">Oct 12, 2026</span>)</span></p>
+    <div class="sv-bars">
+      <div class="sv-bar">
+        <div class="sv-row"><span>What I paid in cash</span><b data-seoul="paidcash">$3,239</b></div>
+        <div class="sv-track"><div class="sv-fill sv-paid" data-seoul-bar="paid" style="width:32.2%"></div></div>
+        <small>plus <span data-seoul="points">59,200</span> points</small>
+      </div>
+      <div class="sv-bar">
+        <div class="sv-row"><span>Same trip in cash today</span><b data-seoul="today">$10,060</b></div>
+        <div class="sv-track"><div class="sv-fill sv-cash" style="width:100%"></div></div>
+      </div>
+    </div>
+    <p class="sv-save"><b data-seoul="save">$6,821</b> less in cash</p>
+    <p class="sv-note">Business both ways, Oct 2025. Price today: Air Canada business, Vancouver to Seoul and back, on Google Flights. Checked every day.</p>
+  </div>
+</section>
 
 <section class="what-you-get" id="about">
   <div class="container">
@@ -563,7 +604,7 @@ body { font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI',
     </div>
     <p class="section-sub">
       Most Canadians earn zero points on their biggest expenses and have no idea
-      airport lounges exist. These guides fix that — fast.
+      airport lounges exist. These guides fix that, fast.
     </p>
     <div class="steps-grid">
       <div class="step-card">
@@ -603,7 +644,7 @@ body { font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI',
       <div class="how-step">
         <div class="how-step-num">2</div>
         <h3>Blueprint ($19.97)</h3>
-        <p>Get the full strategy — lounges, business class, hotel status.</p>
+        <p>Get the full strategy: lounges, business class, hotel status.</p>
       </div>
       <div class="how-step">
         <div class="how-step-num">3</div>
@@ -629,7 +670,7 @@ body { font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI',
         <div class="product-header">
           <p class="product-tier">Free Resource</p>
           <h3>Canadian Travel Checklist</h3>
-          <p>The essential pre-trip guide — packing, finances, lounge access, and the credit cards I use on every flight.</p>
+          <p>The essential pre-trip guide: packing, finances, lounge access, and the credit cards I use on every flight.</p>
         </div>
         <div class="product-price">
           <span class="price-free">Free</span>
@@ -655,18 +696,18 @@ body { font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI',
         <div class="product-header">
           <p class="product-tier">Free Resource</p>
           <h3>Canadian Credit Card Guide</h3>
-          <p>The exact cards I use to access airport lounges, earn points on everything, and travel with zero foreign transaction fees — with my personal referral links inside.</p>
+          <p>The exact cards I use to access airport lounges, earn points on everything, and travel with zero foreign transaction fees, with my personal referral links inside.</p>
         </div>
         <div class="product-price">
           <span class="price-free">Free</span>
         </div>
         <div class="product-features">
           <ul>
-            <li>Amex Cobalt — 5x points on food & delivery</li>
-            <li>Amex Platinum — unlimited lounge access & travel insurance</li>
+            <li>Amex Cobalt: 5x points on food & delivery</li>
+            <li>Amex Platinum: unlimited lounge access & travel insurance</li>
             <li>Wealthsimple Visa Infinite: no FX fees, 2% back on everything, 5% your first 30 days with my link</li>
-            <li>Scotiabank Passport Visa Infinite — 6 free lounge passes</li>
-            <li>All referral links included — sign-up bonuses for you, points for both of us</li>
+            <li>Scotiabank Passport Visa Infinite: 6 free lounge passes</li>
+            <li>All referral links included. Sign-up bonuses for you, points for both of us</li>
           </ul>
         </div>
         <div class="product-cta">
@@ -681,12 +722,12 @@ body { font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI',
         <div class="product-header">
           <p class="product-tier">Premium Guide</p>
           <h3>The Travel Hacking Blueprint</h3>
-          <p>The complete playbook — lounge access, cheaper business class, and negotiation scripts that work.</p>
+          <p>The complete playbook: lounge access, cheaper business class, and negotiation scripts that work.</p>
         </div>
         <div class="product-price">
           <span class="price-main">$19.97</span>
           <span class="price-original">$50</span>
-          <span class="price-badge">60% OFF — Limited Time</span>
+          <span class="price-badge">60% OFF. Limited Time</span>
         </div>
         <div class="product-features">
           <ul>
@@ -695,13 +736,13 @@ body { font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI',
             <li>Hotel status benefits most people miss</li>
             <li>Google Flights price pattern strategy</li>
             <li>Klook vs Google for experiences</li>
-            <li>Local intelligence — finding the hidden spots</li>
+            <li>Local intelligence: finding the hidden spots</li>
             <li>Negotiation scripts that actually work</li>
             <li>All referral links in one place</li>
           </ul>
         </div>
         <div class="product-cta">
-          <a href="https://stan.store/digitalwithdavidk/p/get-my-travel-hack-blueprint-now" class="btn-card btn-card-gold">Get the Blueprint — $19.97</a>
+          <a href="https://stan.store/digitalwithdavidk/p/get-my-travel-hack-blueprint-now" class="btn-card btn-card-gold">Get the Blueprint: $19.97</a>
         </div>
         <p class="product-note">Price increases soon · Instant download</p>
       </div>
@@ -736,7 +777,7 @@ body { font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI',
         <div class="product-header">
           <p class="product-tier">1-on-1 Coaching</p>
           <h3>Travel Rewards Audit - 1 Month</h3>
-          <p>Direct access to David — custom card stack, redemption plan, and weekly calls.</p>
+          <p>Direct access to David: custom card stack, redemption plan, and weekly calls.</p>
         </div>
         <div class="product-price">
           <span class="price-main">$497</span>
@@ -764,7 +805,7 @@ body { font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI',
         <div class="product-header">
           <p class="product-tier">1-on-1 Coaching</p>
           <h3>Travel Rewards Audit - 3 Months</h3>
-          <p>Ongoing access to David — full points strategy built and refined over 3 months of weekly calls.</p>
+          <p>Ongoing access to David: full points strategy built and refined over 3 months of weekly calls.</p>
         </div>
         <div class="product-price">
           <span class="price-main">$997</span>
@@ -802,18 +843,18 @@ body { font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI',
         <p class="section-eyebrow">Who Is David</p>
         <h2 class="section-title">Just a regular guy who wanted to travel more.</h2>
         <p>
-          I'm David — not a trust fund kid, not someone with a private jet budget.
+          I'm David. Not a trust fund kid, not someone with a private jet budget.
           I started chasing travel points for one simple reason: I wanted to see more of the world
           without blowing my savings to do it.
         </p>
         <p>
           I worked a full-time job, ran a couple of businesses, and promoted events on the side.
           Normal, busy-life stuff. I just made my everyday spending work harder.
-          It got me an <strong>Air Canada business class seat from Vancouver to Seoul</strong>.
-          I paid <strong data-seoul="paid">59,200 points + $1,429</strong>.
+          It got me <strong>business class to Seoul and back</strong>.
+          I paid <strong data-seoul="paid">59,200 points + $3,239</strong>.
         </p>
         <p>
-          That same seat on Google Flights today: <strong data-seoul="today">$9,284</strong> (as of <span data-seoul="asof">Oct 12, 2026</span>).
+          Same trip in cash today: <strong data-seoul="today">$10,060</strong> (as of <span data-seoul="asof">Oct 12, 2026</span>).
           No trust fund, no shortcuts. Just a credit card stack, upgrade bids, and a system I now teach to anyone who wants it.
         </p>
         <p>
@@ -826,8 +867,8 @@ body { font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI',
             <span class="about-stat-label">Views in the last 90 days</span>
           </div>
           <div class="about-stat">
-            <span class="about-stat-num" data-seoul="today">$9,284</span>
-            <span class="about-stat-label">Seat price today. I paid 59,200 pts + $1,429</span>
+            <span class="about-stat-num" data-seoul="today">$10,060</span>
+            <span class="about-stat-label">Seoul and back in cash today. I paid 59,200 pts + $3,239</span>
           </div>
           <div class="about-stat">
             <span class="about-stat-num">266,400+</span>
@@ -841,11 +882,11 @@ body { font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI',
       </div>
       <div class="about-visual">
         <p class="about-quote">
-          "The right credit card stack turns your everyday spending — coffee, groceries, rent —
+          "The right credit card stack turns your everyday spending (coffee, groceries, rent)
           into flights you never actually pay for. Most Canadians are leaving thousands of dollars
           in points on the table every year."
         </p>
-        <p class="about-quote-attr">— David, <a href="https://www.instagram.com/digitalwithdavidk" target="_blank" style="color:var(--gold);text-decoration:none;">@digitalwithdavidk</a></p>
+        <p class="about-quote-attr">David, <a href="https://www.instagram.com/digitalwithdavidk" target="_blank" style="color:var(--gold);text-decoration:none;">@digitalwithdavidk</a></p>
         <div class="about-route">
           <p class="route-label">The Card Stack I Use</p>
           <div class="route-path">
@@ -868,15 +909,15 @@ body { font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI',
     <img src="images/product-desk-portrait.jpg" alt="David Duong" class="contact-avatar">
     <p class="section-eyebrow" style="color:var(--gold);">Not sure which fits?</p>
     <h2 class="section-title">Get a Free 15-Min Discovery Call</h2>
-    <p class="section-sub">Not sure if you need the free guides, the Blueprint, or 1-on-1 coaching? Book a free call and I'll help you figure out exactly what fits — no pressure, no generic pitch.</p>
+    <p class="section-sub">Not sure if you need the free guides, the Blueprint, or 1-on-1 coaching? Book a free call and I'll help you figure out exactly what fits. No pressure, no generic pitch.</p>
     <a href="https://stan.store/digitalwithdavidk/p/not-sure--book-a-discovery-call" class="btn-primary">Claim My Free Spot! (Limited spots available)</a>
-    <p class="contact-note">I personally hop on every call — no bots, no sales team.</p>
+    <p class="contact-note">I personally hop on every call. No bots, no sales team.</p>
   </div>
 </section>
 
 <footer>
   <a href="https://www.instagram.com/digitalwithdavidk" target="_blank" class="footer-brand"><img src="images/brand/dk-stone.svg" alt="DK" style="height:34px;width:auto;display:block;margin:0 auto 12px">DIGITAL WITH DAVID K.</a><p style="color:var(--gold);font-weight:600;letter-spacing:.04em;margin:.4rem 0 .2rem">Turn ordinary spending into extraordinary experiences.</p>
-  <p>Canadian travel hacks, credit card points strategy, and lounge access — for anyone who wants to travel better without spending more.</p>
+  <p>Canadian travel hacks, credit card points strategy, and lounge access, for anyone who wants to travel better without spending more.</p>
   <div class="footer-links">
     <a href="https://www.instagram.com/digitalwithdavidk" target="_blank">Instagram</a>
     <a href="https://stan.store/digitalwithdavidk">Free Guide</a>
@@ -903,23 +944,27 @@ body { font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI',
   document.body.style.overflow = 'hidden';
 </script>
 <script>
-/* Live Seoul seat price. Daily agent updates prices/seoul.json. Static numbers stay if this fails. */
+/* Live Seoul round trip price. Daily agent updates prices/seoul.json. Static numbers stay if this fails. */
 (function(){
+  function money(n){ return '$' + Math.round(n).toLocaleString('en-US'); }
+  function set(k, v){ document.querySelectorAll('[data-seoul="' + k + '"]').forEach(function(el){ el.textContent = v; }); }
   fetch('prices/seoul.json?v=' + Date.now(), {cache:'no-store'})
     .then(function(r){ if(!r.ok) throw new Error(r.status); return r.json(); })
     .then(function(d){
       var t = d && d.today, p = d && d.paid;
-      if (t && typeof t.price_cad === 'number' && t.price_cad > 0) {
-        var price = '$' + Math.round(t.price_cad).toLocaleString('en-US');
-        document.querySelectorAll('[data-seoul="today"]').forEach(function(el){ el.textContent = price; });
-      }
+      var today = t && typeof t.price_cad === 'number' && t.price_cad > 0 ? t.price_cad : null;
+      var cash = p && typeof p.cash_cad === 'number' && p.cash_cad > 0 ? p.cash_cad : null;
+      if (today) set('today', money(today));
       if (t && /^\d{4}-\d{2}-\d{2}$/.test(t.as_of || '')) {
         var a = t.as_of.split('-'), m = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-        var label = m[+a[1]-1] + ' ' + (+a[2]) + ', ' + a[0];
-        document.querySelectorAll('[data-seoul="asof"]').forEach(function(el){ el.textContent = label; });
+        set('asof', m[+a[1]-1] + ' ' + (+a[2]) + ', ' + a[0]);
       }
-      if (p && typeof p.label === 'string' && p.label) {
-        document.querySelectorAll('[data-seoul="paid"]').forEach(function(el){ el.textContent = p.label; });
+      if (p && typeof p.points === 'number') set('points', p.points.toLocaleString('en-US'));
+      if (cash) set('paidcash', money(cash));
+      if (p && cash && typeof p.points === 'number') set('paid', p.points.toLocaleString('en-US') + ' points + ' + money(cash));
+      if (today && cash && today > cash) {
+        set('save', money(today - cash));
+        document.querySelectorAll('[data-seoul-bar="paid"]').forEach(function(el){ el.style.width = (cash / today * 100).toFixed(1) + '%'; });
       }
     })
     .catch(function(){});

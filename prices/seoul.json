@@ -1,23 +1,28 @@
 {
   "paid": {
     "points": 59200,
-    "cash_cad": 1429,
-    "label": "59,200 points + $1,429",
-    "route": "Vancouver to Seoul",
-    "cabin": "Air Canada business class",
-    "flown": "Oct 2025"
+    "cash_cad": 3239,
+    "label": "59,200 points + $3,239",
+    "route": "Seoul and back (Vancouver to Seoul, Seoul to Calgary)",
+    "cabin": "Business both long flights (Air Canada AC63 + WestJet WS87)",
+    "flown": "Oct 2025",
+    "note": "Business both ways, Oct 2025"
   },
   "search": {
     "origin": "YVR",
     "destination": "ICN",
     "cabin": "business",
-    "trip": "one-way",
+    "trip": "round trip",
     "airline_pref": "Air Canada",
-    "days_out": 14
+    "days_out": 14,
+    "return_days_after": 10,
+    "stops": "nonstop"
   },
   "today": {
-    "price_cad": 9284,
+    "price_cad": 10060,
     "airline": "Air Canada",
+    "trip": "round trip",
+    "dates": "2026-10-26 to 2026-11-05",
     "as_of": "2026-10-12",
     "source": "Google Flights"
   }
