@@ -192,6 +192,7 @@
   }
   .btn-secondary:hover { border-color: var(--gold); color: var(--gold); }
 
+  .seoul-asof { color: var(--mid); font-size: 11px; }
   .proof-strip {
     background: var(--navy2);
     border-top: 1px solid rgba(201,181,156,0.15);
@@ -544,11 +545,11 @@ body { font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI',
 </section>
 
 <div class="proof-strip">
-  <div class="proof-item"><strong>✈️ Vancouver → Seoul</strong> Business Class Round Trip</div>
+  <div class="proof-item"><strong>✈️ Vancouver → Seoul</strong> Air Canada business class</div>
   <div class="proof-dot"></div>
-  <div class="proof-item">Economy base + upgrade bids = <strong>$3,700 total</strong></div>
+  <div class="proof-item">I paid <strong data-seoul="paid">59,200 points + $1,429</strong></div>
   <div class="proof-dot"></div>
-  <div class="proof-item">Cash value of those seats: <strong>$8,000–$16,000</strong></div>
+  <div class="proof-item">Same seat on Google Flights today: <strong data-seoul="today">$9,284</strong> <span class="seoul-asof">(as of <span data-seoul="asof">Oct 12, 2026</span>)</span></div>
   <div class="proof-dot"></div>
   <div class="proof-item">Lounge access on <strong>every single flight</strong></div>
 </div>
@@ -806,14 +807,14 @@ body { font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI',
           without blowing my savings to do it.
         </p>
         <p>
-          I worked a full-time job, ran a couple of businesses, and promoted events on the side —
-          normal, busy-life stuff. I just figured out how to make my everyday spending work harder,
-          and it turned into flying <strong>business class to Seoul and back for $3,700 total</strong> —
-          including the economy base fare.
+          I worked a full-time job, ran a couple of businesses, and promoted events on the side.
+          Normal, busy-life stuff. I just made my everyday spending work harder.
+          It got me an <strong>Air Canada business class seat from Vancouver to Seoul</strong>.
+          I paid <strong data-seoul="paid">59,200 points + $1,429</strong>.
         </p>
         <p>
-          Those two long-haul seats alone had a combined cash value of <strong>$8,000 to $16,000.</strong>
-          No trust fund, no shortcuts — just a credit card stack, upgrade bids, and a system I now teach to anyone who wants it.
+          That same seat on Google Flights today: <strong data-seoul="today">$9,284</strong> (as of <span data-seoul="asof">Oct 12, 2026</span>).
+          No trust fund, no shortcuts. Just a credit card stack, upgrade bids, and a system I now teach to anyone who wants it.
         </p>
         <p>
           None of this requires a high income. It requires the right cards and the right information.
@@ -825,8 +826,8 @@ body { font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI',
             <span class="about-stat-label">Views in the last 90 days</span>
           </div>
           <div class="about-stat">
-            <span class="about-stat-num">$3,700</span>
-            <span class="about-stat-label">YVR → ICN Business Class RT</span>
+            <span class="about-stat-num" data-seoul="today">$9,284</span>
+            <span class="about-stat-label">Seat price today. I paid 59,200 pts + $1,429</span>
           </div>
           <div class="about-stat">
             <span class="about-stat-num">266,400+</span>
@@ -900,6 +901,29 @@ body { font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI',
     if (el) { el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
   }
   document.body.style.overflow = 'hidden';
+</script>
+<script>
+/* Live Seoul seat price. Daily agent updates prices/seoul.json. Static numbers stay if this fails. */
+(function(){
+  fetch('prices/seoul.json?v=' + Date.now(), {cache:'no-store'})
+    .then(function(r){ if(!r.ok) throw new Error(r.status); return r.json(); })
+    .then(function(d){
+      var t = d && d.today, p = d && d.paid;
+      if (t && typeof t.price_cad === 'number' && t.price_cad > 0) {
+        var price = '$' + Math.round(t.price_cad).toLocaleString('en-US');
+        document.querySelectorAll('[data-seoul="today"]').forEach(function(el){ el.textContent = price; });
+      }
+      if (t && /^\d{4}-\d{2}-\d{2}$/.test(t.as_of || '')) {
+        var a = t.as_of.split('-'), m = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+        var label = m[+a[1]-1] + ' ' + (+a[2]) + ', ' + a[0];
+        document.querySelectorAll('[data-seoul="asof"]').forEach(function(el){ el.textContent = label; });
+      }
+      if (p && typeof p.label === 'string' && p.label) {
+        document.querySelectorAll('[data-seoul="paid"]').forEach(function(el){ el.textContent = p.label; });
+      }
+    })
+    .catch(function(){});
+})();
 </script>
 </body>
 </html>
