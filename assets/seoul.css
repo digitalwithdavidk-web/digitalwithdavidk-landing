@@ -1,0 +1,21 @@
+/* Seoul value bar. Shared by all 10 versions. Colours come from each page (currentColor) unless the page sets --sv-* vars. */
+.dk-sv{--sv-accent:#C9B59C;--sv-cash:currentColor;--sv-track:color-mix(in srgb,currentColor 13%,transparent);font-family:inherit;display:grid;gap:14px;margin-top:18px;text-align:left;color:inherit}
+.dk-sv b,.dk-sv span,.dk-sv small{display:inline;margin:0;padding:0;letter-spacing:normal;text-transform:none;font-size:inherit;line-height:inherit;color:inherit;background:none}
+.dk-sv-line{margin:0;font-size:15px;line-height:1.6}
+.dk-sv-line b{font-weight:800}
+.dk-sv .dk-sv-asof{opacity:.65;font-size:.8em;white-space:nowrap}
+.dk-sv-bar{display:grid;gap:6px}
+.dk-sv-row{display:flex;justify-content:space-between;align-items:baseline;gap:12px;font-size:13px;font-weight:600}
+.dk-sv .dk-sv-row span{opacity:.8}
+.dk-sv .dk-sv-row b{font-weight:800;font-size:15px;font-variant-numeric:tabular-nums;white-space:nowrap}
+.dk-sv-track{height:12px;border-radius:12px;background:var(--sv-track);overflow:hidden}
+.dk-sv-fill{height:100%;width:0;border-radius:12px;transition:width 1.1s cubic-bezier(.2,.8,.2,1)}
+.dk-sv-fill.paid{background:var(--sv-accent)}
+.dk-sv-fill.cash{background:var(--sv-cash);opacity:.38}
+.dk-sv.in .dk-sv-fill.paid{width:var(--sv-pct,32.2%)}
+.dk-sv.in .dk-sv-fill.cash{width:100%}
+.dk-sv .dk-sv-bar small{display:block;font-size:12px;opacity:.7}
+.dk-sv-save{margin:4px 0 0;font-size:15px;font-weight:600;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.dk-sv .dk-sv-save b{font-size:clamp(26px,6vw,34px);font-weight:800;color:var(--sv-save,var(--sv-accent));line-height:1;font-variant-numeric:tabular-nums}
+.dk-sv-note{margin:0;font-size:11.5px;line-height:1.5;opacity:.65}
+@media (prefers-reduced-motion: reduce){.dk-sv-fill{transition:none}}

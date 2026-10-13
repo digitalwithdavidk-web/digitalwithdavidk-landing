@@ -1,974 +1,764 @@
 <!DOCTYPE html>
+<!-- PHOTO SLOTS: every photo lives in images/site/. To swap a photo, upload a new file with the SAME name (keep it .jpg). Slots: intro-hero.jpg, about-david.jpg, product-free-guides.jpg, product-blueprint.jpg, product-discovery-call.jpg, product-1-hour.jpg, product-1-month.jpg, product-3-months.jpg, quiz-ready-yes.jpg, quiz-ready-free.jpg, quiz-level-new.jpg, quiz-level-some.jpg, quiz-level-busy.jpg, quiz-goal-flights.jpg, quiz-goal-business.jpg, quiz-goal-hotels.jpg, quiz-goal-credit.jpg. -->
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Digital with David K | Travel Smarter. Fly Better. Pay Less.</title>
-<meta name="description" content="Travel and Canadian credit card tips for people in their 20s. Free guides, the $19 Travel Hack Blueprint, and 1:1 travel coaching.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Find Your Travel Plan | Digital with David K</title>
+<meta name="description" content="Answer 5 quick taps and get your travel points plan from Digital with David K.">
+<meta name="theme-color" content="#0E2F24">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Digital with David K">
+<meta property="og:title" content="Find Your Travel Plan | Digital with David K">
+<meta property="og:description" content="Answer 5 quick taps and get your travel points plan from Digital with David K.">
 <meta property="og:url" content="https://digitalwithdavidk-web.github.io/digitalwithdavidk-landing/">
-<meta property="og:title" content="Digital with David K: Travel Smarter. Fly Better. Pay Less.">
-<meta property="og:description" content="Travel and Canadian credit card tips for people in their 20s. Free guides, the $19 Travel Hack Blueprint, and 1:1 travel coaching.">
 <meta property="og:image" content="https://digitalwithdavidk-web.github.io/digitalwithdavidk-landing/images/og-card.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="David Duong holding travel credit cards">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Digital with David K: Travel Smarter. Fly Better. Pay Less.">
-<meta name="twitter:description" content="Travel and Canadian credit card tips for people in their 20s. Free guides, the $19 Travel Hack Blueprint, and 1:1 travel coaching.">
-<meta name="twitter:image" content="https://digitalwithdavidk-web.github.io/digitalwithdavidk-landing/images/og-card.jpg">
+
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="images/brand/dk-emerald.svg">
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root{
+  --em:#0E2F24; --em2:#0A241B; --em3:#14402F; --sage:#5E6B5E; --beige:#C9B59C; --stone:#EDE6DC;
+  --silver:#C0C0C0; --ink:#111; --white:#fff;
+  --r:18px; --ease:cubic-bezier(.2,.8,.2,1); --spring:cubic-bezier(.34,1.56,.64,1);
+  --hdr:118px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{font-family:'Montserrat',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--em2);color:var(--stone);line-height:1.5;overflow-x:hidden;-webkit-tap-highlight-color:transparent}
+body.light{background:var(--stone);color:var(--ink)}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+a{color:inherit}
+img{display:block;max-width:100%}
+:focus-visible{outline:3px solid var(--beige);outline-offset:3px;border-radius:10px}
 
-  :root {
-    --navy: #0E2F24;
-    --navy2: #0A241B;
-    --gold: #C9B59C;
-    --gold-l: #EDE6DC;
-    --gold-d: #5E6B5E;
-    --cream: #EDE6DC;
-    --off-white: #E3DACD;
-    --mid: #C0C0C0;
-    --body: #1F1F1F;
-    --radius: 12px;
-  }
+/* ---------- header with flight path ---------- */
+.hdr{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(10,36,27,.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid rgba(201,181,156,.16);padding:10px 16px 8px}
+.hdr-row{display:flex;align-items:center;justify-content:space-between;max-width:1080px;margin:0 auto;gap:12px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--stone)}
+.brand svg{height:22px;width:auto}
+.brand b{font-weight:800;font-size:10px;letter-spacing:.22em;line-height:1.15;text-transform:uppercase}
+.brand b span{display:block;color:var(--beige)}
+.skip{font-size:12px;font-weight:600;letter-spacing:.06em;color:var(--silver);padding:10px 14px;border:1px solid rgba(192,192,192,.28);border-radius:999px;transition:all .2s var(--ease);white-space:nowrap}
+.skip:hover{color:var(--em);background:var(--beige);border-color:var(--beige)}
+.skip:active{transform:scale(.96)}
+.flight{max-width:560px;margin:6px auto 0;position:relative}
+.flight svg{width:100%;height:46px;display:block;overflow:visible}
+.flight .base{fill:none;stroke:rgba(201,181,156,.3);stroke-width:1.6;stroke-dasharray:3 6;stroke-linecap:round}
+.flight .done{fill:none;stroke:var(--beige);stroke-width:2.2;stroke-linecap:round}
+.flight .stop{fill:var(--em2);stroke:rgba(201,181,156,.45);stroke-width:1.5;transition:fill .3s}
+.flight .stop.on{fill:var(--beige);stroke:var(--beige)}
+.flight .plane{fill:var(--stone)}
+.flight .end{fill:var(--beige)}
+.flight-labels{display:flex;justify-content:space-between;font-size:9.5px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--silver);margin-top:3px}
+.flight-labels .mid{color:var(--beige)}
 
-  html { scroll-behavior: smooth; }
+/* ---------- screens ---------- */
+.screen{display:none;min-height:100vh;min-height:100svh;padding:calc(var(--hdr) + 18px) 16px 22px;flex-direction:column;max-width:1080px;margin:0 auto}
+.screen.on{display:flex;animation:screenIn .55s var(--ease) both}
+.screen.out{animation:screenOut .26s ease-in both}
+@keyframes screenIn{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
+@keyframes screenOut{to{opacity:0;transform:translateY(-18px)}}
 
-  body {
-    font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    background: var(--cream);
-    color: var(--body);
-    line-height: 1.6;
-  }
+.eyebrow{font-size:11px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:var(--beige);margin-bottom:10px}
+.q h2{font-size:clamp(25px,6.6vw,44px);font-weight:800;line-height:1.08;letter-spacing:-.02em;color:var(--white);max-width:720px}
+.q .sub{font-size:14px;color:var(--silver);margin-top:8px;max-width:520px}
+.q-head{margin-bottom:16px}
 
-  .gate-overlay {
-    position: fixed; inset: 0; z-index: 999;
-    background: var(--navy);
-    display: flex; align-items: center; justify-content: center;
-    padding: 24px;
-  }
-  .gate-overlay.hidden { display: none; }
-  .gate-box { max-width: 520px; width: 100%; text-align: center; }
-  .gate-eyebrow { color: var(--gold); font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 12px; }
-  .gate-title { color: var(--cream); font-size: 1.6rem; font-weight: 700; margin-bottom: 10px; }
-  .gate-sub { color: var(--mid); font-size: 14px; margin-bottom: 28px; }
-  .gate-options { display: flex; flex-direction: column; gap: 10px; }
-  .gate-option {
-    background: rgba(201,181,156,0.06); border: 1px solid rgba(201,181,156,0.3);
-    border-radius: var(--radius); padding: 14px 18px; text-align: left;
-    cursor: pointer; transition: all 0.2s; color: var(--cream);
-  }
-  .gate-option:hover { background: rgba(201,181,156,0.15); border-color: var(--gold); }
-  .gate-option strong { display: block; font-size: 14px; margin-bottom: 2px; color: var(--gold-l); }
-  .gate-option span { font-size: 12px; color: var(--mid); }
-  .gate-skip {
-    display: inline-block; margin-top: 22px; color: var(--mid); font-size: 12px;
-    text-decoration: underline; cursor: pointer; background: none; border: none;
-  }
-  .gate-skip:hover { color: var(--gold); }
+/* ---------- intro ---------- */
+.intro{justify-content:center}
+.intro-card{display:grid;gap:22px;align-items:center}
+.intro-photo{position:relative;border-radius:26px;overflow:hidden;aspect-ratio:4/4.1;max-height:38vh;width:100%;box-shadow:0 30px 70px rgba(0,0,0,.4)}
+.intro-photo img{width:100%;height:100%;object-fit:cover;object-position:50% 22%;transform:scale(1.04);transition:transform 1.2s var(--ease)}
+.intro-photo:hover img{transform:scale(1.09)}
+.intro-photo .tag{position:absolute;left:12px;bottom:12px;background:rgba(14,47,36,.88);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);border:1px solid rgba(201,181,156,.35);border-radius:14px;padding:10px 12px;font-size:12px;line-height:1.35;color:var(--stone)}
+.intro-photo .tag b{display:block;color:var(--beige);font-size:18px;font-weight:800}
+.intro h1{font-size:clamp(32px,8.6vw,64px);font-weight:800;line-height:1.02;letter-spacing:-.03em;color:var(--white)}
+.intro h1 em{font-style:normal;color:var(--beige)}
+.intro p.lead{font-size:15.5px;color:var(--silver);margin:12px 0 22px;max-width:440px}
+.btn{display:flex;align-items:center;justify-content:center;gap:10px;min-height:58px;padding:0 26px;border-radius:16px;font-weight:800;font-size:16px;letter-spacing:.01em;text-decoration:none;position:relative;overflow:hidden;transition:transform .18s var(--ease),box-shadow .25s var(--ease),background .2s;user-select:none}
+.btn-gold{background:var(--beige);color:var(--em);box-shadow:0 6px 0 #9c876c,0 14px 30px rgba(0,0,0,.25)}
+.btn-gold:hover{transform:translateY(-2px);box-shadow:0 8px 0 #9c876c,0 20px 40px rgba(0,0,0,.3)}
+.btn-gold:active{transform:translateY(5px);box-shadow:0 1px 0 #9c876c,0 6px 14px rgba(0,0,0,.25)}
+.btn-em{background:var(--em);color:var(--stone);box-shadow:0 6px 0 #061a13,0 14px 30px rgba(14,47,36,.25)}
+.btn-em:hover{transform:translateY(-2px);box-shadow:0 8px 0 #061a13,0 20px 40px rgba(14,47,36,.3)}
+.btn-em:active{transform:translateY(5px);box-shadow:0 1px 0 #061a13}
+.btn-ghost{border:1.5px solid rgba(192,192,192,.35);color:var(--stone);min-height:52px;font-weight:600;font-size:14px}
+.btn-ghost:hover{border-color:var(--beige);color:var(--beige)}
+.btn-ghost:active{transform:scale(.97)}
+.btn .arrow{transition:transform .25s var(--spring)}
+.btn:hover .arrow{transform:translateX(4px)}
+.meta-row{display:flex;gap:16px;flex-wrap:wrap;margin-top:16px;font-size:12px;color:var(--silver)}
+.meta-row span::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--beige);margin-right:7px;vertical-align:middle}
+.intro-actions{display:grid;gap:12px;max-width:420px}
 
-  .img-slot {
-    width: 100%; border-radius: var(--radius); overflow: hidden;
-    line-height: 0;
-  }
-  .img-slot img { width: 100%; height: auto; object-fit: cover; display: block; }
-  .img-slot .img-slot-label {
-    color: var(--gold-l); font-size: 12px; text-align: center; padding: 16px;
-    line-height: 1.5;
-  }
+/* ---------- photo tiles ---------- */
+.tiles{display:grid;gap:12px;flex:1;min-height:340px;grid-auto-rows:minmax(0,1fr)}
+.tiles.n2{grid-template-columns:1fr}
+.tiles.n3{grid-template-columns:1fr}
+.tiles.n4{grid-template-columns:1fr 1fr}
+.tile{position:relative;border-radius:var(--r);overflow:hidden;text-align:left;isolation:isolate;min-height:120px;
+  background:var(--em3);box-shadow:0 10px 30px rgba(0,0,0,.35),inset 0 0 0 1px rgba(201,181,156,.18);
+  transform:perspective(900px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)) scale(var(--s,1));
+  transition:transform .35s var(--ease),box-shadow .3s var(--ease),opacity .3s,filter .3s}
+.tile .ph{position:absolute;inset:0;background-size:cover;background-position:var(--pos,center);z-index:-2;transform:scale(1.06);transition:transform .8s var(--ease)}
+.tile::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(10,36,27,.05) 20%,rgba(10,36,27,.55) 58%,rgba(10,36,27,.94) 100%)}
+.tile::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:radial-gradient(circle at var(--gx,50%) var(--gy,30%),rgba(255,255,255,.22),transparent 45%);opacity:0;transition:opacity .3s}
+.tile:hover::after{opacity:1}
+.tile:hover .ph{transform:scale(1.12)}
+.tile:active{--s:.965}
+.tile .key{position:absolute;top:12px;left:12px;width:30px;height:30px;border-radius:9px;display:grid;place-items:center;font-size:12px;font-weight:800;background:rgba(237,230,220,.92);color:var(--em);transition:all .3s var(--spring)}
+.tile .txt{position:absolute;left:16px;right:16px;bottom:14px}
+.tile .t{display:block;font-size:clamp(18px,4.8vw,24px);font-weight:800;line-height:1.1;color:#fff;letter-spacing:-.01em}
+.tile .d{display:block;font-size:12.5px;color:rgba(237,230,220,.85);margin-top:4px;line-height:1.35}
+.tile .check{position:absolute;top:12px;right:12px;width:40px;height:40px;border-radius:50%;background:var(--beige);color:var(--em);display:grid;place-items:center;transform:scale(0) rotate(-90deg);transition:transform .45s var(--spring);z-index:2}
+.tile .check svg{width:20px;height:20px}
+.tile.sel{box-shadow:0 0 0 3px var(--beige),0 20px 50px rgba(0,0,0,.5)}
+.tile.sel .check{transform:scale(1) rotate(0)}
+.tile.sel .key{background:var(--beige)}
+.tiles.picked .tile:not(.sel){opacity:.35;filter:saturate(.3);--s:.97}
+.ripple{position:absolute;border-radius:50%;background:rgba(237,230,220,.45);transform:scale(0);animation:rip .6s ease-out forwards;pointer-events:none;z-index:3}
+@keyframes rip{to{transform:scale(4);opacity:0}}
 
-  .contact-section { background: var(--navy); padding: 5rem 0; }
-  .contact-box { max-width: 560px; margin: 0 auto; text-align: center; }
-  .contact-box .section-title { color: var(--cream); }
-  .contact-box .section-sub { color: var(--mid); margin-bottom: 2.5rem; }
-  .contact-form { text-align: left; display: flex; flex-direction: column; gap: 16px; }
-  .contact-form label {
-    display: block; color: var(--gold-l); font-size: 12px;
-    text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px;
-  }
-  .contact-form input, .contact-form select, .contact-form textarea {
-    width: 100%; padding: 12px 14px; border-radius: 10px;
-    border: 1px solid rgba(201,181,156,0.3); background: rgba(255,255,255,0.04);
-    color: var(--cream); font-size: 15px; font-family: inherit;
-  }
-  .contact-form textarea { min-height: 100px; resize: vertical; }
-  .contact-form input::placeholder, .contact-form textarea::placeholder { color: #5E6B5E; }
-  .contact-form button {
-    margin-top: 8px;
-  }
-  .contact-note { color: var(--mid); font-size: 12px; margin-top: 16px; text-align: center; }
+/* boarding-pass tiles (frequency) */
+.tile.pass-t{background:var(--stone);color:var(--em);box-shadow:0 10px 30px rgba(0,0,0,.35);display:flex;align-items:center;gap:0;padding:0}
+.tile.pass-t::before{display:none}
+.pass-t .big{flex:0 0 38%;height:100%;display:grid;place-items:center;font-size:clamp(34px,10vw,56px);font-weight:800;letter-spacing:-.04em;color:var(--em);border-right:2px dashed rgba(14,47,36,.25);position:relative}
+.pass-t .big::before,.pass-t .big::after{content:"";position:absolute;right:-11px;width:20px;height:20px;border-radius:50%;background:var(--em2)}
+.pass-t .big::before{top:-10px}.pass-t .big::after{bottom:-10px}
+.pass-t .info{padding:14px 16px;flex:1}
+.pass-t .info small{display:block;font-size:9.5px;letter-spacing:.2em;font-weight:600;color:var(--sage);text-transform:uppercase}
+.pass-t .info .t{color:var(--em);font-size:clamp(16px,4.4vw,21px)}
+.pass-t .info .d{color:var(--sage)}
+.pass-t .stamps{display:flex;gap:5px;margin-top:8px}
+.pass-t .stamps i{width:16px;height:16px;border-radius:50%;border:1.5px solid var(--em);opacity:.85}
+.pass-t .stamps i.f{background:var(--em)}
+.pass-t .key{background:var(--em);color:var(--stone)}
+.pass-t.sel .key{background:var(--beige);color:var(--em)}
 
-  nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    background: rgba(14,47,36,0.96);
-    backdrop-filter: blur(8px);
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 0 2rem; height: 56px;
-    border-bottom: 1px solid rgba(201,181,156,0.2);
-  }
-  .nav-brand {
-    color: var(--gold); font-weight: 700; font-size: 14px; letter-spacing: 1px;
-    text-decoration: none;
-  }
-  .nav-links { display: flex; gap: 2rem; }
-  .nav-links a {
-    color: var(--mid); text-decoration: none; font-size: 13px;
-    transition: color 0.2s;
-  }
-  .nav-links a:hover { color: var(--gold); }
-  .nav-cta {
-    background: var(--gold); color: var(--navy) !important;
-    padding: 6px 16px; border-radius: 6px; font-weight: 600 !important;
-    font-size: 13px !important;
-  }
-  .nav-cta:hover { background: var(--gold-l) !important; color: var(--navy) !important; }
+/* luggage-tag tiles (budget) */
+.tags{grid-template-columns:1fr 1fr}
+.tile.tag-t{background:var(--beige);color:var(--em);border-radius:16px 16px 22px 22px;padding:30px 14px 14px;transform-origin:50% 0;box-shadow:0 12px 26px rgba(0,0,0,.35);display:flex;flex-direction:column;justify-content:flex-end}
+.tile.tag-t::before{display:none}
+.tile.tag-t .hole{position:absolute;top:12px;left:50%;width:18px;height:18px;margin-left:-9px;border-radius:50%;background:var(--em2);box-shadow:inset 0 2px 3px rgba(0,0,0,.4)}
+.tile.tag-t .string{position:absolute;top:-30px;left:50%;width:2px;height:44px;background:rgba(201,181,156,.6);margin-left:-1px;z-index:-1}
+.tile.tag-t:hover{animation:swing 1.1s var(--ease)}
+@keyframes swing{0%{transform:rotate(0)}25%{transform:rotate(3deg)}55%{transform:rotate(-2deg)}80%{transform:rotate(1deg)}100%{transform:rotate(0)}}
+.tag-t .ico{width:34px;height:34px;color:var(--em);opacity:.8;margin-bottom:auto;margin-top:8px;align-self:center}
+.tag-t:nth-child(odd){rotate:-1.2deg}.tag-t:nth-child(even){rotate:1.2deg}
+.tag-t .price{font-size:clamp(26px,7.4vw,38px);font-weight:800;letter-spacing:-.03em;line-height:1}
+.tag-t .t{color:var(--em);font-size:13.5px;font-weight:600;margin-top:6px}
+.tag-t .d{color:var(--em);opacity:.75;font-size:11.5px}
+.tag-t .key{top:10px;left:10px;width:26px;height:26px;background:var(--em);color:var(--stone);font-size:11px}
+.tag-t .check{top:8px;right:8px;width:32px;height:32px;background:var(--em);color:var(--beige)}
 
-  .hero {
-    background: var(--navy);
-    min-height: 100vh;
-    display: flex; flex-direction: column;
-    align-items: center; justify-content: center;
-    text-align: center;
-    padding: 100px 2rem 80px;
-    position: relative; overflow: hidden;
-  }
-  .hero::before {
-    content: '';
-    position: absolute; inset: 0;
-    background: radial-gradient(ellipse at 50% 60%, rgba(201,181,156,0.08) 0%, transparent 70%);
-    pointer-events: none;
-  }
-  .hero-eyebrow {
-    color: var(--gold); font-size: 12px; font-weight: 600;
-    letter-spacing: 3px; text-transform: uppercase;
-    margin-bottom: 1.5rem;
-  }
-  .hero h1 {
-    color: #fff; font-size: clamp(2.4rem, 6vw, 4.5rem);
-    font-weight: 800; line-height: 1.05; letter-spacing: -1px;
-    max-width: 780px; margin-bottom: 1.5rem;
-  }
-  .hero h1 em {
-    font-style: normal; color: var(--gold);
-  }
-  .hero-sub {
-    color: var(--mid); font-size: clamp(1rem, 2vw, 1.15rem);
-    max-width: 520px; margin-bottom: 2.5rem; line-height: 1.7;
-  }
-  .hero-stats {
-    display: flex; gap: 3rem; margin-bottom: 3rem;
-    flex-wrap: wrap; justify-content: center;
-  }
-  .stat { text-align: center; }
-  .stat-num {
-    display: block; color: var(--gold);
-    font-size: clamp(1.8rem, 4vw, 2.8rem);
-    font-weight: 800; line-height: 1;
-  }
-  .stat-label {
-    color: var(--mid); font-size: 12px; letter-spacing: 1px;
-    text-transform: uppercase; margin-top: 4px;
-  }
-  .hero-cta {
-    display: inline-flex; gap: 1rem; flex-wrap: wrap; justify-content: center;
-  }
-  .btn-primary {
-    background: var(--gold); color: var(--navy);
-    padding: 14px 32px; border-radius: 8px;
-    font-weight: 700; font-size: 15px; text-decoration: none;
-    transition: transform 0.15s, background 0.15s;
-    display: inline-block;
-  }
-  .btn-primary:hover { background: var(--gold-l); transform: translateY(-1px); }
-  .btn-secondary {
-    background: transparent; color: var(--off-white);
-    padding: 14px 32px; border-radius: 8px;
-    border: 1px solid rgba(201,181,156,0.3);
-    font-weight: 600; font-size: 15px; text-decoration: none;
-    transition: border-color 0.15s, color 0.15s;
-    display: inline-block;
-  }
-  .btn-secondary:hover { border-color: var(--gold); color: var(--gold); }
+.q-foot{display:flex;justify-content:space-between;align-items:center;margin-top:14px;min-height:44px}
+.back{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--silver);padding:10px 4px;transition:color .2s}
+.back:hover{color:var(--beige)}
+.hint{font-size:11px;color:var(--sage);letter-spacing:.06em}
+@media (hover:none){.hint{display:none}}
 
-  .seoul-asof { color: var(--mid); font-size: 11px; }
-  .proof-strip {
-    background: var(--navy2);
-    border-top: 1px solid rgba(201,181,156,0.15);
-    border-bottom: 1px solid rgba(201,181,156,0.15);
-    padding: 1.2rem 2rem;
-    display: flex; align-items: center; justify-content: center;
-    gap: 3rem; flex-wrap: wrap;
-  }
-  .proof-item {
-    color: var(--mid); font-size: 13px; display: flex;
-    align-items: center; gap: 8px;
-  }
-  .proof-item strong { color: var(--gold-l); }
-  .proof-dot {
-    width: 4px; height: 4px; border-radius: 50%;
-    background: var(--gold-d);
-  }
+/* ---------- plotting ---------- */
+.plot{justify-content:center;align-items:center;text-align:center}
+.plot svg{width:min(320px,80vw);height:auto;overflow:visible}
+.plot .route{fill:none;stroke:var(--beige);stroke-width:2;stroke-dasharray:4 7;stroke-linecap:round}
+.plot h3{font-size:22px;font-weight:800;color:#fff;margin-top:18px}
+.plot p{color:var(--silver);font-size:14px;margin-top:6px}
 
-  section { padding: 80px 2rem; }
-  .container { max-width: 1100px; margin: 0 auto; }
-  .section-eyebrow {
-    color: var(--gold); font-size: 11px; font-weight: 600;
-    letter-spacing: 3px; text-transform: uppercase; margin-bottom: 12px;
-  }
-  .section-title {
-    font-size: clamp(1.8rem, 3.5vw, 2.6rem);
-    font-weight: 800; color: var(--navy);
-    line-height: 1.15; margin-bottom: 16px;
-  }
-  .section-sub {
-    color: #5E6B5E; font-size: 1rem; max-width: 520px; line-height: 1.7;
-  }
+/* ---------- result ---------- */
+.result{color:var(--ink);padding-bottom:60px}
+.result .eyebrow,.all .eyebrow{color:var(--sage)}
+.r-hero{display:grid;gap:18px;align-items:end;margin-bottom:22px}
+.r-hero h1{font-size:clamp(30px,8vw,58px);font-weight:800;line-height:1.02;letter-spacing:-.03em;color:var(--em)}
+.r-hero h1 span{display:block;color:var(--sage);font-weight:300;font-size:.55em;letter-spacing:-.01em;margin-bottom:4px}
+.r-hero p{font-size:15px;color:#333;max-width:560px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.chip{font-size:12px;font-weight:600;padding:7px 12px;border-radius:999px;background:#fff;border:1px solid rgba(14,47,36,.14);color:var(--em)}
 
-  .what-you-get { background: var(--off-white); }
-  .steps-grid {
-    display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 1.5rem; margin-top: 3rem;
-  }
-  .step-card {
-    background: #fff; border-radius: var(--radius);
-    border: 1px solid rgba(0,0,0,0.07);
-    padding: 1.5rem;
-  }
-  .step-num {
-    width: 36px; height: 36px; border-radius: 8px;
-    background: var(--navy); color: var(--gold);
-    font-weight: 800; font-size: 14px;
-    display: flex; align-items: center; justify-content: center;
-    margin-bottom: 1rem;
-  }
-  .step-card h3 { font-size: 15px; font-weight: 700; color: var(--navy); margin-bottom: 6px; }
-  .step-card p { font-size: 13.5px; color: #5E6B5E; line-height: 1.6; }
+.route3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:6px 0 22px;position:relative}
+.route3::before{content:"";position:absolute;left:16%;right:16%;top:17px;border-top:2px dashed rgba(14,47,36,.25)}
+.route3 div{position:relative;text-align:center;font-size:12px;font-weight:600;color:var(--em);line-height:1.3}
+.route3 i{display:grid;place-items:center;width:36px;height:36px;margin:0 auto 8px;border-radius:50%;background:var(--em);color:var(--beige);font-style:normal;font-weight:800;font-size:13px;box-shadow:0 0 0 5px var(--stone)}
 
-  .products { background: var(--cream); }
-  .products-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 1.5rem; margin-top: 3rem; align-items: start;
-  }
-  .product-card {
-    background: #fff; border-radius: var(--radius);
-    border: 1px solid rgba(0,0,0,0.08);
-    overflow: hidden; position: relative;
-    transition: transform 0.2s, box-shadow 0.2s;
-  }
-  .product-card:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(0,0,0,0.1); }
-  .product-image { width: 100%; aspect-ratio: 1/1; overflow: hidden; }
-  .product-image img { width: 100%; height: 100%; object-fit: cover; display: block; }
-  .product-image.face-crop img { object-position: center 15%; }
-  .contact-avatar { width: 88px; height: 88px; border-radius: 50%; object-fit: cover; margin: 0 auto 1rem; display: block; border: 2px solid var(--gold); }
-  .product-card.featured {
-    border: 2px solid var(--gold);
-  }
-  .product-badge {
-    position: absolute; top: 16px; right: 16px;
-    background: var(--gold); color: var(--navy);
-    font-size: 10px; font-weight: 700; letter-spacing: 1px;
-    padding: 4px 10px; border-radius: 4px; text-transform: uppercase;
-  }
-  .product-header {
-    background: var(--navy); padding: 1.75rem 1.5rem 1.5rem;
-  }
-  .product-tier {
-    color: var(--gold); font-size: 10px; font-weight: 700;
-    letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px;
-  }
-  .product-header h3 {
-    color: #fff; font-size: 1.2rem; font-weight: 800;
-    line-height: 1.25; margin-bottom: 8px;
-  }
-  .product-header p { color: var(--mid); font-size: 13px; line-height: 1.6; }
-  .product-price {
-    padding: 1.25rem 1.5rem;
-    border-bottom: 1px solid rgba(0,0,0,0.07);
-    display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;
-  }
-  .price-main {
-    font-size: 1.8rem; font-weight: 800; color: var(--navy);
-  }
-  .price-original {
-    font-size: 14px; color: #aaa;
-    text-decoration: line-through;
-  }
-  .price-badge {
-    background: #EDE6DC; color: #0E2F24;
-    font-size: 11px; font-weight: 700;
-    padding: 2px 8px; border-radius: 4px;
-  }
-  .price-free { font-size: 1.8rem; font-weight: 800; color: var(--gold); }
-  .product-features { padding: 1.25rem 1.5rem; }
-  .product-features ul { list-style: none; }
-  .product-features li {
-    font-size: 13.5px; color: var(--body);
-    padding: 5px 0; display: flex; align-items: flex-start; gap: 8px;
-    border-bottom: 1px solid rgba(0,0,0,0.05);
-  }
-  .product-features li:last-child { border-bottom: none; }
-  .product-features li::before {
-    content: '✦'; color: var(--gold); font-size: 10px;
-    margin-top: 3px; flex-shrink: 0;
-  }
-  .product-cta { padding: 0 1.5rem 1.5rem; }
-  .btn-card {
-    display: block; text-align: center; text-decoration: none;
-    padding: 13px; border-radius: 8px; font-weight: 700; font-size: 14px;
-    transition: all 0.15s;
-  }
-  .btn-card-gold {
-    background: var(--gold); color: var(--navy);
-  }
-  .btn-card-gold:hover { background: var(--gold-l); }
-  .btn-card-navy {
-    background: var(--navy); color: var(--gold);
-  }
-  .btn-card-navy:hover { background: #14382C; }
-  .btn-card-outline {
-    background: transparent; color: var(--navy);
-    border: 1.5px solid var(--navy);
-  }
-  .btn-card-outline:hover { background: var(--navy); color: var(--gold); }
-  .product-note {
-    text-align: center; font-size: 11.5px; color: #aaa;
-    padding: 0 1.5rem 1.2rem; margin-top: -4px;
-  }
+/* boarding pass offer */
+.pass{display:grid;grid-template-columns:1fr;background:var(--em);color:var(--stone);border-radius:24px;overflow:hidden;box-shadow:0 30px 60px rgba(14,47,36,.35);position:relative;transform:translateY(0);transition:transform .4s var(--ease)}
+.pass:hover{transform:translateY(-3px)}
+.pass-main{padding:20px 18px 18px}
+.pass-top{display:flex;justify-content:space-between;align-items:center;font-size:10px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--beige)}
+.badge{background:var(--beige);color:var(--em);padding:6px 10px;border-radius:999px;font-weight:800;letter-spacing:.12em;font-size:9.5px}
+.fromto{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:10px;margin:16px 0 14px}
+.fromto small{display:block;font-size:9.5px;letter-spacing:.2em;color:var(--silver);text-transform:uppercase;font-weight:600}
+.fromto b{display:block;font-size:17px;font-weight:800;line-height:1.15;color:#fff}
+.fromto .to{text-align:right}
+.fromto svg{width:46px;height:20px}
+.pass h3{font-size:clamp(22px,5.6vw,30px);font-weight:800;line-height:1.1;color:#fff;letter-spacing:-.01em}
+.pass .why{font-size:14px;color:rgba(237,230,220,.85);margin-top:8px}
+.pass ul{list-style:none;margin:14px 0 18px;display:grid;gap:8px}
+.pass li{font-size:13.5px;display:flex;gap:10px;align-items:flex-start;line-height:1.4}
+.pass li::before{content:"";flex:0 0 16px;height:16px;margin-top:1px;border-radius:50%;background:var(--beige) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4.5 8.2l2.3 2.3 4.7-5' stroke='%230E2F24' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") center/16px}
+.pass .note{font-size:11.5px;color:var(--silver);text-align:center;margin-top:10px}
+.pass-stub{position:relative;border-top:2px dashed rgba(201,181,156,.35);padding:16px 18px;display:flex;gap:14px;align-items:center;background:var(--em2)}
+.pass-stub::before,.pass-stub::after{content:"";position:absolute;top:-12px;width:22px;height:22px;border-radius:50%;background:var(--stone)}
+.pass-stub::before{left:-11px}.pass-stub::after{right:-11px}
+.pass-stub img{width:74px;height:74px;border-radius:12px;object-fit:cover;flex:0 0 74px}
+.pass-stub .pr{font-size:30px;font-weight:800;color:var(--beige);line-height:1}
+.pass-stub .pr s{font-size:14px;color:var(--silver);font-weight:400;margin-left:6px}
+.pass-stub .pr small{font-size:12px;color:var(--silver);font-weight:400;margin-left:4px}
+.barcode{height:26px;margin-top:8px;width:150px;max-width:100%;background:repeating-linear-gradient(90deg,var(--stone) 0 2px,transparent 2px 4px,var(--stone) 4px 5px,transparent 5px 8px,var(--stone) 8px 11px,transparent 11px 12px,var(--stone) 12px 13px,transparent 13px 16px);opacity:.75;border-radius:2px}
 
-  .about { background: var(--navy); }
-  .about-inner {
-    display: grid; grid-template-columns: 1fr 1fr;
-    gap: 4rem; align-items: center;
-  }
-  .about-text .section-eyebrow { color: var(--gold); }
-  .about-text .section-title { color: #fff; }
-  .about-text p { color: var(--mid); font-size: 15px; line-height: 1.8; margin-bottom: 1rem; }
-  .about-text strong { color: var(--gold-l); }
-  .about-proof {
-    display: grid; grid-template-columns: 1fr 1fr;
-    gap: 1rem; margin-top: 2rem;
-  }
-  .about-stat {
-    background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(201,181,156,0.15);
-    border-radius: 10px; padding: 1.2rem;
-  }
-  .about-stat-num {
-    font-size: 1.8rem; font-weight: 800; color: var(--gold);
-    display: block; line-height: 1;
-  }
-  .about-stat-label { color: var(--mid); font-size: 12px; margin-top: 4px; display: block; }
-  .about-visual {
-    background: rgba(201,181,156,0.06);
-    border: 1px solid rgba(201,181,156,0.15);
-    border-radius: var(--radius); padding: 2rem;
-  }
-  .about-quote {
-    color: var(--gold-l); font-size: 1.1rem; font-style: italic;
-    line-height: 1.7; margin-bottom: 1.5rem;
-  }
-  .about-quote-attr { color: var(--mid); font-size: 13px; }
-  .about-route {
-    margin-top: 1.5rem; padding-top: 1.5rem;
-    border-top: 1px solid rgba(201,181,156,0.15);
-  }
-  .route-label { color: var(--gold); font-size: 11px; letter-spacing: 2px; font-weight: 600; margin-bottom: 8px; }
-  .route-path {
-    display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
-  }
-  .route-step {
-    background: rgba(201,181,156,0.1); color: var(--gold-l);
-    font-size: 12px; padding: 4px 10px; border-radius: 4px; font-weight: 500;
-  }
-  .route-arrow { color: var(--gold-d); font-size: 12px; }
+.second{margin-top:14px;display:flex;align-items:center;gap:14px;background:#fff;border-radius:18px;padding:14px;text-decoration:none;color:var(--ink);box-shadow:0 8px 24px rgba(14,47,36,.08);border:1px solid rgba(14,47,36,.08);transition:transform .25s var(--ease),box-shadow .25s}
+.second:hover{transform:translateY(-2px);box-shadow:0 14px 34px rgba(14,47,36,.14)}
+.second:active{transform:scale(.98)}
+.second img{width:58px;height:58px;border-radius:12px;object-fit:cover;flex:0 0 58px}
+.second small{display:block;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--sage);font-weight:600}
+.second b{display:block;font-size:15px;color:var(--em);line-height:1.25}
+.second span.p{font-size:13px;color:var(--sage)}
+.second .go{margin-left:auto;width:38px;height:38px;border-radius:50%;background:var(--em);color:var(--beige);display:grid;place-items:center;flex:0 0 38px;transition:transform .3s var(--spring)}
+.second:hover .go{transform:translateX(3px) rotate(-8deg)}
 
-  .how { background: var(--off-white); }
-  .how-steps {
-    display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 0; margin-top: 3rem; position: relative;
-  }
-  .how-step { padding: 2rem 1.5rem; position: relative; text-align: center; }
-  .how-step:not(:last-child)::after {
-    content: '→';
-    position: absolute; right: -8px; top: 50%;
-    transform: translateY(-50%);
-    color: var(--gold); font-size: 1.2rem;
-  }
-  .how-step-num {
-    font-size: 2.5rem; font-weight: 800; color: var(--gold);
-    opacity: 0.3; line-height: 1; margin-bottom: 8px;
-  }
-  .how-step h3 { font-size: 15px; font-weight: 700; color: var(--navy); margin-bottom: 6px; }
-  .how-step p { font-size: 13px; color: #5E6B5E; line-height: 1.6; }
+.david{margin-top:30px;display:grid;grid-template-columns:96px 1fr;gap:16px;align-items:center}
+.david img{width:96px;height:96px;border-radius:50%;object-fit:cover;object-position:50% 20%;box-shadow:0 0 0 4px #fff,0 0 0 5px var(--beige)}
+.david h4{font-size:18px;font-weight:800;color:var(--em);line-height:1.2}
+.david p{font-size:13.5px;color:#333;margin-top:4px}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:18px}
+.stat{background:#fff;border-radius:16px;padding:14px;border:1px solid rgba(14,47,36,.08)}
+.stat b{display:block;font-size:24px;font-weight:800;color:var(--em);letter-spacing:-.02em;line-height:1.1}
+.stat span{display:block;font-size:11.5px;line-height:1.35;color:var(--sage);font-weight:600;margin-top:2px}
+.stat.wide{grid-column:1/-1;background:var(--em);color:var(--stone);display:flex;align-items:center;gap:14px}
+.stat.wide b{color:var(--beige)}
+.stat.wide span{color:var(--silver)}
+.stat.wide .vs{margin-left:auto;text-align:right}
+.stat.wide .vs s{display:block;color:var(--silver);font-size:13px;white-space:nowrap}
 
-  footer {
-    background: var(--navy); color: var(--mid);
-    padding: 3rem 2rem; text-align: center;
-    border-top: 1px solid rgba(201,181,156,0.15);
-  }
-  footer .footer-brand {
-    color: var(--gold); font-weight: 700; font-size: 15px;
-    letter-spacing: 1px; display: block; margin-bottom: 8px;
-  }
-  footer p { font-size: 13px; line-height: 1.7; max-width: 400px; margin: 0 auto 1rem; }
-  footer .footer-links { display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; }
-  footer .footer-links a { color: var(--mid); font-size: 12px; text-decoration: none; }
-  footer .footer-links a:hover { color: var(--gold); }
+.see{margin-top:26px;width:100%;display:flex;justify-content:space-between;align-items:center;padding:18px;border-radius:16px;background:transparent;border:1.5px solid rgba(14,47,36,.25);color:var(--em);font-weight:800;font-size:15px;transition:all .25s var(--ease)}
+.see:hover{background:#fff;border-color:var(--em)}
+.see .pm{width:30px;height:30px;border-radius:50%;background:var(--em);color:var(--beige);display:grid;place-items:center;transition:transform .35s var(--spring)}
+.see[aria-expanded="true"] .pm{transform:rotate(45deg)}
+.list-wrap{display:grid;grid-template-rows:0fr;transition:grid-template-rows .5s var(--ease)}
+.list-wrap.open{grid-template-rows:1fr}
+.list-wrap > div{overflow:hidden}
+.offer-list{display:grid;gap:10px;padding-top:12px}
+.row{display:grid;grid-template-columns:62px 1fr auto;gap:12px;align-items:center;background:#fff;border-radius:16px;padding:10px 12px 10px 10px;text-decoration:none;color:var(--ink);border:1px solid rgba(14,47,36,.08);transition:transform .25s var(--ease),box-shadow .25s}
+.row:hover{transform:translateX(4px);box-shadow:0 10px 26px rgba(14,47,36,.1)}
+.row:active{transform:scale(.98)}
+.row img{width:62px;height:62px;border-radius:11px;object-fit:cover}
+.row b{display:block;font-size:14.5px;color:var(--em);line-height:1.25}
+.row small{display:block;font-size:12px;color:var(--sage);line-height:1.35;margin-top:2px}
+.row .pr{font-weight:800;color:var(--em);font-size:15px;text-align:right;white-space:nowrap}
+.row .pr s{display:block;font-weight:400;font-size:11px;color:#999}
+.row .pr em{display:block;font-style:normal;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--sage);font-weight:600}
+.fine{display:flex;justify-content:center;gap:20px;flex-wrap:wrap;margin-top:28px;font-size:13px;font-weight:600}
+.fine button,.fine a{color:var(--sage);text-decoration:underline;text-underline-offset:3px;padding:8px}
+.fine button:hover,.fine a:hover{color:var(--em)}
+.foot{text-align:center;font-size:11.5px;color:var(--sage);margin-top:24px}
 
-  @media (max-width: 768px) {
-    .nav-links { display: none; }
-    .hero-stats { gap: 2rem; }
-    .about-inner { grid-template-columns: 1fr; gap: 2rem; }
-    .how-step:not(:last-child)::after { display: none; }
-    .proof-strip { gap: 1.5rem; }
-    .proof-dot { display: none; }
-  }
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .6s var(--ease),transform .6s var(--ease)}
+.reveal.in{opacity:1;transform:none}
 
-/* rebrand: brand accents on light sections */
-button, input, select, textarea { font-family: inherit; }
+/* light header on result */
+body.light .hdr{background:rgba(237,230,220,.92);border-bottom-color:rgba(14,47,36,.1)}
+body.light .brand{color:var(--em)}
+body.light .brand b span{color:var(--sage)}
+body.light .skip{color:var(--em);border-color:rgba(14,47,36,.25)}
+body.light .skip:hover{background:var(--em);color:var(--stone)}
+body.light .flight{display:none}
+body.light{--hdr:58px}
 
-body { font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
-.what-you-get .section-eyebrow, .how .section-eyebrow, .products .section-eyebrow { color: var(--gold-d); }
-.how .how-step-num { color: var(--navy); }
-.how .how-step:not(:last-child)::after { color: var(--gold-d); }
-.products .price-free { color: var(--navy); }
-.products .product-features li::before { color: var(--navy); }
+/* ---------- desktop ---------- */
+@media (min-width:760px){
+  :root{--hdr:124px}
+  .screen{padding-left:32px;padding-right:32px}
+  .intro-card{grid-template-columns:1.05fr .95fr;gap:56px}
+  .intro-photo{max-height:none;aspect-ratio:4/4.6;order:2}
+  .tiles{max-height:500px}
+  .tiles.n2{grid-template-columns:1fr 1fr}
+  .tiles.n3{grid-template-columns:repeat(3,1fr)}
+  .tiles.n4{grid-template-columns:repeat(4,1fr)}
+  .tiles.tags{grid-template-columns:repeat(4,1fr);max-height:300px;margin-top:30px}
+  .tiles.passes{grid-template-columns:repeat(3,1fr);max-height:240px;margin-top:20px}
+  .pass-t{flex-direction:column}
+  .pass-t .big{flex:0 0 50%;width:100%;border-right:0;border-bottom:2px dashed rgba(14,47,36,.25)}
+  .pass-t .big::before,.pass-t .big::after{right:auto;top:auto;bottom:-11px}
+  .pass-t .big::before{left:-10px}.pass-t .big::after{right:-10px;left:auto}
+  .pass-t .info{width:100%}
+  .result-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:40px;align-items:start}
+  .pass{grid-template-columns:1fr 220px}
+  .pass-stub{border-top:0;border-left:2px dashed rgba(201,181,156,.35);flex-direction:column;justify-content:center;text-align:center}
+  .pass-stub::before{top:-11px;left:-12px}.pass-stub::after{top:auto;bottom:-11px;right:auto;left:-12px}
+  .pass-stub img{width:150px;height:150px;flex:none}
+  .pass-main{padding:26px 26px 22px}
+  .david{margin-top:0}
+  .side{position:sticky;top:90px}
+  .offer-list{grid-template-columns:1fr 1fr}
+}
+@media (min-width:760px) and (max-height:760px){.tiles{max-height:440px}}
+@media (max-height:700px) and (max-width:759px){.tiles{min-height:300px}.q h2{font-size:23px}}
 
-/* Seoul value bar (round trip, live from prices/seoul.json) */
-.seoul-value { background: var(--navy); padding: 48px 1.25rem; }
-.sv-card { max-width: 720px; margin: 0 auto; background: rgba(255,255,255,0.04); border: 1px solid rgba(201,181,156,0.2); border-radius: 16px; padding: 28px; }
-.sv-eyebrow { color: var(--gold); font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; margin: 0 0 8px; }
-.sv-title { color: #fff; font-size: clamp(1.4rem, 4vw, 2rem); font-weight: 800; margin: 0 0 10px; line-height: 1.2; }
-.sv-line { color: var(--mid); font-size: 15px; line-height: 1.7; margin: 0 0 22px; }
-.sv-line strong { color: var(--gold-l); }
-.sv-bars { display: grid; gap: 16px; }
-.sv-row { display: flex; justify-content: space-between; gap: 12px; color: var(--mid); font-size: 13px; margin-bottom: 6px; }
-.sv-row b { color: var(--gold-l); font-variant-numeric: tabular-nums; }
-.sv-track { height: 12px; border-radius: 12px; background: rgba(255,255,255,0.08); overflow: hidden; }
-.sv-fill { height: 100%; border-radius: 12px; transition: width 1s cubic-bezier(.2,.8,.2,1); }
-.sv-paid { background: var(--gold); }
-.sv-cash { background: var(--mid); opacity: .55; }
-.sv-bar small { display: block; color: var(--mid); font-size: 12px; margin-top: 6px; }
-.sv-save { color: #fff; font-size: 1.1rem; margin: 22px 0 6px; }
-.sv-save b { color: var(--gold); font-size: 1.9rem; font-weight: 800; margin-right: 6px; }
-.sv-note { color: var(--mid); font-size: 12px; line-height: 1.6; margin: 0; }
-@media (max-width: 480px) { .sv-card { padding: 20px; } }
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+  .reveal{opacity:1;transform:none}
+}
+/* ---- Mission + slogan (swappable: #mission, .dk-slogan) ---- */
+.dk-mission{margin-top:26px;padding:18px 18px 18px 20px;border-radius:18px;background:rgba(237,230,220,.05);border:1px solid rgba(201,181,156,.22);position:relative;overflow:hidden}
+.dk-mission::before{content:"";position:absolute;left:0;top:14px;bottom:14px;width:3px;border-radius:3px;background:var(--beige)}
+.dk-mission .k{font-size:10.5px;font-weight:800;letter-spacing:.24em;text-transform:uppercase;color:var(--beige)}
+.dk-mission .t{margin-top:8px;font-size:15px;line-height:1.5;color:rgba(237,230,220,.82)}
+.dk-mission .t b{color:var(--stone);font-weight:600}
+@media (min-width:900px){.dk-mission{margin-top:34px;padding:22px 28px}.dk-mission .t{font-size:17px;max-width:70ch}}
+.dk-slogan{text-align:center;font-size:14px;font-weight:600;letter-spacing:.04em;color:var(--em);margin-top:30px}
+.dk-slogan + .foot{margin-top:6px}
+
+/* Slogan font: Montserrat ExtraBold, uppercase, wide spacing (David's pick, Oct 12, W2) */
+.dk-slogan{font-family:'Montserrat',system-ui,-apple-system,'Segoe UI',sans-serif!important;font-weight:800!important;letter-spacing:.18em!important;text-transform:uppercase!important;font-style:normal!important;line-height:1.4!important}
+p.dk-slogan,small.dk-slogan{font-size:15px!important}
 </style>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet"><link rel="icon" type="image/svg+xml" href="images/brand/dk-emerald.svg"><meta name="theme-color" content="#0E2F24"></head>
+<link rel="stylesheet" href="assets/seoul.css"><style>.dk-sv-wrap{display:block!important;padding:18px!important}.dk-sv-wrap .dk-sv{margin-top:0}.stat.wide.dk-sv-wrap b,.stat.wide.dk-sv-wrap span{display:inline;font-size:inherit;color:inherit;margin:0;letter-spacing:normal;line-height:inherit;font-weight:inherit}.stat.wide.dk-sv-wrap .dk-sv-line b,.stat.wide.dk-sv-wrap .dk-sv-row b{font-weight:800;color:var(--beige)}.stat.wide.dk-sv-wrap .dk-sv-row b{font-size:15px}.stat.wide.dk-sv-wrap .dk-sv-save b{font-size:30px;font-weight:800;color:var(--beige);line-height:1}.stat.wide.dk-sv-wrap .dk-sv-asof{font-size:.8em}</style>
+</head>
 <body>
 
-<nav>
-  <a class="nav-brand" href="https://www.instagram.com/digitalwithdavidk" target="_blank"><img src="images/brand/dk-stone.svg" alt="DK" style="height:24px;width:auto;vertical-align:middle;margin-right:10px;display:inline-block">DIGITAL WITH DAVID K.</a>
-  <div class="nav-links">
-    <a href="#products">Guides</a>
-    <a href="#about">About</a>
-    <a href="#contact">Free Consult</a>
-    <a href="#products" class="nav-cta">Get the Free Guide</a>
+<header class="hdr" id="hdr">
+  <div class="hdr-row">
+    <a class="brand" href="https://www.instagram.com/digitalwithdavidk/" target="_blank" rel="noopener" aria-label="Digital with David K on Instagram">
+      <svg viewBox="26 14 238 125" aria-hidden="true"><defs><mask id="dkm" maskUnits="userSpaceOnUse" x="26" y="14" width="238" height="125"><rect x="26" y="14" width="238" height="125" fill="#fff"/><g stroke="#000" stroke-width="1.7" stroke-linecap="round" fill="none"><line x1="58.4" y1="46" x2="58.4" y2="107"/><line x1="85" y1="46" x2="85" y2="107"/><line x1="30" y1="66" x2="58.4" y2="66"/><line x1="85" y1="66" x2="115" y2="66"/><line x1="30" y1="84.6" x2="115" y2="84.6"/></g></mask></defs><g fill="currentColor"><path d="M34.5 18.2H126C141.5 18.2 152 30 152 46V106C152 121.5 140.5 133.6 121 133.6H34Q30 133.6 30 129.6V113Q30 109.2 33.8 109.2H104.5C115.5 109.2 122.2 101 122.2 90V60C122.2 51 116.5 44 107 44H34Q30.5 44 30.5 40.5V22Q30.5 18.2 34.5 18.2Z"/><path mask="url(#dkm)" d="M35.5 46.6H104.5C111 46.6 114.6 52.5 114.6 60V93C114.6 101 110.5 106.6 103.5 106.6H35.5Q30.5 106.6 30.5 101.6V51.6Q30.5 46.6 35.5 46.6Z"/><path d="M157 19H179.5Q182.5 19 182.5 22V59L224 20.8H259.2L203.8 76.5L258.2 134.2H219.8L183.8 97.2V131Q183.8 134.5 180.3 134.5H157.5Q154 134.5 154 131V22.5Q154 19 157 19Z"/></g></svg>
+      <b>Digital<span>with David K.</span></b>
+    </a>
+    <button class="skip" id="skipBtn" type="button">Skip quiz</button>
   </div>
-</nav>
-
-<div class="gate-overlay" id="gateOverlay">
-  <div class="gate-box">
-
-    <div class="gate-step" id="gateStep1">
-      <p class="gate-eyebrow">Before you dive in</p>
-      <h2 class="gate-title">Are you ready to invest in learning more about travel?</h2>
-      <p class="gate-sub">Or just here to look around. Either is fine.</p>
-      <div class="gate-options">
-        <button class="gate-option" onclick="gateStep(2)">
-          <strong>Yes, I'm ready to invest</strong>
-          <span>Let's find the right fit for me</span>
-        </button>
-        <button class="gate-option" onclick="closeGate()">
-          <strong>Just browsing for now</strong>
-          <span>I'll look around on my own</span>
-        </button>
-      </div>
-    </div>
-
-    <div class="gate-step" id="gateStep2" style="display:none;">
-      <p class="gate-eyebrow">Question 2 of 3</p>
-      <h2 class="gate-title">Where are you at with travel & credit card points?</h2>
-      <p class="gate-sub">No wrong answer. It just helps me point you right.</p>
-      <div class="gate-options">
-        <button class="gate-option" onclick="gateStep(3)">
-          <strong>Complete beginner</strong>
-          <span>I don't know where to start</span>
-        </button>
-        <button class="gate-option" onclick="gateStep(3)">
-          <strong>Somewhat experienced</strong>
-          <span>I want more niche, advanced tips</span>
-        </button>
-        <button class="gate-option" onclick="gateStep(3)">
-          <strong>Experienced, but want it done-for-me</strong>
-          <span>I'd rather have someone handle it directly</span>
-        </button>
-      </div>
-    </div>
-
-    <div class="gate-step" id="gateStep3" style="display:none;">
-      <p class="gate-eyebrow">Question 3 of 3</p>
-      <h2 class="gate-title">What's your goal right now?</h2>
-      <p class="gate-sub">This is the one that actually points you to the right spot.</p>
-      <div class="gate-options">
-        <button class="gate-option" onclick="routeGate('free-guides')">
-          <strong>Just want the free tips</strong>
-          <span>Give me the checklist and card guide to start</span>
-        </button>
-        <button class="gate-option" onclick="routeGate('blueprint')">
-          <strong>Ready to spend $50–100</strong>
-          <span>For an in-depth, niche guide I can't find online</span>
-        </button>
-        <button class="gate-option" onclick="routeGate('coaching')">
-          <strong>Take me straight to 1-on-1</strong>
-          <span>I want all your knowledge, applied to me directly</span>
-        </button>
-      </div>
-      <p class="gate-sub" style="margin-top:18px;">Not sure? <a href="#contact" onclick="closeGate()" style="color:var(--gold);">Book a free 15-min call instead →</a></p>
-    </div>
-
-    <button class="gate-skip" onclick="closeGate()">Skip, just let me browse →</button>
+  <div class="flight" aria-hidden="true">
+    <svg viewBox="0 0 360 46" id="flightSvg">
+      <path id="fpath" class="base" d="M10 38 C 100 2, 260 2, 350 38"/>
+      <path id="fdone" class="done" d="M10 38 C 100 2, 260 2, 350 38"/>
+      <g id="stops"></g>
+      <circle class="end" cx="10" cy="38" r="4"/>
+      <g id="plane"><path class="plane" d="M-9 -1.2 L4 -1.2 L8.5 -1.2 C10.5 -1.2 11 0 11 0 C11 0 10.5 1.2 8.5 1.2 L4 1.2 L-9 1.2 Z M-1 -1 L-5 -8 L-2.6 -8 L4 -1 Z M-1 1 L-5 8 L-2.6 8 L4 1 Z M-8 -1 L-10 -4.5 L-8.4 -4.5 L-5.5 -1 Z M-8 1 L-10 4.5 L-8.4 4.5 L-5.5 1 Z"/></g>
+    </svg>
+    <div class="flight-labels"><span>You, now</span><span class="mid" id="stepLabel">Ready for takeoff</span><span>Your plan</span></div>
   </div>
-</div>
+</header>
 
-<section class="hero" id="home">
-  <p class="hero-eyebrow"><a href="https://www.instagram.com/digitalwithdavidk" target="_blank" style="color:var(--gold);text-decoration:none;">@digitalwithdavidk</a> &nbsp;·&nbsp; Turn ordinary spending into extraordinary experiences.</p>
-  <h1>Travel <em>Business Class.</em><br>Pay Economy Prices.</h1>
-  <p class="hero-sub">
-    Lounge access, free flights, hotel upgrades, and zero foreign transaction fees,
-    using credit card points most Canadians leave on the table every single month.
-  </p>
-  <div class="hero-stats">
-    <div class="stat">
-      <span class="stat-num">10.9M+</span>
-      <span class="stat-label">Views in the last 90 days</span>
-    </div>
-    <div class="stat">
-      <span class="stat-num">35,759</span>
-      <span class="stat-label">Followers & growing</span>
-    </div>
-    <div class="stat">
-      <span class="stat-num">274,800+</span>
-      <span class="stat-label">Combined saves across all reels</span>
-    </div>
-  </div>
-  <div class="hero-cta">
-    <a href="#products" class="btn-primary">Get the Free Travel Guide</a>
-    <a href="#products" class="btn-secondary">See All Resources →</a>
-  </div>
-  <div class="img-slot" style="max-width:720px; margin:40px auto 0;">
-    <img src="images/hero-business-class.jpg" alt="David dining in business class">
-  </div>
-</section>
+<main id="app">
 
-<div class="proof-strip">
-  <div class="proof-item"><strong>✈️ Seoul and back</strong> Business class both ways</div>
-  <div class="proof-dot"></div>
-  <div class="proof-item">I paid <strong data-seoul="paid">59,200 points + $3,239</strong></div>
-  <div class="proof-dot"></div>
-  <div class="proof-item">Same trip in cash today: <strong data-seoul="today">$10,060</strong> <span class="seoul-asof">(as of <span data-seoul="asof">Oct 12, 2026</span>)</span></div>
-  <div class="proof-dot"></div>
-  <div class="proof-item">Lounge access on <strong>every single flight</strong></div>
-</div>
-
-<section class="seoul-value" id="seoul" aria-labelledby="seoul-h">
-  <div class="sv-card">
-    <p class="sv-eyebrow">Real trip. Real receipts.</p>
-    <h2 id="seoul-h" class="sv-title">Business class to Seoul and back.</h2>
-    <p class="sv-line">I paid <strong data-seoul="paid">59,200 points + $3,239</strong>. Same trip in cash today: <strong data-seoul="today">$10,060</strong> <span class="seoul-asof">(as of <span data-seoul="asof">Oct 12, 2026</span>)</span></p>
-    <div class="sv-bars">
-      <div class="sv-bar">
-        <div class="sv-row"><span>What I paid in cash</span><b data-seoul="paidcash">$3,239</b></div>
-        <div class="sv-track"><div class="sv-fill sv-paid" data-seoul-bar="paid" style="width:32.2%"></div></div>
-        <small>plus <span data-seoul="points">59,200</span> points</small>
+  <!-- INTRO -->
+  <section class="screen intro on" id="s-intro" aria-label="Start">
+    <div class="intro-card">
+      <div class="intro-photo">
+        <img src="images/site/intro-hero.jpg" alt="David holding his travel credit cards">
+        <div class="tag"><b>36.3K</b>people follow along on Instagram</div>
       </div>
-      <div class="sv-bar">
-        <div class="sv-row"><span>Same trip in cash today</span><b data-seoul="today">$10,060</b></div>
-        <div class="sv-track"><div class="sv-fill sv-cash" style="width:100%"></div></div>
+      <div>
+        <p class="eyebrow">Hey, it's David</p>
+        <h1>Find your <em>travel plan</em> in 5 taps.</h1>
+        <p class="lead">Tell me where you're at. I'll show you the one best next step for you. Free or paid, no email needed.</p>
+        <div class="intro-actions">
+          <button class="btn btn-gold" id="startBtn" type="button">Start the quiz <span class="arrow">&rarr;</span></button>
+          <button class="btn btn-ghost" id="skipBtn2" type="button">Skip, show me everything</button>
+        </div>
+        <div class="meta-row"><span>About 30 seconds</span><span>5 questions</span><span>No sign up</span></div>
       </div>
     </div>
-    <p class="sv-save"><b data-seoul="save">$6,821</b> less in cash</p>
-    <p class="sv-note">Business both ways, Oct 2025. Price today: Air Canada business, Vancouver to Seoul and back, on Google Flights. Checked every day.</p>
-  </div>
-</section>
-
-<section class="what-you-get" id="about">
-  <div class="container">
-    <p class="section-eyebrow">The System</p>
-    <h2 class="section-title">What this is actually about</h2>
-    <div class="img-slot" style="max-width:640px; margin:20px auto;">
-      <img src="images/about-lounge.jpg" alt="Airport lounge David frequents">
+    <div class="dk-mission" id="mission" aria-label="Our mission">
+      <p class="k">Our mission</p>
+      <p class="t">We help busy young professionals turn <b>the money they already spend</b> into <b>luxury travel and a richer life</b>, with a clear plan built for them, so it all looks effortless.</p>
     </div>
-    <p class="section-sub">
-      Most Canadians earn zero points on their biggest expenses and have no idea
-      airport lounges exist. These guides fix that, fast.
-    </p>
-    <div class="steps-grid">
-      <div class="step-card">
-        <div class="step-num">01</div>
-        <h3>Build Your Credit Score</h3>
-        <p>Understand utilisation, payment habits, and which cards to get first to unlock premium travel cards.</p>
-      </div>
-      <div class="step-card">
-        <div class="step-num">02</div>
-        <h3>Stack the Right Cards</h3>
-        <p>Amex Cobalt for daily spending, Platinum for lounge access and travel insurance, Wealthsimple for abroad.</p>
-      </div>
-      <div class="step-card">
-        <div class="step-num">03</div>
-        <h3>Earn on Everything</h3>
-        <p>Points on restaurants, streaming, rent via Chexy, and every trip booked through your card's portal.</p>
-      </div>
-      <div class="step-card">
-        <div class="step-num">04</div>
-        <h3>Travel for Less</h3>
-        <p>Redeem for flights, bid on business class upgrades, access lounges, and get hotel upgrades by asking right.</p>
+  </section>
+
+  <!-- QUESTIONS are built by JS into this container -->
+  <div id="qs"></div>
+
+  <!-- PLOTTING -->
+  <section class="screen plot" id="s-plot" aria-live="polite">
+    <svg viewBox="0 0 320 120" aria-hidden="true">
+      <path id="ppath" class="route" d="M10 100 C 90 0, 230 0, 310 100"/>
+      <circle cx="10" cy="100" r="5" fill="#C9B59C"/><circle cx="310" cy="100" r="5" fill="#C9B59C"/>
+      <g id="pplane"><path fill="#EDE6DC" transform="scale(1.6)" d="M-9 -1.2 L4 -1.2 L8.5 -1.2 C10.5 -1.2 11 0 11 0 C11 0 10.5 1.2 8.5 1.2 L4 1.2 L-9 1.2 Z M-1 -1 L-5 -8 L-2.6 -8 L4 -1 Z M-1 1 L-5 8 L-2.6 8 L4 1 Z M-8 -1 L-10 -4.5 L-8.4 -4.5 L-5.5 -1 Z M-8 1 L-10 4.5 L-8.4 4.5 L-5.5 1 Z"/></g>
+    </svg>
+    <h3>Plotting your route...</h3>
+    <p>Matching your answers to the best next step.</p>
+  </section>
+
+  <!-- RESULT -->
+  <section class="screen result" id="s-result" aria-label="Your plan">
+    <div class="r-hero reveal">
+      <div>
+        <p class="eyebrow">Your plan is ready</p>
+        <h1 id="rTitle"><span>Your plan:</span>Fly business, pay economy.</h1>
+        <p id="rSub"></p>
+        <div class="chips" id="rChips"></div>
       </div>
     </div>
-  </div>
-</section>
-
-<section class="how">
-  <div class="container">
-    <p class="section-eyebrow">The Funnel</p>
-    <h2 class="section-title">Start free. Go as deep as you want.</h2>
-    <div class="how-steps">
-      <div class="how-step">
-        <div class="how-step-num">1</div>
-        <h3>Free Guide</h3>
-        <p>Download the travel checklist and start with the right cards.</p>
+    <div class="result-grid">
+      <div>
+        <div class="route3 reveal" id="rRoute"></div>
+        <div class="pass reveal" id="rPass"></div>
+        <a class="second reveal" id="rSecond" href="#"></a>
       </div>
-      <div class="how-step">
-        <div class="how-step-num">2</div>
-        <h3>Blueprint ($19.97)</h3>
-        <p>Get the full strategy: lounges, business class, hotel status.</p>
-      </div>
-      <div class="how-step">
-        <div class="how-step-num">3</div>
-        <h3>1-on-1 Call</h3>
-        <p>Build your personal points system with David directly.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="products" id="products">
-  <div class="container">
-    <p class="section-eyebrow">Pick Your Starting Point</p>
-    <h2 class="section-title">Everything you need to travel smarter</h2>
-    <p class="section-sub">
-      Start with the free guide. Upgrade when you're ready.
-      Every resource is built around what I actually use on every trip.
-    </p>
-    <div class="products-grid">
-
-      <div class="product-card" id="free-guides">
-        <div class="product-image"><img src="images/stan/thumb-checklist.jpg" alt="Canadian Travel Checklist guide" loading="lazy"></div>
-        <div class="product-header">
-          <p class="product-tier">Free Resource</p>
-          <h3>Canadian Travel Checklist</h3>
-          <p>The essential pre-trip guide: packing, finances, lounge access, and the credit cards I use on every flight.</p>
-        </div>
-        <div class="product-price">
-          <span class="price-free">Free</span>
-        </div>
-        <div class="product-features">
-          <ul>
-            <li>Pre-departure checklist</li>
-            <li>Smart packing guide</li>
-            <li>Finances & credit card section</li>
-            <li>Lounge & airport travel tips</li>
-            <li>Links to my referral cards</li>
-          </ul>
-        </div>
-        <div class="product-cta">
-          <a href="https://stan.store/digitalwithdavidk" class="btn-card btn-card-outline">Download Free Guide</a>
-        </div>
-        <p class="product-note">Instant download · No credit card needed</p>
-      </div>
-
-
-      <div class="product-card">
-        <div class="product-image"><img src="images/stan/thumb-credit-card-guide.jpg" alt="Canadian Credit Card Guide" loading="lazy"></div>
-        <div class="product-header">
-          <p class="product-tier">Free Resource</p>
-          <h3>Canadian Credit Card Guide</h3>
-          <p>The exact cards I use to access airport lounges, earn points on everything, and travel with zero foreign transaction fees, with my personal referral links inside.</p>
-        </div>
-        <div class="product-price">
-          <span class="price-free">Free</span>
-        </div>
-        <div class="product-features">
-          <ul>
-            <li>Amex Cobalt: 5x points on food & delivery</li>
-            <li>Amex Platinum: unlimited lounge access & travel insurance</li>
-            <li>Wealthsimple Visa Infinite: no FX fees, 2% back on everything, 5% your first 30 days with my link</li>
-            <li>Scotiabank Passport Visa Infinite: 6 free lounge passes</li>
-            <li>All referral links included. Sign-up bonuses for you, points for both of us</li>
-          </ul>
-        </div>
-        <div class="product-cta">
-          <a href="https://stan.store/digitalwithdavidk" class="btn-card btn-card-outline">Download Free Guide</a>
-        </div>
-        <p class="product-note">Instant download · No credit card needed</p>
-      </div>
-
-      <div class="product-card featured" id="blueprint">
-        <div class="product-badge">Most Popular</div>
-        <div class="product-image"><img src="images/stan/thumb-blueprint.jpg" alt="The Travel Hacking Blueprint" loading="lazy"></div>
-        <div class="product-header">
-          <p class="product-tier">Premium Guide</p>
-          <h3>The Travel Hacking Blueprint</h3>
-          <p>The complete playbook: lounge access, cheaper business class, and negotiation scripts that work.</p>
-        </div>
-        <div class="product-price">
-          <span class="price-main">$19.97</span>
-          <span class="price-original">$50</span>
-          <span class="price-badge">60% OFF. Limited Time</span>
-        </div>
-        <div class="product-features">
-          <ul>
-            <li>Lounge access strategy (Amex + Visa Companion app)</li>
-            <li>Finding business class for less</li>
-            <li>Hotel status benefits most people miss</li>
-            <li>Google Flights price pattern strategy</li>
-            <li>Klook vs Google for experiences</li>
-            <li>Local intelligence: finding the hidden spots</li>
-            <li>Negotiation scripts that actually work</li>
-            <li>All referral links in one place</li>
-          </ul>
-        </div>
-        <div class="product-cta">
-          <a href="https://stan.store/digitalwithdavidk/p/get-my-travel-hack-blueprint-now" class="btn-card btn-card-gold">Get the Blueprint: $19.97</a>
-        </div>
-        <p class="product-note">Price increases soon · Instant download</p>
-      </div>
-
-      <div class="product-card" id="consult">
-        <div class="product-image"><img src="https://assets.stanwith.me/live/msc/29229020/w3vk8/1hourconsultationdesk.jpg" alt="1-Hour Consultation with David Duong" loading="lazy"></div>
-        <div class="product-header">
-          <p class="product-tier">1-on-1 Call</p>
-          <h3>1-Hour Consultation</h3>
-          <p>One call where we build your points plan together, live.</p>
-        </div>
-        <div class="product-price">
-          <span class="price-main">$147</span>
-          <span style="color:#5E6B5E; font-size:14px;">/ 1 hour</span>
-        </div>
-        <div class="product-features">
-          <ul>
-            <li>One 60-minute video call with David</li>
-            <li>Your cards and spending reviewed live</li>
-            <li>The best next card for your goals</li>
-            <li>A clear plan for your next trip</li>
-          </ul>
-        </div>
-        <div class="product-cta">
-          <a href="https://stan.store/digitalwithdavidk/p/1-hour-consultation-l4btmsgu" class="btn-card btn-card-outline">Book My Call</a>
-        </div>
-        <p class="product-note">Not ready for a full month? Start here.</p>
-      </div>
-
-      <div class="product-card" id="coaching">
-        <div class="product-image face-crop"><img src="images/stan/coach-1-month.jpg" alt="David Duong - Travel Rewards Audit" loading="lazy"></div>
-        <div class="product-header">
-          <p class="product-tier">1-on-1 Coaching</p>
-          <h3>Travel Rewards Audit - 1 Month</h3>
-          <p>Direct access to David: custom card stack, redemption plan, and weekly calls.</p>
-        </div>
-        <div class="product-price">
-          <span class="price-main">$497</span>
-          <span style="color:#5E6B5E; font-size:14px;">/ 1 month</span>
-        </div>
-        <div class="product-features">
-          <ul>
-            <li>Weekly 1-on-1 video call to track your progress</li>
-            <li>Full access to David for the duration of your program</li>
-            <li>Custom credit card stack built around your spending</li>
-            <li>Points accumulation strategy tailored to your goals</li>
-            <li>Lounge access, upgrade bidding, and hotel status setup</li>
-            <li>Flight and hotel redemption roadmap</li>
-          </ul>
-        </div>
-        <div class="product-cta">
-          <a href="https://stan.store/digitalwithdavidk/p/1on1-travel-strategy-call-with-david" class="btn-card btn-card-outline">Book My Spot</a>
-        </div>
-        <p class="product-note">Limited spots · Weekly video calls included</p>
-      </div>
-
-      <div class="product-card featured">
-        <div class="product-badge">Best Value</div>
-        <div class="product-image face-crop"><img src="images/stan/coach-3-months.jpg" alt="David Duong - Travel Rewards Audit" loading="lazy"></div>
-        <div class="product-header">
-          <p class="product-tier">1-on-1 Coaching</p>
-          <h3>Travel Rewards Audit - 3 Months</h3>
-          <p>Ongoing access to David: full points strategy built and refined over 3 months of weekly calls.</p>
-        </div>
-        <div class="product-price">
-          <span class="price-main">$997</span>
-          <span style="color:#5E6B5E; font-size:14px;">/ 3 months</span>
-        </div>
-        <div class="product-features">
-          <ul>
-            <li>Weekly 1-on-1 video call to track your progress</li>
-            <li>Full access to David for the duration of your program</li>
-            <li>Custom credit card stack built around your spending</li>
-            <li>Points accumulation strategy tailored to your goals</li>
-            <li>Lounge access, upgrade bidding, and hotel status setup</li>
-            <li>Flight and hotel redemption roadmap</li>
-            <li>Regular check-ins and ongoing adjustments</li>
-            <li>Saves you $494 vs month-to-month</li>
-          </ul>
-        </div>
-        <div class="product-cta">
-          <a href="https://v2.stan.store/digitalwithdavidk/p/private-travel-coaching-3-months-best-value" class="btn-card btn-card-gold">Book My Spot</a>
-        </div>
-        <p class="product-note">Limited spots · Weekly video calls included</p>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<section class="about" id="david">
-  <div class="container">
-    <div class="about-inner">
-      <div class="about-text">
-        <div class="img-slot">
-          <img src="images/david-portrait.jpg" alt="David at the airport">
-        </div>
-        <p class="section-eyebrow">Who Is David</p>
-        <h2 class="section-title">Just a regular guy who wanted to travel more.</h2>
-        <p>
-          I'm David. Not a trust fund kid, not someone with a private jet budget.
-          I started chasing travel points for one simple reason: I wanted to see more of the world
-          without blowing my savings to do it.
-        </p>
-        <p>
-          I worked a full-time job, ran a couple of businesses, and promoted events on the side.
-          Normal, busy-life stuff. I just made my everyday spending work harder.
-          It got me <strong>business class to Seoul and back</strong>.
-          I paid <strong data-seoul="paid">59,200 points + $3,239</strong>.
-        </p>
-        <p>
-          Same trip in cash today: <strong data-seoul="today">$10,060</strong> (as of <span data-seoul="asof">Oct 12, 2026</span>).
-          No trust fund, no shortcuts. Just a credit card stack, upgrade bids, and a system I now teach to anyone who wants it.
-        </p>
-        <p>
-          None of this requires a high income. It requires the right cards and the right information.
-          That's what this page is for.
-        </p>
-        <div class="about-proof">
-          <div class="about-stat">
-            <span class="about-stat-num">10.9M+</span>
-            <span class="about-stat-label">Views in the last 90 days</span>
-          </div>
-          <div class="about-stat">
-            <span class="about-stat-num" data-seoul="today">$10,060</span>
-            <span class="about-stat-label">Seoul and back in cash today. I paid 59,200 pts + $3,239</span>
-          </div>
-          <div class="about-stat">
-            <span class="about-stat-num">274,800+</span>
-            <span class="about-stat-label">Combined saves across all reels</span>
-          </div>
-          <div class="about-stat">
-            <span class="about-stat-num">35,700+</span>
-            <span class="about-stat-label">Followers & climbing</span>
+      <aside class="side">
+        <div class="david reveal">
+          <img src="images/site/about-david.jpg" alt="David Duong">
+          <div>
+            <h4>I take every call myself.</h4>
+            <p>No team, no bots. Just me and your plan. I only open a few call spots each week.</p>
           </div>
         </div>
-      </div>
-      <div class="about-visual">
-        <p class="about-quote">
-          "The right credit card stack turns your everyday spending (coffee, groceries, rent)
-          into flights you never actually pay for. Most Canadians are leaving thousands of dollars
-          in points on the table every year."
-        </p>
-        <p class="about-quote-attr">David, <a href="https://www.instagram.com/digitalwithdavidk" target="_blank" style="color:var(--gold);text-decoration:none;">@digitalwithdavidk</a></p>
-        <div class="about-route">
-          <p class="route-label">The Card Stack I Use</p>
-          <div class="route-path">
-            <span class="route-step">Amex Cobalt</span>
-            <span class="route-arrow">+</span>
-            <span class="route-step">Amex Platinum</span>
-            <span class="route-arrow">+</span>
-            <span class="route-step">Wealthsimple Visa</span>
-            <span class="route-arrow">+</span>
-            <span class="route-step">Chexy for Rent</span>
-          </div>
+        <div class="stats reveal" id="stats">
+          <div class="stat"><b data-count="36.3" data-dec="1" data-suf="K">36.3K</b><span>Instagram followers</span></div>
+          <div class="stat"><b data-count="11.1" data-dec="1" data-suf="M+">11.1M+</b><span>Views in 90 days</span></div>
+          <div class="stat"><b data-count="274" data-dec="0" data-suf="K+">274K+</b><span>Saves on my reels</span></div>
+          <div class="stat"><b>4 cards</b><span>Cobalt, Platinum, Wealthsimple, Chexy</span></div>
+          <div class="stat wide dk-sv-wrap" id="seoul"><div class="dk-sv" role="group" aria-label="What was paid vs the cash price today"><p class="dk-sv-line">Business class to Seoul and back. I paid <b data-seoul="paid">59,200 points + $3,239</b>. Same trip in cash today: <b data-seoul="today">$9,866</b> <span class="dk-sv-asof">(as of <span data-seoul="asof">Oct 13, 2026</span>)</span></p><div class="dk-sv-bar"><div class="dk-sv-row"><span>What I paid in cash</span><b data-seoul="paidcash">$3,239</b></div><div class="dk-sv-track"><div class="dk-sv-fill paid"></div></div><small>plus <span data-seoul="points">59,200</span> points</small></div><div class="dk-sv-bar"><div class="dk-sv-row"><span>Same trip in cash today</span><b data-seoul="today">$9,866</b></div><div class="dk-sv-track"><div class="dk-sv-fill cash"></div></div></div><p class="dk-sv-save"><b data-seoul="save">$6,627</b> less in cash</p><p class="dk-sv-note">Business both ways, Oct 2025. Price today: Air Canada business, Vancouver to Seoul and back, Google Flights, <span data-seoul="asof">Oct 13, 2026</span>.</p></div></div>
         </div>
+      </aside>
+    </div>
+    <button class="see reveal" id="seeBtn" type="button" aria-expanded="false" aria-controls="allList">See everything I offer <span class="pm">+</span></button>
+    <div class="list-wrap" id="allList"><div><div class="offer-list" id="offerList1"></div></div></div>
+    <div class="fine">
+      <button type="button" id="retake">Retake the quiz</button>
+      <a href="https://www.instagram.com/digitalwithdavidk/" target="_blank" rel="noopener">Instagram @digitalwithdavidk</a>
+      <a href="media-kit.html">For brands: media kit</a>
+    </div>
+    <p class="dk-slogan">Make it look effortless.</p>
+    <p class="foot">&copy; 2026 Digital with David K. Winnipeg, Canada.</p>
+  </section>
+
+  <!-- ALL (skip) -->
+  <section class="screen result all" id="s-all" aria-label="Everything">
+    <div class="r-hero reveal">
+      <div>
+        <p class="eyebrow">No quiz, no problem</p>
+        <h1><span>Here's</span>Everything, in one place.</h1>
+        <p>Start free. Go deeper when you're ready. Not sure? The free 15 minute call is the easiest first step.</p>
       </div>
     </div>
-  </div>
-</section>
-
-<section class="contact-section" id="contact">
-  <div class="contact-box">
-    <img src="images/product-desk-portrait.jpg" alt="David Duong" class="contact-avatar">
-    <p class="section-eyebrow" style="color:var(--gold);">Not sure which fits?</p>
-    <h2 class="section-title">Get a Free 15-Min Discovery Call</h2>
-    <p class="section-sub">Not sure if you need the free guides, the Blueprint, or 1-on-1 coaching? Book a free call and I'll help you figure out exactly what fits. No pressure, no generic pitch.</p>
-    <a href="https://stan.store/digitalwithdavidk/p/not-sure--book-a-discovery-call" class="btn-primary">Claim My Free Spot! (Limited spots available)</a>
-    <p class="contact-note">I personally hop on every call. No bots, no sales team.</p>
-  </div>
-</section>
-
-<footer>
-  <a href="https://www.instagram.com/digitalwithdavidk" target="_blank" class="footer-brand"><img src="images/brand/dk-stone.svg" alt="DK" style="height:34px;width:auto;display:block;margin:0 auto 12px">DIGITAL WITH DAVID K.</a><p style="color:var(--gold);font-weight:600;letter-spacing:.04em;margin:.4rem 0 .2rem">Turn ordinary spending into extraordinary experiences.</p>
-  <p>Canadian travel hacks, credit card points strategy, and lounge access, for anyone who wants to travel better without spending more.</p>
-  <div class="footer-links">
-    <a href="https://www.instagram.com/digitalwithdavidk" target="_blank">Instagram</a>
-    <a href="https://stan.store/digitalwithdavidk">Free Guide</a>
-    <a href="https://stan.store/digitalwithdavidk/p/get-my-travel-hack-blueprint-now">Blueprint</a>
-    <a href="https://stan.store/digitalwithdavidk/p/not-sure--book-a-discovery-call">Book a Call</a>
-  </div>
-  <p style="margin-top: 1.5rem; font-size: 12px;">© 2026 Digital with David K. All rights reserved.</p>
-</footer>
+    <div class="result-grid">
+      <div class="offer-list reveal" id="offerList2" style="grid-template-columns:1fr;padding-top:0"></div>
+      <aside class="side">
+        <div class="david reveal">
+          <img src="images/site/about-david.jpg" alt="David Duong">
+          <div><h4>I take every call myself.</h4><p>Only a few spots each week.</p></div>
+        </div>
+        <div class="stats reveal">
+          <div class="stat"><b>36.3K</b><span>Instagram followers</span></div>
+          <div class="stat"><b>11.1M+</b><span>Views in 90 days</span></div>
+          <div class="stat wide dk-sv-wrap"><div class="dk-sv" role="group" aria-label="What was paid vs the cash price today"><p class="dk-sv-line">Business class to Seoul and back. I paid <b data-seoul="paid">59,200 points + $3,239</b>. Same trip in cash today: <b data-seoul="today">$9,866</b> <span class="dk-sv-asof">(as of <span data-seoul="asof">Oct 13, 2026</span>)</span></p><div class="dk-sv-bar"><div class="dk-sv-row"><span>What I paid in cash</span><b data-seoul="paidcash">$3,239</b></div><div class="dk-sv-track"><div class="dk-sv-fill paid"></div></div><small>plus <span data-seoul="points">59,200</span> points</small></div><div class="dk-sv-bar"><div class="dk-sv-row"><span>Same trip in cash today</span><b data-seoul="today">$9,866</b></div><div class="dk-sv-track"><div class="dk-sv-fill cash"></div></div></div><p class="dk-sv-save"><b data-seoul="save">$6,627</b> less in cash</p><p class="dk-sv-note">Business both ways, Oct 2025. Price today: Air Canada business, Vancouver to Seoul and back, Google Flights, <span data-seoul="asof">Oct 13, 2026</span>.</p></div></div>
+        </div>
+        <button class="btn btn-em" id="takeQuiz" type="button" style="width:100%;margin-top:16px">Take the 30 second quiz <span class="arrow">&rarr;</span></button>
+      </aside>
+    </div>
+    <div class="fine"><a href="https://www.instagram.com/digitalwithdavidk/" target="_blank" rel="noopener">Instagram @digitalwithdavidk</a>
+      <a href="media-kit.html">For brands: media kit</a></div>
+    <p class="dk-slogan">Make it look effortless.</p>
+    <p class="foot">&copy; 2026 Digital with David K. Winnipeg, Canada.</p>
+  </section>
+</main>
 
 <script>
-  function closeGate() {
-    document.getElementById('gateOverlay').classList.add('hidden');
-    document.body.style.overflow = '';
-  }
-  function gateStep(n) {
-    document.querySelectorAll('.gate-step').forEach(function(el){ el.style.display = 'none'; });
-    document.getElementById('gateStep' + n).style.display = 'block';
-  }
-  function routeGate(targetId) {
-    closeGate();
-    const el = document.getElementById(targetId);
-    if (el) { el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
-  }
-  document.body.style.overflow = 'hidden';
-</script>
-<script>
-/* Live Seoul round trip price. Daily agent updates prices/seoul.json. Static numbers stay if this fails. */
 (function(){
-  function money(n){ return '$' + Math.round(n).toLocaleString('en-US'); }
-  function set(k, v){ document.querySelectorAll('[data-seoul="' + k + '"]').forEach(function(el){ el.textContent = v; }); }
-  fetch('prices/seoul.json?v=' + Date.now(), {cache:'no-store'})
-    .then(function(r){ if(!r.ok) throw new Error(r.status); return r.json(); })
-    .then(function(d){
-      var t = d && d.today, p = d && d.paid;
-      var today = t && typeof t.price_cad === 'number' && t.price_cad > 0 ? t.price_cad : null;
-      var cash = p && typeof p.cash_cad === 'number' && p.cash_cad > 0 ? p.cash_cad : null;
-      if (today) set('today', money(today));
-      if (t && /^\d{4}-\d{2}-\d{2}$/.test(t.as_of || '')) {
-        var a = t.as_of.split('-'), m = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-        set('asof', m[+a[1]-1] + ' ' + (+a[2]) + ', ' + a[0]);
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var CHECK = '<svg viewBox="0 0 20 20"><path d="M5 10.5l3.2 3.2L15 7" stroke="currentColor" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  var ARROW = '<svg width="16" height="16" viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
+  /* ---------- offers (exact links) ---------- */
+  var O = {
+    free:{name:'Free Travel Checklist + Credit Card Guide',short:'Free guides',price:'Free',img:'images/site/product-free-guides.jpg',url:'https://stan.store/digitalwithdavidk',cta:'Get my free guides',
+      line:'Packing list, card picks and lounge tips. Instant download.',
+      bullets:['Pre-trip checklist so you never forget a thing','The exact cards I use, and why','Lounge and airport tips','Instant download, no card needed']},
+    blueprint:{name:'The Travel Hacking Blueprint',short:'Blueprint',price:'$19.97',was:'$50',img:'images/site/product-blueprint.jpg',url:'https://stan.store/digitalwithdavidk/p/get-my-travel-hack-blueprint-now',cta:'Get the Blueprint, $19.97',
+      line:'My full playbook. Lounges, cheaper business class, hotel perks.',
+      bullets:['How I get into lounges','How to find business class for less','Hotel status perks most people miss','Scripts to ask for upgrades']},
+    call:{name:'Free 15 Minute Discovery Call',short:'Free call',price:'Free',img:'images/site/product-discovery-call.jpg',url:'https://stan.store/digitalwithdavidk/p/not-sure--book-a-discovery-call',cta:'Book my free call',
+      line:'Not sure what fits? Talk to me for 15 minutes. No pressure.',
+      bullets:['15 minutes, just you and me','We look at your goal together','I tell you the best next step','No pressure, no sales team']},
+    consult:{name:'1 Hour Consultation',short:'1 hour call',price:'$147',per:'/ 1 hour',img:'images/site/product-1-hour.jpg',url:'https://stan.store/digitalwithdavidk/p/1-hour-consultation-l4btmsgu',cta:'Book my 1 hour call',
+      line:'One call. We build your points plan together, live.',
+      bullets:['One 60 minute video call with me','Your cards and spending checked live','Your best next card, picked for you','A clear plan for your next trip']},
+    month:{name:'Travel Rewards Audit, 1 Month',short:'1 month',price:'$497',per:'/ 1 month',img:'images/site/product-1-month.jpg',url:'https://stan.store/digitalwithdavidk/p/1on1-travel-strategy-call-with-david',cta:'Book my spot',
+      line:'Weekly calls. Your own card stack and trip plan.',
+      bullets:['A 1 on 1 video call every week','Your own card stack, built for your spending','Lounges, upgrade bids and hotel status set up','A plan to book your flights and hotels']},
+    three:{name:'Travel Rewards Audit, 3 Months',short:'3 months',price:'$997',per:'/ 3 months',img:'images/site/product-3-months.jpg',url:'https://v2.stan.store/digitalwithdavidk/p/private-travel-coaching-3-months-best-value',cta:'Book my spot',tag:'Best value',
+      line:'3 months of weekly calls. Saves $494 vs month to month.',
+      bullets:['A 1 on 1 video call every week for 3 months','Your card stack, built and fixed as you go','Lounges, upgrade bids and hotel status set up','Saves you $494 vs paying month to month']}
+  };
+  var ORDER = ['free','blueprint','call','consult','month','three'];
+
+  /* ---------- questions ---------- */
+  var Q = [
+    {id:'invest',eyebrow:'Question 1',title:'Are you ready to invest in learning this?',sub:'No wrong answer. Free is a great start too.',cls:'n2',opts:[
+      {v:'yes',t:"Yes, I'm ready",d:'I want to do this right',img:'images/site/quiz-ready-yes.jpg',pos:'50% 60%'},
+      {v:'no',t:'Free stuff for now',d:'Show me where to start',img:'images/site/quiz-ready-free.jpg',pos:'50% 45%'}]},
+    {id:'level',eyebrow:'Question 2',title:'How much do you know about points?',sub:'Be honest. It just helps me point you right.',cls:'n3',opts:[
+      {v:'new',t:'Brand new',d:"I don't know where to start",img:'images/site/quiz-level-new.jpg',pos:'40% 30%'},
+      {v:'some',t:'I know a bit',d:'I want the next level tricks',img:'images/site/quiz-level-some.jpg',pos:'50% 30%'},
+      {v:'busy',t:"I know it, I'm just busy",d:'I want it done with me',img:'images/site/quiz-level-busy.jpg',pos:'60% 40%'}]},
+    {id:'goal',eyebrow:'Question 3',title:'What do you want most?',sub:'Pick the one that gets you excited.',cls:'n4',opts:[
+      {v:'flights',t:'Free flights',d:'Pay for trips with points',img:'images/site/quiz-goal-flights.jpg',pos:'30% 40%'},
+      {v:'business',t:'Business class',d:'Big seat, small price',img:'images/site/quiz-goal-business.jpg',pos:'40% 30%'},
+      {v:'hotels',t:'Hotel upgrades',d:'Better rooms, same price',img:'images/site/quiz-goal-hotels.jpg',pos:'50% 60%'},
+      {v:'credit',t:'Build my credit',d:'Set up the base first',img:'images/site/quiz-goal-credit.jpg',pos:'55% 40%'}]},
+    {id:'freq',eyebrow:'Question 4',title:'How often do you travel?',sub:'Each trip is a chance to use points.',cls:'n3 passes',type:'pass',opts:[
+      {v:'1',big:'1',t:'Once a year or less',d:'One big trip',n:1},
+      {v:'2',big:'2-3',t:'2 to 3 trips a year',d:'A few trips',n:3},
+      {v:'4',big:'4+',t:'4 or more trips',d:"I'm always gone",n:5}]},
+    {id:'budget',eyebrow:'Last one',title:'What can you spend to get help?',sub:'This picks your plan. Free is always an option.',cls:'n4 tags',type:'tag',opts:[
+      {v:'0',ic:'0',p:'$0',t:'Nothing right now',d:'Free tools only'},
+      {v:'50',ic:'50',p:'<$50',t:'A little',d:'A good guide'},
+      {v:'mid',ic:'mid',p:'$150+',t:'$150 to $500',d:'Help from David'},
+      {v:'high',ic:'high',p:'$500+',t:'Do it right',d:'Full coaching'}]}
+  ];
+  var answers = {};
+  var flow = [];          // question indexes in current flow
+  var cur = -1;           // position in flow; -1 = intro
+
+  /* ---------- build question screens ---------- */
+  var qs = document.getElementById('qs');
+  var KEYS = ['A','B','C','D'];
+  var ICONS = {"0": "<path d=\"M12 3c4 3 6 6 6 10a6 6 0 0 1-12 0c0-4 2-7 6-10z M12 21v-8\" />", "50": "<path d=\"M5 4h10a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z M5 17a3 3 0 0 1 3-3h10\" />", "mid": "<path d=\"M6 3h3l2 5-2.5 1.5a11 11 0 0 0 6 6L16 13l5 2v3a2 2 0 0 1-2 2A16 16 0 0 1 4 5a2 2 0 0 1 2-2z\" />", "high": "<path d=\"M3 8l4 4 5-7 5 7 4-4-2 11H5z\" />"};
+  Q.forEach(function(q,qi){
+    var s = document.createElement('section');
+    s.className = 'screen q'; s.id = 's-q'+qi; s.setAttribute('aria-label', q.title);
+    var h = '<div class="q-head"><p class="eyebrow" data-eb>'+q.eyebrow+'</p><h2>'+q.title+'</h2><p class="sub">'+q.sub+'</p></div><div class="tiles '+q.cls+'" role="radiogroup" aria-label="'+q.title+'">';
+    q.opts.forEach(function(o,oi){
+      var a = 'role="radio" aria-checked="false" data-q="'+qi+'" data-v="'+o.v+'"';
+      if(q.type==='pass'){
+        var st=''; for(var i=0;i<5;i++) st+='<i class="'+(i<o.n?'f':'')+'"></i>';
+        h += '<button class="tile pass-t" '+a+'><span class="key">'+KEYS[oi]+'</span><span class="big">'+o.big+'</span><span class="info"><small>Trips a year</small><span class="t">'+o.t+'</span><span class="d">'+o.d+'</span><span class="stamps">'+st+'</span></span><span class="check">'+CHECK+'</span></button>';
+      } else if(q.type==='tag'){
+        h += '<button class="tile tag-t" '+a+'><span class="string"></span><span class="hole"></span><span class="key">'+KEYS[oi]+'</span><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true">'+ICONS[o.ic]+'</svg><span class="price">'+o.p+'</span><span class="t">'+o.t+'</span><span class="d">'+o.d+'</span><span class="check">'+CHECK+'</span></button>';
+      } else {
+        h += '<button class="tile" '+a+'><span class="ph" style="background-image:url('+o.img+');--pos:'+o.pos+'"></span><span class="key">'+KEYS[oi]+'</span><span class="txt"><span class="t">'+o.t+'</span><span class="d">'+o.d+'</span></span><span class="check">'+CHECK+'</span></button>';
       }
-      if (p && typeof p.points === 'number') set('points', p.points.toLocaleString('en-US'));
-      if (cash) set('paidcash', money(cash));
-      if (p && cash && typeof p.points === 'number') set('paid', p.points.toLocaleString('en-US') + ' points + ' + money(cash));
-      if (today && cash && today > cash) {
-        set('save', money(today - cash));
-        document.querySelectorAll('[data-seoul-bar="paid"]').forEach(function(el){ el.style.width = (cash / today * 100).toFixed(1) + '%'; });
-      }
-    })
-    .catch(function(){});
+    });
+    h += '</div><div class="q-foot"><button class="back" type="button" data-back>'+'<svg width="16" height="16" viewBox="0 0 16 16"><path d="M13 8H3M7 4L3 8l4 4" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>'+' Back</button><span class="hint">Tip: press A, B, C or D</span></div>';
+    s.innerHTML = h; qs.appendChild(s);
+  });
+
+  /* ---------- flight path progress ---------- */
+  var fpath = document.getElementById('fpath'), fdone = document.getElementById('fdone'), plane = document.getElementById('plane'), stopsG = document.getElementById('stops');
+  var LEN = fpath.getTotalLength();
+  fdone.style.strokeDasharray = LEN; fdone.style.strokeDashoffset = LEN;
+  var planeT = 0, planeAnim = null;
+  function placePlane(t){
+    var L = Math.max(0.001, Math.min(LEN-0.001, t*LEN));
+    var p = fpath.getPointAtLength(L), p2 = fpath.getPointAtLength(Math.min(LEN, L+1));
+    var ang = Math.atan2(p2.y-p.y, p2.x-p.x)*180/Math.PI;
+    plane.setAttribute('transform','translate('+p.x.toFixed(2)+','+p.y.toFixed(2)+') rotate('+ang.toFixed(1)+')');
+    fdone.style.strokeDashoffset = (LEN - t*LEN).toFixed(2);
+  }
+  function flyTo(t){
+    if(planeAnim) cancelAnimationFrame(planeAnim);
+    if(reduce){ planeT=t; placePlane(t); return; }
+    var from=planeT, start=null, dur=700;
+    function step(ts){ if(!start) start=ts; var k=Math.min(1,(ts-start)/dur); var e=1-Math.pow(1-k,3); planeT=from+(t-from)*e; placePlane(planeT); if(k<1) planeAnim=requestAnimationFrame(step); }
+    planeAnim=requestAnimationFrame(step);
+  }
+  function drawStops(n, passed){
+    var h='';
+    for(var i=1;i<=n;i++){ var p=fpath.getPointAtLength(LEN*i/n); h+='<circle class="stop'+(i<=passed?' on':'')+'" cx="'+p.x.toFixed(1)+'" cy="'+p.y.toFixed(1)+'" r="'+(i===n?4.5:3.2)+'"/>'; }
+    stopsG.innerHTML=h;
+  }
+  placePlane(0);
+
+  function buildFlow(){ flow = answers.invest==='no' ? [0,1,2,3] : [0,1,2,3,4]; }
+  buildFlow();
+  function updateProgress(){
+    var n = flow.length, done = Math.max(0,cur);
+    drawStops(n, done);
+    flyTo(cur<0 ? 0 : cur/n);
+    document.getElementById('stepLabel').textContent = cur<0 ? 'Ready for takeoff' : 'Question '+(cur+1)+' of '+n;
+  }
+  updateProgress();
+
+  /* ---------- screen switching ---------- */
+  var active = document.getElementById('s-intro');
+  function show(id, cb){
+    var next = document.getElementById(id);
+    if(next===active) return;
+    var prev = active; active = next;
+    function swap(){
+      prev.classList.remove('on','out');
+      document.body.classList.toggle('light', id==='s-result' || id==='s-all');
+      document.getElementById('skipBtn').textContent = id==='s-result' ? 'Retake quiz' : (id==='s-all' ? 'Take the quiz' : 'Skip quiz');
+      next.classList.add('on');
+      window.scrollTo(0,0);
+      revealIn(next);
+      if(cb) cb();
+    }
+    if(reduce){ swap(); return; }
+    prev.classList.add('out'); setTimeout(swap, 240);
+  }
+  function goQ(pos){
+    cur = pos; updateProgress();
+    var qi = flow[pos], s = document.getElementById('s-q'+qi);
+    s.querySelector('[data-eb]').textContent = pos===flow.length-1 ? 'Last one' : 'Question '+(pos+1)+' of '+flow.length;
+    var tiles = s.querySelector('.tiles'); tiles.classList.remove('picked');
+    s.querySelectorAll('.tile').forEach(function(t){ t.classList.toggle('sel', answers[Q[qi].id]===t.dataset.v); t.setAttribute('aria-checked', answers[Q[qi].id]===t.dataset.v ? 'true':'false'); });
+    show('s-q'+qi, function(){ var f=s.querySelector('.tile'); if(f && matchMedia('(hover:hover)').matches) f.focus({preventScroll:true}); });
+  }
+
+  /* ---------- tile interactions ---------- */
+  var busy = false;
+  function buzz(){ try{ if(navigator.vibrate) navigator.vibrate(10); }catch(e){} }
+  function ripple(el, x, y){
+    if(reduce) return;
+    var r = el.getBoundingClientRect(), d = Math.max(r.width,r.height)*0.6, sp = document.createElement('span');
+    sp.className='ripple'; sp.style.width=sp.style.height=d+'px';
+    sp.style.left=((x==null? r.width/2 : x-r.left) - d/2)+'px'; sp.style.top=((y==null? r.height/2 : y-r.top) - d/2)+'px';
+    el.appendChild(sp); setTimeout(function(){ sp.remove(); }, 650);
+  }
+  function choose(tile, x, y){
+    if(busy) return; busy = true;
+    var qi = +tile.dataset.q, q = Q[qi];
+    answers[q.id] = tile.dataset.v;
+    var group = tile.parentNode;
+    group.querySelectorAll('.tile').forEach(function(t){ t.classList.remove('sel'); t.setAttribute('aria-checked','false'); });
+    tile.classList.add('sel'); tile.setAttribute('aria-checked','true'); group.classList.add('picked');
+    ripple(tile, x, y); buzz();
+    if(q.id==='invest') buildFlow();
+    setTimeout(function(){
+      busy = false;
+      if(cur < flow.length-1) goQ(cur+1);
+      else finish();
+    }, reduce ? 150 : 520);
+  }
+  document.addEventListener('click', function(e){
+    var t = e.target.closest('.tile');
+    if(t){ choose(t, e.clientX || null, e.clientY || null); return; }
+    if(e.target.closest('[data-back]')){ if(cur>0) goQ(cur-1); else { cur=-1; updateProgress(); show('s-intro'); } }
+  });
+  // tilt + glare on hover devices
+  if(!reduce && window.matchMedia('(hover:hover)').matches){
+    document.addEventListener('pointermove', function(e){
+      var t = e.target.closest && e.target.closest('.tile:not(.tag-t)');
+      if(!t) return;
+      var r = t.getBoundingClientRect(), px=(e.clientX-r.left)/r.width, py=(e.clientY-r.top)/r.height;
+      t.style.setProperty('--ry', ((px-.5)*8).toFixed(2)+'deg');
+      t.style.setProperty('--rx', ((.5-py)*8).toFixed(2)+'deg');
+      t.style.setProperty('--gx', (px*100).toFixed(1)+'%'); t.style.setProperty('--gy', (py*100).toFixed(1)+'%');
+    });
+    document.addEventListener('pointerout', function(e){
+      var t = e.target.closest && e.target.closest('.tile');
+      if(t && !t.contains(e.relatedTarget)){ t.style.setProperty('--rx','0deg'); t.style.setProperty('--ry','0deg'); }
+    });
+  }
+  // keyboard A-D / 1-4
+  document.addEventListener('keydown', function(e){
+    if(!active.classList.contains('q')) return;
+    var k = e.key.toUpperCase(), idx = 'ABCD'.indexOf(k); if(idx<0) idx = '1234'.indexOf(k);
+    if(idx<0) return;
+    var t = active.querySelectorAll('.tile')[idx]; if(t) choose(t);
+  });
+
+  /* ---------- result logic ---------- */
+  function pick(a){
+    if(a.invest==='no' || a.budget==='0') return ['free','blueprint'];
+    if(a.budget==='50') return ['blueprint','free'];
+    if(a.budget==='mid'){
+      if(a.level==='new') return ['call','consult'];
+      if(a.level==='busy') return ['month','call'];
+      return ['consult','call'];
+    }
+    if(a.level==='busy' || a.freq==='4') return ['three','call'];
+    return ['month','call'];
+  }
+  var GOAL = {
+    flights:{title:'Free flights on points.',to:'Free flights',steps:['Pick the right first card','Earn points on food, bills and rent','Book a flight with points']},
+    business:{title:'Fly business, pay economy.',to:'Business class',steps:['Set up the right card stack','Learn upgrade bids','Sit up front for less']},
+    hotels:{title:'Better rooms, same price.',to:'Hotel upgrades',steps:['Get cards with hotel perks','Unlock status perks','Ask for upgrades the right way']},
+    credit:{title:'Build your credit the smart way.',to:'Strong credit',steps:['Learn how your score works','Pick a good starter card','Grow into premium travel cards']}
+  };
+  var LEVEL = {new:'are brand new to points',some:'already know a bit',busy:'know points but are busy'};
+  var FREQ = {'1':'travel once a year or less','2':'travel 2 to 3 times a year','4':'travel 4 or more times a year'};
+  var WHY = {
+    free:'Start here. Grab my free checklist and card guide. You will know which card to get first and what to pack. Zero cost.',
+    blueprint:'You want real tricks, not just basics. The Blueprint is my full playbook for less than a lunch out.',
+    call:'You are new, so let\'s talk first. 15 minutes, free. I\'ll tell you exactly where to start, then we go from there.',
+    consult:'You know a bit already. One hour together and you leave with your next card and your next trip planned.',
+    month:'You want it done with you, not just explained. Weekly calls for a month and we set everything up together.',
+    three:'You travel a lot, so every trip should run on points. 3 months of weekly calls, and it saves you $494.'
+  };
+  var SECOND_LABEL = {free:'Or start free',blueprint:'Want to go deeper?',call:'Not sure yet? Talk first',consult:'Want a full hour?',month:'Want more time?',three:'Want the best value?'};
+
+  function rowHTML(k){
+    var o=O[k], pr = o.price;
+    var sub = o.was ? '<s>'+o.was+'</s>' : (o.tag ? '<em>'+o.tag+'</em>' : '');
+    return '<a class="row" href="'+o.url+'" target="_blank" rel="noopener"><img src="'+o.img+'" alt="" loading="lazy"><span><b>'+o.name+'</b><small>'+o.line+'</small></span><span class="pr">'+pr+sub+'</span></a>';
+  }
+  document.getElementById('offerList1').innerHTML = ORDER.map(rowHTML).join('');
+  document.getElementById('offerList2').innerHTML = ORDER.map(rowHTML).join('');
+
+  function finish(){
+    cur = flow.length; updateProgress();
+    document.getElementById('stepLabel').textContent = 'Landing...';
+    show('s-plot', function(){
+      var pp=document.getElementById('ppath'), pl=document.getElementById('pplane'), L=pp.getTotalLength(), st=null, dur=reduce?10:1400;
+      function f(ts){ if(!st) st=ts; var k=Math.min(1,(ts-st)/dur), e=k<.5?2*k*k:1-Math.pow(-2*k+2,2)/2;
+        var p=pp.getPointAtLength(L*e), p2=pp.getPointAtLength(Math.min(L,L*e+1)); var a=Math.atan2(p2.y-p.y,p2.x-p.x)*180/Math.PI;
+        pl.setAttribute('transform','translate('+p.x+','+p.y+') rotate('+a+')');
+        if(k<1) requestAnimationFrame(f); else setTimeout(renderResult, reduce?0:250); }
+      requestAnimationFrame(f);
+    });
+  }
+  function renderResult(){
+    var a = answers, pk = pick(a), m = O[pk[0]], s2 = O[pk[1]], g = GOAL[a.goal] || GOAL.business;
+    document.getElementById('rTitle').innerHTML = '<span>Your plan:</span>'+g.title;
+    document.getElementById('rSub').textContent = 'You '+(LEVEL[a.level]||'')+', '+(FREQ[a.freq]||'')+', and want '+g.to.toLowerCase()+'. Here is the one move I would make first.';
+    var chips = [g.to, (a.level==='new'?'Beginner':a.level==='some'?'Some experience':'Done with me'), (a.freq==='1'?'1 trip a year':a.freq==='2'?'2 to 3 trips':'4+ trips')];
+    if(a.budget) chips.push({'0':'Free only','50':'Under $50','mid':'$150 to $500','high':'$500+'}[a.budget]); else chips.push('Free only');
+    document.getElementById('rChips').innerHTML = chips.map(function(c){return '<span class="chip">'+c+'</span>';}).join('');
+    document.getElementById('rRoute').innerHTML = g.steps.map(function(s,i){return '<div><i>'+(i+1)+'</i>'+s+'</div>';}).join('');
+    var price = '<span class="pr">'+m.price+(m.was?'<s>'+m.was+'</s>':'')+(m.per?'<small>'+m.per+'</small>':'')+'</span>';
+    document.getElementById('rPass').innerHTML =
+      '<div class="pass-main"><div class="pass-top"><span>Boarding pass</span><span class="badge">Best fit for you</span></div>'+
+      '<div class="fromto"><div><small>From</small><b>Where you are</b></div><svg viewBox="0 0 46 20" aria-hidden="true"><path d="M2 10h30" stroke="#C9B59C" stroke-width="1.5" stroke-dasharray="2 4"/><path fill="#C9B59C" transform="translate(36 10)" d="M-9 -1.2 L4 -1.2 L8.5 -1.2 C10.5 -1.2 11 0 11 0 C11 0 10.5 1.2 8.5 1.2 L4 1.2 L-9 1.2 Z M-1 -1 L-5 -8 L-2.6 -8 L4 -1 Z M-1 1 L-5 8 L-2.6 8 L4 1 Z"/></svg><div class="to"><small>To</small><b>'+g.to+'</b></div></div>'+
+      '<h3>'+m.name+'</h3><p class="why">'+WHY[pk[0]]+'</p><ul>'+m.bullets.map(function(b){return '<li>'+b+'</li>';}).join('')+'</ul>'+
+      '<a class="btn btn-gold" href="'+m.url+'" target="_blank" rel="noopener">'+m.cta+' <span class="arrow">&rarr;</span></a>'+
+      '<p class="note">'+(pk[0]==='free'||pk[0]==='blueprint'?'Instant download':'I take every call myself. Limited weekly spots.')+'</p></div>'+
+      '<div class="pass-stub"><img src="'+m.img+'" alt=""><div>'+price+'<div class="barcode"></div></div></div>';
+    var sec = document.getElementById('rSecond');
+    sec.href = s2.url; sec.target='_blank'; sec.rel='noopener';
+    sec.innerHTML = '<img src="'+s2.img+'" alt=""><span><small>'+SECOND_LABEL[pk[1]]+'</small><b>'+s2.name+'</b><span class="p">'+s2.price+(s2.per?' '+s2.per:'')+'</span></span><span class="go">'+ARROW+'</span>';
+    var see = document.getElementById('seeBtn'); see.setAttribute('aria-expanded','false'); document.getElementById('allList').classList.remove('open');
+    show('s-result', countUp);
+  }
+
+  /* ---------- count up ---------- */
+  function countUp(){
+    document.querySelectorAll('#stats [data-count]').forEach(function(el){
+      var to=parseFloat(el.dataset.count), dec=+el.dataset.dec||0, pre=el.dataset.pre||'', suf=el.dataset.suf||'';
+      function fmt(v){ var s=v.toFixed(dec); if(!dec) s=Number(s).toLocaleString('en-US'); return pre+s+suf; }
+      if(reduce){ el.textContent=fmt(to); return; }
+      var st=null; function f(ts){ if(!st) st=ts; var k=Math.min(1,(ts-st)/1200), e=1-Math.pow(1-k,3); el.textContent=fmt(to*e); if(k<1) requestAnimationFrame(f); }
+      requestAnimationFrame(f);
+    });
+  }
+
+  /* ---------- reveals ---------- */
+  var io = 'IntersectionObserver' in window ? new IntersectionObserver(function(es){ es.forEach(function(en){ if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); } }); },{threshold:.12}) : null;
+  function revealIn(scr){
+    var els = scr.querySelectorAll('.reveal');
+    els.forEach(function(el,i){ el.classList.remove('in'); el.style.transitionDelay = (Math.min(i,6)*70)+'ms'; if(io && !reduce) io.observe(el); else el.classList.add('in'); });
+  }
+
+  /* ---------- buttons ---------- */
+  function startQuiz(){ answers={}; buildFlow(); goQ(0); }
+  document.getElementById('startBtn').addEventListener('click', startQuiz);
+  document.getElementById('takeQuiz').addEventListener('click', startQuiz);
+  document.getElementById('retake').addEventListener('click', startQuiz);
+  function skip(){ cur=-1; updateProgress(); show('s-all'); }
+  document.getElementById('skipBtn').addEventListener('click', function(){ if(document.body.classList.contains('light')) startQuiz(); else skip(); });
+  document.getElementById('skipBtn2').addEventListener('click', skip);
+  document.getElementById('seeBtn').addEventListener('click', function(){
+    var open = this.getAttribute('aria-expanded')==='true';
+    this.setAttribute('aria-expanded', open?'false':'true');
+    document.getElementById('allList').classList.toggle('open', !open);
+    if(!open) this.firstChild.textContent = 'Hide the full list '; else this.firstChild.textContent = 'See everything I offer ';
+  });
 })();
 </script>
+<script src="assets/seoul.js"></script>
 </body>
 </html>
