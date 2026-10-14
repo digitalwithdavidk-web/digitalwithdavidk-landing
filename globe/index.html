@@ -943,13 +943,30 @@ function getCount(p){
   });
 }
 function soonList(){return PLACES.filter(function(p){return !p.live&&p.v})}
+/* small batches with a pause, so the free counter never rate limits us; failed ones retry twice */
+function wait(ms){return new Promise(function(r){setTimeout(r,ms)})}
 function loadVotes(){
-  var list=soonList(),ok=0;
-  return Promise.all(list.map(function(p){return getCount(p).then(function(v){VOTES[p.v]=v;ok++},function(){})}))
-  .then(function(){VSTATE=ok?'ok':(Object.keys(VOTES).length?'ok':'down');paintVotes()});
+  var todo=soonList(),round=0,missing=0;
+  function batch(list){
+    var chunks=[];for(var i=0;i<list.length;i+=5)chunks.push(list.slice(i,i+5));
+    var failed=[];
+    return chunks.reduce(function(pr,ch,i){return pr.then(function(){return (i?wait(250):Promise.resolve()).then(function(){
+      return Promise.all(ch.map(function(p){return getCount(p).then(function(v){if(!VBUSY[p.v])VOTES[p.v]=Math.max(v,MYV[p.v]?(VOTES[p.v]||0):0)},function(){failed.push(p)})}));
+    })})},Promise.resolve()).then(function(){return failed});
+  }
+  function go(list){
+    return batch(list).then(function(failed){
+      round++;missing=failed.length;
+      if(failed.length&&round<3)return wait(2500*round).then(function(){return go(failed)});
+    });
+  }
+  return go(todo).then(function(){
+    var known=soonList().filter(function(p){return typeof VOTES[p.v]==='number'}).length;
+    VSTATE=known===soonList().length?'ok':(known?'part':'down');paintVotes();
+  });
 }
 function refreshOne(p){
-  getCount(p).then(function(v){if(VBUSY[p.v])return;VOTES[p.v]=Math.max(v,VOTES[p.v]||0);if(VSTATE!=='ok')VSTATE='ok';paintVotes()},function(){});
+  getCount(p).then(function(v){if(VBUSY[p.v])return;VOTES[p.v]=v;if(VSTATE==='down'||VSTATE==='load')VSTATE='part';paintVotes()},function(){});
 }
 function castVote(p){
   if(!p||voted(p)||VBUSY[p.v])return;
@@ -983,10 +1000,10 @@ function paintVotes(){
   /* leaderboard */
   var ol=$('gVotesList');
   if(VSTATE==='down'){ol.innerHTML='<li class="g-votes-empty">Live votes are down for a minute. Try again soon.</li>'}
-  else if(VSTATE==='ok'){
+  else if(VSTATE==='ok'||VSTATE==='part'){
     var rows=soonList().filter(function(p){return VOTES[p.v]>0}).sort(function(a,b){return VOTES[b.v]-VOTES[a.v]||a.name.localeCompare(b.name)});
     var max=rows.length?Math.max(1,VOTES[rows[0].v]):1,total=rows.reduce(function(s,p){return s+VOTES[p.v]},0);
-    if(!total){ol.innerHTML='<li class="g-votes-empty">No votes yet. Be the first. Tap a grey pin.</li>'}
+    if(!total){ol.innerHTML='<li class="g-votes-empty">'+(VSTATE==='part'?'Loading the votes':'No votes yet. Be the first. Tap a grey pin.')+'</li>'}
     else{
       ol.innerHTML='';
       rows.slice(0,5).forEach(function(p,i){
@@ -1000,7 +1017,7 @@ function paintVotes(){
   renderSheet();
 }
 $('vBtn').addEventListener('click',function(){castVote(sheetP)});
-setInterval(function(){if(!document.hidden&&!$('app').hidden&&!$('globeView').hidden)loadVotes()},60000);
+setInterval(function(){if(!document.hidden&&!$('app').hidden&&!$('globeView').hidden)loadVotes()},180000);
 
 /* ===== Next drop date (globe/next-drop.json, the weekly task edits it) ===== */
 function loadDrop(){
