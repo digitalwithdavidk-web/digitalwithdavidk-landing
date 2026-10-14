@@ -327,6 +327,44 @@ body.g-on-dark{background:var(--em2)}
   .pass,.board i{animation:none}
   .sheet,.stamp{transition:none}
 }
+
+/* ---------- travel style picker (Budget, Comfort, Luxury) ---------- */
+.tp{background:var(--white);border-radius:var(--r);padding:16px;margin:16px 0 0;box-shadow:0 10px 26px rgba(14,47,36,.08);border:1px solid var(--stone2)}
+.tp-q{font-size:11px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--sage);margin-bottom:10px}
+.tp-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.tp-row button{font:inherit;cursor:pointer;min-height:58px;border-radius:14px;border:1.5px solid var(--stone2);background:var(--stone);color:var(--em);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding:8px 4px;transition:background .2s,color .2s,border-color .2s,transform .15s var(--ease)}
+.tp-row button b{font-size:15px;font-weight:800;line-height:1.1}
+.tp-row button span{font-size:10.5px;font-weight:600;color:var(--sage);line-height:1.2}
+.tp-row button:active{transform:scale(.97)}
+.tp-row button[aria-checked="true"]{background:var(--em);border-color:var(--em);color:var(--stone)}
+.tp-row button[aria-checked="true"] span{color:var(--beige)}
+.tp-d{font-size:14px;color:#333;margin-top:10px}
+.tp-lux{display:none;font-size:14px;font-weight:600;color:var(--em);margin-top:8px}
+.tp-lux a{color:var(--em);font-weight:800}
+html[data-tier="luxury"] .tp-lux{display:block}
+.tp.dark{background:rgba(255,255,255,.06);border-color:rgba(201,181,156,.28);box-shadow:none;margin:22px 0 0}
+.tp.dark .tp-q{color:var(--beige)}
+.tp.dark .tp-row button{background:transparent;border-color:rgba(201,181,156,.4);color:var(--stone)}
+.tp.dark .tp-row button span{color:var(--silver)}
+.tp.dark .tp-row button[aria-checked="true"]{background:var(--beige);border-color:var(--beige);color:var(--em)}
+.tp.dark .tp-row button[aria-checked="true"] span{color:var(--em)}
+.tp.dark .tp-d{color:#d9d2c7}
+.tp.dark .tp-lux,.tp.dark .tp-lux a{color:var(--beige)}
+.tv{display:none}
+html[data-tier="budget"] .tv-budget,html[data-tier="comfort"] .tv-comfort,html[data-tier="luxury"] .tv-luxury{display:block}
+.tbox{margin:0 16px 16px;border-radius:14px;background:var(--stone);padding:14px}
+.tbox-h{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-bottom:8px}
+.tbox-h b{font-size:10.5px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--em)}
+.tbox-h b i{font-style:normal;color:var(--sage)}
+.tbox dl{display:grid;gap:8px}
+.tbox dt{font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--sage)}
+.tbox dd{font-size:14px;color:#222;margin:1px 0 0}
+.tbox .cost{font-size:12.5px;font-weight:700;color:var(--em);margin-top:10px;padding-top:10px;border-top:1px dashed #cfc5b6}
+.tbox .cost small{display:block;font-size:11px;font-weight:500;color:#555;margin-top:2px}
+.g-cls{display:block;margin:-4px 0 10px;font-size:10.5px;font-weight:800;letter-spacing:.22em;color:var(--silver);text-transform:uppercase}
+.g-cls b{color:var(--beige)}
+.pass-grid.four{grid-template-columns:1.5fr .7fr .7fr 1.25fr}
+.pass-grid.four b{font-size:13px}
 </style>
 </head>
 <body class="g-on-dark">
@@ -347,10 +385,11 @@ body.g-on-dark{background:var(--em2)}
     </div>
     <div class="perf" aria-hidden="true"></div>
     <div class="pass-body">
-      <div class="pass-grid">
+      <div class="pass-grid four">
         <div class="pax"><small>Passenger</small><b id="paxName">GUEST</b></div>
         <div><small>Gate</small><b>DK</b></div>
         <div><small>Seat</small><b>1A</b></div>
+        <div><small>Class</small><b class="clsName">COMFORT</b></div>
       </div>
       <h1>Your boarding pass</h1>
       <p class="hint">Enter the email you signed up with.</p>
@@ -381,6 +420,7 @@ body.g-on-dark{background:var(--em2)}
       </div>
       <div class="g-head">
         <span class="g-hi" id="hi" hidden></span><br>
+        <span class="g-cls">Class: <b class="clsName">COMFORT</b></span>
         <span class="tag">The Globe</span>
         <div class="h">Where to <strong>next?</strong></div>
         <p>Spin the globe. Tap a glowing pin to open a free day by day plan. 9 places are open now.</p>
@@ -398,6 +438,7 @@ body.g-on-dark{background:var(--em2)}
         <ol id="gVotesList"><li class="g-votes-empty">Loading the votes</li></ol>
       </section>
 
+      <div id="tpGlobe"></div>
       <div class="g-list" id="list"></div>
 
       <div class="g-cta">
@@ -720,6 +761,7 @@ body.g-on-dark{background:var(--em2)}
 </div>
 
 <script src="trips.js"></script>
+<script src="tiers.js"></script>
 <script>
 (function(){
 'use strict';
@@ -889,6 +931,7 @@ function renderTrip(key){
   h+='<div class="hero"><div class="wrap hero-grid"><div><span class="tag">Free guide &middot; Open now</span><h1>'+n+' Days in <strong>'+esc(t.name)+'</strong></h1><p class="lead">'+esc(t.lead)+' <b>'+esc(t.cities)+'.</b></p><div class="stats">'+t.stats.map(function(x){return '<div class="stat"><b>'+x[0]+'</b><span>'+esc(x[1])+'</span></div>'}).join('')+'</div></div>';
   h+='<div class="t-route" aria-label="Route">'+t.cities.split(', ').map(function(c,i){return (i?'<i aria-hidden="true"></i>':'')+'<span>'+esc(c)+'</span>'}).join('')+'</div></div></div>';
   h+='<main class="wrap"><div class="remind rv"><p>Want help planning '+esc(p.short||t.name)+'? <span>Book a free call, or grab the Blueprint to fly there on points.</span></p><div class="row"><a class="btn btn-em btn-sm" href="'+URLS.call+'" target="_blank" rel="noopener">Book a free call</a><a class="btn btn-line btn-sm" href="'+URLS.bp+'" target="_blank" rel="noopener">$19 Blueprint</a></div></div>';
+  h+=tierPicker(false);
   h+='<section><p class="eyebrow">The plan</p><h2>Your '+n+' days</h2><p class="sub">'+esc(t.plan)+'</p><nav class="jump" style="grid-template-columns:repeat('+n+',1fr)" aria-label="Jump to a day">';
   for(var i=1;i<=n;i++)h+='<a href="#t'+i+'"><small>DAY</small><b>'+i+'</b></a>';
   h+='</nav><div class="days">';
@@ -905,6 +948,7 @@ function renderTrip(key){
   h+='<div style="padding-top:28px"><button class="btn btn-em back" style="width:100%" type="button" data-back>Back to the globe</button></div></main>';
   h+='<footer><div class="wrap"><p>Digital with David K &middot; @digitalwithdavidk &middot; <a href="mailto:digitalwithdavidk@gmail.com">digitalwithdavidk@gmail.com</a></p><p>Prices, times and entry rules were checked in October 2026 and can change. Always check official sources before you book. This guide is not legal or immigration advice.</p></div></footer>';
   var v=$('tripView');v.innerHTML=h;v.dataset.rv='';
+  addTiers(v,key);
 }
 
 /* ===== Country cards (always there, and the fallback) ===== */
@@ -1178,6 +1222,59 @@ function startGlobe(world){
   $('gLoad').hidden=true;
   if($('globeView').hidden){running=false}else{size();raf=requestAnimationFrame(frame)}
 }
+
+
+/* ===== Travel style: Budget, Comfort, Luxury (words in tiers.js) ===== */
+var TIERS=window.DWDK_TIERS||{};
+var TNAME={budget:'Budget',comfort:'Comfort',luxury:'Luxury'};
+var TSHORT={budget:'Smart and cheap',comfort:'The middle',luxury:'5 star'};
+var TDESC={budget:'Smart and cheap: hostels or 3 star hotels, street food and the metro.',comfort:'The middle: good 4 star hotels, a few nice dinners and some taxis.',luxury:'5 star hotels, lounges, private drivers and the best tables.'};
+var TKEY='dwdk_tier';
+function getTier(){var t=sGet('localStorage',TKEY);return TNAME[t]?t:'comfort'}
+function tierPicker(dark){
+  var cur=getTier(),h='<div class="tp'+(dark?' dark':'')+'"><p class="tp-q" id="tpq'+(dark?'g':'t')+'">How do you like to travel?</p><div class="tp-row" role="radiogroup" aria-labelledby="tpq'+(dark?'g':'t')+'">';
+  ['budget','comfort','luxury'].forEach(function(k){h+='<button type="button" role="radio" data-tier-pick="'+k+'" aria-checked="'+(k===cur)+'"><b>'+TNAME[k]+'</b><span>'+TSHORT[k]+'</span></button>'});
+  h+='</div><p class="tp-d">'+['budget','comfort','luxury'].map(function(k){return '<span class="tv tv-'+k+'">'+esc(TDESC[k])+'</span>'}).join('')+'</p>';
+  h+='<p class="tp-lux">Want the luxury trip without the luxury price? <a href="'+URLS.call+'" target="_blank" rel="noopener">Book a free call</a></p></div>';
+  return h;
+}
+function setTier(t,save){
+  if(!TNAME[t])t='comfort';
+  document.documentElement.setAttribute('data-tier',t);
+  if(save)sSet('localStorage',TKEY,t);
+  [].forEach.call(document.querySelectorAll('[data-tier-pick]'),function(b){b.setAttribute('aria-checked',String(b.getAttribute('data-tier-pick')===t))});
+  [].forEach.call(document.querySelectorAll('.clsName'),function(e){e.textContent=TNAME[t].toUpperCase()});
+}
+document.addEventListener('click',function(e){var b=e.target.closest('[data-tier-pick]');if(b)setTier(b.getAttribute('data-tier-pick'),true)});
+function addTiers(root,key){
+  var T=TIERS[key];if(!T||!T.cities)return;
+  var sleep=T.sleep||{},shown={},seen={};
+  [].forEach.call(root.querySelectorAll('article.day'),function(day){
+    var ce=day.querySelector('.city');if(!ce)return;
+    var city=ce.textContent.trim(),C=T.cities[city];if(!C)return;
+    var home=sleep[city]||city,H=T.cities[home]||C,idx=seen[city]||0;seen[city]=idx+1;
+    var stayLbl=null;if(!shown[home]){shown[home]=1;stayLbl=home===city?'Where to stay':'Tonight in '+home}
+    var box=document.createElement('div');box.className='tbox';var h='';
+    ['budget','comfort','luxury'].forEach(function(k){
+      var c=C[k]||{},hs=H[k]||{},eat=c.eat||[];
+      h+='<div class="tv tv-'+k+'"><div class="tbox-h"><b>Your '+TNAME[k]+' day <i>&middot; '+esc(city)+'</i></b></div><dl>';
+      if(stayLbl&&hs.stay)h+='<div><dt>'+esc(stayLbl)+'</dt><dd>'+esc(hs.stay)+'</dd></div>';
+      if(eat.length)h+='<div><dt>Eat</dt><dd>'+esc(eat[idx%eat.length])+'</dd></div>';
+      if(c.move)h+='<div><dt>Get around</dt><dd>'+esc(c.move)+'</dd></div>';
+      h+='</dl>';
+      if(T.cost&&T.cost[k])h+='<p class="cost">About '+esc(T.cost[k])+' a day<small>'+esc(TIERS.note||'Rough guide. Check before you go.')+'</small></p>';
+      h+='</div>';
+    });
+    box.innerHTML=h;day.appendChild(box);
+  });
+}
+setTier(getTier(),false);
+(function(){
+  var g=$('tpGlobe');if(g)g.innerHTML=tierPicker(true);
+  var cv=$('chinaView'),plan=cv&&cv.querySelector('#plan');
+  if(plan){var d=document.createElement('div');d.innerHTML=tierPicker(false);plan.parentNode.insertBefore(d.firstChild,plan);addTiers(cv,'china')}
+  setTier(getTier(),false);
+})();
 
 /* ===== Trip page reveal ===== */
 function revealInit(root){
