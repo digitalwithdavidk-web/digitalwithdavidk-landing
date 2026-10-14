@@ -1,0 +1,1590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>The Globe | Digital with David K</title>
+<meta name="description" content="Early access to the Digital with David K Globe. China and Japan are free.">
+<meta name="theme-color" content="#0E2F24">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="../images/brand/dk-emerald.svg">
+<style>
+/* ===== China itinerary styles (from /china/) ===== */
+:root{
+  --em:#0E2F24; --em2:#0A241B; --em3:#14402F; --sage:#5E6B5E; --beige:#C9B59C; --stone:#EDE6DC;
+  --stone2:#E3DACD; --silver:#C0C0C0; --ink:#111; --white:#fff;
+  --r:20px; --ease:cubic-bezier(.2,.8,.2,1);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;scroll-padding-top:70px}
+body{font-family:'Montserrat',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--stone);color:var(--ink);line-height:1.55;overflow-x:hidden;-webkit-tap-highlight-color:transparent}
+a{color:inherit}
+img{display:block;max-width:100%}
+:focus-visible{outline:3px solid var(--beige);outline-offset:3px;border-radius:10px}
+.wrap{max-width:720px;margin:0 auto;padding:0 16px}
+
+/* ---------- sticky top bar ---------- */
+.bar{position:sticky;top:0;z-index:40;background:rgba(10,36,27,.94);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid rgba(201,181,156,.18)}
+.bar .wrap{display:flex;align-items:center;justify-content:space-between;gap:10px;height:58px}
+.brand{display:flex;align-items:center;gap:9px;text-decoration:none;color:var(--stone);min-width:0}
+.brand svg{height:20px;width:auto;flex:none;color:var(--silver)}
+.brand b{font-weight:800;font-size:9.5px;letter-spacing:.2em;line-height:1.2;text-transform:uppercase;white-space:nowrap}
+.brand b span{display:block;color:var(--beige)}
+.bar-cta{display:flex;gap:6px;flex:none}
+.pill{display:inline-flex;align-items:center;gap:6px;height:36px;padding:0 12px;border-radius:999px;font-size:12px;font-weight:700;text-decoration:none;white-space:nowrap;transition:transform .18s var(--ease),background .2s}
+.pill:active{transform:scale(.95)}
+.pill-line{border:1.5px solid rgba(201,181,156,.55);color:var(--stone)}
+.pill-line:hover{border-color:var(--beige);color:var(--beige)}
+.pill-gold{background:var(--beige);color:var(--em)}
+.pill-gold:hover{background:#d6c4ad}
+.pill svg{width:14px;height:14px}
+
+/* ---------- hero ---------- */
+.hero{background:radial-gradient(120% 90% at 85% 0%,#1d5640 0%,var(--em) 45%,var(--em2) 100%);color:var(--stone);padding:34px 0 30px;position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;right:-60px;top:-60px;width:240px;height:240px;border-radius:50%;border:1px solid rgba(201,181,156,.18);box-shadow:0 0 0 30px rgba(201,181,156,.04),0 0 0 60px rgba(201,181,156,.03)}
+.tag{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--em);background:var(--beige);padding:7px 12px;border-radius:999px}
+.hero h1{font-weight:300;text-transform:uppercase;letter-spacing:.12em;font-size:clamp(34px,10vw,60px);line-height:1.04;margin:18px 0 12px;color:var(--white)}
+.hero h1 strong{display:block;font-weight:800;letter-spacing:.02em;color:var(--beige)}
+.hero .lead{font-size:16px;color:#d9d2c7;max-width:520px}
+.hero .lead b{color:var(--white)}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:22px;max-width:520px}
+.stat{background:rgba(255,255,255,.05);border:1px solid rgba(201,181,156,.22);border-radius:14px;padding:12px 10px;text-align:center}
+.stat b{display:block;font-size:24px;font-weight:800;color:var(--white);line-height:1.1}
+.stat span{font-size:10.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--silver)}
+.route{margin-top:22px;background:rgba(0,0,0,.18);border:1px solid rgba(201,181,156,.18);border-radius:16px;padding:14px 14px 10px;max-width:520px}
+.route svg{width:100%;height:auto;display:block}
+.route .lbl{font-size:11px;fill:var(--stone);font-weight:700;letter-spacing:.12em}
+.route .sm{font-size:10px;fill:var(--silver);font-weight:600}
+
+/* ---------- reminder strip ---------- */
+.remind{background:var(--white);border-radius:var(--r);margin:-14px 0 0;position:relative;z-index:2;padding:16px;box-shadow:0 14px 34px rgba(14,47,36,.12);display:grid;gap:12px}
+.remind p{font-size:14px;font-weight:600;color:var(--em)}
+.remind p span{font-weight:400;color:#444}
+.remind .row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;min-height:52px;padding:0 16px;border-radius:14px;font-weight:800;font-size:15px;text-decoration:none;text-align:center;line-height:1.2;transition:transform .18s var(--ease),box-shadow .2s var(--ease)}
+.btn-em{background:var(--em);color:var(--stone);box-shadow:0 5px 0 #061a13}
+.btn-em:active{transform:translateY(4px);box-shadow:0 1px 0 #061a13}
+.btn-gold{background:var(--beige);color:var(--em);box-shadow:0 5px 0 #9c876c}
+.btn-gold:active{transform:translateY(4px);box-shadow:0 1px 0 #9c876c}
+.btn-line{border:1.5px solid var(--em);color:var(--em)}
+.btn-line:active{transform:scale(.97)}
+.btn-sm{min-height:46px;font-size:13.5px;border-radius:12px}
+.btn svg{width:16px;height:16px;flex:none}
+
+/* ---------- section heads ---------- */
+section{padding:40px 0 0}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--sage);margin-bottom:8px}
+h2{font-size:clamp(25px,7vw,36px);font-weight:800;line-height:1.1;letter-spacing:-.01em;color:var(--ink);text-transform:uppercase}
+h2 + .sub{font-size:15px;color:#3d3d3d;margin-top:8px}
+
+/* ---------- day jump ---------- */
+.jump{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-top:18px}
+.jump a{display:flex;flex-direction:column;align-items:center;justify-content:center;height:54px;border-radius:12px;background:var(--white);text-decoration:none;color:var(--em);border:1px solid var(--stone2);transition:background .2s,color .2s}
+.jump a small{font-size:9px;font-weight:700;letter-spacing:.14em;color:var(--sage)}
+.jump a b{font-size:18px;font-weight:800;line-height:1}
+.jump a:hover,.jump a.on{background:var(--em);color:var(--stone)}
+.jump a:hover small,.jump a.on small{color:var(--beige)}
+
+/* ---------- day cards ---------- */
+.days{display:grid;gap:16px;margin-top:18px}
+.day{background:var(--white);border-radius:var(--r);overflow:hidden;box-shadow:0 1px 0 var(--stone2),0 10px 26px rgba(14,47,36,.07)}
+.day-h{background:var(--em);color:var(--stone);padding:16px 16px 14px;display:flex;align-items:flex-end;justify-content:space-between;gap:10px}
+.day-h .n{font-size:11px;font-weight:700;letter-spacing:.24em;color:var(--beige);text-transform:uppercase}
+.day-h h3{font-size:21px;font-weight:800;line-height:1.15;color:var(--white);margin-top:3px}
+.day-h .city{flex:none;font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;border:1px solid rgba(201,181,156,.5);color:var(--beige);border-radius:999px;padding:5px 9px}
+.slot{display:grid;grid-template-columns:44px 1fr;gap:12px;padding:16px;border-top:1px solid #f0ebe3}
+.slot:first-of-type{border-top:0}
+.ico{width:44px;height:44px;border-radius:50%;background:var(--stone);display:flex;align-items:center;justify-content:center;color:var(--em)}
+.ico svg{width:22px;height:22px}
+.slot .when{font-size:10.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--sage)}
+.slot h4{font-size:16.5px;font-weight:700;line-height:1.3;margin:2px 0 4px}
+.slot p{font-size:14.5px;color:#333}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.chip{font-size:11.5px;font-weight:700;color:var(--em);background:#F3EEE6;border:1px solid var(--stone2);border-radius:999px;padding:4px 10px}
+.chip.gold{background:var(--beige);border-color:var(--beige)}
+.tip{margin:0 16px 16px;background:#F6F2EC;border-left:3px solid var(--beige);border-radius:0 12px 12px 0;padding:10px 12px;font-size:13.5px;color:#333}
+.tip b{color:var(--em)}
+
+/* ---------- mid CTA ---------- */
+.mid{background:var(--em);color:var(--stone);border-radius:var(--r);padding:18px;display:grid;grid-template-columns:96px 1fr;gap:14px;align-items:center}
+.mid img{width:96px;height:96px;border-radius:14px;object-fit:cover}
+.mid h3{font-size:17px;font-weight:800;line-height:1.25;color:var(--white)}
+.mid p{font-size:13.5px;color:#d9d2c7;margin:4px 0 10px}
+
+/* ---------- before you go ---------- */
+.bg{background:var(--ink);color:var(--stone);border-radius:var(--r);padding:20px 16px;margin-top:18px}
+.bg-h{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.bg-h svg{width:26px;height:26px;color:var(--beige);flex:none}
+.bg-h h3{font-size:17px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--white)}
+.bg ol{list-style:none;counter-reset:b;display:grid;gap:14px;margin-top:14px}
+.bg li{counter-increment:b;display:grid;grid-template-columns:30px 1fr;gap:12px}
+.bg li::before{content:counter(b);width:30px;height:30px;border-radius:50%;background:var(--beige);color:var(--em);font-weight:800;font-size:14px;display:flex;align-items:center;justify-content:center}
+.bg li b{display:block;color:var(--white);font-size:15px;margin-bottom:2px}
+.bg li p{font-size:14px;color:#cfc8bd}
+.bg .warn{margin-top:16px;font-size:13px;font-weight:600;color:var(--beige);border-top:1px solid rgba(201,181,156,.25);padding-top:12px}
+
+/* ---------- about ---------- */
+.about{display:grid;grid-template-columns:110px 1fr;gap:16px;align-items:center;margin-top:18px}
+.about img{width:110px;height:132px;border-radius:16px;object-fit:cover;object-position:50% 20%}
+.about p{font-size:15px;color:#333}
+.about p + p{margin-top:8px}
+
+/* ---------- CTA stack ---------- */
+.cta-stack{display:grid;gap:14px;margin-top:18px}
+.cta{border-radius:var(--r);overflow:hidden;background:var(--white);box-shadow:0 10px 26px rgba(14,47,36,.08)}
+.cta .top{display:grid;grid-template-columns:88px 1fr;gap:14px;padding:16px 16px 0;align-items:center}
+.cta img{width:88px;height:88px;border-radius:14px;object-fit:cover}
+.cta .k{font-size:10.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--sage)}
+.cta h3{font-size:18px;font-weight:800;line-height:1.2;margin-top:2px}
+.cta p{font-size:14px;color:#3b3b3b;padding:10px 16px 14px}
+.cta .btn{margin:0 16px 16px}
+.cta.dark{background:var(--em);color:var(--stone)}
+.cta.dark h3{color:var(--white)}
+.cta.dark p{color:#d9d2c7}
+.cta.dark .k{color:var(--beige)}
+.ig{width:88px;height:88px;border-radius:14px;background:linear-gradient(135deg,#14402F,#0A241B);border:1px solid rgba(201,181,156,.4);display:flex;align-items:center;justify-content:center;color:var(--beige)}
+.ig svg{width:40px;height:40px}
+
+/* ---------- footer ---------- */
+footer{background:var(--em2);color:var(--silver);margin-top:44px;padding:30px 0 40px;font-size:12px}
+footer .brand{margin-bottom:14px}
+footer p{max-width:560px}
+footer p + p{margin-top:8px}
+footer a{color:var(--beige)}
+
+/* ---------- reveal ---------- */
+.rv{opacity:0;transform:translateY(18px);transition:opacity .6s var(--ease),transform .6s var(--ease)}
+.rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
+
+@media (max-width:360px){
+  .brand b{display:none}
+  .stat b{font-size:20px}
+}
+@media (min-width:760px){
+  .hero{padding:56px 0 50px}
+  .hero-grid{display:grid;grid-template-columns:1.15fr 1fr;gap:34px;align-items:end}
+  .route{margin-top:0}
+  .remind{grid-template-columns:1fr auto;align-items:center;padding:18px 20px}
+  .remind .row{min-width:340px}
+  .wrap{max-width:860px}
+  .days{grid-template-columns:1fr 1fr}
+  .day.wide{grid-column:1 / -1}
+  #d7{display:grid;grid-template-columns:repeat(3,1fr)}
+  #d7 .day-h{grid-column:1 / -1}
+  #d7 .slot{border-top:0;border-left:1px solid #f0ebe3}
+  #d7 .slot:nth-of-type(2){border-left:0}
+  .mid .btn{max-width:320px}
+  .cta-stack{grid-template-columns:1fr 1fr}
+  .cta.full{grid-column:1 / -1}
+}
+
+/* ===== Globe app styles ===== */
+[hidden]{display:none!important}
+.g-screen{min-height:100vh;min-height:100dvh}
+.g-dark{background:radial-gradient(130% 80% at 50% 0%,#1d5640 0%,var(--em) 42%,var(--em2) 100%);color:var(--stone)}
+body.g-on-dark{background:var(--em2)}
+
+/* Round 1: boarding pass gate */
+#gate{display:flex;align-items:center;justify-content:center;padding:28px 16px 40px}
+.pass{width:100%;max-width:420px;border-radius:24px;background:var(--stone);color:var(--ink);box-shadow:0 30px 70px rgba(0,0,0,.45);overflow:hidden;animation:passIn .8s var(--ease) both}
+@keyframes passIn{from{opacity:0;transform:translateY(40px) rotate(-2deg)}to{opacity:1;transform:none}}
+.pass-top{background:var(--em);color:var(--stone);padding:18px 18px 16px;position:relative}
+.pass-brand{display:flex;align-items:center;gap:10px}
+.pass-brand img{height:22px;width:auto}
+.pass-brand b{font-weight:800;font-size:9.5px;letter-spacing:.2em;line-height:1.2;text-transform:uppercase}
+.pass-brand b span{display:block;color:var(--beige)}
+.board{margin-top:16px;display:inline-flex;align-items:center;gap:8px;background:#06150F;border-radius:8px;padding:8px 10px;font-size:11.5px;font-weight:800;letter-spacing:.2em;color:var(--beige);text-transform:uppercase}
+.board i{width:8px;height:8px;border-radius:50%;background:#7CE0A6;box-shadow:0 0 0 0 rgba(124,224,166,.7);animation:blink 1.6s infinite}
+@keyframes blink{0%{box-shadow:0 0 0 0 rgba(124,224,166,.6)}70%{box-shadow:0 0 0 9px rgba(124,224,166,0)}100%{box-shadow:0 0 0 0 rgba(124,224,166,0)}}
+.pass-route{display:grid;grid-template-columns:1fr auto 1fr;align-items:end;gap:8px;margin-top:16px}
+.pass-route small{display:block;font-size:9.5px;font-weight:700;letter-spacing:.2em;color:var(--silver);text-transform:uppercase}
+.pass-route b{display:block;font-size:30px;font-weight:800;letter-spacing:.04em;color:var(--white);line-height:1.05}
+.pass-route .to{text-align:right}
+.pass-route svg{width:44px;height:22px;color:var(--beige);margin-bottom:6px}
+.pass-route em{display:block;font-style:normal;font-size:10.5px;color:#cfc8bd;font-weight:600}
+.perf{height:22px;position:relative;background:var(--stone)}
+.perf::before{content:"";position:absolute;left:18px;right:18px;top:10px;border-top:2px dashed #cfc5b6}
+.perf::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 0 50%,var(--em2) 11px,transparent 12px),radial-gradient(circle at 100% 50%,var(--em2) 11px,transparent 12px)}
+.pass-body{padding:6px 18px 18px}
+.pass-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:16px}
+.pass-grid small{display:block;font-size:9px;font-weight:700;letter-spacing:.18em;color:var(--sage);text-transform:uppercase}
+.pass-grid b{font-size:14px;font-weight:800;color:var(--em)}
+.pass h1{font-size:22px;font-weight:800;line-height:1.15;text-transform:uppercase;letter-spacing:.01em;color:var(--ink)}
+.pass .hint{font-size:14px;color:#3d3d3d;margin:6px 0 14px}
+.pass label{display:block;font-size:11px;font-weight:700;letter-spacing:.18em;color:var(--sage);text-transform:uppercase;margin-bottom:6px}
+.pass input{width:100%;height:54px;border-radius:14px;border:1.5px solid #cfc5b6;background:var(--white);padding:0 14px;font:600 16px 'Montserrat',sans-serif;color:var(--ink);outline:none;transition:border-color .2s}
+.pass input:focus{border-color:var(--em)}
+.pass .btn{width:100%;margin-top:12px;border:0;cursor:pointer;font-family:inherit}
+.pass .btn[disabled]{opacity:.6}
+.pass .opt{font-weight:600;letter-spacing:.06em;text-transform:none;color:#8a8f86}
+.pass .fine{font-size:11.5px;color:#6b6f68;margin:6px 0 14px}
+.pax{min-width:0}.pax b{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.g-hi{display:inline-block;margin:0 0 10px;font-size:13px;font-weight:700;color:var(--beige);letter-spacing:.04em}
+.g-cta{margin:26px auto 0;display:grid;gap:10px;max-width:560px}
+.g-cta .btn-big{min-height:64px;font-size:16.5px;flex-direction:column;gap:2px}
+.g-cta .btn-big small{font-size:11.5px;font-weight:600;letter-spacing:.04em;opacity:.85}
+.err{margin-top:12px;background:#F6F2EC;border-left:3px solid #b5523b;border-radius:0 12px 12px 0;padding:10px 12px;font-size:14px;color:#333}
+.err b{color:#8a3a28}
+.err a{color:var(--em);font-weight:800}
+.err p + p{margin-top:6px}
+.barcode{height:38px;margin-top:16px;background:repeating-linear-gradient(90deg,#111 0 2px,transparent 2px 4px,#111 4px 5px,transparent 5px 8px,#111 8px 11px,transparent 11px 12px);opacity:.85;border-radius:3px}
+.only{margin-top:10px;text-align:center;font-size:10px;font-weight:700;letter-spacing:.28em;color:var(--sage);text-transform:uppercase}
+.pass.shake{animation:shake .4s var(--ease)}
+@keyframes shake{20%{transform:translateX(-8px)}40%{transform:translateX(7px)}60%{transform:translateX(-5px)}80%{transform:translateX(3px)}}
+.stamp{position:absolute;right:16px;top:18px;border:3px solid #7CE0A6;color:#7CE0A6;font-weight:800;font-size:15px;letter-spacing:.2em;padding:5px 10px;border-radius:8px;transform:rotate(-10deg) scale(1.4);opacity:0;transition:transform .35s var(--ease),opacity .35s}
+.pass.ok .stamp{opacity:1;transform:rotate(-10deg) scale(1)}
+
+/* Round 2: app shell */
+.g-banner{background:var(--beige);color:var(--em);text-align:center;font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;padding:8px 16px;line-height:1.4}
+.g-top{display:flex;align-items:center;justify-content:space-between;gap:10px;height:58px}
+.g-top .brand img{height:20px;width:auto}
+.g-head{text-align:center;padding:14px 0 0}
+.g-head .tag{margin-bottom:12px}
+.g-head .h{font-weight:300;text-transform:uppercase;letter-spacing:.12em;font-size:clamp(28px,8.5vw,48px);line-height:1.05;color:var(--white)}
+.g-head .h strong{font-weight:800;color:var(--beige);letter-spacing:.02em}
+.g-head p{font-size:15px;color:#d9d2c7;max-width:440px;margin:10px auto 0}
+
+/* Round 3: globe */
+.g-globe{position:relative;width:100%;max-width:560px;margin:8px auto 0;aspect-ratio:1/1}
+.g-globe canvas{width:100%;height:100%;display:block;cursor:grab;touch-action:pan-y;-webkit-user-select:none;user-select:none}
+.g-globe canvas.drag{cursor:grabbing}
+.g-load{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;letter-spacing:.2em;color:var(--silver);text-transform:uppercase}
+.g-help{text-align:center;font-size:12px;font-weight:600;color:var(--silver);margin-top:2px}
+.g-fail{text-align:center;font-size:14px;color:#d9d2c7;margin:18px 0 0}
+
+/* Country cards (also the fallback) */
+.g-list{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:22px 0 0}
+.g-card{display:flex;flex-direction:column;align-items:flex-start;gap:4px;min-height:84px;padding:14px;border-radius:16px;background:rgba(255,255,255,.05);border:1px solid rgba(201,181,156,.22);color:var(--stone);font-family:inherit;text-align:left;cursor:pointer;transition:transform .18s var(--ease),background .2s}
+.g-card:active{transform:scale(.97)}
+.g-card:hover{background:rgba(255,255,255,.09)}
+.g-card small{font-size:9.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--silver)}
+.g-card b{font-size:17px;font-weight:800;line-height:1.15}
+.g-card span{font-size:12.5px;color:#cfc8bd}
+.g-card.live{background:var(--beige);color:var(--em);border-color:var(--beige);box-shadow:0 5px 0 #9c876c}
+.g-card.live small{color:var(--em)}
+.g-card.live span{color:var(--em2);font-weight:600}
+.g-card.live small i{display:inline-block;width:7px;height:7px;border-radius:50%;background:#1d8a4f;margin-right:6px;vertical-align:1px}
+.g-card.soon b{color:#cfc8bd}
+.g-follow{margin:26px 0 0;display:grid;gap:10px}
+.g-foot{padding:30px 0 40px;font-size:12px;color:var(--silver);text-align:center}
+.g-foot a{color:var(--beige)}
+
+/* Coming soon sheet */
+.sheet{position:fixed;left:0;right:0;bottom:0;z-index:60;padding:0 16px 16px;transform:translateY(120%);visibility:hidden;transition:transform .35s var(--ease),visibility 0s .35s}
+.sheet.on{transform:none;visibility:visible;transition:transform .35s var(--ease)}
+.sheet-in{max-width:460px;margin:0 auto;background:var(--stone);color:var(--ink);border-radius:20px;padding:18px;box-shadow:0 20px 50px rgba(0,0,0,.4)}
+.sheet-in .k{font-size:10.5px;font-weight:700;letter-spacing:.2em;color:var(--sage);text-transform:uppercase}
+.sheet-in h3{font-size:20px;font-weight:800;color:var(--em);margin:2px 0 6px;text-transform:uppercase}
+.sheet-in p{font-size:14.5px;color:#333}
+.sheet-in .row{display:grid;grid-template-columns:1fr auto;gap:8px;margin-top:14px}
+.sheet-in button{font-family:inherit;cursor:pointer}
+
+/* Votes (GLOBE-VOTES) */
+.g-drop{background:var(--em2);color:var(--beige);text-align:center;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:7px 16px;line-height:1.4;border-bottom:1px solid rgba(201,181,156,.18)}
+.g-drop b{color:var(--stone);font-weight:800}
+.g-votes{margin:22px auto 0;max-width:560px;border-radius:18px;background:rgba(255,255,255,.05);border:1px solid rgba(201,181,156,.22);padding:16px}
+.g-votes-h{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.g-votes-h small{font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--silver);display:inline-flex;align-items:center;gap:6px}
+.g-votes-h small i{width:7px;height:7px;border-radius:50%;background:#1d8a4f;display:inline-block}
+.g-votes-sub{font-size:13px;color:#cfc8bd;margin:8px 0 10px}
+.g-votes ol{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.g-vrow{width:100%;display:grid;grid-template-columns:22px minmax(0,1fr) auto;align-items:center;gap:10px;padding:9px 10px;border-radius:12px;border:0;background:rgba(10,36,27,.55);color:var(--stone);font-family:inherit;text-align:left;cursor:pointer}
+.g-vrow:hover{background:rgba(10,36,27,.85)}
+.g-vrow .n{font-size:12px;font-weight:800;color:var(--beige)}
+.g-vrow .nm{font-size:14px;font-weight:700;min-width:0}
+.g-vrow .nm em{display:block;height:5px;border-radius:9px;background:rgba(192,192,192,.18);margin-top:6px;overflow:hidden;font-style:normal}
+.g-vrow .nm em s{display:block;height:100%;width:0;background:var(--beige);border-radius:9px;transition:width .6s var(--ease)}
+.g-vrow .c{font-size:13px;font-weight:800;color:var(--beige);white-space:nowrap}
+.g-vrow.me .c::after{content:" \2713";color:#7fd1a4}
+.g-votes-empty{font-size:13px;color:#cfc8bd;padding:6px 2px}
+.g-card .vc{font-weight:700}
+.v-count{display:flex;align-items:baseline;gap:8px;margin:10px 0 0}
+.v-count b{font-size:34px;font-weight:800;color:var(--em);line-height:1}
+.v-count span{font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--sage)}
+.v-note{font-size:12.5px!important;color:#555!important;margin-top:10px}
+.sheet-in .btn[disabled]{opacity:.75;cursor:default;box-shadow:none}
+.v-bump{animation:vBump .5s var(--ease)}
+@keyframes vBump{0%{transform:scale(1)}40%{transform:scale(1.25)}100%{transform:scale(1)}}
+
+/* Trip route chips */
+.t-route{margin-top:22px;display:flex;flex-wrap:wrap;align-items:center;gap:8px;max-width:520px}
+.t-route span{font-size:11px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--em);background:var(--beige);border-radius:999px;padding:8px 12px}
+.t-route i{width:22px;border-top:2px dashed rgba(201,181,156,.7)}
+.g-card.live{grid-column:auto}
+/* China view top bar */
+.back{border:0;cursor:pointer;font-family:inherit;background:transparent}
+.btn-em.back{background:var(--em);color:var(--stone)}
+
+@media (min-width:760px){
+  #gate{padding:40px}
+  .g-list{grid-template-columns:repeat(4,1fr)}
+  .g-follow{grid-template-columns:1fr 1fr;max-width:560px;margin-left:auto;margin-right:auto}
+}
+@media (prefers-reduced-motion:reduce){
+  .pass,.board i{animation:none}
+  .sheet,.stamp{transition:none}
+}
+
+/* ---------- travel style picker (Budget, Comfort, Luxury) ---------- */
+.tp{background:var(--white);border-radius:var(--r);padding:16px;margin:16px 0 0;box-shadow:0 10px 26px rgba(14,47,36,.08);border:1px solid var(--stone2)}
+.tp-q{font-size:11px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--sage);margin-bottom:10px}
+.tp-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.tp-row button{font:inherit;cursor:pointer;min-height:58px;border-radius:14px;border:1.5px solid var(--stone2);background:var(--stone);color:var(--em);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding:8px 4px;transition:background .2s,color .2s,border-color .2s,transform .15s var(--ease)}
+.tp-row button b{font-size:15px;font-weight:800;line-height:1.1}
+.tp-row button span{font-size:10.5px;font-weight:600;color:var(--sage);line-height:1.2}
+.tp-row button:active{transform:scale(.97)}
+.tp-row button[aria-checked="true"]{background:var(--em);border-color:var(--em);color:var(--stone)}
+.tp-row button[aria-checked="true"] span{color:var(--beige)}
+.tp-d{font-size:14px;color:#333;margin-top:10px}
+.tp-lux{display:none;font-size:14px;font-weight:600;color:var(--em);margin-top:8px}
+.tp-lux a{color:var(--em);font-weight:800}
+html[data-tier="luxury"] .tp-lux{display:block}
+.tp.dark{background:rgba(255,255,255,.06);border-color:rgba(201,181,156,.28);box-shadow:none;margin:22px 0 0}
+.tp.dark .tp-q{color:var(--beige)}
+.tp.dark .tp-row button{background:transparent;border-color:rgba(201,181,156,.4);color:var(--stone)}
+.tp.dark .tp-row button span{color:var(--silver)}
+.tp.dark .tp-row button[aria-checked="true"]{background:var(--beige);border-color:var(--beige);color:var(--em)}
+.tp.dark .tp-row button[aria-checked="true"] span{color:var(--em)}
+.tp.dark .tp-d{color:#d9d2c7}
+.tp.dark .tp-lux,.tp.dark .tp-lux a{color:var(--beige)}
+.tv{display:none}
+html[data-tier="budget"] .tv-budget,html[data-tier="premium"] .tv-premium,html[data-tier="vip"] .tv-vip{display:block}
+.tbox{margin:0 16px 16px;border-radius:14px;background:var(--stone);padding:14px}
+.tbox-h{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-bottom:8px}
+.tbox-h b{font-size:10.5px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--em)}
+.tbox-h b i{font-style:normal;color:var(--sage)}
+.tbox dl{display:grid;gap:8px}
+.tbox dt{font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--sage)}
+.tbox dd{font-size:14px;color:#222;margin:1px 0 0}
+.tbox .cost{font-size:12.5px;font-weight:700;color:var(--em);margin-top:10px;padding-top:10px;border-top:1px dashed #cfc5b6}
+.tbox .cost small{display:block;font-size:11px;font-weight:500;color:#555;margin-top:2px}
+.g-cls{display:block;margin:-4px 0 10px;font-size:10.5px;font-weight:800;letter-spacing:.22em;color:var(--silver);text-transform:uppercase}
+.g-cls b{color:var(--beige)}
+.pass-grid.four{grid-template-columns:1.5fr .7fr .7fr 1.25fr}
+.pass-grid.four b{font-size:13px}
+
+/* ---------- VIP look (only when VIP is on, or in the VIP sheet) ---------- */
+:root{
+  --marble:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='700' height='700'%3E%3Cfilter id='m'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.0035 .011' numOctaves='5' seed='11'/%3E%3CfeColorMatrix values='0 0 0 0 .86 0 0 0 0 .86 0 0 0 0 .9 0 0 0 -3.2 1.62'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23m)' opacity='.13'/%3E%3C/svg%3E");
+  --grain:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .07 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+  --vgold:#CFAE5C;--vgold2:#E8D49A;--vsilver:#C9C9CF;--vpur:#4A2670;--vpur2:#8A5CC4;--vink:#0B0B0E;--vcard:#15151A;--vline:rgba(207,174,92,.3);--vtext:#EEEAF2;--vmute:#B9B3C6
+}
+.vipplan{display:none}
+html[data-tier="vip"] .vipplan{display:block}
+html[data-tier="vip"] .baseplan{display:none}
+.vip-stays{display:grid;gap:12px;margin-top:18px}
+.vip-stay{border-radius:16px;padding:14px 16px;background:var(--vcard);border:1px solid var(--vline);color:var(--vtext)}
+.vip-stay small{display:block;font-size:10px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--vgold)}
+.vip-stay b{display:block;font-size:17px;font-weight:800;margin:2px 0 4px;color:#fff}
+.vip-stay p{font-size:14px;color:var(--vmute)}
+.vip-note{margin-top:14px;font-size:12.5px;font-weight:600;color:var(--vgold)}
+html.vip-on body,html.vip-on body.g-on-dark{background:var(--vink) var(--grain)}
+html.vip-on .g-dark{background:var(--marble),radial-gradient(90% 60% at 50% 0%,rgba(138,92,196,.28),transparent 65%),linear-gradient(180deg,#17161c,#0B0B0E 70%);color:var(--vtext)}
+html.vip-on .g-banner{background:linear-gradient(90deg,#B8913E,#E8D49A,#B8913E);color:#141218}
+html.vip-on .g-drop{background:#0B0B0E;color:var(--vgold);border-bottom-color:var(--vline)}
+html.vip-on .g-card{border-color:var(--vline);background:rgba(255,255,255,.035)}
+html.vip-on .g-card.live{background:linear-gradient(135deg,#E8D49A,#B8913E);border-color:#E8D49A;color:#141218;box-shadow:0 5px 0 #6e5422}
+html.vip-on .g-card.live small,html.vip-on .g-card.live span{color:#2a2418}
+html.vip-on footer{background:#08080A;border-top:1px solid var(--vline)}
+html.vip-on footer a{color:var(--vgold2)}
+html.vip-on .g-votes{border-color:var(--vline)}
+html.vip-on .g-cls b,html.vip-on .g-hi{color:var(--vgold2)}
+html.vip-on #tripView,html.vip-on #chinaView{background:var(--marble),var(--grain),linear-gradient(180deg,#121116,#0B0B0E);color:var(--vtext)}
+html.vip-on .bar{background:rgba(11,11,14,.94);border-bottom-color:var(--vline)}
+html.vip-on .brand b span{color:var(--vgold)}
+html.vip-on .pill-gold{background:linear-gradient(135deg,#E8D49A,#B8913E);color:#141218}
+html.vip-on .hero{background:var(--marble),radial-gradient(90% 70% at 85% 0%,rgba(138,92,196,.38),transparent 60%),linear-gradient(160deg,#1c1a22,#0B0B0E 72%)}
+html.vip-on .hero::after{border-color:var(--vline)}
+html.vip-on .tag{background:linear-gradient(135deg,#E8D49A,#B8913E);color:#141218}
+html.vip-on .hero h1 strong{color:var(--vgold2)}
+html.vip-on .stat{border-color:var(--vline)}
+html.vip-on h2{color:var(--vtext)}
+html.vip-on h2 + .sub,html.vip-on .about p,html.vip-on .sub{color:var(--vmute)}
+html.vip-on .eyebrow{color:var(--vgold)}
+html.vip-on .jump a{background:var(--vcard);border-color:var(--vline);color:var(--vtext)}
+html.vip-on .jump a small{color:var(--vgold)}
+html.vip-on .jump a.on,html.vip-on .jump a:hover{background:linear-gradient(135deg,#5A2E86,#2E1646);color:#fff}
+html.vip-on .day,html.vip-on .remind,html.vip-on .cta{background:var(--vcard);color:var(--vtext);box-shadow:0 0 0 1px var(--vline),0 14px 30px rgba(0,0,0,.45)}
+html.vip-on .day-h{background:linear-gradient(135deg,#2A1C3B,#121116)}
+html.vip-on .day-h .n{color:var(--vgold)}
+html.vip-on .day-h .city{border-color:var(--vline);color:var(--vgold2)}
+html.vip-on .slot{border-top-color:rgba(255,255,255,.07)}
+html.vip-on .slot .when{color:var(--vgold)}
+html.vip-on .slot h4{color:#fff}
+html.vip-on .slot p,html.vip-on .remind p,html.vip-on .cta p{color:var(--vmute)}
+html.vip-on .remind p span{color:var(--vmute)}
+html.vip-on .ico{background:rgba(207,174,92,.12);color:var(--vgold)}
+html.vip-on .chip{background:rgba(255,255,255,.04);border-color:rgba(201,201,207,.28);color:var(--vsilver)}
+html.vip-on .chip.gold{background:rgba(207,174,92,.16);border-color:var(--vline);color:var(--vgold2)}
+html.vip-on .tip{background:rgba(255,255,255,.04);color:var(--vmute);border-left-color:var(--vgold)}
+html.vip-on .tip b{color:var(--vgold2)}
+html.vip-on .cta h3,html.vip-on .remind b{color:#fff}
+html.vip-on .cta .k{color:var(--vgold)}
+html.vip-on .btn-em{background:linear-gradient(135deg,#6A3A9C,#3A1C58);color:#fff;box-shadow:0 5px 0 #1d0e2e}
+html.vip-on .btn-gold{background:linear-gradient(135deg,#E8D49A,#B8913E);color:#141218;box-shadow:0 5px 0 #6e5422}
+html.vip-on .btn-line{border-color:var(--vsilver);color:var(--vtext)}
+html.vip-on .mid{background:linear-gradient(135deg,#2A1840,#141218);box-shadow:0 0 0 1px var(--vline)}
+html.vip-on .bg{background:#09090B;box-shadow:0 0 0 1px var(--vline)}
+html.vip-on .bg li::before{background:linear-gradient(135deg,#E8D49A,#B8913E);color:#141218}
+html.vip-on .bg .warn{color:var(--vgold)}
+html.vip-on footer,html.vip-on footer p{color:var(--vmute)}
+html.vip-on .tp{background:rgba(255,255,255,.04);border-color:var(--vline);box-shadow:none}
+html.vip-on .tp-q{color:var(--vgold)}
+html.vip-on .tp-d,html.vip-on .tp-inc{color:var(--vmute)}
+html.vip-on .tp-row button{background:transparent;border-color:rgba(201,201,207,.35);color:var(--vtext)}
+html.vip-on .tp-row button span{color:var(--vmute)}
+html.vip-on .route{border-color:var(--vline)}
+.tp-row button.vipb{background:linear-gradient(135deg,#1d1b23,#0B0B0E);border-color:#B8913E;color:var(--vgold2);position:relative}
+.tp-row button.vipb span{color:var(--vsilver)}
+.tp-row button.vipb svg{width:12px;height:12px;position:absolute;top:7px;right:8px;color:var(--vgold)}
+.tp-row button.vipb[aria-checked="true"],html.vip-on .tp-row button.vipb[aria-checked="true"]{background:linear-gradient(135deg,#E8D49A,#B8913E);border-color:#E8D49A;color:#141218}
+.tp-row button.vipb[aria-checked="true"] span{color:#2a2418}
+.tp-row button.vipb[aria-checked="true"] svg{color:#141218}
+.tp-inc{font-size:11.5px;font-weight:600;color:var(--sage);margin-top:8px}
+.tp.dark .tp-inc{color:var(--silver)}
+/* VIP sheet */
+.vsheet{position:fixed;inset:0;z-index:70;display:flex;align-items:flex-end;justify-content:center;padding:16px;background:rgba(5,5,8,.62);opacity:0;visibility:hidden;transition:opacity .3s,visibility 0s .3s}
+.vsheet.on{opacity:1;visibility:visible;transition:opacity .3s}
+.vsheet-in{width:100%;max-width:460px;max-height:calc(100dvh - 32px);overflow:auto;border-radius:22px;padding:22px 18px 18px;color:var(--vtext);background:var(--marble),radial-gradient(100% 70% at 100% 0%,rgba(138,92,196,.4),transparent 60%),linear-gradient(160deg,#1c1a22,#0B0B0E 75%);box-shadow:0 0 0 1px var(--vline),0 30px 70px rgba(0,0,0,.6);transform:translateY(30px);transition:transform .35s var(--ease)}
+.vsheet.on .vsheet-in{transform:none}
+.vsheet .vk{display:inline-flex;align-items:center;gap:6px;font-size:10.5px;font-weight:800;letter-spacing:.24em;text-transform:uppercase;color:#141218;background:linear-gradient(135deg,#E8D49A,#B8913E);border-radius:999px;padding:6px 11px}
+.vsheet .vk svg{width:12px;height:12px}
+.vsheet h3{font-size:26px;font-weight:300;letter-spacing:.1em;text-transform:uppercase;color:#fff;margin:14px 0 8px;line-height:1.1}
+.vsheet h3 strong{display:block;font-weight:800;letter-spacing:.02em;color:var(--vgold2)}
+.vsheet p{font-size:14.5px;color:var(--vmute)}
+.vsheet ul{list-style:none;display:grid;gap:7px;margin:14px 0 0}
+.vsheet li{display:grid;grid-template-columns:18px 1fr;gap:9px;font-size:14px;color:var(--vtext)}
+.vsheet li::before{content:"";width:8px;height:8px;margin:6px 0 0 4px;border-radius:2px;transform:rotate(45deg);background:var(--vgold)}
+.vprice{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:16px 0 0}
+.vprice div{border:1px solid var(--vline);border-radius:14px;padding:12px;text-align:center;background:rgba(255,255,255,.03)}
+.vprice b{display:block;font-size:22px;font-weight:800;color:#fff;line-height:1.1}
+.vprice span{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--vsilver)}
+.vprice div.best{border-color:var(--vgold);box-shadow:0 0 0 1px var(--vgold) inset}
+.vprice div.best span{color:var(--vgold2)}
+.vfound{margin-top:10px;font-size:12.5px;font-weight:700;color:var(--vgold2);text-align:center}
+.vsheet .btn{margin-top:14px;width:100%}
+.vsheet .btn-gold{background:linear-gradient(135deg,#E8D49A,#B8913E);color:#141218;box-shadow:0 5px 0 #6e5422}
+.vhave{margin-top:16px;border-top:1px solid rgba(255,255,255,.08);padding-top:14px}
+.vhave label{display:block;font-size:12px;font-weight:700;color:var(--vsilver);margin-bottom:6px}
+.vhave .row{display:grid;grid-template-columns:1fr auto;gap:8px}
+.vhave input{font:inherit;font-size:16px;min-height:46px;border-radius:12px;border:1px solid rgba(201,201,207,.35);background:rgba(0,0,0,.35);color:#fff;padding:0 12px;min-width:0}
+.vhave button,.vclose{font:inherit;cursor:pointer}
+.vhave .vgo{min-height:46px;border-radius:12px;border:1px solid var(--vgold);background:transparent;color:var(--vgold2);font-weight:800;padding:0 14px}
+.vmsg{margin-top:8px;font-size:13px;color:var(--vgold2)}
+.vclose{display:block;margin:14px auto 0;background:none;border:0;color:var(--vsilver);font-size:13px;font-weight:700;text-decoration:underline;padding:8px}
+/* Members: Economy / Premium / First Class (GLOBE-MEMBERS-1014) */
+.eco-bar{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:9px 16px;background:#0A241B;color:var(--stone);border-bottom:1px solid rgba(201,181,156,.25)}
+.eco-bar p{font-size:12.5px;font-weight:700;line-height:1.3;margin:0}
+.eco-go{flex:none;font:inherit;font-size:12px;font-weight:800;border:0;border-radius:999px;padding:8px 14px;background:var(--beige);color:var(--em);cursor:pointer}
+.g-card.locked{background:rgba(255,255,255,.05);color:var(--stone);border-color:rgba(201,181,156,.45);box-shadow:none}
+.g-card.locked small{color:var(--beige);display:inline-flex;align-items:center;gap:5px}
+.g-card.locked small svg{width:11px;height:11px}
+.g-card.locked span{color:#cfc8bd;font-weight:500}
+html.vip-on .g-card.locked{background:rgba(255,255,255,.035);color:var(--vtext);border-color:var(--vline);box-shadow:none}
+.tp-row button.lockb{position:relative}
+.tp-row button.lockb svg{width:12px;height:12px;position:absolute;top:7px;right:8px}
+.up-plan{margin-top:14px;border-radius:16px;padding:14px;border:1px solid rgba(201,181,156,.4);background:rgba(14,47,36,.55)}
+.up-plan.first{border-color:var(--vgold);background:linear-gradient(160deg,rgba(207,174,92,.14),rgba(0,0,0,.25))}
+.up-plan.focus{box-shadow:0 0 0 2px var(--beige)}
+.up-plan.first.focus{box-shadow:0 0 0 2px var(--vgold)}
+.up-plan h4{font-size:19px;font-weight:800;color:#fff;margin:0}
+.up-plan.first h4{color:var(--vgold2)}
+.up-plan .up-sub{font-size:13px;color:var(--vmute);margin:4px 0 0}
+.up-plan .up-build{font-size:12.5px;font-weight:700;color:var(--vgold2);margin:6px 0 0}
+.up-plan ul{margin:10px 0 0}
+.up-opts{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+.up-opts button{font:inherit;cursor:pointer;border-radius:12px;border:1px solid rgba(201,201,207,.35);background:rgba(255,255,255,.03);color:var(--vtext);padding:10px 6px;text-align:center;min-height:56px}
+.up-opts button b{display:block;font-size:17px;font-weight:800;line-height:1.15;color:#fff}
+.up-opts button span{display:block;font-size:11.5px;font-weight:700;color:var(--vsilver);margin-top:2px}
+.up-opts button[aria-pressed="true"]{border-color:var(--beige);box-shadow:0 0 0 1px var(--beige) inset;background:rgba(201,181,156,.12)}
+.up-plan.first .up-opts button[aria-pressed="true"]{border-color:var(--vgold);box-shadow:0 0 0 1px var(--vgold) inset;background:rgba(207,174,92,.14)}
+.up-opts button[aria-pressed="true"] span{color:var(--beige)}
+.up-plan.first .up-opts button[aria-pressed="true"] span{color:var(--vgold2)}
+.up-save{font-size:12.5px;font-weight:700;color:var(--vgold2);margin:8px 0 0}
+.up-plan .btn{margin-top:10px}
+.up-plan .btn-prem{background:var(--beige);color:var(--em);box-shadow:0 5px 0 #9c876c}
+.up-found{margin-top:14px;font-size:12.5px;font-weight:700;color:var(--vgold2);text-align:center;line-height:1.45}
+.first-note{font-size:13px;font-weight:700;color:var(--vgold2);margin:6px 0 0}
+</style>
+</head>
+<body class="g-on-dark">
+<noscript><p style="color:#EDE6DC;text-align:center;padding:40px 16px;font-family:Montserrat,sans-serif">Please turn on JavaScript to open the Digital with David K Globe.</p></noscript>
+
+<!-- ===== Round 1: Gate ===== -->
+<div id="gate" class="g-screen g-dark" hidden>
+  <form class="pass" id="passForm" novalidate>
+    <div class="pass-top">
+      <div class="pass-brand"><img src="../images/brand/dk-beige.svg" alt=""><b>Digital<span>with David K.</span></b></div>
+      <div class="board"><i></i>Early access &middot; Now boarding</div>
+      <div class="pass-route">
+        <div><small>From</small><b>YOU</b><em>Your feed</em></div>
+        <svg viewBox="0 0 44 22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M2 11h36" stroke-dasharray="2 4"/><path d="M30 5l8 6-8 6"/></svg>
+        <div class="to"><small>To</small><b>WRLD</b><em>The Globe</em></div>
+      </div>
+      <div class="stamp" aria-hidden="true">BOARDED</div>
+    </div>
+    <div class="perf" aria-hidden="true"></div>
+    <div class="pass-body">
+      <div class="pass-grid four">
+        <div class="pax"><small>Passenger</small><b id="paxName">GUEST</b></div>
+        <div><small>Gate</small><b>DK</b></div>
+        <div><small>Seat</small><b>1A</b></div>
+        <div><small>Class</small><b class="clsName">ECONOMY</b></div>
+      </div>
+      <h1>Your boarding pass</h1>
+      <p class="hint">Enter the email you signed up with.</p>
+      <label for="fname">First name <span class="opt">(optional)</span></label>
+      <input id="fname" name="fname" type="text" autocomplete="given-name" autocapitalize="words" maxlength="20" placeholder="Your first name">
+      <p class="fine">Your name stays on this phone only. It is never sent anywhere.</p>
+      <label for="email">Your email</label>
+      <input id="email" name="email" type="email" inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" placeholder="you@email.com" required>
+      <button class="btn btn-em" id="go" type="submit">Board now <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg></button>
+      <div class="err" id="err" role="alert" hidden></div>
+      <div class="barcode" aria-hidden="true"></div>
+      <p class="only">Invited guests only</p>
+    </div>
+  </form>
+</div>
+
+<!-- ===== Round 2: App ===== -->
+<div id="app" hidden>
+  <div class="g-banner">Early access &middot; Founding prices end Oct 31</div>
+  <div class="g-drop" id="gDrop">New countries every week. Next drop: <b>Wed Oct 21</b></div>
+  <div class="eco-bar" id="ecoBar" hidden><p>You're in Economy: China + Japan. Upgrade for every country.</p><button type="button" class="eco-go" id="ecoGo">Upgrade</button></div>
+
+  <!-- Globe view -->
+  <div id="globeView" class="g-screen g-dark">
+    <div class="wrap">
+      <div class="g-top">
+        <a class="brand" href="https://www.instagram.com/digitalwithdavidk/" target="_blank" rel="noopener" aria-label="Digital with David K on Instagram"><img src="../images/brand/dk-beige.svg" alt=""><b>Digital<span>with David K.</span></b></a>
+        <a class="pill pill-line" href="https://www.instagram.com/digitalwithdavidk/" target="_blank" rel="noopener">Follow</a>
+      </div>
+      <div class="g-head">
+        <span class="g-hi" id="hi" hidden></span><br>
+        <span class="g-cls">Class: <b class="clsName">ECONOMY</b></span>
+        <span class="tag">The Globe</span>
+        <div class="h">Where to <strong>next?</strong></div>
+        <p>Spin the globe. Tap a glowing pin to open a day by day plan. China and Japan are free. 9 places are open now.</p>
+      </div>
+      <div class="g-globe" id="globeWrap">
+        <canvas id="globe" aria-label="Spinning globe. Open now: China, Japan, South Korea, Thailand, Vietnam, Dubai, Canada, United States and Australia. Vote for what comes next: Mexico, Italy, Greece, Bali, Portugal, Spain, Turkey, Philippines, Taiwan, Singapore, Iceland, Switzerland, Morocco, Egypt and Peru." role="img"></canvas>
+        <div class="g-load" id="gLoad">Loading the globe</div>
+      </div>
+      <p class="g-help" id="gHelp">Drag to spin. Tap a glowing pin for a plan. Tap a grey pin to vote.</p>
+      <p class="g-fail" id="gFail" hidden>The globe could not load right now. Pick a place below.</p>
+
+      <section class="g-votes" id="gVotes" aria-labelledby="gVotesH">
+        <div class="g-votes-h"><span class="tag" id="gVotesH">Top votes</span><small><i></i>Live count</small></div>
+        <p class="g-votes-sub">Where should I go next? Tap a grey pin or a country to vote. One vote per country.</p>
+        <ol id="gVotesList"><li class="g-votes-empty">Loading the votes</li></ol>
+      </section>
+
+      <div id="tpGlobe"></div>
+      <div class="g-list" id="list"></div>
+
+      <div class="g-cta">
+        <a class="btn btn-gold btn-big" href="https://stan.store/digitalwithdavidk/p/not-sure--book-a-discovery-call" target="_blank" rel="noopener">Want 1-on-1 help? Book a free call with David<small>Tell him where you want to go</small></a>
+        <a class="btn btn-line" style="border-color:rgba(201,181,156,.6);color:var(--stone)" href="https://stan.store/digitalwithdavidk/p/get-my-travel-hack-blueprint-now" target="_blank" rel="noopener">Fly there on points: my $19 Blueprint</a>
+        <a class="btn btn-line" style="border-color:rgba(201,181,156,.35);color:var(--silver)" href="https://www.instagram.com/digitalwithdavidk/" target="_blank" rel="noopener">Follow @digitalwithdavidk</a>
+      </div>
+      <p class="g-foot">Digital with David K &middot; New places drop for members first.</p>
+    </div>
+  </div>
+
+  <!-- China view -->
+  <div id="chinaView" hidden>
+    <header class="bar">
+  <div class="wrap">
+    <a class="brand" href="https://www.instagram.com/digitalwithdavidk/" target="_blank" rel="noopener" aria-label="Digital with David K on Instagram">
+      <svg viewBox="26 14 238 125" aria-hidden="true"><defs><mask id="dkm" maskUnits="userSpaceOnUse" x="26" y="14" width="238" height="125"><rect x="26" y="14" width="238" height="125" fill="#fff"/><g stroke="#000" stroke-width="1.7" stroke-linecap="round" fill="none"><line x1="58.4" y1="46" x2="58.4" y2="107"/><line x1="85" y1="46" x2="85" y2="107"/><line x1="30" y1="66" x2="58.4" y2="66"/><line x1="85" y1="66" x2="115" y2="66"/><line x1="30" y1="84.6" x2="115" y2="84.6"/></g></mask></defs><g fill="currentColor"><path d="M34.5 18.2H126C141.5 18.2 152 30 152 46V106C152 121.5 140.5 133.6 121 133.6H34Q30 133.6 30 129.6V113Q30 109.2 33.8 109.2H104.5C115.5 109.2 122.2 101 122.2 90V60C122.2 51 116.5 44 107 44H34Q30.5 44 30.5 40.5V22Q30.5 18.2 34.5 18.2Z"/><path mask="url(#dkm)" d="M35.5 46.6H104.5C111 46.6 114.6 52.5 114.6 60V93C114.6 101 110.5 106.6 103.5 106.6H35.5Q30.5 106.6 30.5 101.6V51.6Q30.5 46.6 35.5 46.6Z"/><path d="M157 19H179.5Q182.5 19 182.5 22V59L224 20.8H259.2L203.8 76.5L258.2 134.2H219.8L183.8 97.2V131Q183.8 134.5 180.3 134.5H157.5Q154 134.5 154 131V22.5Q154 19 157 19Z"/></g></svg>
+      <b>Digital<span>with David K.</span></b>
+    </a>
+    <div class="bar-cta">
+      <button class="pill pill-line back" type="button" data-back>&larr; Globe</button>
+      <a class="pill pill-gold" href="https://stan.store/digitalwithdavidk/p/get-my-travel-hack-blueprint-now" target="_blank" rel="noopener">$19 Blueprint</a>
+    </div>
+  </div>
+</header>
+    <div class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="tag">Free guide &middot; Open now</span>
+      <h1>7 Days in <strong>China</strong></h1>
+      <p class="lead">My week of Chinamaxxing, day by day. <b>Shanghai, a bullet train to Hangzhou, and a Suzhou day trip.</b> Real prices. The apps you need. Nothing boring.</p>
+      <div class="stats">
+        <div class="stat"><b>3</b><span>Cities</span></div>
+        <div class="stat"><b>7</b><span>Days</span></div>
+        <div class="stat"><b>2</b><span>Day trips</span></div>
+      </div>
+    </div>
+    <div class="route" aria-label="Route: Shanghai is the base. Hangzhou is about 45 to 60 minutes by bullet train. Suzhou is about 25 to 35 minutes.">
+      <svg viewBox="0 0 320 150" aria-hidden="true">
+        <path d="M72 38 Q160 14 228 60" fill="none" stroke="#C9B59C" stroke-width="2" stroke-dasharray="4 6" stroke-linecap="round"/>
+        <path d="M72 112 Q160 136 228 90" fill="none" stroke="#C9B59C" stroke-width="2" stroke-dasharray="4 6" stroke-linecap="round"/>
+        <circle cx="250" cy="75" r="24" fill="none" stroke="rgba(201,181,156,.35)"/>
+        <circle cx="250" cy="75" r="16" fill="#C9B59C"/>
+        <text x="250" y="80" text-anchor="middle" font-size="13" font-weight="800" fill="#0E2F24">SH</text>
+        <text x="250" y="118" text-anchor="middle" class="lbl">SHANGHAI</text>
+        <circle cx="62" cy="38" r="9" fill="#0E2F24" stroke="#C9B59C" stroke-width="2"/>
+        <text x="62" y="20" text-anchor="middle" class="lbl">SUZHOU</text>
+        <circle cx="62" cy="112" r="9" fill="#0E2F24" stroke="#C9B59C" stroke-width="2"/>
+        <text x="62" y="140" text-anchor="middle" class="lbl">HANGZHOU</text>
+        <text x="150" y="52" text-anchor="middle" class="sm">about 25 to 35 min</text>
+        <text x="150" y="106" text-anchor="middle" class="sm">about 45 to 60 min</text>
+      </svg>
+    </div>
+  </div>
+</div>
+
+<main class="wrap">
+
+  <div class="remind rv">
+    <p>Quick thing before you scroll. <span>Follow so you catch China Pt.3, and grab the Blueprint if you want to fly there in business class on points.</span></p>
+    <div class="row">
+      <a class="btn btn-line btn-sm" href="https://www.instagram.com/digitalwithdavidk/" target="_blank" rel="noopener">Follow @digitalwithdavidk</a>
+      <a class="btn btn-em btn-sm" href="https://stan.store/digitalwithdavidk/p/get-my-travel-hack-blueprint-now" target="_blank" rel="noopener">Get the $19 Blueprint</a>
+    </div>
+  </div>
+
+  <section id="plan">
+    <p class="eyebrow">The plan</p>
+    <h2>Your 7 days</h2>
+    <p class="sub">Days 1 to 4 in Shanghai. Day 5 in Hangzhou. Day 6 in Suzhou. Day 7 back in Shanghai. Sleep in the same Shanghai hotel all week, so you never repack.</p>
+
+    <nav class="jump" aria-label="Jump to a day">
+      <a href="#d1"><small>DAY</small><b>1</b></a><a href="#d2"><small>DAY</small><b>2</b></a><a href="#d3"><small>DAY</small><b>3</b></a><a href="#d4"><small>DAY</small><b>4</b></a><a href="#d5"><small>DAY</small><b>5</b></a><a href="#d6"><small>DAY</small><b>6</b></a><a href="#d7"><small>DAY</small><b>7</b></a>
+    </nav>
+
+    <div class="days">
+
+      <!-- DAY 1 -->
+      <article class="day rv" id="d1">
+        <div class="day-h"><div><div class="n">Day 1</div><h3>Land and see The Bund</h3></div><span class="city">Shanghai</span></div>
+        <div class="slot"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14h12a4 4 0 0 0 0-8H4z"/><path d="M16 8h1a2 2 0 0 1 0 4h-1"/><path d="M5 18h10"/></svg></div><div>
+          <div class="when">Morning</div><h4>Land, drop your bags, grab a Luckin</h4>
+          <p>Get to your hotel and test Alipay on your first Luckin coffee. If it pays, you are set for the week.</p>
+          <div class="chips"><span class="chip">About 10 yuan with app deals</span></div>
+        </div></div>
+        <div class="slot"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16"/><path d="M5 12a7 7 0 0 0 14 0"/><path d="M9 8c0-2 1-3 3-3s3 1 3 3"/></svg></div><div>
+          <div class="when">Afternoon</div><h4>Yang's Dumplings, pan-fried soup buns</h4>
+          <p>Crispy on the bottom, hot soup inside. Bite a small hole, sip the soup, then eat the rest. Do not chomp it whole. You will burn your mouth.</p>
+          <div class="chips"><span class="chip">About 13 yuan for 4</span></div>
+        </div></div>
+        <div class="slot"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 1 0 9 9 9 9 0 1 1-9-9z"/></svg></div><div>
+          <div class="when">Night</div><h4>The Bund at night</h4>
+          <p>Walk the river path. Old buildings on one side, the glowing skyline on the other. Best from about 6:30 to 9pm, when both sides are lit.</p>
+          <div class="chips"><span class="chip gold">Free</span><span class="chip">Lights go off earlier in winter</span></div>
+        </div></div>
+      </article>
+
+      <!-- DAY 2 -->
+      <article class="day rv" id="d2">
+        <div class="day-h"><div><div class="n">Day 2</div><h3>Tai chi and old Shanghai</h3></div><span class="city">Shanghai</span></div>
+        <div class="slot"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></div><div>
+          <div class="when">Morning</div><h4>Morning tai chi in Fuxing Park</h4>
+          <p>Go early. The park fills with tai chi groups, dancers and card games. Stand in the back row and copy the moves. Nobody minds.</p>
+          <div class="chips"><span class="chip">Go early in the morning</span></div>
+        </div></div>
+        <div class="slot"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18"/><path d="M5 20v-6l7-6 7 6v6"/><path d="M2 12l10-8 10 8"/><path d="M10 20v-4h4v4"/></svg></div><div>
+          <div class="when">Afternoon</div><h4>Yu Garden</h4>
+          <p>A garden from hundreds of years ago with rocks, ponds and curved roofs. Go in around 3pm so you are still there when the lights come on.</p>
+          <div class="chips"><span class="chip">About 30 to 40 yuan</span><span class="chip">9am to 4:30pm</span><span class="chip">Closed Mondays</span></div>
+        </div></div>
+        <div class="slot"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6l1 4H8z"/><path d="M8 7a4 4 0 0 0 0 8h8a4 4 0 0 0 0-8"/><path d="M12 15v4M9 21h6"/></svg></div><div>
+          <div class="when">Night</div><h4>Yu Garden lit up</h4>
+          <p>The lanes and the Nine-Turn Bridge glow gold after dark. The bridge sits outside the ticket gate, so it costs nothing.</p>
+          <div class="chips"><span class="chip gold">Bridge is free</span><span class="chip">Lights on around 5 to 6pm</span></div>
+        </div></div>
+      </article>
+
+      <!-- MID CTA -->
+      <aside class="mid day wide rv" aria-label="Business class on points">
+        <img src="../images/site/product-blueprint.jpg" alt="The Travel Hacking Blueprint by Digital with David K">
+        <div>
+          <h3>Flying to China? Do it in business class.</h3>
+          <p>The Blueprint shows the exact points steps I use to fly business class without paying cash.</p>
+          <a class="btn btn-gold btn-sm" href="https://stan.store/digitalwithdavidk/p/get-my-travel-hack-blueprint-now" target="_blank" rel="noopener">Get the $19 Blueprint</a>
+        </div>
+      </aside>
+
+      <!-- DAY 3 -->
+      <article class="day rv" id="d3">
+        <div class="day-h"><div><div class="n">Day 3</div><h3>Glasses, head spa, robot</h3></div><span class="city">Shanghai</span></div>
+        <div class="slot"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="6.5" cy="14" r="3.5"/><circle cx="17.5" cy="14" r="3.5"/><path d="M10 14h4M3 14l1-6M21 14l-1-6"/></svg></div><div>
+          <div class="when">Morning</div><h4>Shanghai International Glasses City</h4>
+          <p>Floors of glasses shops by Shanghai Railway Station. Pick a frame, and simple lenses can be ready in under an hour. Bring your prescription and your old glasses.</p>
+          <div class="chips"><span class="chip">Full pairs from about 150 to 300 yuan</span><span class="chip">Metro Line 4</span></div>
+        </div></div>
+        <div class="slot"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c-4 0-7 3-7 7 0 3 2 5 3 6v4h8v-4c1-1 3-3 3-6 0-4-3-7-7-7z"/><path d="M9 10c1-1 2-1.5 3-1.5s2 .5 3 1.5"/></svg></div><div>
+          <div class="when">Afternoon</div><h4>Shanghai head spa</h4>
+          <p>Scalp massage, warm wash and blow dry. You walk out feeling brand new. Most take about 60 to 90 minutes.</p>
+          <div class="chips"><span class="chip">Basic about 100 to 150 yuan</span><span class="chip">Book on Dianping</span></div>
+        </div></div>
+        <div class="slot"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="7" width="12" height="11" rx="3"/><path d="M12 3v4M9 12h.01M15 12h.01M10 15h4M8 21h8"/></svg></div><div>
+          <div class="when">Night</div><h4>Hotel robot room service</h4>
+          <p>Order food to your hotel. In lots of Chinese hotels, a little robot rides the elevator and brings it to your door. Film it. Trust me.</p>
+          <div class="chips"><span class="chip">Ask your hotel if they have one</span></div>
+        </div></div>
+      </article>
+
+      <!-- DAY 4 -->
+      <article class="day rv" id="d4">
+        <div class="day-h"><div><div class="n">Day 4</div><h3>Old streets, sky high night</h3></div><span class="city">Shanghai</span></div>
+        <div class="slot"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14h12a4 4 0 0 0 0-8H4z"/><path d="M16 8h1a2 2 0 0 1 0 4h-1"/><path d="M5 18h10"/></svg></div><div>
+          <div class="when">Morning</div><h4>Luckin and a slow walk</h4>
+          <p>Coffee first, then walk the leafy streets of the old French Concession, right by Fuxing Park. Cute cafes and old houses.</p>
+          <div class="chips"><span class="chip">About 10 yuan coffee</span></div>
+        </div></div>
+        <div class="slot"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16"/><path d="M5 12a7 7 0 0 0 14 0"/><path d="M9 8c0-2 1-3 3-3s3 1 3 3"/></svg></div><div>
+          <div class="when">Afternoon</div><h4>Round 2 of soup buns</h4>
+          <p>Yes, again. Then cross the river to Lujiazui, where the giant towers are.</p>
+          <div class="chips"><span class="chip">About 13 yuan for 4</span></div>
+        </div></div>
+        <div class="slot"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M10 22V8l2-5 2 5v14"/><path d="M7 22V12h3M14 12h3v10"/><path d="M5 22h14"/></svg></div><div>
+          <div class="when">Night</div><h4>Shanghai Tower, 118th floor</h4>
+          <p>Go up just before sunset and stay for the city lights. Take the one flight of stairs to floor 119. Same view, way fewer people.</p>
+          <div class="chips"><span class="chip">About 180 yuan</span><span class="chip">Open 8:30am to 10pm</span></div>
+        </div></div>
+      </article>
+
+      <!-- DAY 5 -->
+      <article class="day rv" id="d5">
+        <div class="day-h"><div><div class="n">Day 5</div><h3>Bullet train to West Lake</h3></div><span class="city">Hangzhou</span></div>
+        <div class="slot"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12a3 3 0 0 1 3 3v9a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3V6a3 3 0 0 1 3-3z"/><path d="M3 11h18M8 15h.01M16 15h.01M7 18l-2 3M17 18l2 3"/></svg></div><div>
+          <div class="when">Morning</div><h4>Shanghai Hongqiao to Hangzhou East</h4>
+          <p>The bullet train takes about 45 to 60 minutes. Trains leave every few minutes. Book on Trip.com and bring your passport. It is your ticket at the gate.</p>
+          <div class="chips"><span class="chip">About 60 to 90 yuan, second class</span></div>
+        </div></div>
+        <div class="slot"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 16c2 0 2-1.5 4-1.5s2 1.5 4 1.5 2-1.5 4-1.5 2 1.5 4 1.5 2-1.5 4-1.5"/><path d="M2 20c2 0 2-1.5 4-1.5s2 1.5 4 1.5 2-1.5 4-1.5 2 1.5 4 1.5 2-1.5 4-1.5"/><path d="M8 12l4-8 4 8z"/></svg></div><div>
+          <div class="when">Afternoon</div><h4>West Lake</h4>
+          <p>Take Metro Line 1 to Longxiangqiao. The lake is about a 5 minute walk. Walk to the Broken Bridge and along the water. Take your time here.</p>
+          <div class="chips"><span class="chip gold">Free to walk</span><span class="chip">Metro about 4 to 5 yuan</span></div>
+        </div></div>
+        <div class="slot"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 1 0 9 9 9 9 0 1 1-9-9z"/></svg></div><div>
+          <div class="when">Night</div><h4>Sunset by the lake, train home</h4>
+          <p>Watch the sun drop over the water, then ride back to Shanghai and sleep in the same hotel. No repacking.</p>
+          <div class="chips"><span class="chip">Book your return seat early</span></div>
+        </div></div>
+      </article>
+
+      <!-- DAY 6 -->
+      <article class="day rv" id="d6">
+        <div class="day-h"><div><div class="n">Day 6</div><h3>Gardens and canals</h3></div><span class="city">Suzhou</span></div>
+        <div class="slot"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12a3 3 0 0 1 3 3v9a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3V6a3 3 0 0 1 3-3z"/><path d="M3 11h18M8 15h.01M16 15h.01M7 18l-2 3M17 18l2 3"/></svg></div><div>
+          <div class="when">Morning</div><h4>Quick train to Suzhou</h4>
+          <p>About 25 to 35 minutes from Shanghai. Make sure your ticket says "Suzhou" and not "Suzhou North" so you land close to the old town.</p>
+          <div class="chips"><span class="chip">About 30 to 45 yuan, second class</span></div>
+        </div></div>
+        <div class="slot"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22V12"/><path d="M12 12c0-4 3-7 7-7 0 4-3 7-7 7z"/><path d="M12 15c0-3-2.5-5.5-6-5.5 0 3 2.5 5.5 6 5.5z"/><path d="M5 22h14"/></svg></div><div>
+          <div class="when">Afternoon</div><h4>Humble Administrator's Garden</h4>
+          <p>One of the most famous gardens in China. Book a time slot before you go with your passport number. They may not sell tickets at the gate.</p>
+          <div class="chips"><span class="chip">About 70 yuan (about 50 in winter)</span><span class="chip">Book ahead</span></div>
+        </div></div>
+        <div class="slot"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 18c2 0 2-1.5 4-1.5s2 1.5 4 1.5 2-1.5 4-1.5 2 1.5 4 1.5 2-1.5 4-1.5"/><path d="M4 14l2-4h12l2 4"/><path d="M9 10V7h6v3"/></svg></div><div>
+          <div class="when">Night</div><h4>Pingjiang Road canal walk</h4>
+          <p>Stone bridges, tea houses and lanterns on the water. Grab a snack, walk slow, then take the train back.</p>
+          <div class="chips"><span class="chip gold">Free to walk</span></div>
+        </div></div>
+      </article>
+
+      <!-- DAY 7 -->
+      <article class="day wide rv" id="d7">
+        <div class="day-h"><div><div class="n">Day 7</div><h3>Your last day, your way</h3></div><span class="city">Shanghai</span></div>
+        <div class="slot"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></div><div>
+          <div class="when">Morning</div><h4>One more round of tai chi</h4>
+          <p>You know the moves now. Go back to Fuxing Park, then a last Luckin.</p>
+        </div></div>
+        <div class="slot"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8h12l-1 13H7z"/><path d="M9 8a3 3 0 0 1 6 0"/></svg></div><div>
+          <div class="when">Afternoon</div><h4>Pick one: second head spa or new sunglasses</h4>
+          <p>Loved the head spa? Book another. Or go back to Glasses City and get sunglasses made for the trip home.</p>
+        </div></div>
+        <div class="slot"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 15l2 4h14l2-4z"/><path d="M6 15V9h9l3 6"/><path d="M9 9V6h3v3"/></svg></div><div>
+          <div class="when">Night</div><h4>Huangpu River cruise</h4>
+          <p>End the week on the water. You see The Bund and the towers lit up from the middle of the river.</p>
+          <div class="chips"><span class="chip">About 120 to 150 yuan</span></div>
+        </div></div>
+      </article>
+
+    </div>
+  </section>
+
+  <section id="before">
+    <p class="eyebrow">Read this first</p>
+    <h2>Before you go</h2>
+    <div class="bg rv">
+      <div class="bg-h"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.8.8 1.3 1.6 1.5 2.5h5c.2-.9.7-1.7 1.5-2.5A6 6 0 0 0 12 3z"/></svg><h3>5 things to set up</h3></div>
+      <ol>
+        <li><div><b>Entry for Canadians</b><p>Right now, Canadians can visit China for up to 30 days with no visa. That rule runs until December 31, 2026. Fill in the free arrival card online before you fly, and have at least 6 months left on your passport. Going in 2027? The rule could change. Check the official rules before you book.</p></div></li>
+        <li><div><b>Pay with Alipay or WeChat Pay</b><p>Almost everyone pays by phone. Download Alipay or WeChat Pay at home and add your Visa or Mastercard. Big payments can have a small fee (about 3% over 200 yuan on WeChat Pay). Carry a little cash just in case.</p></div></li>
+        <li><div><b>Get an eSIM or a VPN</b><p>Google, Instagram and WhatsApp are blocked in China. Buy a travel eSIM that says it works with these apps, or set up a VPN. Do it before you land.</p></div></li>
+        <li><div><b>Book trains and hotels on Trip.com</b><p>Trip.com is in English and takes foreign cards. Use your passport to book train seats. Your passport gets you through the gate.</p></div></li>
+        <li><div><b>Download Luckin and Dianping</b><p>Order Luckin coffee ahead for the best prices. Use Dianping to find and book head spas and food spots.</p></div></li>
+      </ol>
+      <p class="warn">Prices checked October 2026. They change, so think of them as rough guides, not promises.</p>
+    </div>
+  </section>
+
+  <section id="about">
+    <p class="eyebrow">Who made this</p>
+    <h2>Hey, I'm David</h2>
+    <div class="about rv">
+      <img src="../images/site/about-david.jpg" alt="David Duong, Digital with David K">
+      <div>
+        <p>I'm Canadian. I show people how to travel better using credit card points.</p>
+        <p>This plan is built from my Chinamaxxing videos. Same spots, same food, same apps.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="next">
+    <p class="eyebrow">Your next step</p>
+    <h2>Make the trip happen</h2>
+    <div class="cta-stack">
+      <div class="cta dark full rv">
+        <div class="top">
+          <img src="../images/site/product-discovery-call.jpg" alt="Book a free call with David">
+          <div><div class="k">1-on-1 help</div><h3>Want 1-on-1 help? Book a free call with David</h3></div>
+        </div>
+        <p>Tell David where you want to go. You hop on a quick free call and map out the best way to get you there.</p>
+        <a class="btn btn-gold" href="https://stan.store/digitalwithdavidk/p/not-sure--book-a-discovery-call" target="_blank" rel="noopener">Book a free call with David</a>
+      </div>
+      <div class="cta rv">
+        <div class="top">
+          <img src="../images/site/product-blueprint.jpg" alt="The Travel Hacking Blueprint">
+          <div><div class="k">The flight</div><h3>Fly there on points: my $19 Blueprint</h3></div>
+        </div>
+        <p>The long flight is the hardest part. Lie flat instead. The Blueprint walks you through the points steps, one by one.</p>
+        <a class="btn btn-em" href="https://stan.store/digitalwithdavidk/p/get-my-travel-hack-blueprint-now" target="_blank" rel="noopener">Get the $19 Blueprint</a>
+      </div>
+      <div class="cta rv">
+        <div class="top">
+          <div class="ig"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></div>
+          <div><div class="k">What's next</div><h3>Follow @digitalwithdavidk</h3></div>
+        </div>
+        <p>New places drop here first. Follow so the next one lands in your feed.</p>
+        <a class="btn btn-line" href="https://www.instagram.com/digitalwithdavidk/" target="_blank" rel="noopener">Follow @digitalwithdavidk</a>
+      </div>
+    </div>
+  </section>
+
+
+<div class="wrap" style="padding-top:28px"><button class="btn btn-em back" style="width:100%" type="button" data-back>Back to the globe</button></div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <a class="brand" href="https://www.instagram.com/digitalwithdavidk/" target="_blank" rel="noopener" aria-label="Digital with David K on Instagram">
+      <svg viewBox="26 14 238 125" aria-hidden="true"><g fill="currentColor"><path d="M34.5 18.2H126C141.5 18.2 152 30 152 46V106C152 121.5 140.5 133.6 121 133.6H34Q30 133.6 30 129.6V113Q30 109.2 33.8 109.2H104.5C115.5 109.2 122.2 101 122.2 90V60C122.2 51 116.5 44 107 44H34Q30.5 44 30.5 40.5V22Q30.5 18.2 34.5 18.2Z"/><path mask="url(#dkm)" d="M35.5 46.6H104.5C111 46.6 114.6 52.5 114.6 60V93C114.6 101 110.5 106.6 103.5 106.6H35.5Q30.5 106.6 30.5 101.6V51.6Q30.5 46.6 35.5 46.6Z"/><path d="M157 19H179.5Q182.5 19 182.5 22V59L224 20.8H259.2L203.8 76.5L258.2 134.2H219.8L183.8 97.2V131Q183.8 134.5 180.3 134.5H157.5Q154 134.5 154 131V22.5Q154 19 157 19Z"/></g></svg>
+      <b>Digital<span>with David K.</span></b>
+    </a>
+    <p>Digital with David K &middot; @digitalwithdavidk &middot; <a href="mailto:digitalwithdavidk@gmail.com">digitalwithdavidk@gmail.com</a></p>
+    <p>Prices, times and entry rules were checked in October 2026 and can change. Always check official sources before you book. This guide is not legal or immigration advice.</p>
+  </div>
+</footer>
+  </div>
+
+  <!-- Other countries view (Japan from japan.js, the rest from premium-plans.enc) -->
+  <div id="tripView" hidden></div>
+</div>
+
+<div class="sheet" id="sheet" role="dialog" aria-labelledby="sheetH">
+  <div class="sheet-in">
+    <div class="k">Coming soon</div>
+    <h3 id="sheetH">Japan</h3>
+    <p id="sheetP">Want this one next? Tap vote. Everyone sees the live count.</p>
+    <div class="v-count" id="vCount" aria-live="polite"><b id="vNum">&hellip;</b><span id="vLbl">votes</span></div>
+    <div class="row">
+      <button class="btn btn-em btn-sm" id="vBtn" type="button">Vote</button>
+      <button class="btn btn-line btn-sm" id="sheetX" type="button">Close</button>
+    </div>
+    <p class="v-note" id="vNote">One vote per country. New countries every week. Next drop: Wed Oct 21.</p>
+  </div>
+</div>
+
+<script src="vault.js"></script>
+<div class="vsheet" id="vipSheet" role="dialog" aria-modal="true" aria-labelledby="vipH" hidden>
+  <div class="vsheet-in">
+    <span class="vk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>Members</span>
+    <h3 id="vipH">Unlock <strong id="upWhat">every country</strong></h3>
+    <p>Economy has China and Japan. Pick a plan to see the rest of the world.</p>
+    <div class="up-plan" id="upPremium">
+      <h4>Premium</h4>
+      <p class="up-sub">Every country on the globe, plus Premium picks.</p>
+      <ul><li>All 9 countries, day by day</li><li>4 star hotels, nice dinners and taxis</li><li>New countries every week</li></ul>
+      <div class="up-opts" role="group" aria-label="Premium plan length">
+        <button type="button" data-up="premium" data-len="month" aria-pressed="true"><b>$5</b><span>a month</span></button>
+        <button type="button" data-up="premium" data-len="year" aria-pressed="false"><b>$50</b><span>a year (save $10)</span></button>
+      </div>
+      <a class="btn btn-prem" id="upBuyPremium" href="#" target="_blank" rel="noopener">Get Premium</a>
+    </div>
+    <div class="up-plan first" id="upFirst">
+      <h4>First Class</h4>
+      <p class="up-sub">Everything in Premium, plus First Class picks and the black and gold look.</p>
+      <p class="up-build">First Class is still being built. Founding members get it first.</p>
+      <ul><li>Hidden 5 star hotels most people never hear of</li><li>Private butlers and concierge help</li><li>The best tables and the wildest clubs</li></ul>
+      <div class="up-opts" role="group" aria-label="First Class plan length">
+        <button type="button" data-up="first" data-len="month" aria-pressed="false"><b>$20</b><span>a month</span></button>
+        <button type="button" data-up="first" data-len="year" aria-pressed="true"><b>$200</b><span>a year (save $40)</span></button>
+      </div>
+      <p class="up-save">Monthly is $240 a year. Lock in the year and save $40.</p>
+      <a class="btn btn-gold" id="upBuyFirst" href="#" target="_blank" rel="noopener">Get First Class</a>
+    </div>
+    <p class="up-found">Founding price. Never goes up while you stay. Ends Oct 31. Cancel anytime.</p>
+    <form class="vhave" id="vipForm" novalidate>
+      <label for="vipEmail">Already a member? Enter your member email</label>
+      <div class="row"><input id="vipEmail" type="email" inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" placeholder="you@email.com"><button class="vgo" id="vipGo" type="submit">Unlock</button></div>
+      <p class="vmsg" id="vipMsg" role="alert" hidden></p>
+    </form>
+    <button class="vclose" id="vipX" type="button">Not now</button>
+  </div>
+</div>
+
+<script src="tiers.js"></script>
+<script src="japan.js"></script>
+<script src="members.js"></script>
+<script>
+(function(){
+'use strict';
+/* Membership checkout links live in members.js (one place to swap them). */
+var MLINKS=(window.DWDK_MEMBERS&&window.DWDK_MEMBERS.links)||{};
+var FREE=window.DWDK_FREE||{trips:{},tiers:{}};
+var FREEK={china:1,japan:1};/* Economy countries */
+/* ===== Content (edit words and places here) ===== */
+var STAN='https://stan.store/digitalwithdavidk/p/free-7-days-in-china-itinerary';
+var KEY='dwdk_globe_pass';
+var TRIPS={},VIPP=null,LEVEL='none';/* filled after the pass unlocks (vault.js). LEVEL: none, economy, premium, first */
+for(var fk in FREE.trips)TRIPS[fk]=FREE.trips[fk];
+function paid(){return LEVEL==='premium'||LEVEL==='first'}
+function canOpen(key){return !!FREEK[key]||paid()}
+var PLACES=[
+  {key:'china',id:156,name:'China',lon:121.47,lat:31.23,live:true,side:-1,sub:'7 days: Shanghai, Hangzhou, Suzhou'},
+  {key:'japan',id:392,name:'Japan',lon:139.69,lat:35.69,live:true},
+  {key:'korea',id:410,name:'South Korea',short:'Korea',lon:126.98,lat:37.57,live:true,side:2},
+  {key:'thailand',id:764,name:'Thailand',lon:100.50,lat:13.75,live:true,side:-1},
+  {key:'vietnam',id:704,name:'Vietnam',lon:108.22,lat:16.05,live:true},
+  {key:'dubai',id:784,name:'Dubai (UAE)',short:'Dubai',lon:55.27,lat:25.20,live:true,side:-1},
+  {key:'canada',id:124,name:'Canada',lon:-79.38,lat:43.65,live:true,side:2},
+  {key:'usa',id:840,name:'United States',short:'USA',lon:-80.19,lat:25.76,live:true},
+  {key:'australia',id:36,name:'Australia',lon:151.21,lat:-33.87,live:true,side:-1},
+  {id:484,v:'mexico',name:'Mexico',lon:-99.13,lat:19.43,side:-1},
+  {id:380,v:'italy',name:'Italy',lon:12.50,lat:41.90,side:-1},
+  {id:300,v:'greece',name:'Greece',lon:23.73,lat:37.98},
+  {id:360,v:'bali',name:'Bali',lon:115.19,lat:-8.41},
+  {id:620,v:'portugal',name:'Portugal',lon:-9.14,lat:38.72,side:-1},
+  {id:724,v:'spain',name:'Spain',lon:2.17,lat:41.39},
+  {id:792,v:'turkey',name:'Turkey',lon:28.98,lat:41.01},
+  {id:608,v:'philippines',name:'Philippines',lon:120.98,lat:14.60},
+  {id:158,v:'taiwan',name:'Taiwan',lon:121.56,lat:25.03},
+  {id:702,v:'singapore',name:'Singapore',lon:103.82,lat:1.35,side:-1},
+  {id:352,v:'iceland',name:'Iceland',lon:-21.94,lat:64.15},
+  {id:756,v:'switzerland',name:'Switzerland',lon:8.54,lat:47.37,side:2},
+  {id:504,v:'morocco',name:'Morocco',lon:-7.99,lat:31.63,side:-1},
+  {id:818,v:'egypt',name:'Egypt',lon:31.24,lat:30.04},
+  {id:604,v:'peru',name:'Peru',lon:-71.97,lat:-13.53,side:-1}
+];
+var SUBS={japan:'7 days: Tokyo, Kyoto, Osaka',korea:'6 days: Seoul, Busan',thailand:'7 days: Bangkok, Phuket',vietnam:'7 days: Ho Chi Minh City, Da Nang, Hoi An',dubai:'5 days: Dubai, Abu Dhabi',canada:'7 days: Toronto, Niagara Falls, Montreal',usa:'7 days: New York, Miami',australia:'7 days: Sydney, Melbourne'};
+PLACES.forEach(function(p){if(p.live&&p.key!=='china')p.sub=SUBS[p.key]});
+var BYKEY={};PLACES.forEach(function(p){if(p.key)BYKEY[p.key]=p});
+var URLS={call:'https://stan.store/digitalwithdavidk/p/not-sure--book-a-discovery-call',bp:'https://stan.store/digitalwithdavidk/p/get-my-travel-hack-blueprint-now',ig:'https://www.instagram.com/digitalwithdavidk/'};
+var LIBS=[
+  'https://cdn.jsdelivr.net/npm/d3-array@3.2.4/dist/d3-array.min.js',
+  'https://cdn.jsdelivr.net/npm/d3-geo@3.1.1/dist/d3-geo.min.js',
+  'https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js'
+];
+var ATLAS='https://cdn.jsdelivr.net/npm/world-atlas@2.0.2/countries-110m.json';
+var REDUCED=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+function $(id){return document.getElementById(id)}
+function sGet(store,k){try{return window[store].getItem(k)}catch(e){return null}}
+function sSet(store,k,v){try{window[store].setItem(k,v)}catch(e){}}
+
+/* ===== Grace key: read ?k=, then strip it from the address bar ===== */
+var graceKey=null;
+(function(){
+  try{
+    var u=new URL(location.href);
+    var k=u.searchParams.get('k');
+    if(k){
+      graceKey=k.trim();
+      sSet('sessionStorage','dwdk_globe_k',graceKey);
+      u.searchParams.delete('k');
+      history.replaceState(history.state,'',u.pathname+(u.searchParams.toString()?'?'+u.searchParams.toString():'')+u.hash);
+    }else{graceKey=sGet('sessionStorage','dwdk_globe_k');}
+  }catch(e){}
+})();
+
+/* ===== Gate ===== */
+function readPass(){
+  var v=sGet('localStorage',KEY);
+  if(!v)return null;
+  try{var o=JSON.parse(v);return (o&&(o.e||o.h))?o:null}catch(e){return null}
+}
+function remembered(){return !!readPass()}
+function cleanName(v){
+  v=String(v||'').replace(/[^A-Za-zÀ-ɏ' -]/g,'').replace(/\s+/g,' ').trim().slice(0,20);
+  return v?v.charAt(0).toUpperCase()+v.slice(1):'';
+}
+var guest='';
+function greet(){
+  var h=$('hi');if(!h)return;
+  if(guest){h.textContent='Welcome aboard, '+guest;h.hidden=false}else{h.hidden=true}
+}
+$('fname').addEventListener('input',function(){var n=cleanName(this.value);$('paxName').textContent=n?n.toUpperCase():'GUEST'});
+function showError(html){var e=$('err');e.innerHTML=html;e.hidden=false;var p=$('passForm');p.classList.remove('shake');void p.offsetWidth;if(!REDUCED)p.classList.add('shake')}
+var NOPE='<p><b>We can\'t find that email.</b> <a href="'+STAN+'" target="_blank" rel="noopener">Grab your free pass here</a>.</p><p>Just signed up? Use the link in your email.</p>';
+
+$('passForm').addEventListener('submit',function(ev){
+  ev.preventDefault();
+  var email=($('email').value||'').trim().toLowerCase();
+  $('err').hidden=true;
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){showError('<p><b>That email looks off.</b> Check it and try again.</p>');return}
+  if(!(window.crypto&&crypto.subtle)){showError('<p><b>This browser can\'t check your pass.</b> Try opening the link in Safari or Chrome.</p>');return}
+  board(email,false);
+});
+var GO_HTML=null;
+function busy(on){var b=$('go');if(GO_HTML===null)GO_HTML=b.innerHTML;b.disabled=on;b.innerHTML=on?'Checking your pass...':GO_HTML}
+function applyAccess(r){
+  LEVEL=r.level;VIPP=r.vip||null;
+  var P=r.premium||null,k;
+  TRIPS={};for(k in FREE.trips)TRIPS[k]=FREE.trips[k];
+  TIERS=JSON.parse(JSON.stringify(BASE_TIERS));for(k in FREE.tiers)TIERS[k]=FREE.tiers[k];
+  if(P){
+    for(k in (P.trips||{}))TRIPS[k]=P.trips[k];
+    for(k in (P.tiers||{}))TIERS[k]=P.tiers[k];
+    if(P.china&&TIERS.china){
+      if(P.china.cost)for(var ck in P.china.cost)TIERS.china.cost[ck]=P.china.cost[ck];
+      for(var c in (P.china.cities||{})){TIERS.china.cities[c]=TIERS.china.cities[c]||{};for(var t in P.china.cities[c])TIERS.china.cities[c][t]=P.china.cities[c][t]}
+    }
+  }
+  document.documentElement.classList.toggle('is-vip',LEVEL==='first');
+  $('ecoBar').hidden=LEVEL!=='economy';
+  var cv=$('chinaView');if(cv){[].forEach.call(cv.querySelectorAll('.tbox'),function(b){b.parentNode.removeChild(b)});addTiers(cv,'china')}
+  refreshPickers();addChinaVip();paintCards();cur=null;
+}
+function board(email,auto){
+  $('err').hidden=true;busy(true);
+  var k=graceKey||(PASSK||'');
+  DWDKVault.unlock(email,k).then(function(r){
+    busy(false);
+    if(r.level==='none'){
+      if(auto){try{localStorage.removeItem(KEY)}catch(e){}showError('<p><b>This pass is not active anymore.</b> <a href="'+STAN+'" target="_blank" rel="noopener">Grab your free pass here</a>.</p>')}
+      else showError(NOPE);
+      return;
+    }
+    applyAccess(r);
+    if(!auto){guest=cleanName($('fname').value)}
+    $('paxName').textContent=guest?guest.toUpperCase():'GUEST';
+    var keep={e:email,at:Date.now(),n:guest};if(graceKey&&r.level!=='none')keep.k=graceKey;else if(PASSK)keep.k=PASSK;
+    sSet('localStorage',KEY,JSON.stringify(keep));
+    $('passForm').classList.add('ok');
+    setTimeout(enterApp,(REDUCED||auto)?0:750);
+  }).catch(function(){busy(false);showError('<p><b>We could not check your pass right now.</b> Check your internet and try again.</p>')});
+}
+
+/* ===== App views ===== */
+var started=false,cur=null;
+function hashKey(){var k=(location.hash||'').slice(1);return (BYKEY[k]&&BYKEY[k].live)?k:null}
+function enterApp(){
+  $('gate').hidden=true;$('app').hidden=false;greet();
+  if(!started){started=true;buildList();loadGlobe();loadVotes();loadDrop()}
+  var k=hashKey();if(k&&canOpen(k))openTrip(k,true);else{showGlobe(true);if(k)openUp('premium',BYKEY[k])}
+}
+function showGlobe(noPush){
+  $('chinaView').hidden=true;$('tripView').hidden=true;$('globeView').hidden=false;cur=null;
+  document.body.classList.add('g-on-dark');
+  if(!noPush&&history.state&&history.state.v){history.back();return}
+  if(!noPush&&location.hash)history.pushState(null,'',location.pathname+location.search);
+  window.scrollTo(0,0);G.resume&&G.resume();
+}
+function openTrip(key,noPush){
+  if(!canOpen(key)){openUp('premium',BYKEY[key]);return}
+  var view=key==='china'?$('chinaView'):$('tripView');
+  if(key!=='china'&&cur!==key)renderTrip(key);
+  $('globeView').hidden=true;$('chinaView').hidden=key!=='china';$('tripView').hidden=key==='china';cur=key;
+  document.body.classList.remove('g-on-dark');
+  if(!noPush)history.pushState({v:key},'','#'+key);
+  window.scrollTo(0,0);G.pause&&G.pause();revealInit(view);
+}
+window.addEventListener('popstate',function(){if($('app').hidden)return;var k=hashKey();if(k&&canOpen(k))openTrip(k,true);else showGlobe(true)});
+function viewClicks(e){
+  var b=e.target.closest('[data-back]');if(b){e.preventDefault();showGlobe();return}
+  var a=e.target.closest('a[href^="#"]');
+  if(a){var t=this.querySelector(a.getAttribute('href'));if(t){e.preventDefault();t.scrollIntoView({behavior:REDUCED?'auto':'smooth'})}}
+}
+$('chinaView').addEventListener('click',viewClicks);
+$('tripView').addEventListener('click',viewClicks);
+
+/* ===== Trip page builder (other countries) ===== */
+function esc(t){return String(t).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+var ICO={
+  Morning:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>',
+  Afternoon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>',
+  Night:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 1 0 9 9 9 9 0 1 1-9-9z"/></svg>'
+};
+function chips(c){return c&&c.length?'<div class="chips">'+c.map(function(x){var g=x.charAt(0)==='*';return '<span class="chip'+(g?' gold':'')+'">'+esc(g?x.slice(1):x)+'</span>'}).join('')+'</div>':''}
+function ctaStack(place){
+  return '<section id="t-next"><p class="eyebrow">Your next step</p><h2>Make the trip happen</h2><div class="cta-stack">'+
+  '<div class="cta dark full rv"><div class="top"><img src="../images/site/product-discovery-call.jpg" alt="Book a free call with David"><div><div class="k">1-on-1 help</div><h3>Want 1-on-1 help? Book a free call with David</h3></div></div><p>Tell David you want to go to '+esc(place)+'. You hop on a quick free call and map out the best way to get you there.</p><a class="btn btn-gold" href="'+URLS.call+'" target="_blank" rel="noopener">Book a free call with David</a></div>'+
+  '<div class="cta rv"><div class="top"><img src="../images/site/product-blueprint.jpg" alt="The Travel Hacking Blueprint"><div><div class="k">The flight</div><h3>Fly there on points: my $19 Blueprint</h3></div></div><p>The flight is the biggest cost. The Blueprint walks you through the points steps to fly there in business class.</p><a class="btn btn-em" href="'+URLS.bp+'" target="_blank" rel="noopener">Get the $19 Blueprint</a></div>'+
+  '<div class="cta rv"><div class="top"><div class="ig"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></div><div><div class="k">What\'s next</div><h3>Follow @digitalwithdavidk</h3></div></div><p>New places drop here first. Follow so the next one lands in your feed.</p><a class="btn btn-line" href="'+URLS.ig+'" target="_blank" rel="noopener">Follow @digitalwithdavidk</a></div>'+
+  '</div></section>';
+}
+function renderTrip(key){
+  var t=TRIPS[key],p=BYKEY[key],n=t.days.length,h='';
+  h+='<header class="bar"><div class="wrap"><a class="brand" href="'+URLS.ig+'" target="_blank" rel="noopener" aria-label="Digital with David K on Instagram"><img src="../images/brand/dk-beige.svg" alt="" style="height:20px;width:auto"><b>Digital<span>with David K.</span></b></a><div class="bar-cta"><button class="pill pill-line back" type="button" data-back>&larr; Globe</button><a class="pill pill-gold" href="'+URLS.call+'" target="_blank" rel="noopener">Free call</a></div></div></header>';
+  h+='<div class="hero"><div class="wrap hero-grid"><div><span class="tag">Members &middot; Open now</span><h1>'+n+' Days in <strong>'+esc(t.name)+'</strong></h1><p class="lead">'+esc(t.lead)+' <b>'+esc(t.cities)+'.</b></p><div class="stats">'+t.stats.map(function(x){return '<div class="stat"><b>'+x[0]+'</b><span>'+esc(x[1])+'</span></div>'}).join('')+'</div></div>';
+  h+='<div class="t-route" aria-label="Route">'+t.cities.split(', ').map(function(c,i){return (i?'<i aria-hidden="true"></i>':'')+'<span>'+esc(c)+'</span>'}).join('')+'</div></div></div>';
+  h+='<main class="wrap"><div class="remind rv"><p>Want help planning '+esc(p.short||t.name)+'? <span>Book a free call, or grab the Blueprint to fly there on points.</span></p><div class="row"><a class="btn btn-em btn-sm" href="'+URLS.call+'" target="_blank" rel="noopener">Book a free call</a><a class="btn btn-line btn-sm" href="'+URLS.bp+'" target="_blank" rel="noopener">$19 Blueprint</a></div></div>';
+  h+=tierPicker(false);
+  h+='<section class="baseplan"><p class="eyebrow">The plan</p><h2>Your '+n+' days</h2><p class="sub">'+esc(t.plan)+'</p><nav class="jump" style="grid-template-columns:repeat('+n+',1fr)" aria-label="Jump to a day">';
+  for(var i=1;i<=n;i++)h+='<a href="#t'+i+'"><small>DAY</small><b>'+i+'</b></a>';
+  h+='</nav><div class="days">';
+  t.days.forEach(function(d,i){
+    h+='<article class="day rv" id="t'+(i+1)+'"><div class="day-h"><div><div class="n">Day '+(i+1)+'</div><h3>'+esc(d.t)+'</h3></div><span class="city">'+esc(d.city)+'</span></div>';
+    d.s.forEach(function(sl){h+='<div class="slot"><div class="ico">'+(ICO[sl[0]]||ICO.Morning)+'</div><div><div class="when">'+esc(sl[0])+'</div><h4>'+esc(sl[1])+'</h4><p>'+esc(sl[2])+'</p>'+chips(sl[3])+'</div></div>'});
+    h+='</article>';
+    if(i===1)h+='<aside class="mid day wide rv" aria-label="Business class on points"><img src="../images/site/product-blueprint.jpg" alt="The Travel Hacking Blueprint by Digital with David K"><div><h3>Flying to '+esc(p.short||t.name)+'? Do it in business class.</h3><p>The Blueprint shows the points steps to fly business class without paying cash.</p><a class="btn btn-gold btn-sm" href="'+URLS.bp+'" target="_blank" rel="noopener">Get the $19 Blueprint</a></div></aside>';
+  });
+  if(n%2===1)h=h.replace('<article class="day rv" id="t'+n+'">','<article class="day wide rv" id="t'+n+'">');
+  h+='</div></section>'+vipPlan(key);
+  h+='<section><p class="eyebrow">Read this first</p><h2>Before you go</h2><div class="bg rv"><div class="bg-h"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3 8-8"/><path d="M20 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg><h3>'+t.before.length+' things to set up</h3></div><ol>'+t.before.map(function(b){return '<li><div><b>'+esc(b[0])+'</b><p>'+esc(b[1])+'</p></div></li>'}).join('')+'</ol><p class="warn">Checked October 2026. Rules and prices change, so check before you go.</p></div></section>';
+  h+=ctaStack(t.name);
+  h+='<div style="padding-top:28px"><button class="btn btn-em back" style="width:100%" type="button" data-back>Back to the globe</button></div></main>';
+  h+='<footer><div class="wrap"><p>Digital with David K &middot; @digitalwithdavidk &middot; <a href="mailto:digitalwithdavidk@gmail.com">digitalwithdavidk@gmail.com</a></p><p>Prices, times and entry rules were checked in October 2026 and can change. Always check official sources before you book. This guide is not legal or immigration advice.</p></div></footer>';
+  var v=$('tripView');v.innerHTML=h;v.dataset.rv='';
+  addTiers(v,key);
+}
+
+/* ===== Country cards (always there, and the fallback) ===== */
+function pick(p){
+  if(p.live&&!canOpen(p.key)){openUp('premium',p);return}
+  if(p.live){
+    var done=false;function go(){if(done)return;done=true;openTrip(p.key)}
+    if(G.flyTo&&!REDUCED&&G.isOn()&&G.inView()){G.flyTo(p,go);setTimeout(go,1700)}else go();
+    return}
+  sheetP=p;$('sheetH').textContent=p.name;renderSheet();$('sheet').classList.add('on');
+  setTimeout(function(){try{(voted(p)?$('sheetX'):$('vBtn')).focus({preventScroll:true})}catch(e){}},50);
+  refreshOne(p);
+}
+function closeSheet(){$('sheet').classList.remove('on');sheetP=null}
+$('sheetX').addEventListener('click',closeSheet);
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeSheet()});
+document.addEventListener('pointerdown',function(e){if($('sheet').classList.contains('on')&&!e.target.closest('.sheet-in')&&!e.target.closest('.g-card')&&!e.target.closest('.g-vrow'))closeSheet()});
+function cardHTML(p){
+  if(!p.live)return '<small>Vote for next</small><b>'+esc(p.name)+'</b><span class="vc" data-v="'+p.v+'">Tap to vote</span>';
+  if(!canOpen(p.key))return '<small>'+LOCKSVG+'Premium</small><b>'+esc(p.name)+'</b><span>'+esc(p.sub||'')+'</span>';
+  return '<small><i></i>'+(FREEK[p.key]&&!paid()?'Free with your pass':'Open now')+'</small><b>'+esc(p.name)+'</b><span>'+esc(p.sub||'')+'</span>';
+}
+function buildList(){
+  var l=$('list');
+  PLACES.forEach(function(p){
+    var b=document.createElement('button');b.type='button';b.className='g-card '+(p.live?'live':'soon');
+    p.card=b;b.innerHTML=cardHTML(p);if(p.live&&!canOpen(p.key))b.classList.add('locked');
+    b.addEventListener('click',function(){pick(p)});l.appendChild(b);
+  });
+}
+function paintCards(){
+  PLACES.forEach(function(p){if(!p.card||!p.live)return;p.card.innerHTML=cardHTML(p);p.card.classList.toggle('locked',!canOpen(p.key));p.card.setAttribute('aria-label',p.name+(canOpen(p.key)?'':', Premium, locked'))});
+}
+
+/* ===== Live votes (shared counter: abacus.jasoncameron.dev, namespace dwdk-globe, key vote-<country>) ===== */
+var VAPI='https://abacus.jasoncameron.dev',VNS='dwdk-globe';
+var VOTES={},VSTATE='load',MYV={},VBUSY={},sheetP=null,NEXTDROP='Wed Oct 21';
+function vUrl(kind,p){return VAPI+'/'+kind+'/'+VNS+'/vote-'+p.v}
+function voted(p){return !!MYV[p.v]||sGet('localStorage','dwdk_voted_'+p.v)==='1'}
+function nVotes(n){return n.toLocaleString('en-US')+(n===1?' vote':' votes')}
+function getCount(p){
+  /* /info answers 200 even before the first vote (exists:false), so no 404s in the console */
+  return fetch(vUrl('info',p),{cache:'no-store'}).then(function(r){
+    if(!r.ok)throw 0;return r.json().then(function(j){if(!j||typeof j.value!=='number')throw 0;return j.exists===false||j.value<0?0:j.value});
+  });
+}
+function soonList(){return PLACES.filter(function(p){return !p.live&&p.v})}
+/* small batches with a pause, so the free counter never rate limits us; failed ones retry twice */
+function wait(ms){return new Promise(function(r){setTimeout(r,ms)})}
+function loadVotes(){
+  var todo=soonList(),round=0,missing=0;
+  function batch(list){
+    var chunks=[];for(var i=0;i<list.length;i+=5)chunks.push(list.slice(i,i+5));
+    var failed=[];
+    return chunks.reduce(function(pr,ch,i){return pr.then(function(){return (i?wait(250):Promise.resolve()).then(function(){
+      return Promise.all(ch.map(function(p){return getCount(p).then(function(v){if(!VBUSY[p.v])VOTES[p.v]=Math.max(v,MYV[p.v]?(VOTES[p.v]||0):0)},function(){failed.push(p)})}));
+    })})},Promise.resolve()).then(function(){return failed});
+  }
+  function go(list){
+    return batch(list).then(function(failed){
+      round++;missing=failed.length;
+      if(failed.length&&round<3)return wait(2500*round).then(function(){return go(failed)});
+    });
+  }
+  return go(todo).then(function(){
+    var known=soonList().filter(function(p){return typeof VOTES[p.v]==='number'}).length;
+    VSTATE=known===soonList().length?'ok':(known?'part':'down');paintVotes();
+  });
+}
+function refreshOne(p){
+  getCount(p).then(function(v){if(VBUSY[p.v])return;VOTES[p.v]=v;if(VSTATE==='down'||VSTATE==='load')VSTATE='part';paintVotes()},function(){});
+}
+function castVote(p){
+  if(!p||voted(p)||VBUSY[p.v])return;
+  VBUSY[p.v]=1;renderSheet();
+  fetch(vUrl('hit',p),{cache:'no-store'}).then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(j){
+    if(typeof j.value!=='number')throw 0;
+    VOTES[p.v]=j.value;MYV[p.v]=1;sSet('localStorage','dwdk_voted_'+p.v,'1');VSTATE='ok';
+    delete VBUSY[p.v];paintVotes();
+    var b=$('vNum');b.classList.remove('v-bump');void b.offsetWidth;b.classList.add('v-bump');
+  }).catch(function(){
+    delete VBUSY[p.v];renderSheet();
+    $('sheetP').textContent='That vote did not go through. Check your signal and tap vote again.';
+  });
+}
+function renderSheet(){
+  var p=sheetP;if(!p)return;
+  var has=typeof VOTES[p.v]==='number',me=voted(p),busy=!!VBUSY[p.v];
+  $('vCount').hidden=!has&&VSTATE==='down';
+  $('vNum').textContent=has?VOTES[p.v].toLocaleString('en-US'):'…';
+  $('vLbl').textContent=has&&VOTES[p.v]===1?'vote':'votes';
+  $('sheetP').textContent=me?'You voted for '+p.name+'. Thanks! Watch the count climb.':(VSTATE==='down'&&!has?'Live votes are down for a minute. Try again soon.':'Want this one next? Tap vote. Everyone sees the live count.');
+  var b=$('vBtn');b.disabled=me||busy;
+  b.textContent=me?'You voted ✓':(busy?'Saving your vote…':'Vote for '+p.name);
+}
+function paintVotes(){
+  /* country cards */
+  document.querySelectorAll('.g-card .vc').forEach(function(s){
+    var p=PLACES.filter(function(q){return q.v===s.dataset.v})[0];if(!p)return;
+    var n=VOTES[p.v];s.textContent=voted(p)?'You voted'+(typeof n==='number'?' · '+nVotes(n):''):(typeof n==='number'?nVotes(n)+' · Tap to vote':'Tap to vote');
+  });
+  /* leaderboard */
+  var ol=$('gVotesList');
+  if(VSTATE==='down'){ol.innerHTML='<li class="g-votes-empty">Live votes are down for a minute. Try again soon.</li>'}
+  else if(VSTATE==='ok'||VSTATE==='part'){
+    var rows=soonList().filter(function(p){return VOTES[p.v]>0}).sort(function(a,b){return VOTES[b.v]-VOTES[a.v]||a.name.localeCompare(b.name)});
+    var max=rows.length?Math.max(1,VOTES[rows[0].v]):1,total=rows.reduce(function(s,p){return s+VOTES[p.v]},0);
+    if(!total){ol.innerHTML='<li class="g-votes-empty">'+(VSTATE==='part'?'Loading the votes':'No votes yet. Be the first. Tap a grey pin.')+'</li>'}
+    else{
+      ol.innerHTML='';
+      rows.slice(0,5).forEach(function(p,i){
+        var li=document.createElement('li'),b=document.createElement('button');b.type='button';b.className='g-vrow'+(voted(p)?' me':'');
+        b.innerHTML='<span class="n">'+(i+1)+'</span><span class="nm">'+esc(p.name)+'<em><s style="width:'+Math.round(VOTES[p.v]/max*100)+'%"></s></em></span><span class="c">'+nVotes(VOTES[p.v])+'</span>';
+        b.setAttribute('aria-label',p.name+', '+nVotes(VOTES[p.v])+'. Tap to vote');
+        b.addEventListener('click',function(){pick(p)});li.appendChild(b);ol.appendChild(li);
+      });
+    }
+  }
+  renderSheet();
+}
+$('vBtn').addEventListener('click',function(){castVote(sheetP)});
+setInterval(function(){if(!document.hidden&&!$('app').hidden&&!$('globeView').hidden)loadVotes()},180000);
+
+/* ===== Next drop date (globe/next-drop.json, the weekly task edits it) ===== */
+function loadDrop(){
+  fetch('next-drop.json',{cache:'no-store'}).then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(j){
+    var m=/^(\d{4})-(\d{2})-(\d{2})$/.exec(j&&j.next_drop||'');if(!m)return;
+    var d=new Date(+m[1],+m[2]-1,+m[3]);
+    var lbl=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'][d.getDay()]+' '+['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][d.getMonth()]+' '+d.getDate();
+    NEXTDROP=lbl;$('gDrop').innerHTML='New countries every week. Next drop: <b>'+lbl+'</b>';
+    $('vNote').textContent='One vote per country. New countries every week. Next drop: '+lbl+'.';
+  }).catch(function(){});
+}
+
+/* ===== Round 3: canvas globe (d3-geo + world-atlas) ===== */
+var G={};
+function loadScript(src){return new Promise(function(res,rej){var s=document.createElement('script');s.src=src;s.async=false;s.crossOrigin='anonymous';s.onload=res;s.onerror=rej;document.head.appendChild(s)})}
+function globeFail(){$('globeWrap').hidden=true;$('gHelp').hidden=true;$('gFail').hidden=false}
+function loadGlobe(){
+  var t=setTimeout(globeFail,12000);
+  Promise.all([LIBS.reduce(function(p,s){return p.then(function(){return loadScript(s)})},Promise.resolve()),fetch(ATLAS).then(function(r){if(!r.ok)throw 0;return r.json()})])
+  .then(function(r){clearTimeout(t);if(!$('gFail').hidden)return;startGlobe(r[1])})
+  .catch(function(){clearTimeout(t);globeFail()});
+}
+function startGlobe(world){
+  var d3=window.d3,topo=window.topojson;
+  var countries=topo.feature(world,world.objects.countries).features;
+  var land=topo.feature(world,world.objects.land);
+  var borders=topo.mesh(world,world.objects.countries,function(a,b){return a!==b});
+  var byId={};countries.forEach(function(f){byId[+f.id]=f});
+  PLACES.forEach(function(p){p.f=byId[p.id]});
+  var canvas=$('globe'),ctx=canvas.getContext('2d');
+  var proj=d3.geoOrthographic().clipAngle(90).precision(.5);
+  var path=d3.geoPath(proj,ctx);
+  var grat=d3.geoGraticule10();
+  var rot=[-112,-24,0],vel=0,dragging=false,idleAt=0,running=true,raf=0,W=0,R=0,dpr=1,flying=null;
+  var bg=document.createElement('canvas');
+
+  function size(){
+    var w=canvas.clientWidth;if(!w)return;
+    dpr=Math.min(window.devicePixelRatio||1,2);W=w;R=w/2-14;
+    canvas.width=bg.width=w*dpr;canvas.height=bg.height=w*dpr;
+    proj.scale(R).translate([w/2,w/2]);
+    var b=bg.getContext('2d');b.setTransform(dpr,0,0,dpr,0,0);b.clearRect(0,0,w,w);
+    var glow=b.createRadialGradient(w/2,w/2,R*.9,w/2,w/2,R*1.08);glow.addColorStop(0,'rgba(201,181,156,.22)');glow.addColorStop(1,'rgba(201,181,156,0)');
+    b.fillStyle=glow;b.beginPath();b.arc(w/2,w/2,R*1.08,0,7);b.fill();
+    var sea=b.createRadialGradient(w*.38,w*.32,R*.1,w/2,w/2,R);sea.addColorStop(0,'#1d5640');sea.addColorStop(1,'#071b14');
+    b.fillStyle=sea;b.beginPath();b.arc(w/2,w/2,R,0,7);b.fill();
+  }
+  function visible(p){return d3.geoDistance([p.lon,p.lat],[-rot[0],-rot[1]])<Math.PI/2-.08}
+  function draw(t){
+    ctx.setTransform(1,0,0,1,0,0);ctx.clearRect(0,0,canvas.width,canvas.height);
+    ctx.drawImage(bg,0,0);ctx.setTransform(dpr,0,0,dpr,0,0);
+    proj.rotate(rot);
+    ctx.beginPath();path(grat);ctx.strokeStyle='rgba(201,181,156,.10)';ctx.lineWidth=.7;ctx.stroke();
+    ctx.beginPath();path(land);ctx.fillStyle='#5E6B5E';ctx.fill();
+    PLACES.forEach(function(p){if(!p.f||p.live||p.name==='Bali')return;ctx.beginPath();path(p.f);ctx.fillStyle='rgba(192,192,192,.55)';ctx.fill()});
+    ctx.shadowColor='rgba(201,181,156,.8)';ctx.shadowBlur=12;ctx.fillStyle='#C9B59C';
+    PLACES.forEach(function(p){if(!p.f||!p.live)return;ctx.beginPath();path(p.f);ctx.fill()});ctx.shadowBlur=0;
+    ctx.beginPath();path(borders);ctx.strokeStyle='rgba(237,230,220,.22)';ctx.lineWidth=.5;ctx.stroke();
+    ctx.beginPath();ctx.arc(W/2,W/2,R,0,7);ctx.strokeStyle='rgba(201,181,156,.45)';ctx.lineWidth=1.2;ctx.stroke();
+    var fs=Math.max(10,Math.round(W/42));
+    ctx.font='800 '+fs+'px Montserrat, sans-serif';ctx.textBaseline='middle';
+    var boxes=[];
+    PLACES.filter(function(p){return !p.live}).concat(PLACES.filter(function(p){return p.live})).forEach(function(p){
+      if(!visible(p))return;var xy=proj([p.lon,p.lat]);p.xy=xy;
+      if(p.live){
+        var ph=REDUCED?0:((t/1400)+(p.id%7)/7)%1;
+        ctx.beginPath();ctx.arc(xy[0],xy[1],7+ph*18,0,7);ctx.strokeStyle='rgba(255,230,190,'+(0.8*(1-ph))+')';ctx.lineWidth=2;ctx.stroke();
+        ctx.beginPath();ctx.arc(xy[0],xy[1],7,0,7);ctx.fillStyle='#FFF4E2';ctx.shadowColor='#FFD9A0';ctx.shadowBlur=16;ctx.fill();ctx.shadowBlur=0;
+        ctx.beginPath();ctx.arc(xy[0],xy[1],3.2,0,7);ctx.fillStyle='#0E2F24';ctx.fill();
+      }else{
+        ctx.beginPath();ctx.arc(xy[0],xy[1],4.5,0,7);ctx.fillStyle='#C0C0C0';ctx.fill();ctx.strokeStyle='#0E2F24';ctx.lineWidth=1.5;ctx.stroke();
+      }
+      boxes.push([xy[0]-7,xy[1]-7,14,14]);
+    });
+    PLACES.forEach(function(p){if(p.live&&p.xy&&visible(p))label(p.xy,(p.short||p.name).toUpperCase(),true,fs*.9,p.side||1,boxes,!canOpen(p.key))});
+    PLACES.filter(function(p){return !p.live&&visible(p)}).sort(function(a,b){return (VOTES[b.v]||0)-(VOTES[a.v]||0)}).forEach(function(p){
+      label(p.xy,p.name.toUpperCase(),false,fs*.85,p.side||1,boxes);
+    });
+    PLACES.forEach(function(p){if(!visible(p))p.xy=null});
+  }
+  function hit(a,b){return a[0]<b[0]+b[2]+2&&b[0]<a[0]+a[2]+2&&a[1]<b[1]+b[3]+2&&b[1]<a[1]+a[3]+2}
+  function label(xy,txt,live,fs,side,boxes,locked){
+    ctx.font=(live?'800 ':'700 ')+fs+'px Montserrat, sans-serif';
+    var lw=locked?fs*.95:0;
+    var w=ctx.measureText(txt).width+14+lw,h=fs+10,x=side<0?xy[0]-12-w:xy[0]+12,y=xy[1]-h/2;
+    if(side===2){x=xy[0]-w/2;y=xy[1]-h-9}
+    if(x+w>W-4)x=Math.min(xy[0]-12-w,W-4-w);if(x<4)x=side===2?4:xy[0]+12;
+    if(boxes){
+      var bx=[x,y,w,h];
+      if(!live){
+        /* grey labels: try the other side, then skip if they would cover another label */
+        var tries=[bx,[xy[0]-12-w,y,w,h],[xy[0]+12,y,w,h],[xy[0]-w/2,xy[1]-h-9,w,h],[xy[0]-w/2,xy[1]+9,w,h]];
+        bx=null;for(var i=0;i<tries.length;i++){var c=tries[i];if(c[0]<4||c[0]+c[2]>W-4)continue;if(!boxes.some(function(b){return hit(c,b)})){bx=c;break}}
+        if(!bx)return;
+      }
+      x=bx[0];y=bx[1];boxes.push(bx);
+    }
+    ctx.globalAlpha=live?1:.85;
+    ctx.fillStyle=locked?'#0E2F24':(live?'#C9B59C':'rgba(10,36,27,.85)');
+    rr(x,y,w,h,h/2);ctx.fill();
+    if(locked){ctx.strokeStyle='#C9B59C';ctx.lineWidth=1;ctx.stroke();
+      var u=fs/10,lx=x+7,ly=y+h/2;ctx.fillStyle='#C9B59C';ctx.fillRect(lx,ly-u*.6,u*6,u*4.6);
+      ctx.beginPath();ctx.arc(lx+u*3,ly-u*.6,u*2,Math.PI,0);ctx.lineWidth=Math.max(1,u*1.1);ctx.stroke()}
+    ctx.fillStyle=locked?'#C9B59C':(live?'#0E2F24':'#C0C0C0');ctx.fillText(txt,x+7+lw,y+h/2+.5);ctx.globalAlpha=1;
+  }
+  function rr(x,y,w,h,r){ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath()}
+  function ease(x){return x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2}
+  function frame(t){
+    if(!running)return;
+    if(flying){
+      var k=Math.min(1,(t-flying.t0)/1100),e=ease(k);
+      rot[0]=flying.a[0]+(flying.b[0]-flying.a[0])*e;rot[1]=flying.a[1]+(flying.b[1]-flying.a[1])*e;
+      if(k>=1){var cb=flying.cb;flying=null;vel=0;draw(t);setTimeout(cb,180)}
+    }else if(!dragging){
+      if(Math.abs(vel)>.01){rot[0]+=vel;vel*=.93}
+      else if(!REDUCED&&t-idleAt>2500){rot[0]+=.12}
+    }
+    draw(t);raf=requestAnimationFrame(frame);
+  }
+  G.isOn=function(){return running};
+  G.inView=function(){var b=canvas.getBoundingClientRect();return b.top>-b.height*.3&&b.bottom<innerHeight+b.height*.3};
+  G.pause=function(){running=false;cancelAnimationFrame(raf)};
+  G.resume=function(){if($('globeView').hidden)return;size();if(!running){running=true;raf=requestAnimationFrame(frame)}};
+  G.flyTo=function(p,cb){
+    var a=[rot[0],rot[1]],b=[-p.lon,-p.lat+8];
+    var d=((b[0]-a[0])%360+540)%360-180;b[0]=a[0]+d;
+    flying={a:a,b:b,t0:performance.now(),cb:cb};
+  };
+
+  /* drag + tap */
+  var start=null,last=null,moved=0;
+  canvas.addEventListener('pointerdown',function(e){
+    start=last=[e.clientX,e.clientY];moved=0;dragging=true;flying=null;vel=0;canvas.classList.add('drag');
+    try{canvas.setPointerCapture(e.pointerId)}catch(x){}
+  });
+  canvas.addEventListener('pointermove',function(e){
+    if(!dragging||!last||!R)return;
+    var dx=e.clientX-last[0],dy=e.clientY-last[1];moved+=Math.abs(dx)+Math.abs(dy);
+    var k=90/R;rot[0]+=dx*k;rot[1]=Math.max(-70,Math.min(70,rot[1]-dy*k));vel=dx*k;last=[e.clientX,e.clientY];
+  });
+  function end(e){
+    if(!dragging)return;dragging=false;canvas.classList.remove('drag');idleAt=performance.now();
+    if(moved<8&&e.type==='pointerup')tap(e);
+    start=last=null;
+  }
+  canvas.addEventListener('pointerup',end);
+  canvas.addEventListener('pointercancel',function(e){dragging=false;canvas.classList.remove('drag');idleAt=performance.now()});
+  function tap(e){
+    var r=canvas.getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top,best=null,bd=26;
+    PLACES.forEach(function(p){if(!p.xy)return;var d=Math.hypot(p.xy[0]-x,p.xy[1]-y);if(d<bd){bd=d;best=p}});
+    if(!best){var ll=proj.invert([x,y]);if(ll&&Math.hypot(x-W/2,y-W/2)<R)PLACES.forEach(function(p){if(p.f&&d3.geoContains(p.f,ll))best=p})}
+    if(best)pick(best);
+  }
+  canvas.addEventListener('pointermove',function(e){
+    if(dragging)return;var r=canvas.getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top;
+    var over=PLACES.some(function(p){return p.xy&&Math.hypot(p.xy[0]-x,p.xy[1]-y)<26});
+    canvas.style.cursor=over?'pointer':'';
+  });
+  /* stop drawing when the globe is off screen */
+  if('IntersectionObserver' in window){new IntersectionObserver(function(es){es.forEach(function(en){if($('globeView').hidden)return;if(en.isIntersecting)G.resume();else G.pause()})}).observe(canvas)}
+  window.addEventListener('resize',function(){if(canvas.clientWidth&&canvas.clientWidth!==W){size();draw(performance.now())}});
+  $('gLoad').hidden=true;
+  if($('globeView').hidden){running=false}else{size();raf=requestAnimationFrame(frame)}
+}
+
+
+/* ===== Travel style: Economy, Premium, First Class (keys stay budget, premium, vip) ===== */
+var BASE_TIERS=JSON.parse(JSON.stringify(window.DWDK_TIERS||{}));
+var TIERS=JSON.parse(JSON.stringify(BASE_TIERS));for(var tk0 in FREE.tiers)TIERS[tk0]=FREE.tiers[tk0];
+var TNAME={budget:'Economy',premium:'Premium',vip:'First Class'};
+var TSHORT={budget:'Smart and cheap',premium:'4 star comfort',vip:'Hidden 5 star'};
+var TDESC={budget:'Smart and cheap: hostels or 3 star hotels, street food and the metro.',premium:'Good 4 star hotels, a few nice dinners and some taxis.',vip:'Hidden 5 star hotels, butlers, the best tables and the wildest clubs.'};
+var LOCKSVG='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>';
+var TKEY='dwdk_tier';
+function tierOk(t){return t==='budget'||(t==='premium'&&paid())||(t==='vip'&&LEVEL==='first')}
+function getTier(){var t=sGet('localStorage',TKEY);if(t==='comfort')t='premium';if(t==='luxury')t='vip';if(!TNAME[t])t=LEVEL==='first'?'vip':'premium';if(!tierOk(t))t=tierOk('premium')?'premium':'budget';return t}
+function tierPicker(dark){
+  var cur=getTier(),h='<div class="tp'+(dark?' dark':'')+'"><p class="tp-q" id="tpq'+(dark?'g':'t')+'">How do you like to travel?</p><div class="tp-row" role="radiogroup" aria-labelledby="tpq'+(dark?'g':'t')+'">';
+  ['budget','premium','vip'].forEach(function(k){var v=k==='vip',ok=tierOk(k),cls=(v?'vipb':'')+(!ok&&!v?'lockb':'');h+='<button type="button" role="radio"'+(cls?' class="'+cls+'"':'')+' data-tier-pick="'+k+'" aria-checked="'+(k===cur)+'"'+(ok?'':' aria-label="'+TNAME[k]+', locked. See plans"')+'>'+(ok?'':LOCKSVG)+'<b>'+TNAME[k]+'</b><span>'+(v&&ok?'Unlocked':TSHORT[k])+'</span></button>'});
+  var inc=LEVEL==='first'?'You are First Class. Everything is open.':(paid()?'You are Premium. Every country is open. First Class is for First Class members.':'Your pass is Economy: China and Japan. Premium opens every country.');
+  h+='</div><p class="tp-inc">'+inc+'</p>'+(LEVEL==='first'?'<p class="first-note">First Class is still being built. Founding members get it first.</p>':'')+'<p class="tp-d">'+['budget','premium','vip'].map(function(k){return '<span class="tv tv-'+k+'">'+esc(TDESC[k])+'</span>'}).join('')+'</p>';
+  h+='</div>';
+  return h;
+}
+function setTier(t,save){
+  if(!TNAME[t])t='premium';
+  if(!tierOk(t)){if(save){openUp(t==='vip'?'first':'premium');return}t=getTier()}
+  document.documentElement.setAttribute('data-tier',t);
+  document.documentElement.classList.toggle('vip-on',t==='vip');
+  if(save)sSet('localStorage',TKEY,t);
+  [].forEach.call(document.querySelectorAll('[data-tier-pick]'),function(b){b.setAttribute('aria-checked',String(b.getAttribute('data-tier-pick')===t))});
+  [].forEach.call(document.querySelectorAll('.clsName'),function(e){e.textContent=TNAME[t].toUpperCase()});
+}
+document.addEventListener('click',function(e){var b=e.target.closest('[data-tier-pick]');if(b)setTier(b.getAttribute('data-tier-pick'),true)});
+function addTiers(root,key){
+  var T=TIERS[key];if(!T||!T.cities)return;
+  var sleep=T.sleep||{},shown={},seen={};
+  [].forEach.call(root.querySelectorAll('article.day'),function(day){
+    var ce=day.querySelector('.city');if(!ce)return;
+    var city=ce.textContent.trim(),C=T.cities[city];if(!C)return;
+    var home=sleep[city]||city,H=T.cities[home]||C,idx=seen[city]||0;seen[city]=idx+1;
+    var stayLbl=null;if(!shown[home]){shown[home]=1;stayLbl=home===city?'Where to stay':'Tonight in '+home}
+    var box=document.createElement('div');box.className='tbox';var h='';
+    ['budget','premium'].forEach(function(k){
+      if(!C[k]&&!(H[k]&&stayLbl))return;
+      var c=C[k]||{},hs=H[k]||{},eat=c.eat||[];
+      h+='<div class="tv tv-'+k+'"><div class="tbox-h"><b>Your '+TNAME[k]+' day <i>&middot; '+esc(city)+'</i></b></div><dl>';
+      if(stayLbl&&hs.stay)h+='<div><dt>'+esc(stayLbl)+'</dt><dd>'+esc(hs.stay)+'</dd></div>';
+      if(eat.length)h+='<div><dt>Eat</dt><dd>'+esc(eat[idx%eat.length])+'</dd></div>';
+      if(c.move)h+='<div><dt>Get around</dt><dd>'+esc(c.move)+'</dd></div>';
+      h+='</dl>';
+      if(T.cost&&T.cost[k])h+='<p class="cost">About '+esc(T.cost[k])+' a day<small>'+esc(TIERS.note||'Rough guide. Check before you go.')+'</small></p>';
+      h+='</div>';
+    });
+    box.innerHTML=h;day.appendChild(box);
+  });
+}
+
+function refreshPickers(){
+  [].forEach.call(document.querySelectorAll('.tp'),function(el){var d=document.createElement('div');d.innerHTML=tierPicker(el.classList.contains('dark'));el.parentNode.replaceChild(d.firstChild,el)});
+  setTier(getTier(),false);
+}
+/* ===== First Class plans (words locked in vip-plans.enc) ===== */
+function vipPlan(key){
+  var V=VIPP&&VIPP[key];if(!V)return '';
+  var n=V.days.length,h='<section class="vipplan" aria-label="First Class plan"><p class="eyebrow">First Class plan</p><h2>Your First Class '+n+' days</h2><p class="sub">'+esc(V.lead)+'</p><p class="first-note">First Class is still being built. Founding members get it first.</p>';
+  h+='<div class="vip-stays">'+V.stays.map(function(x){return '<div class="vip-stay"><small>Where to stay &middot; '+esc(x[0])+'</small><b>'+esc(x[1])+'</b><p>'+esc(x[2])+'</p>'+chips(x[3])+'</div>'}).join('')+'</div><div class="days">';
+  V.days.forEach(function(d,i){
+    h+='<article class="day'+(n%2===1&&i===n-1?' wide':'')+'"><div class="day-h"><div><div class="n">First Class day '+(i+1)+'</div><h3>'+esc(d.t)+'</h3></div><span class="city">'+esc(d.city)+'</span></div>';
+    d.s.forEach(function(sl){h+='<div class="slot"><div class="ico">'+(ICO[sl[0]]||ICO.Morning)+'</div><div><div class="when">'+esc(sl[0])+'</div><h4>'+esc(sl[1])+'</h4><p>'+esc(sl[2])+'</p>'+chips(sl[3])+'</div></div>'});
+    h+='</article>';
+  });
+  return h+'</div><p class="vip-note">First Class picks checked October 2026. Places and prices change, so check before you go.</p></section>';
+}
+function addChinaVip(){
+  var cv=$('chinaView'),plan=cv&&cv.querySelector('#plan');if(!plan)return;
+  plan.classList.add('baseplan');
+  var old=cv.querySelector('.vipplan');if(old)old.parentNode.removeChild(old);
+  var h=vipPlan('china');if(!h)return;
+  var d=document.createElement('div');d.innerHTML=h;plan.parentNode.insertBefore(d.firstChild,plan.nextSibling);
+}
+var vipLast=null,UPLEN={premium:'month',first:'year'};
+function upLinks(){
+  $('upBuyPremium').href=MLINKS['premium_'+UPLEN.premium]||'https://stan.store/digitalwithdavidk';
+  $('upBuyFirst').href=MLINKS['first_'+UPLEN.first]||'https://stan.store/digitalwithdavidk';
+  [].forEach.call(document.querySelectorAll('[data-up]'),function(b){b.setAttribute('aria-pressed',String(UPLEN[b.dataset.up]===b.dataset.len))});
+}
+document.addEventListener('click',function(e){var b=e.target.closest('[data-up]');if(!b)return;UPLEN[b.dataset.up]=b.dataset.len;upLinks()});
+function openUp(which,place){
+  closeSheet();
+  var sh=$('vipSheet');vipLast=document.activeElement;
+  $('upWhat').textContent=place&&place.live?(place.short||place.name):(which==='first'?'First Class':'every country');
+  $('upPremium').hidden=paid();
+  $('upPremium').classList.toggle('focus',which!=='first');$('upFirst').classList.toggle('focus',which==='first');
+  upLinks();$('vipMsg').hidden=true;
+  sh.hidden=false;void sh.offsetWidth;sh.classList.add('on');
+  var tgt=which==='first'||paid()?$('upFirst'):$('upPremium');
+  setTimeout(function(){try{if(which==='first')tgt.scrollIntoView({block:'nearest'});tgt.querySelector('a.btn').focus({preventScroll:true})}catch(e){}},60);
+}
+$('ecoGo').addEventListener('click',function(){openUp('premium')});
+function closeVip(){var sh=$('vipSheet');sh.classList.remove('on');setTimeout(function(){if(!sh.classList.contains('on'))sh.hidden=true},320);try{vipLast&&vipLast.focus({preventScroll:true})}catch(e){}}
+$('vipX').addEventListener('click',closeVip);
+$('vipSheet').addEventListener('click',function(e){if(e.target===this)closeVip()});
+document.addEventListener('keydown',function(e){if(e.key==='Escape'&&$('vipSheet').classList.contains('on'))closeVip()});
+$('vipForm').addEventListener('submit',function(ev){
+  ev.preventDefault();
+  var em=($('vipEmail').value||'').trim().toLowerCase(),m=$('vipMsg'),b=$('vipGo');
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)){m.textContent='That email looks off. Check it and try again.';m.hidden=false;return}
+  b.disabled=true;b.textContent='...';
+  DWDKVault.unlock(em,null).then(function(r){
+    b.disabled=false;b.textContent='Unlock';
+    if(r.level!=='premium'&&r.level!=='first'){m.textContent='That email is not a member yet. Pick a plan above to join.';m.hidden=false;return}
+    var was=cur;applyAccess(r);
+    var p=readPass()||{};p.e=em;p.at=Date.now();sSet('localStorage',KEY,JSON.stringify(p));
+    closeVip();setTier(r.level==='first'?'vip':'premium',true);if(was&&was!=='china')openTrip(was,true);
+  }).catch(function(){b.disabled=false;b.textContent='Unlock';m.textContent='Could not check right now. Try again.';m.hidden=false});
+});
+setTier(getTier(),false);
+(function(){
+  var g=$('tpGlobe');if(g)g.innerHTML=tierPicker(true);
+  var cv=$('chinaView'),plan=cv&&cv.querySelector('#plan');
+  if(plan){var d=document.createElement('div');d.innerHTML=tierPicker(false);plan.parentNode.insertBefore(d.firstChild,plan);addTiers(cv,'china')}
+  setTier(getTier(),false);
+})();
+
+/* ===== Trip page reveal ===== */
+function revealInit(root){
+  if(root.dataset.rv==='1')return;root.dataset.rv='1';
+  var els=root.querySelectorAll('.rv');
+  if(!('IntersectionObserver' in window)||REDUCED){els.forEach(function(e){e.classList.add('in')});return}
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{rootMargin:'0px 0px -8% 0px'});
+  els.forEach(function(e){io.observe(e)});
+  var links=root.querySelectorAll('.jump a'),days=[].map.call(links,function(a){return root.querySelector(a.getAttribute('href'))});
+  var io2=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){var i=days.indexOf(e.target);links.forEach(function(l,j){l.classList.toggle('on',j===i)})}})},{rootMargin:'-40% 0px -55% 0px'});
+  days.forEach(function(d){d&&io2.observe(d)});
+}
+
+/* ===== Start ===== */
+var saved=readPass(),PASSK=null;
+$('gate').hidden=false;
+if(saved){
+  guest=cleanName(saved.n);
+  if(guest){$('fname').value=guest;$('paxName').textContent=guest.toUpperCase()}
+  if(saved.e){PASSK=saved.k||null;$('email').value=saved.e;board(saved.e,true)}
+  else{$('err').innerHTML='<p><b>One quick step.</b> Type your email once more to open the plans.</p>';$('err').hidden=false}
+}
+})();
+</script>
+</body>
+</html>
