@@ -282,6 +282,33 @@ body.g-on-dark{background:var(--em2)}
 .sheet-in .row{display:grid;grid-template-columns:1fr auto;gap:8px;margin-top:14px}
 .sheet-in button{font-family:inherit;cursor:pointer}
 
+/* Votes (GLOBE-VOTES) */
+.g-drop{background:var(--em2);color:var(--beige);text-align:center;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:7px 16px;line-height:1.4;border-bottom:1px solid rgba(201,181,156,.18)}
+.g-drop b{color:var(--stone);font-weight:800}
+.g-votes{margin:22px auto 0;max-width:560px;border-radius:18px;background:rgba(255,255,255,.05);border:1px solid rgba(201,181,156,.22);padding:16px}
+.g-votes-h{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.g-votes-h small{font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--silver);display:inline-flex;align-items:center;gap:6px}
+.g-votes-h small i{width:7px;height:7px;border-radius:50%;background:#1d8a4f;display:inline-block}
+.g-votes-sub{font-size:13px;color:#cfc8bd;margin:8px 0 10px}
+.g-votes ol{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.g-vrow{width:100%;display:grid;grid-template-columns:22px minmax(0,1fr) auto;align-items:center;gap:10px;padding:9px 10px;border-radius:12px;border:0;background:rgba(10,36,27,.55);color:var(--stone);font-family:inherit;text-align:left;cursor:pointer}
+.g-vrow:hover{background:rgba(10,36,27,.85)}
+.g-vrow .n{font-size:12px;font-weight:800;color:var(--beige)}
+.g-vrow .nm{font-size:14px;font-weight:700;min-width:0}
+.g-vrow .nm em{display:block;height:5px;border-radius:9px;background:rgba(192,192,192,.18);margin-top:6px;overflow:hidden;font-style:normal}
+.g-vrow .nm em s{display:block;height:100%;width:0;background:var(--beige);border-radius:9px;transition:width .6s var(--ease)}
+.g-vrow .c{font-size:13px;font-weight:800;color:var(--beige);white-space:nowrap}
+.g-vrow.me .c::after{content:" \2713";color:#7fd1a4}
+.g-votes-empty{font-size:13px;color:#cfc8bd;padding:6px 2px}
+.g-card .vc{font-weight:700}
+.v-count{display:flex;align-items:baseline;gap:8px;margin:10px 0 0}
+.v-count b{font-size:34px;font-weight:800;color:var(--em);line-height:1}
+.v-count span{font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--sage)}
+.v-note{font-size:12.5px!important;color:#555!important;margin-top:10px}
+.sheet-in .btn[disabled]{opacity:.75;cursor:default;box-shadow:none}
+.v-bump{animation:vBump .5s var(--ease)}
+@keyframes vBump{0%{transform:scale(1)}40%{transform:scale(1.25)}100%{transform:scale(1)}}
+
 /* Trip route chips */
 .t-route{margin-top:22px;display:flex;flex-wrap:wrap;align-items:center;gap:8px;max-width:520px}
 .t-route span{font-size:11px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--em);background:var(--beige);border-radius:999px;padding:8px 12px}
@@ -343,6 +370,7 @@ body.g-on-dark{background:var(--em2)}
 <!-- ===== Round 2: App ===== -->
 <div id="app" hidden>
   <div class="g-banner">Early access &middot; Free for now &middot; Monthly membership coming soon</div>
+  <div class="g-drop" id="gDrop">New countries every week. Next drop: <b>Wed Oct 21</b></div>
 
   <!-- Globe view -->
   <div id="globeView" class="g-screen g-dark">
@@ -358,11 +386,17 @@ body.g-on-dark{background:var(--em2)}
         <p>Spin the globe. Tap a glowing pin to open a free day by day plan. 9 places are open now.</p>
       </div>
       <div class="g-globe" id="globeWrap">
-        <canvas id="globe" aria-label="Spinning globe. Open now: China, Japan, South Korea, Thailand, Vietnam, Dubai, Canada, United States and Australia. Coming soon: Mexico, Italy, Greece and Bali." role="img"></canvas>
+        <canvas id="globe" aria-label="Spinning globe. Open now: China, Japan, South Korea, Thailand, Vietnam, Dubai, Canada, United States and Australia. Vote for what comes next: Mexico, Italy, Greece, Bali, Portugal, Spain, Turkey, Philippines, Taiwan, Singapore, Iceland, Switzerland, Morocco, Egypt and Peru." role="img"></canvas>
         <div class="g-load" id="gLoad">Loading the globe</div>
       </div>
-      <p class="g-help" id="gHelp">Drag to spin. Tap a pin.</p>
+      <p class="g-help" id="gHelp">Drag to spin. Tap a glowing pin for a plan. Tap a grey pin to vote.</p>
       <p class="g-fail" id="gFail" hidden>The globe could not load right now. Pick a place below.</p>
+
+      <section class="g-votes" id="gVotes" aria-labelledby="gVotesH">
+        <div class="g-votes-h"><span class="tag" id="gVotesH">Top votes</span><small><i></i>Live count</small></div>
+        <p class="g-votes-sub">Where should I go next? Tap a grey pin or a country to vote. One vote per country.</p>
+        <ol id="gVotesList"><li class="g-votes-empty">Loading the votes</li></ol>
+      </section>
 
       <div class="g-list" id="list"></div>
 
@@ -675,11 +709,13 @@ body.g-on-dark{background:var(--em2)}
   <div class="sheet-in">
     <div class="k">Coming soon</div>
     <h3 id="sheetH">Japan</h3>
-    <p>Coming soon. Comment the country on my latest reel to vote.</p>
+    <p id="sheetP">Want this one next? Tap vote. Everyone sees the live count.</p>
+    <div class="v-count" id="vCount" aria-live="polite"><b id="vNum">&hellip;</b><span id="vLbl">votes</span></div>
     <div class="row">
-      <a class="btn btn-em btn-sm" href="https://www.instagram.com/digitalwithdavidk/" target="_blank" rel="noopener">Go vote on my latest reel</a>
+      <button class="btn btn-em btn-sm" id="vBtn" type="button">Vote</button>
       <button class="btn btn-line btn-sm" id="sheetX" type="button">Close</button>
     </div>
+    <p class="v-note" id="vNote">One vote per country. New countries every week. Next drop: Wed Oct 21.</p>
   </div>
 </div>
 
@@ -701,10 +737,21 @@ var PLACES=[
   {key:'canada',id:124,name:'Canada',lon:-79.38,lat:43.65,live:true,side:2},
   {key:'usa',id:840,name:'United States',short:'USA',lon:-80.19,lat:25.76,live:true},
   {key:'australia',id:36,name:'Australia',lon:151.21,lat:-33.87,live:true,side:-1},
-  {id:484,name:'Mexico',lon:-99.13,lat:19.43,side:-1},
-  {id:380,name:'Italy',lon:12.50,lat:41.90,side:-1},
-  {id:300,name:'Greece',lon:23.73,lat:37.98},
-  {id:360,name:'Bali',lon:115.19,lat:-8.41}
+  {id:484,v:'mexico',name:'Mexico',lon:-99.13,lat:19.43,side:-1},
+  {id:380,v:'italy',name:'Italy',lon:12.50,lat:41.90,side:-1},
+  {id:300,v:'greece',name:'Greece',lon:23.73,lat:37.98},
+  {id:360,v:'bali',name:'Bali',lon:115.19,lat:-8.41},
+  {id:620,v:'portugal',name:'Portugal',lon:-9.14,lat:38.72,side:-1},
+  {id:724,v:'spain',name:'Spain',lon:2.17,lat:41.39},
+  {id:792,v:'turkey',name:'Turkey',lon:28.98,lat:41.01},
+  {id:608,v:'philippines',name:'Philippines',lon:120.98,lat:14.60},
+  {id:158,v:'taiwan',name:'Taiwan',lon:121.56,lat:25.03},
+  {id:702,v:'singapore',name:'Singapore',lon:103.82,lat:1.35,side:-1},
+  {id:352,v:'iceland',name:'Iceland',lon:-21.94,lat:64.15},
+  {id:756,v:'switzerland',name:'Switzerland',lon:8.54,lat:47.37,side:2},
+  {id:504,v:'morocco',name:'Morocco',lon:-7.99,lat:31.63,side:-1},
+  {id:818,v:'egypt',name:'Egypt',lon:31.24,lat:30.04},
+  {id:604,v:'peru',name:'Peru',lon:-71.97,lat:-13.53,side:-1}
 ];
 PLACES.forEach(function(p){if(p.live&&p.key!=='china'){var t=TRIPS[p.key];if(!t){p.live=false;return}p.sub=t.daysN+' days: '+t.cities}});
 var BYKEY={};PLACES.forEach(function(p){if(p.key)BYKEY[p.key]=p});
@@ -795,7 +842,7 @@ function hashKey(){var k=(location.hash||'').slice(1);return (BYKEY[k]&&BYKEY[k]
 function enterApp(){
   $('gate').hidden=true;$('app').hidden=false;greet();
   var k=hashKey();if(k)openTrip(k,true);else showGlobe(true);
-  if(!started){started=true;buildList();loadGlobe()}
+  if(!started){started=true;buildList();loadGlobe();loadVotes();loadDrop()}
 }
 function showGlobe(noPush){
   $('chinaView').hidden=true;$('tripView').hidden=true;$('globeView').hidden=false;cur=null;
@@ -866,19 +913,104 @@ function pick(p){
     var done=false;function go(){if(done)return;done=true;openTrip(p.key)}
     if(G.flyTo&&!REDUCED&&G.isOn()&&G.inView()){G.flyTo(p,go);setTimeout(go,1700)}else go();
     return}
-  $('sheetH').textContent=p.name;$('sheet').classList.add('on');setTimeout(function(){try{$('sheetX').focus({preventScroll:true})}catch(e){}},50);
+  sheetP=p;$('sheetH').textContent=p.name;renderSheet();$('sheet').classList.add('on');
+  setTimeout(function(){try{(voted(p)?$('sheetX'):$('vBtn')).focus({preventScroll:true})}catch(e){}},50);
+  refreshOne(p);
 }
-function closeSheet(){$('sheet').classList.remove('on')}
+function closeSheet(){$('sheet').classList.remove('on');sheetP=null}
 $('sheetX').addEventListener('click',closeSheet);
 document.addEventListener('keydown',function(e){if(e.key==='Escape')closeSheet()});
-document.addEventListener('pointerdown',function(e){if($('sheet').classList.contains('on')&&!e.target.closest('.sheet-in')&&!e.target.closest('.g-card'))closeSheet()});
+document.addEventListener('pointerdown',function(e){if($('sheet').classList.contains('on')&&!e.target.closest('.sheet-in')&&!e.target.closest('.g-card')&&!e.target.closest('.g-vrow'))closeSheet()});
 function buildList(){
   var l=$('list');
   PLACES.forEach(function(p){
     var b=document.createElement('button');b.type='button';b.className='g-card '+(p.live?'live':'soon');
-    b.innerHTML=p.live?'<small><i></i>Open now</small><b>'+esc(p.name)+'</b><span>'+esc(p.sub||'')+'</span>':'<small>Coming soon</small><b>'+esc(p.name)+'</b><span>Tap to vote</span>';
+    b.innerHTML=p.live?'<small><i></i>Open now</small><b>'+esc(p.name)+'</b><span>'+esc(p.sub||'')+'</span>':'<small>Vote for next</small><b>'+esc(p.name)+'</b><span class="vc" data-v="'+p.v+'">Tap to vote</span>';
     b.addEventListener('click',function(){pick(p)});l.appendChild(b);
   });
+}
+
+/* ===== Live votes (shared counter: abacus.jasoncameron.dev, namespace dwdk-globe, key vote-<country>) ===== */
+var VAPI='https://abacus.jasoncameron.dev',VNS='dwdk-globe';
+var VOTES={},VSTATE='load',MYV={},VBUSY={},sheetP=null,NEXTDROP='Wed Oct 21';
+function vUrl(kind,p){return VAPI+'/'+kind+'/'+VNS+'/vote-'+p.v}
+function voted(p){return !!MYV[p.v]||sGet('localStorage','dwdk_voted_'+p.v)==='1'}
+function nVotes(n){return n.toLocaleString('en-US')+(n===1?' vote':' votes')}
+function getCount(p){
+  /* /info answers 200 even before the first vote (exists:false), so no 404s in the console */
+  return fetch(vUrl('info',p),{cache:'no-store'}).then(function(r){
+    if(!r.ok)throw 0;return r.json().then(function(j){if(!j||typeof j.value!=='number')throw 0;return j.exists===false||j.value<0?0:j.value});
+  });
+}
+function soonList(){return PLACES.filter(function(p){return !p.live&&p.v})}
+function loadVotes(){
+  var list=soonList(),ok=0;
+  return Promise.all(list.map(function(p){return getCount(p).then(function(v){VOTES[p.v]=v;ok++},function(){})}))
+  .then(function(){VSTATE=ok?'ok':(Object.keys(VOTES).length?'ok':'down');paintVotes()});
+}
+function refreshOne(p){
+  getCount(p).then(function(v){if(VBUSY[p.v])return;VOTES[p.v]=Math.max(v,VOTES[p.v]||0);if(VSTATE!=='ok')VSTATE='ok';paintVotes()},function(){});
+}
+function castVote(p){
+  if(!p||voted(p)||VBUSY[p.v])return;
+  VBUSY[p.v]=1;renderSheet();
+  fetch(vUrl('hit',p),{cache:'no-store'}).then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(j){
+    if(typeof j.value!=='number')throw 0;
+    VOTES[p.v]=j.value;MYV[p.v]=1;sSet('localStorage','dwdk_voted_'+p.v,'1');VSTATE='ok';
+    delete VBUSY[p.v];paintVotes();
+    var b=$('vNum');b.classList.remove('v-bump');void b.offsetWidth;b.classList.add('v-bump');
+  }).catch(function(){
+    delete VBUSY[p.v];renderSheet();
+    $('sheetP').textContent='That vote did not go through. Check your signal and tap vote again.';
+  });
+}
+function renderSheet(){
+  var p=sheetP;if(!p)return;
+  var has=typeof VOTES[p.v]==='number',me=voted(p),busy=!!VBUSY[p.v];
+  $('vCount').hidden=!has&&VSTATE==='down';
+  $('vNum').textContent=has?VOTES[p.v].toLocaleString('en-US'):'…';
+  $('vLbl').textContent=has&&VOTES[p.v]===1?'vote':'votes';
+  $('sheetP').textContent=me?'You voted for '+p.name+'. Thanks! Watch the count climb.':(VSTATE==='down'&&!has?'Live votes are down for a minute. Try again soon.':'Want this one next? Tap vote. Everyone sees the live count.');
+  var b=$('vBtn');b.disabled=me||busy;
+  b.textContent=me?'You voted ✓':(busy?'Saving your vote…':'Vote for '+p.name);
+}
+function paintVotes(){
+  /* country cards */
+  document.querySelectorAll('.g-card .vc').forEach(function(s){
+    var p=PLACES.filter(function(q){return q.v===s.dataset.v})[0];if(!p)return;
+    var n=VOTES[p.v];s.textContent=voted(p)?'You voted'+(typeof n==='number'?' · '+nVotes(n):''):(typeof n==='number'?nVotes(n)+' · Tap to vote':'Tap to vote');
+  });
+  /* leaderboard */
+  var ol=$('gVotesList');
+  if(VSTATE==='down'){ol.innerHTML='<li class="g-votes-empty">Live votes are down for a minute. Try again soon.</li>'}
+  else if(VSTATE==='ok'){
+    var rows=soonList().filter(function(p){return VOTES[p.v]>0}).sort(function(a,b){return VOTES[b.v]-VOTES[a.v]||a.name.localeCompare(b.name)});
+    var max=rows.length?Math.max(1,VOTES[rows[0].v]):1,total=rows.reduce(function(s,p){return s+VOTES[p.v]},0);
+    if(!total){ol.innerHTML='<li class="g-votes-empty">No votes yet. Be the first. Tap a grey pin.</li>'}
+    else{
+      ol.innerHTML='';
+      rows.slice(0,5).forEach(function(p,i){
+        var li=document.createElement('li'),b=document.createElement('button');b.type='button';b.className='g-vrow'+(voted(p)?' me':'');
+        b.innerHTML='<span class="n">'+(i+1)+'</span><span class="nm">'+esc(p.name)+'<em><s style="width:'+Math.round(VOTES[p.v]/max*100)+'%"></s></em></span><span class="c">'+nVotes(VOTES[p.v])+'</span>';
+        b.setAttribute('aria-label',p.name+', '+nVotes(VOTES[p.v])+'. Tap to vote');
+        b.addEventListener('click',function(){pick(p)});li.appendChild(b);ol.appendChild(li);
+      });
+    }
+  }
+  renderSheet();
+}
+$('vBtn').addEventListener('click',function(){castVote(sheetP)});
+setInterval(function(){if(!document.hidden&&!$('app').hidden&&!$('globeView').hidden)loadVotes()},60000);
+
+/* ===== Next drop date (globe/next-drop.json, the weekly task edits it) ===== */
+function loadDrop(){
+  fetch('next-drop.json',{cache:'no-store'}).then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(j){
+    var m=/^(\d{4})-(\d{2})-(\d{2})$/.exec(j&&j.next_drop||'');if(!m)return;
+    var d=new Date(+m[1],+m[2]-1,+m[3]);
+    var lbl=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'][d.getDay()]+' '+['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][d.getMonth()]+' '+d.getDate();
+    NEXTDROP=lbl;$('gDrop').innerHTML='New countries every week. Next drop: <b>'+lbl+'</b>';
+    $('vNote').textContent='One vote per country. New countries every week. Next drop: '+lbl+'.';
+  }).catch(function(){});
 }
 
 /* ===== Round 3: canvas globe (d3-geo + world-atlas) ===== */
@@ -930,6 +1062,7 @@ function startGlobe(world){
     ctx.beginPath();ctx.arc(W/2,W/2,R,0,7);ctx.strokeStyle='rgba(201,181,156,.45)';ctx.lineWidth=1.2;ctx.stroke();
     var fs=Math.max(10,Math.round(W/42));
     ctx.font='800 '+fs+'px Montserrat, sans-serif';ctx.textBaseline='middle';
+    var boxes=[];
     PLACES.filter(function(p){return !p.live}).concat(PLACES.filter(function(p){return p.live})).forEach(function(p){
       if(!visible(p))return;var xy=proj([p.lon,p.lat]);p.xy=xy;
       if(p.live){
@@ -937,19 +1070,33 @@ function startGlobe(world){
         ctx.beginPath();ctx.arc(xy[0],xy[1],7+ph*18,0,7);ctx.strokeStyle='rgba(255,230,190,'+(0.8*(1-ph))+')';ctx.lineWidth=2;ctx.stroke();
         ctx.beginPath();ctx.arc(xy[0],xy[1],7,0,7);ctx.fillStyle='#FFF4E2';ctx.shadowColor='#FFD9A0';ctx.shadowBlur=16;ctx.fill();ctx.shadowBlur=0;
         ctx.beginPath();ctx.arc(xy[0],xy[1],3.2,0,7);ctx.fillStyle='#0E2F24';ctx.fill();
-        label(xy,(p.short||p.name).toUpperCase(),true,fs*.9,p.side||1);
       }else{
         ctx.beginPath();ctx.arc(xy[0],xy[1],4.5,0,7);ctx.fillStyle='#C0C0C0';ctx.fill();ctx.strokeStyle='#0E2F24';ctx.lineWidth=1.5;ctx.stroke();
-        label(xy,p.name.toUpperCase(),false,fs*.85,p.side||1);
       }
+      boxes.push([xy[0]-7,xy[1]-7,14,14]);
+    });
+    PLACES.forEach(function(p){if(p.live&&p.xy&&visible(p))label(p.xy,(p.short||p.name).toUpperCase(),true,fs*.9,p.side||1,boxes)});
+    PLACES.filter(function(p){return !p.live&&visible(p)}).sort(function(a,b){return (VOTES[b.v]||0)-(VOTES[a.v]||0)}).forEach(function(p){
+      label(p.xy,p.name.toUpperCase(),false,fs*.85,p.side||1,boxes);
     });
     PLACES.forEach(function(p){if(!visible(p))p.xy=null});
   }
-  function label(xy,txt,live,fs,side){
+  function hit(a,b){return a[0]<b[0]+b[2]+2&&b[0]<a[0]+a[2]+2&&a[1]<b[1]+b[3]+2&&b[1]<a[1]+a[3]+2}
+  function label(xy,txt,live,fs,side,boxes){
     ctx.font=(live?'800 ':'700 ')+fs+'px Montserrat, sans-serif';
     var w=ctx.measureText(txt).width+14,h=fs+10,x=side<0?xy[0]-12-w:xy[0]+12,y=xy[1]-h/2;
     if(side===2){x=xy[0]-w/2;y=xy[1]-h-9}
     if(x+w>W-4)x=Math.min(xy[0]-12-w,W-4-w);if(x<4)x=side===2?4:xy[0]+12;
+    if(boxes){
+      var bx=[x,y,w,h];
+      if(!live){
+        /* grey labels: try the other side, then skip if they would cover another label */
+        var tries=[bx,[xy[0]-12-w,y,w,h],[xy[0]+12,y,w,h],[xy[0]-w/2,xy[1]-h-9,w,h],[xy[0]-w/2,xy[1]+9,w,h]];
+        bx=null;for(var i=0;i<tries.length;i++){var c=tries[i];if(c[0]<4||c[0]+c[2]>W-4)continue;if(!boxes.some(function(b){return hit(c,b)})){bx=c;break}}
+        if(!bx)return;
+      }
+      x=bx[0];y=bx[1];boxes.push(bx);
+    }
     ctx.globalAlpha=live?1:.85;
     ctx.fillStyle=live?'#C9B59C':'rgba(10,36,27,.85)';
     rr(x,y,w,h,h/2);ctx.fill();
