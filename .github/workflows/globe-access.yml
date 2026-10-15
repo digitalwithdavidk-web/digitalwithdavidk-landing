@@ -1,0 +1,80 @@
+# Digital with David K Globe: automatic paid access.
+# Stan sale or cancel -> Zapier -> GitHub "repository_dispatch" (event globe-access) -> this job
+# adds or removes the email in globe/access.json and pushes. No human step.
+#
+# Zapier sends: POST https://api.github.com/repos/digitalwithdavidk-web/digitalwithdavidk-landing/dispatches
+#   {"event_type":"globe-access","client_payload":{"email":"...","level":"premium|first","action":"add|remove"}}
+#   (instead of "level" you can send "product" with the Stan product name)
+# By hand: Actions tab > "Globe access (auto)" > Run workflow.
+#
+# The private keys live ONLY in the GitHub Secret GLOBE_PRIVATE_JSON (contents of secrets.json).
+# They are written to a temp folder outside the repo, used once, and deleted. Email + secret are masked.
+name: Globe access (auto)
+
+on:
+  repository_dispatch:
+    types: [globe-access]
+  workflow_dispatch:
+    inputs:
+      email:
+        description: "Member email"
+        required: true
+        type: string
+      level:
+        description: "premium or first"
+        required: true
+        type: choice
+        options: [premium, first]
+      action:
+        description: "add or remove"
+        required: true
+        type: choice
+        options: [add, remove]
+
+permissions:
+  contents: write
+  pages: write
+
+jobs:
+  access:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Hide the email in logs
+        env:
+          IN_EMAIL: ${{ github.event.client_payload.email || inputs.email }}
+        run: |
+          if [ -n "$IN_EMAIL" ]; then
+            echo "::add-mask::$IN_EMAIL"
+            lc="$(printf '%s' "$IN_EMAIL" | tr -d '[:space:]' | tr '[:upper:]' '[:lower:]')"
+            echo "::add-mask::$lc"
+          fi
+
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install cryptography
+        run: python -m pip install --quiet --disable-pip-version-check "cryptography==43.0.3"
+
+      - name: Add or remove the member
+        env:
+          IN_EMAIL: ${{ github.event.client_payload.email || inputs.email }}
+          IN_LEVEL: ${{ github.event.client_payload.level || inputs.level }}
+          IN_PRODUCT: ${{ github.event.client_payload.product }}
+          IN_ACTION: ${{ github.event.client_payload.action || inputs.action }}
+          GLOBE_PRIVATE_JSON: ${{ secrets.GLOBE_PRIVATE_JSON }}
+          GLOBE_BRANCH: main
+        run: bash tools/globe-access.sh
+
+      - name: Ask GitHub Pages to rebuild (pushes from this bot may not start one)
+        if: success()
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh api -X POST "repos/${GITHUB_REPOSITORY}/pages/builds" --silent && echo "Pages rebuild requested."

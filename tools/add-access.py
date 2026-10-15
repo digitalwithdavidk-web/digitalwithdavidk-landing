@@ -20,6 +20,9 @@ Use (from the repo folder):
   python3 tools/add-access.py --level premium --private PRIVATE name@email.com
   python3 tools/add-access.py --level first   --private PRIVATE buyers.csv
   python3 tools/add-access.py --remove name@email.com         # out of every level
+  python3 tools/add-access.py --remove --level premium name@email.com   # out of Premium only
+      (a Premium/First cancel: they keep Economy if they had it; the locked box goes
+       only when they are in no paid level any more)
   python3 tools/add-access.py --build --private PRIVATE       # re-lock plans after editing content/
   python3 tools/add-access.py --count
 (Or set DWDK_GLOBE_PRIVATE instead of --private.) Then commit globe/access.json.
@@ -89,6 +92,8 @@ def private_secrets(private, need_v=False):
     p = os.path.join(private, 'secrets.json')
     with open(p, encoding='utf-8') as f:
         s = json.load(f)
+    if 'p' not in s and os.environ.get('DWDK_NO_KEYGEN'):
+        sys.exit('secrets.json has no Premium key "p". Stopping (no new keys made in automation).')
     if 'p' not in s:  # first run after GLOBE-MEMBERS: make the Premium key
         s['p'] = base64.b64encode(secrets.token_bytes(32)).decode('ascii')
         with open(p, 'w', encoding='utf-8') as f:
@@ -128,11 +133,11 @@ def build(private, s):
 
 def main(argv):
     level, private, keys_in, items = 'economy', os.environ.get('DWDK_GLOBE_PRIVATE'), [], []
-    mode, i = 'add', 0
+    mode, i, level_set = 'add', 0, False
     while i < len(argv):
         a = argv[i]
         if a == '--level' and i + 1 < len(argv):
-            level = argv[i + 1].lower(); i += 2; continue
+            level = argv[i + 1].lower(); level_set = True; i += 2; continue
         if a == '--private' and i + 1 < len(argv):
             private = argv[i + 1]; i += 2; continue
         if a == '--key' and i + 1 < len(argv):
@@ -151,12 +156,15 @@ def main(argv):
     found = [e for a in items for e in emails_from(a)]
     if mode == 'remove':
         n = 0
+        # --level given: only that list ("economy" = the emails list). No --level: every list.
+        lists = ({'economy': 'emails'}.get(level, level),) if level_set else ('emails', 'premium', 'first')
         for e in found:
             x = h(e)
-            for k in ('emails', 'premium', 'first'):
-                if x in d[k]:
+            for k in lists:
+                while x in d[k]:
                     d[k].remove(x); n += 1
-            d['boxes'].pop(x, None)
+            if x not in d['premium'] and x not in d['first']:
+                d['boxes'].pop(x, None)
         for k in keys_in:
             if hk(k) in d['keys']:
                 d['keys'].remove(hk(k)); n += 1
@@ -171,6 +179,8 @@ def main(argv):
         print('Added %d new. Economy now has %d emails and %d keys.' % (len(out['emails']) - before, len(out['emails']), len(out['keys'])))
         return 0
     s = private_secrets(private)
+    if level == 'first' and 'v' not in s:
+        sys.exit('secrets.json has no First Class key "v". Stopping.')
     payload = {'p': s['p']} if level == 'premium' else {'p': s['p'], 'v': s['v']}
     for e in set(found):
         x = h(e)
