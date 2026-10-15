@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
 <title>The Globe | Digital with David K</title>
-<meta name="description" content="Early access to the Digital with David K Globe. Free for now.">
+<meta name="description" content="Early access to the Digital with David K Globe. China and Japan are free.">
 <meta name="theme-color" content="#0E2F24">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&display=swap" rel="stylesheet">
@@ -351,7 +351,7 @@ html[data-tier="luxury"] .tp-lux{display:block}
 .tp.dark .tp-d{color:#d9d2c7}
 .tp.dark .tp-lux,.tp.dark .tp-lux a{color:var(--beige)}
 .tv{display:none}
-html[data-tier="budget"] .tv-budget,html[data-tier="comfort"] .tv-comfort,html[data-tier="luxury"] .tv-luxury{display:block}
+html[data-tier="budget"] .tv-budget,html[data-tier="premium"] .tv-premium,html[data-tier="vip"] .tv-vip{display:block}
 .tbox{margin:0 16px 16px;border-radius:14px;background:var(--stone);padding:14px}
 .tbox-h{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-bottom:8px}
 .tbox-h b{font-size:10.5px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--em)}
@@ -365,6 +365,150 @@ html[data-tier="budget"] .tv-budget,html[data-tier="comfort"] .tv-comfort,html[d
 .g-cls b{color:var(--beige)}
 .pass-grid.four{grid-template-columns:1.5fr .7fr .7fr 1.25fr}
 .pass-grid.four b{font-size:13px}
+
+/* ---------- VIP look (only when VIP is on, or in the VIP sheet) ---------- */
+:root{
+  --marble:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='700' height='700'%3E%3Cfilter id='m'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.0035 .011' numOctaves='5' seed='11'/%3E%3CfeColorMatrix values='0 0 0 0 .86 0 0 0 0 .86 0 0 0 0 .9 0 0 0 -3.2 1.62'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23m)' opacity='.13'/%3E%3C/svg%3E");
+  --grain:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .07 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+  --vgold:#CFAE5C;--vgold2:#E8D49A;--vsilver:#C9C9CF;--vpur:#4A2670;--vpur2:#8A5CC4;--vink:#0B0B0E;--vcard:#15151A;--vline:rgba(207,174,92,.3);--vtext:#EEEAF2;--vmute:#B9B3C6
+}
+.vipplan{display:none}
+html[data-tier="vip"] .vipplan{display:block}
+html[data-tier="vip"] .baseplan{display:none}
+.vip-stays{display:grid;gap:12px;margin-top:18px}
+.vip-stay{border-radius:16px;padding:14px 16px;background:var(--vcard);border:1px solid var(--vline);color:var(--vtext)}
+.vip-stay small{display:block;font-size:10px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--vgold)}
+.vip-stay b{display:block;font-size:17px;font-weight:800;margin:2px 0 4px;color:#fff}
+.vip-stay p{font-size:14px;color:var(--vmute)}
+.vip-note{margin-top:14px;font-size:12.5px;font-weight:600;color:var(--vgold)}
+html.vip-on body,html.vip-on body.g-on-dark{background:var(--vink) var(--grain)}
+html.vip-on .g-dark{background:var(--marble),radial-gradient(90% 60% at 50% 0%,rgba(138,92,196,.28),transparent 65%),linear-gradient(180deg,#17161c,#0B0B0E 70%);color:var(--vtext)}
+html.vip-on .g-banner{background:linear-gradient(90deg,#B8913E,#E8D49A,#B8913E);color:#141218}
+html.vip-on .g-drop{background:#0B0B0E;color:var(--vgold);border-bottom-color:var(--vline)}
+html.vip-on .g-card{border-color:var(--vline);background:rgba(255,255,255,.035)}
+html.vip-on .g-card.live{background:linear-gradient(135deg,#E8D49A,#B8913E);border-color:#E8D49A;color:#141218;box-shadow:0 5px 0 #6e5422}
+html.vip-on .g-card.live small,html.vip-on .g-card.live span{color:#2a2418}
+html.vip-on footer{background:#08080A;border-top:1px solid var(--vline)}
+html.vip-on footer a{color:var(--vgold2)}
+html.vip-on .g-votes{border-color:var(--vline)}
+html.vip-on .g-cls b,html.vip-on .g-hi{color:var(--vgold2)}
+html.vip-on #tripView,html.vip-on #chinaView{background:var(--marble),var(--grain),linear-gradient(180deg,#121116,#0B0B0E);color:var(--vtext)}
+html.vip-on .bar{background:rgba(11,11,14,.94);border-bottom-color:var(--vline)}
+html.vip-on .brand b span{color:var(--vgold)}
+html.vip-on .pill-gold{background:linear-gradient(135deg,#E8D49A,#B8913E);color:#141218}
+html.vip-on .hero{background:var(--marble),radial-gradient(90% 70% at 85% 0%,rgba(138,92,196,.38),transparent 60%),linear-gradient(160deg,#1c1a22,#0B0B0E 72%)}
+html.vip-on .hero::after{border-color:var(--vline)}
+html.vip-on .tag{background:linear-gradient(135deg,#E8D49A,#B8913E);color:#141218}
+html.vip-on .hero h1 strong{color:var(--vgold2)}
+html.vip-on .stat{border-color:var(--vline)}
+html.vip-on h2{color:var(--vtext)}
+html.vip-on h2 + .sub,html.vip-on .about p,html.vip-on .sub{color:var(--vmute)}
+html.vip-on .eyebrow{color:var(--vgold)}
+html.vip-on .jump a{background:var(--vcard);border-color:var(--vline);color:var(--vtext)}
+html.vip-on .jump a small{color:var(--vgold)}
+html.vip-on .jump a.on,html.vip-on .jump a:hover{background:linear-gradient(135deg,#5A2E86,#2E1646);color:#fff}
+html.vip-on .day,html.vip-on .remind,html.vip-on .cta{background:var(--vcard);color:var(--vtext);box-shadow:0 0 0 1px var(--vline),0 14px 30px rgba(0,0,0,.45)}
+html.vip-on .day-h{background:linear-gradient(135deg,#2A1C3B,#121116)}
+html.vip-on .day-h .n{color:var(--vgold)}
+html.vip-on .day-h .city{border-color:var(--vline);color:var(--vgold2)}
+html.vip-on .slot{border-top-color:rgba(255,255,255,.07)}
+html.vip-on .slot .when{color:var(--vgold)}
+html.vip-on .slot h4{color:#fff}
+html.vip-on .slot p,html.vip-on .remind p,html.vip-on .cta p{color:var(--vmute)}
+html.vip-on .remind p span{color:var(--vmute)}
+html.vip-on .ico{background:rgba(207,174,92,.12);color:var(--vgold)}
+html.vip-on .chip{background:rgba(255,255,255,.04);border-color:rgba(201,201,207,.28);color:var(--vsilver)}
+html.vip-on .chip.gold{background:rgba(207,174,92,.16);border-color:var(--vline);color:var(--vgold2)}
+html.vip-on .tip{background:rgba(255,255,255,.04);color:var(--vmute);border-left-color:var(--vgold)}
+html.vip-on .tip b{color:var(--vgold2)}
+html.vip-on .cta h3,html.vip-on .remind b{color:#fff}
+html.vip-on .cta .k{color:var(--vgold)}
+html.vip-on .btn-em{background:linear-gradient(135deg,#6A3A9C,#3A1C58);color:#fff;box-shadow:0 5px 0 #1d0e2e}
+html.vip-on .btn-gold{background:linear-gradient(135deg,#E8D49A,#B8913E);color:#141218;box-shadow:0 5px 0 #6e5422}
+html.vip-on .btn-line{border-color:var(--vsilver);color:var(--vtext)}
+html.vip-on .mid{background:linear-gradient(135deg,#2A1840,#141218);box-shadow:0 0 0 1px var(--vline)}
+html.vip-on .bg{background:#09090B;box-shadow:0 0 0 1px var(--vline)}
+html.vip-on .bg li::before{background:linear-gradient(135deg,#E8D49A,#B8913E);color:#141218}
+html.vip-on .bg .warn{color:var(--vgold)}
+html.vip-on footer,html.vip-on footer p{color:var(--vmute)}
+html.vip-on .tp{background:rgba(255,255,255,.04);border-color:var(--vline);box-shadow:none}
+html.vip-on .tp-q{color:var(--vgold)}
+html.vip-on .tp-d,html.vip-on .tp-inc{color:var(--vmute)}
+html.vip-on .tp-row button{background:transparent;border-color:rgba(201,201,207,.35);color:var(--vtext)}
+html.vip-on .tp-row button span{color:var(--vmute)}
+html.vip-on .route{border-color:var(--vline)}
+.tp-row button.vipb{background:linear-gradient(135deg,#1d1b23,#0B0B0E);border-color:#B8913E;color:var(--vgold2);position:relative}
+.tp-row button.vipb span{color:var(--vsilver)}
+.tp-row button.vipb svg{width:12px;height:12px;position:absolute;top:7px;right:8px;color:var(--vgold)}
+.tp-row button.vipb[aria-checked="true"],html.vip-on .tp-row button.vipb[aria-checked="true"]{background:linear-gradient(135deg,#E8D49A,#B8913E);border-color:#E8D49A;color:#141218}
+.tp-row button.vipb[aria-checked="true"] span{color:#2a2418}
+.tp-row button.vipb[aria-checked="true"] svg{color:#141218}
+.tp-inc{font-size:11.5px;font-weight:600;color:var(--sage);margin-top:8px}
+.tp.dark .tp-inc{color:var(--silver)}
+/* VIP sheet */
+.vsheet{position:fixed;inset:0;z-index:70;display:flex;align-items:flex-end;justify-content:center;padding:16px;background:rgba(5,5,8,.62);opacity:0;visibility:hidden;transition:opacity .3s,visibility 0s .3s}
+.vsheet.on{opacity:1;visibility:visible;transition:opacity .3s}
+.vsheet-in{width:100%;max-width:460px;max-height:calc(100dvh - 32px);overflow:auto;border-radius:22px;padding:22px 18px 18px;color:var(--vtext);background:var(--marble),radial-gradient(100% 70% at 100% 0%,rgba(138,92,196,.4),transparent 60%),linear-gradient(160deg,#1c1a22,#0B0B0E 75%);box-shadow:0 0 0 1px var(--vline),0 30px 70px rgba(0,0,0,.6);transform:translateY(30px);transition:transform .35s var(--ease)}
+.vsheet.on .vsheet-in{transform:none}
+.vsheet .vk{display:inline-flex;align-items:center;gap:6px;font-size:10.5px;font-weight:800;letter-spacing:.24em;text-transform:uppercase;color:#141218;background:linear-gradient(135deg,#E8D49A,#B8913E);border-radius:999px;padding:6px 11px}
+.vsheet .vk svg{width:12px;height:12px}
+.vsheet h3{font-size:26px;font-weight:300;letter-spacing:.1em;text-transform:uppercase;color:#fff;margin:14px 0 8px;line-height:1.1}
+.vsheet h3 strong{display:block;font-weight:800;letter-spacing:.02em;color:var(--vgold2)}
+.vsheet p{font-size:14.5px;color:var(--vmute)}
+.vsheet ul{list-style:none;display:grid;gap:7px;margin:14px 0 0}
+.vsheet li{display:grid;grid-template-columns:18px 1fr;gap:9px;font-size:14px;color:var(--vtext)}
+.vsheet li::before{content:"";width:8px;height:8px;margin:6px 0 0 4px;border-radius:2px;transform:rotate(45deg);background:var(--vgold)}
+.vprice{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:16px 0 0}
+.vprice div{border:1px solid var(--vline);border-radius:14px;padding:12px;text-align:center;background:rgba(255,255,255,.03)}
+.vprice b{display:block;font-size:22px;font-weight:800;color:#fff;line-height:1.1}
+.vprice span{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--vsilver)}
+.vprice div.best{border-color:var(--vgold);box-shadow:0 0 0 1px var(--vgold) inset}
+.vprice div.best span{color:var(--vgold2)}
+.vfound{margin-top:10px;font-size:12.5px;font-weight:700;color:var(--vgold2);text-align:center}
+.vsheet .btn{margin-top:14px;width:100%}
+.vsheet .btn-gold{background:linear-gradient(135deg,#E8D49A,#B8913E);color:#141218;box-shadow:0 5px 0 #6e5422}
+.vhave{margin-top:16px;border-top:1px solid rgba(255,255,255,.08);padding-top:14px}
+.vhave label{display:block;font-size:12px;font-weight:700;color:var(--vsilver);margin-bottom:6px}
+.vhave .row{display:grid;grid-template-columns:1fr auto;gap:8px}
+.vhave input{font:inherit;font-size:16px;min-height:46px;border-radius:12px;border:1px solid rgba(201,201,207,.35);background:rgba(0,0,0,.35);color:#fff;padding:0 12px;min-width:0}
+.vhave button,.vclose{font:inherit;cursor:pointer}
+.vhave .vgo{min-height:46px;border-radius:12px;border:1px solid var(--vgold);background:transparent;color:var(--vgold2);font-weight:800;padding:0 14px}
+.vmsg{margin-top:8px;font-size:13px;color:var(--vgold2)}
+.vclose{display:block;margin:14px auto 0;background:none;border:0;color:var(--vsilver);font-size:13px;font-weight:700;text-decoration:underline;padding:8px}
+/* Members: Economy / Premium / First Class (GLOBE-MEMBERS-1014) */
+.eco-bar{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:9px 16px;background:#0A241B;color:var(--stone);border-bottom:1px solid rgba(201,181,156,.25)}
+.eco-bar p{font-size:12.5px;font-weight:700;line-height:1.3;margin:0}
+.eco-go{flex:none;font:inherit;font-size:12px;font-weight:800;border:0;border-radius:999px;padding:8px 14px;background:var(--beige);color:var(--em);cursor:pointer}
+.g-card.locked{background:rgba(255,255,255,.05);color:var(--stone);border-color:rgba(201,181,156,.45);box-shadow:none}
+.g-card.locked small{color:var(--beige);display:inline-flex;align-items:center;gap:5px}
+.g-card.locked small svg{width:11px;height:11px}
+.g-card.locked span{color:#cfc8bd;font-weight:500}
+html.vip-on .g-card.locked{background:rgba(255,255,255,.035);color:var(--vtext);border-color:var(--vline);box-shadow:none}
+.tp-row button.lockb{position:relative}
+.tp-row button.lockb svg{width:12px;height:12px;position:absolute;top:7px;right:8px}
+.up-plan{margin-top:14px;border-radius:16px;padding:14px;border:1px solid rgba(201,181,156,.4);background:rgba(14,47,36,.55)}
+.up-plan.first{border-color:var(--vgold);background:linear-gradient(160deg,rgba(207,174,92,.14),rgba(0,0,0,.25))}
+.up-plan.focus{box-shadow:0 0 0 2px var(--beige)}
+.up-plan.first.focus{box-shadow:0 0 0 2px var(--vgold)}
+.up-plan h4{font-size:19px;font-weight:800;color:#fff;margin:0}
+.up-plan.first h4{color:var(--vgold2)}
+.up-eyebrow{margin:0 0 2px;font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--vsilver,#C0C0C0)}
+.up-plan .up-sub{font-size:13px;color:var(--vmute);margin:4px 0 0}
+.up-plan .up-build{font-size:12.5px;font-weight:700;color:var(--vgold2);margin:6px 0 0}
+.up-plan ul{margin:10px 0 0}
+.up-opts{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+.up-opts button{font:inherit;cursor:pointer;border-radius:12px;border:1px solid rgba(201,201,207,.35);background:rgba(255,255,255,.03);color:var(--vtext);padding:10px 6px;text-align:center;min-height:56px}
+.up-opts button b{display:block;font-size:17px;font-weight:800;line-height:1.15;color:#fff}
+.up-opts button span{display:block;font-size:11.5px;font-weight:700;color:var(--vsilver);margin-top:2px}
+.up-opts button[aria-pressed="true"]{border-color:var(--beige);box-shadow:0 0 0 1px var(--beige) inset;background:rgba(201,181,156,.12)}
+.up-plan.first .up-opts button[aria-pressed="true"]{border-color:var(--vgold);box-shadow:0 0 0 1px var(--vgold) inset;background:rgba(207,174,92,.14)}
+.up-opts button[aria-pressed="true"] span{color:var(--beige)}
+.up-plan.first .up-opts button[aria-pressed="true"] span{color:var(--vgold2)}
+.up-save{font-size:12.5px;font-weight:700;color:var(--vgold2);margin:8px 0 0}
+.up-plan .btn{margin-top:10px}
+.up-plan .btn-prem{background:var(--beige);color:var(--em);box-shadow:0 5px 0 #9c876c}
+.up-found{margin-top:14px;font-size:12.5px;font-weight:700;color:var(--vgold2);text-align:center;line-height:1.45}
+.first-note{font-size:13px;font-weight:700;color:var(--vgold2);margin:6px 0 0}
 </style>
 </head>
 <body class="g-on-dark">
@@ -389,7 +533,7 @@ html[data-tier="budget"] .tv-budget,html[data-tier="comfort"] .tv-comfort,html[d
         <div class="pax"><small>Passenger</small><b id="paxName">GUEST</b></div>
         <div><small>Gate</small><b>DK</b></div>
         <div><small>Seat</small><b>1A</b></div>
-        <div><small>Class</small><b class="clsName">COMFORT</b></div>
+        <div><small>Class</small><b class="clsName">ECONOMY</b></div>
       </div>
       <h1>Your boarding pass</h1>
       <p class="hint">Enter the email you signed up with.</p>
@@ -408,8 +552,9 @@ html[data-tier="budget"] .tv-budget,html[data-tier="comfort"] .tv-comfort,html[d
 
 <!-- ===== Round 2: App ===== -->
 <div id="app" hidden>
-  <div class="g-banner">Early access &middot; Free for now &middot; Monthly membership coming soon</div>
+  <div class="g-banner">Early access &middot; Founding prices locked in forever &middot; Ends at launch, Oct 31</div>
   <div class="g-drop" id="gDrop">New countries every week. Next drop: <b>Wed Oct 21</b></div>
+  <div class="eco-bar" id="ecoBar" hidden><p>You're in Economy: China + Japan. Upgrade for every country.</p><button type="button" class="eco-go" id="ecoGo">Upgrade</button></div>
 
   <!-- Globe view -->
   <div id="globeView" class="g-screen g-dark">
@@ -420,10 +565,10 @@ html[data-tier="budget"] .tv-budget,html[data-tier="comfort"] .tv-comfort,html[d
       </div>
       <div class="g-head">
         <span class="g-hi" id="hi" hidden></span><br>
-        <span class="g-cls">Class: <b class="clsName">COMFORT</b></span>
+        <span class="g-cls">Class: <b class="clsName">ECONOMY</b></span>
         <span class="tag">The Globe</span>
         <div class="h">Where to <strong>next?</strong></div>
-        <p>Spin the globe. Tap a glowing pin to open a free day by day plan. 9 places are open now.</p>
+        <p>Spin the globe. Tap a glowing pin to open a day by day plan. China and Japan are free. 9 places are open now.</p>
       </div>
       <div class="g-globe" id="globeWrap">
         <canvas id="globe" aria-label="Spinning globe. Open now: China, Japan, South Korea, Thailand, Vietnam, Dubai, Canada, United States and Australia. Vote for what comes next: Mexico, Italy, Greece, Bali, Portugal, Spain, Turkey, Philippines, Taiwan, Singapore, Iceland, Switzerland, Morocco, Egypt and Peru." role="img"></canvas>
@@ -742,7 +887,7 @@ html[data-tier="budget"] .tv-budget,html[data-tier="comfort"] .tv-comfort,html[d
 </footer>
   </div>
 
-  <!-- Other countries view (built from trips.js) -->
+  <!-- Other countries view (Japan from japan.js, the rest from premium-plans.enc) -->
   <div id="tripView" hidden></div>
 </div>
 
@@ -760,15 +905,62 @@ html[data-tier="budget"] .tv-budget,html[data-tier="comfort"] .tv-comfort,html[d
   </div>
 </div>
 
-<script src="trips.js"></script>
+<script src="vault.js"></script>
+<div class="vsheet" id="vipSheet" role="dialog" aria-modal="true" aria-labelledby="vipH" hidden>
+  <div class="vsheet-in">
+    <span class="vk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>Members</span>
+    <h3 id="vipH">Unlock <strong id="upWhat">every country</strong></h3>
+    <p>Economy has China and Japan. Pick a plan to see the rest of the world.</p>
+    <div class="up-plan" id="upPremium">
+      <h4>Premium</h4>
+      <p class="up-sub">Every country on the globe, plus Premium picks.</p>
+      <ul><li>All 9 countries, day by day</li><li>4 star hotels, nice dinners and taxis</li><li>New countries every week</li></ul>
+      <div class="up-opts" role="group" aria-label="Premium plan length">
+        <button type="button" data-up="premium" data-len="month" aria-pressed="true"><b>$5</b><span>USD a month</span></button>
+        <button type="button" data-up="premium" data-len="year" aria-pressed="false"><b>$50</b><span>USD a year (save $10)</span></button>
+      </div>
+      <a class="btn btn-prem" id="upBuyPremium" href="#" target="_blank" rel="noopener">Get Premium</a>
+    </div>
+    <div class="up-plan first" id="upFirst">
+      <p class="up-eyebrow">First Class</p>
+      <h4>Your seat in First Class</h4>
+      <p class="up-sub">Step on board. Everything in Premium, plus First Class picks and the black marble and gold look.</p>
+      <p class="up-build">First Class is still being built. Founding members get it first.</p>
+      <ul><li>Hidden 5 star hotels most people never hear of</li><li>Private butlers and concierge help</li><li>The best tables and the wildest clubs</li></ul>
+      <div class="up-opts" role="group" aria-label="First Class plan length">
+        <button type="button" data-up="first" data-len="month" aria-pressed="false"><b>$20</b><span>USD a month</span></button>
+        <button type="button" data-up="first" data-len="year" aria-pressed="true"><b>$200</b><span>USD a year (save $40)</span></button>
+      </div>
+      <p class="up-save">Monthly is $240 USD a year. Lock in the year and save $40.</p>
+      <a class="btn btn-gold" id="upBuyFirst" href="#" target="_blank" rel="noopener">Take my First Class seat</a>
+    </div>
+    <p class="up-found">Founding price, locked in forever while you stay. Founding prices end at launch, Oct 31. All prices in USD. Cancel anytime.</p>
+    <form class="vhave" id="vipForm" novalidate>
+      <label for="vipEmail">Already a member? Enter your member email</label>
+      <div class="row"><input id="vipEmail" type="email" inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" placeholder="you@email.com"><button class="vgo" id="vipGo" type="submit">Unlock</button></div>
+      <p class="vmsg" id="vipMsg" role="alert" hidden></p>
+    </form>
+    <button class="vclose" id="vipX" type="button">Not now</button>
+  </div>
+</div>
+
 <script src="tiers.js"></script>
+<script src="japan.js"></script>
+<script src="members.js"></script>
 <script>
 (function(){
 'use strict';
+/* Membership checkout links live in members.js (one place to swap them). */
+var MLINKS=(window.DWDK_MEMBERS&&window.DWDK_MEMBERS.links)||{};
+var FREE=window.DWDK_FREE||{trips:{},tiers:{}};
+var FREEK={china:1,japan:1};/* Economy countries */
 /* ===== Content (edit words and places here) ===== */
 var STAN='https://stan.store/digitalwithdavidk/p/free-7-days-in-china-itinerary';
 var KEY='dwdk_globe_pass';
-var TRIPS=window.DWDK_TRIPS||{};
+var TRIPS={},VIPP=null,LEVEL='none';/* filled after the pass unlocks (vault.js). LEVEL: none, economy, premium, first */
+for(var fk in FREE.trips)TRIPS[fk]=FREE.trips[fk];
+function paid(){return LEVEL==='premium'||LEVEL==='first'}
+function canOpen(key){return !!FREEK[key]||paid()}
 var PLACES=[
   {key:'china',id:156,name:'China',lon:121.47,lat:31.23,live:true,side:-1,sub:'7 days: Shanghai, Hangzhou, Suzhou'},
   {key:'japan',id:392,name:'Japan',lon:139.69,lat:35.69,live:true},
@@ -795,7 +987,8 @@ var PLACES=[
   {id:818,v:'egypt',name:'Egypt',lon:31.24,lat:30.04},
   {id:604,v:'peru',name:'Peru',lon:-71.97,lat:-13.53,side:-1}
 ];
-PLACES.forEach(function(p){if(p.live&&p.key!=='china'){var t=TRIPS[p.key];if(!t){p.live=false;return}p.sub=t.daysN+' days: '+t.cities}});
+var SUBS={japan:'7 days: Tokyo, Kyoto, Osaka',korea:'6 days: Seoul, Busan',thailand:'7 days: Bangkok, Phuket',vietnam:'7 days: Ho Chi Minh City, Da Nang, Hoi An',dubai:'5 days: Dubai, Abu Dhabi',canada:'7 days: Toronto, Niagara Falls, Montreal',usa:'7 days: New York, Miami',australia:'7 days: Sydney, Melbourne'};
+PLACES.forEach(function(p){if(p.live&&p.key!=='china')p.sub=SUBS[p.key]});
 var BYKEY={};PLACES.forEach(function(p){if(p.key)BYKEY[p.key]=p});
 var URLS={call:'https://stan.store/digitalwithdavidk/p/not-sure--book-a-discovery-call',bp:'https://stan.store/digitalwithdavidk/p/get-my-travel-hack-blueprint-now',ig:'https://www.instagram.com/digitalwithdavidk/'};
 var LIBS=[
@@ -825,23 +1018,11 @@ var graceKey=null;
   }catch(e){}
 })();
 
-function sha256(str){
-  var data=new TextEncoder().encode(str);
-  return crypto.subtle.digest('SHA-256',data).then(function(buf){
-    return Array.prototype.map.call(new Uint8Array(buf),function(b){return ('0'+b.toString(16)).slice(-2)}).join('');
-  });
-}
-var accessP=null;
-function getAccess(){
-  if(!accessP){accessP=fetch('access.json',{cache:'no-store'}).then(function(r){if(!r.ok)throw 0;return r.json()}).catch(function(){accessP=null;return null});}
-  return accessP;
-}
-
 /* ===== Gate ===== */
 function readPass(){
   var v=sGet('localStorage',KEY);
   if(!v)return null;
-  try{var o=JSON.parse(v);return (o&&o.h)?o:null}catch(e){return null}
+  try{var o=JSON.parse(v);return (o&&(o.e||o.h))?o:null}catch(e){return null}
 }
 function remembered(){return !!readPass()}
 function cleanName(v){
@@ -863,28 +1044,55 @@ $('passForm').addEventListener('submit',function(ev){
   $('err').hidden=true;
   if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){showError('<p><b>That email looks off.</b> Check it and try again.</p>');return}
   if(!(window.crypto&&crypto.subtle)){showError('<p><b>This browser can\'t check your pass.</b> Try opening the link in Safari or Chrome.</p>');return}
-  var btn=$('go');btn.disabled=true;
-  Promise.all([sha256(email),graceKey?sha256(graceKey):Promise.resolve(null),getAccess()]).then(function(r){
-    var eh=r[0],kh=r[1],acc=r[2];
-    btn.disabled=false;
-    if(!acc){showError('<p><b>We could not check your pass right now.</b> Check your internet and try again.</p>');return}
-    var ok=(acc.emails||[]).indexOf(eh)>-1||(kh&&(acc.keys||[]).indexOf(kh)>-1);
-    if(!ok){showError(NOPE);return}
-    guest=cleanName($('fname').value);
-    $('paxName').textContent=guest?guest.toUpperCase():'GUEST';
-    sSet('localStorage',KEY,JSON.stringify({h:eh,at:Date.now(),n:guest}));
-    $('passForm').classList.add('ok');
-    setTimeout(enterApp,REDUCED?0:750);
-  }).catch(function(){btn.disabled=false;showError('<p><b>Something went wrong.</b> Try again.</p>')});
+  board(email,false);
 });
+var GO_HTML=null;
+function busy(on){var b=$('go');if(GO_HTML===null)GO_HTML=b.innerHTML;b.disabled=on;b.innerHTML=on?'Checking your pass...':GO_HTML}
+function applyAccess(r){
+  LEVEL=r.level;VIPP=r.vip||null;
+  var P=r.premium||null,k;
+  TRIPS={};for(k in FREE.trips)TRIPS[k]=FREE.trips[k];
+  TIERS=JSON.parse(JSON.stringify(BASE_TIERS));for(k in FREE.tiers)TIERS[k]=FREE.tiers[k];
+  if(P){
+    for(k in (P.trips||{}))TRIPS[k]=P.trips[k];
+    for(k in (P.tiers||{}))TIERS[k]=P.tiers[k];
+    if(P.china&&TIERS.china){
+      if(P.china.cost)for(var ck in P.china.cost)TIERS.china.cost[ck]=P.china.cost[ck];
+      for(var c in (P.china.cities||{})){TIERS.china.cities[c]=TIERS.china.cities[c]||{};for(var t in P.china.cities[c])TIERS.china.cities[c][t]=P.china.cities[c][t]}
+    }
+  }
+  document.documentElement.classList.toggle('is-vip',LEVEL==='first');
+  $('ecoBar').hidden=LEVEL!=='economy';
+  var cv=$('chinaView');if(cv){[].forEach.call(cv.querySelectorAll('.tbox'),function(b){b.parentNode.removeChild(b)});addTiers(cv,'china')}
+  refreshPickers();addChinaVip();paintCards();cur=null;
+}
+function board(email,auto){
+  $('err').hidden=true;busy(true);
+  var k=graceKey||(PASSK||'');
+  DWDKVault.unlock(email,k).then(function(r){
+    busy(false);
+    if(r.level==='none'){
+      if(auto){try{localStorage.removeItem(KEY)}catch(e){}showError('<p><b>This pass is not active anymore.</b> <a href="'+STAN+'" target="_blank" rel="noopener">Grab your free pass here</a>.</p>')}
+      else showError(NOPE);
+      return;
+    }
+    applyAccess(r);
+    if(!auto){guest=cleanName($('fname').value)}
+    $('paxName').textContent=guest?guest.toUpperCase():'GUEST';
+    var keep={e:email,at:Date.now(),n:guest};if(graceKey&&r.level!=='none')keep.k=graceKey;else if(PASSK)keep.k=PASSK;
+    sSet('localStorage',KEY,JSON.stringify(keep));
+    $('passForm').classList.add('ok');
+    setTimeout(enterApp,(REDUCED||auto)?0:750);
+  }).catch(function(){busy(false);showError('<p><b>We could not check your pass right now.</b> Check your internet and try again.</p>')});
+}
 
 /* ===== App views ===== */
 var started=false,cur=null;
 function hashKey(){var k=(location.hash||'').slice(1);return (BYKEY[k]&&BYKEY[k].live)?k:null}
 function enterApp(){
   $('gate').hidden=true;$('app').hidden=false;greet();
-  var k=hashKey();if(k)openTrip(k,true);else showGlobe(true);
   if(!started){started=true;buildList();loadGlobe();loadVotes();loadDrop()}
+  var k=hashKey();if(k&&canOpen(k))openTrip(k,true);else{showGlobe(true);if(k)openUp('premium',BYKEY[k])}
 }
 function showGlobe(noPush){
   $('chinaView').hidden=true;$('tripView').hidden=true;$('globeView').hidden=false;cur=null;
@@ -894,6 +1102,7 @@ function showGlobe(noPush){
   window.scrollTo(0,0);G.resume&&G.resume();
 }
 function openTrip(key,noPush){
+  if(!canOpen(key)){openUp('premium',BYKEY[key]);return}
   var view=key==='china'?$('chinaView'):$('tripView');
   if(key!=='china'&&cur!==key)renderTrip(key);
   $('globeView').hidden=true;$('chinaView').hidden=key!=='china';$('tripView').hidden=key==='china';cur=key;
@@ -901,7 +1110,7 @@ function openTrip(key,noPush){
   if(!noPush)history.pushState({v:key},'','#'+key);
   window.scrollTo(0,0);G.pause&&G.pause();revealInit(view);
 }
-window.addEventListener('popstate',function(){if($('app').hidden)return;var k=hashKey();if(k)openTrip(k,true);else showGlobe(true)});
+window.addEventListener('popstate',function(){if($('app').hidden)return;var k=hashKey();if(k&&canOpen(k))openTrip(k,true);else showGlobe(true)});
 function viewClicks(e){
   var b=e.target.closest('[data-back]');if(b){e.preventDefault();showGlobe();return}
   var a=e.target.closest('a[href^="#"]');
@@ -928,11 +1137,11 @@ function ctaStack(place){
 function renderTrip(key){
   var t=TRIPS[key],p=BYKEY[key],n=t.days.length,h='';
   h+='<header class="bar"><div class="wrap"><a class="brand" href="'+URLS.ig+'" target="_blank" rel="noopener" aria-label="Digital with David K on Instagram"><img src="../images/brand/dk-beige.svg" alt="" style="height:20px;width:auto"><b>Digital<span>with David K.</span></b></a><div class="bar-cta"><button class="pill pill-line back" type="button" data-back>&larr; Globe</button><a class="pill pill-gold" href="'+URLS.call+'" target="_blank" rel="noopener">Free call</a></div></div></header>';
-  h+='<div class="hero"><div class="wrap hero-grid"><div><span class="tag">Free guide &middot; Open now</span><h1>'+n+' Days in <strong>'+esc(t.name)+'</strong></h1><p class="lead">'+esc(t.lead)+' <b>'+esc(t.cities)+'.</b></p><div class="stats">'+t.stats.map(function(x){return '<div class="stat"><b>'+x[0]+'</b><span>'+esc(x[1])+'</span></div>'}).join('')+'</div></div>';
+  h+='<div class="hero"><div class="wrap hero-grid"><div><span class="tag">Members &middot; Open now</span><h1>'+n+' Days in <strong>'+esc(t.name)+'</strong></h1><p class="lead">'+esc(t.lead)+' <b>'+esc(t.cities)+'.</b></p><div class="stats">'+t.stats.map(function(x){return '<div class="stat"><b>'+x[0]+'</b><span>'+esc(x[1])+'</span></div>'}).join('')+'</div></div>';
   h+='<div class="t-route" aria-label="Route">'+t.cities.split(', ').map(function(c,i){return (i?'<i aria-hidden="true"></i>':'')+'<span>'+esc(c)+'</span>'}).join('')+'</div></div></div>';
   h+='<main class="wrap"><div class="remind rv"><p>Want help planning '+esc(p.short||t.name)+'? <span>Book a free call, or grab the Blueprint to fly there on points.</span></p><div class="row"><a class="btn btn-em btn-sm" href="'+URLS.call+'" target="_blank" rel="noopener">Book a free call</a><a class="btn btn-line btn-sm" href="'+URLS.bp+'" target="_blank" rel="noopener">$19 Blueprint</a></div></div>';
   h+=tierPicker(false);
-  h+='<section><p class="eyebrow">The plan</p><h2>Your '+n+' days</h2><p class="sub">'+esc(t.plan)+'</p><nav class="jump" style="grid-template-columns:repeat('+n+',1fr)" aria-label="Jump to a day">';
+  h+='<section class="baseplan"><p class="eyebrow">The plan</p><h2>Your '+n+' days</h2><p class="sub">'+esc(t.plan)+'</p><nav class="jump" style="grid-template-columns:repeat('+n+',1fr)" aria-label="Jump to a day">';
   for(var i=1;i<=n;i++)h+='<a href="#t'+i+'"><small>DAY</small><b>'+i+'</b></a>';
   h+='</nav><div class="days">';
   t.days.forEach(function(d,i){
@@ -942,7 +1151,7 @@ function renderTrip(key){
     if(i===1)h+='<aside class="mid day wide rv" aria-label="Business class on points"><img src="../images/site/product-blueprint.jpg" alt="The Travel Hacking Blueprint by Digital with David K"><div><h3>Flying to '+esc(p.short||t.name)+'? Do it in business class.</h3><p>The Blueprint shows the points steps to fly business class without paying cash.</p><a class="btn btn-gold btn-sm" href="'+URLS.bp+'" target="_blank" rel="noopener">Get the $19 Blueprint</a></div></aside>';
   });
   if(n%2===1)h=h.replace('<article class="day rv" id="t'+n+'">','<article class="day wide rv" id="t'+n+'">');
-  h+='</div></section>';
+  h+='</div></section>'+vipPlan(key);
   h+='<section><p class="eyebrow">Read this first</p><h2>Before you go</h2><div class="bg rv"><div class="bg-h"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3 8-8"/><path d="M20 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg><h3>'+t.before.length+' things to set up</h3></div><ol>'+t.before.map(function(b){return '<li><div><b>'+esc(b[0])+'</b><p>'+esc(b[1])+'</p></div></li>'}).join('')+'</ol><p class="warn">Checked October 2026. Rules and prices change, so check before you go.</p></div></section>';
   h+=ctaStack(t.name);
   h+='<div style="padding-top:28px"><button class="btn btn-em back" style="width:100%" type="button" data-back>Back to the globe</button></div></main>';
@@ -953,6 +1162,7 @@ function renderTrip(key){
 
 /* ===== Country cards (always there, and the fallback) ===== */
 function pick(p){
+  if(p.live&&!canOpen(p.key)){openUp('premium',p);return}
   if(p.live){
     var done=false;function go(){if(done)return;done=true;openTrip(p.key)}
     if(G.flyTo&&!REDUCED&&G.isOn()&&G.inView()){G.flyTo(p,go);setTimeout(go,1700)}else go();
@@ -965,13 +1175,21 @@ function closeSheet(){$('sheet').classList.remove('on');sheetP=null}
 $('sheetX').addEventListener('click',closeSheet);
 document.addEventListener('keydown',function(e){if(e.key==='Escape')closeSheet()});
 document.addEventListener('pointerdown',function(e){if($('sheet').classList.contains('on')&&!e.target.closest('.sheet-in')&&!e.target.closest('.g-card')&&!e.target.closest('.g-vrow'))closeSheet()});
+function cardHTML(p){
+  if(!p.live)return '<small>Vote for next</small><b>'+esc(p.name)+'</b><span class="vc" data-v="'+p.v+'">Tap to vote</span>';
+  if(!canOpen(p.key))return '<small>'+LOCKSVG+'Premium</small><b>'+esc(p.name)+'</b><span>'+esc(p.sub||'')+'</span>';
+  return '<small><i></i>'+(FREEK[p.key]&&!paid()?'Free with your pass':'Open now')+'</small><b>'+esc(p.name)+'</b><span>'+esc(p.sub||'')+'</span>';
+}
 function buildList(){
   var l=$('list');
   PLACES.forEach(function(p){
     var b=document.createElement('button');b.type='button';b.className='g-card '+(p.live?'live':'soon');
-    b.innerHTML=p.live?'<small><i></i>Open now</small><b>'+esc(p.name)+'</b><span>'+esc(p.sub||'')+'</span>':'<small>Vote for next</small><b>'+esc(p.name)+'</b><span class="vc" data-v="'+p.v+'">Tap to vote</span>';
+    p.card=b;b.innerHTML=cardHTML(p);if(p.live&&!canOpen(p.key))b.classList.add('locked');
     b.addEventListener('click',function(){pick(p)});l.appendChild(b);
   });
+}
+function paintCards(){
+  PLACES.forEach(function(p){if(!p.card||!p.live)return;p.card.innerHTML=cardHTML(p);p.card.classList.toggle('locked',!canOpen(p.key));p.card.setAttribute('aria-label',p.name+(canOpen(p.key)?'':', Premium, locked'))});
 }
 
 /* ===== Live votes (shared counter: abacus.jasoncameron.dev, namespace dwdk-globe, key vote-<country>) ===== */
@@ -1136,16 +1354,17 @@ function startGlobe(world){
       }
       boxes.push([xy[0]-7,xy[1]-7,14,14]);
     });
-    PLACES.forEach(function(p){if(p.live&&p.xy&&visible(p))label(p.xy,(p.short||p.name).toUpperCase(),true,fs*.9,p.side||1,boxes)});
+    PLACES.forEach(function(p){if(p.live&&p.xy&&visible(p))label(p.xy,(p.short||p.name).toUpperCase(),true,fs*.9,p.side||1,boxes,!canOpen(p.key))});
     PLACES.filter(function(p){return !p.live&&visible(p)}).sort(function(a,b){return (VOTES[b.v]||0)-(VOTES[a.v]||0)}).forEach(function(p){
       label(p.xy,p.name.toUpperCase(),false,fs*.85,p.side||1,boxes);
     });
     PLACES.forEach(function(p){if(!visible(p))p.xy=null});
   }
   function hit(a,b){return a[0]<b[0]+b[2]+2&&b[0]<a[0]+a[2]+2&&a[1]<b[1]+b[3]+2&&b[1]<a[1]+a[3]+2}
-  function label(xy,txt,live,fs,side,boxes){
+  function label(xy,txt,live,fs,side,boxes,locked){
     ctx.font=(live?'800 ':'700 ')+fs+'px Montserrat, sans-serif';
-    var w=ctx.measureText(txt).width+14,h=fs+10,x=side<0?xy[0]-12-w:xy[0]+12,y=xy[1]-h/2;
+    var lw=locked?fs*.95:0;
+    var w=ctx.measureText(txt).width+14+lw,h=fs+10,x=side<0?xy[0]-12-w:xy[0]+12,y=xy[1]-h/2;
     if(side===2){x=xy[0]-w/2;y=xy[1]-h-9}
     if(x+w>W-4)x=Math.min(xy[0]-12-w,W-4-w);if(x<4)x=side===2?4:xy[0]+12;
     if(boxes){
@@ -1159,9 +1378,12 @@ function startGlobe(world){
       x=bx[0];y=bx[1];boxes.push(bx);
     }
     ctx.globalAlpha=live?1:.85;
-    ctx.fillStyle=live?'#C9B59C':'rgba(10,36,27,.85)';
+    ctx.fillStyle=locked?'#0E2F24':(live?'#C9B59C':'rgba(10,36,27,.85)');
     rr(x,y,w,h,h/2);ctx.fill();
-    ctx.fillStyle=live?'#0E2F24':'#C0C0C0';ctx.fillText(txt,x+7,y+h/2+.5);ctx.globalAlpha=1;
+    if(locked){ctx.strokeStyle='#C9B59C';ctx.lineWidth=1;ctx.stroke();
+      var u=fs/10,lx=x+7,ly=y+h/2;ctx.fillStyle='#C9B59C';ctx.fillRect(lx,ly-u*.6,u*6,u*4.6);
+      ctx.beginPath();ctx.arc(lx+u*3,ly-u*.6,u*2,Math.PI,0);ctx.lineWidth=Math.max(1,u*1.1);ctx.stroke()}
+    ctx.fillStyle=locked?'#C9B59C':(live?'#0E2F24':'#C0C0C0');ctx.fillText(txt,x+7+lw,y+h/2+.5);ctx.globalAlpha=1;
   }
   function rr(x,y,w,h,r){ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath()}
   function ease(x){return x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2}
@@ -1224,23 +1446,29 @@ function startGlobe(world){
 }
 
 
-/* ===== Travel style: Budget, Comfort, Luxury (words in tiers.js) ===== */
-var TIERS=window.DWDK_TIERS||{};
-var TNAME={budget:'Budget',comfort:'Comfort',luxury:'Luxury'};
-var TSHORT={budget:'Smart and cheap',comfort:'The middle',luxury:'5 star'};
-var TDESC={budget:'Smart and cheap: hostels or 3 star hotels, street food and the metro.',comfort:'The middle: good 4 star hotels, a few nice dinners and some taxis.',luxury:'5 star hotels, lounges, private drivers and the best tables.'};
+/* ===== Travel style: Economy, Premium, First Class (keys stay budget, premium, vip) ===== */
+var BASE_TIERS=JSON.parse(JSON.stringify(window.DWDK_TIERS||{}));
+var TIERS=JSON.parse(JSON.stringify(BASE_TIERS));for(var tk0 in FREE.tiers)TIERS[tk0]=FREE.tiers[tk0];
+var TNAME={budget:'Economy',premium:'Premium',vip:'First Class'};
+var TSHORT={budget:'Smart and cheap',premium:'4 star comfort',vip:'Hidden 5 star'};
+var TDESC={budget:'Smart and cheap: hostels or 3 star hotels, street food and the metro.',premium:'Good 4 star hotels, a few nice dinners and some taxis.',vip:'Hidden 5 star hotels, butlers, the best tables and the wildest clubs.'};
+var LOCKSVG='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>';
 var TKEY='dwdk_tier';
-function getTier(){var t=sGet('localStorage',TKEY);return TNAME[t]?t:'comfort'}
+function tierOk(t){return t==='budget'||(t==='premium'&&paid())||(t==='vip'&&LEVEL==='first')}
+function getTier(){var t=sGet('localStorage',TKEY);if(t==='comfort')t='premium';if(t==='luxury')t='vip';if(!TNAME[t])t=LEVEL==='first'?'vip':'premium';if(!tierOk(t))t=tierOk('premium')?'premium':'budget';return t}
 function tierPicker(dark){
   var cur=getTier(),h='<div class="tp'+(dark?' dark':'')+'"><p class="tp-q" id="tpq'+(dark?'g':'t')+'">How do you like to travel?</p><div class="tp-row" role="radiogroup" aria-labelledby="tpq'+(dark?'g':'t')+'">';
-  ['budget','comfort','luxury'].forEach(function(k){h+='<button type="button" role="radio" data-tier-pick="'+k+'" aria-checked="'+(k===cur)+'"><b>'+TNAME[k]+'</b><span>'+TSHORT[k]+'</span></button>'});
-  h+='</div><p class="tp-d">'+['budget','comfort','luxury'].map(function(k){return '<span class="tv tv-'+k+'">'+esc(TDESC[k])+'</span>'}).join('')+'</p>';
-  h+='<p class="tp-lux">Want the luxury trip without the luxury price? <a href="'+URLS.call+'" target="_blank" rel="noopener">Book a free call</a></p></div>';
+  ['budget','premium','vip'].forEach(function(k){var v=k==='vip',ok=tierOk(k),cls=(v?'vipb':'')+(!ok&&!v?'lockb':'');h+='<button type="button" role="radio"'+(cls?' class="'+cls+'"':'')+' data-tier-pick="'+k+'" aria-checked="'+(k===cur)+'"'+(ok?'':' aria-label="'+TNAME[k]+', locked. See plans"')+'>'+(ok?'':LOCKSVG)+'<b>'+TNAME[k]+'</b><span>'+(v&&ok?'Unlocked':TSHORT[k])+'</span></button>'});
+  var inc=LEVEL==='first'?'You are First Class. Everything is open.':(paid()?'You are Premium. Every country is open. First Class is for First Class members.':'Your pass is Economy: China and Japan. Premium opens every country.');
+  h+='</div><p class="tp-inc">'+inc+'</p>'+(LEVEL==='first'?'<p class="first-note">First Class is still being built. Founding members get it first.</p>':'')+'<p class="tp-d">'+['budget','premium','vip'].map(function(k){return '<span class="tv tv-'+k+'">'+esc(TDESC[k])+'</span>'}).join('')+'</p>';
+  h+='</div>';
   return h;
 }
 function setTier(t,save){
-  if(!TNAME[t])t='comfort';
+  if(!TNAME[t])t='premium';
+  if(!tierOk(t)){if(save){openUp(t==='vip'?'first':'premium');return}t=getTier()}
   document.documentElement.setAttribute('data-tier',t);
+  document.documentElement.classList.toggle('vip-on',t==='vip');
   if(save)sSet('localStorage',TKEY,t);
   [].forEach.call(document.querySelectorAll('[data-tier-pick]'),function(b){b.setAttribute('aria-checked',String(b.getAttribute('data-tier-pick')===t))});
   [].forEach.call(document.querySelectorAll('.clsName'),function(e){e.textContent=TNAME[t].toUpperCase()});
@@ -1255,7 +1483,8 @@ function addTiers(root,key){
     var home=sleep[city]||city,H=T.cities[home]||C,idx=seen[city]||0;seen[city]=idx+1;
     var stayLbl=null;if(!shown[home]){shown[home]=1;stayLbl=home===city?'Where to stay':'Tonight in '+home}
     var box=document.createElement('div');box.className='tbox';var h='';
-    ['budget','comfort','luxury'].forEach(function(k){
+    ['budget','premium'].forEach(function(k){
+      if(!C[k]&&!(H[k]&&stayLbl))return;
       var c=C[k]||{},hs=H[k]||{},eat=c.eat||[];
       h+='<div class="tv tv-'+k+'"><div class="tbox-h"><b>Your '+TNAME[k]+' day <i>&middot; '+esc(city)+'</i></b></div><dl>';
       if(stayLbl&&hs.stay)h+='<div><dt>'+esc(stayLbl)+'</dt><dd>'+esc(hs.stay)+'</dd></div>';
@@ -1268,6 +1497,66 @@ function addTiers(root,key){
     box.innerHTML=h;day.appendChild(box);
   });
 }
+
+function refreshPickers(){
+  [].forEach.call(document.querySelectorAll('.tp'),function(el){var d=document.createElement('div');d.innerHTML=tierPicker(el.classList.contains('dark'));el.parentNode.replaceChild(d.firstChild,el)});
+  setTier(getTier(),false);
+}
+/* ===== First Class plans (words locked in vip-plans.enc) ===== */
+function vipPlan(key){
+  var V=VIPP&&VIPP[key];if(!V)return '';
+  var n=V.days.length,h='<section class="vipplan" aria-label="First Class plan"><p class="eyebrow">First Class plan</p><h2>Your First Class '+n+' days</h2><p class="sub">'+esc(V.lead)+'</p><p class="first-note">First Class is still being built. Founding members get it first.</p>';
+  h+='<div class="vip-stays">'+V.stays.map(function(x){return '<div class="vip-stay"><small>Where to stay &middot; '+esc(x[0])+'</small><b>'+esc(x[1])+'</b><p>'+esc(x[2])+'</p>'+chips(x[3])+'</div>'}).join('')+'</div><div class="days">';
+  V.days.forEach(function(d,i){
+    h+='<article class="day'+(n%2===1&&i===n-1?' wide':'')+'"><div class="day-h"><div><div class="n">First Class day '+(i+1)+'</div><h3>'+esc(d.t)+'</h3></div><span class="city">'+esc(d.city)+'</span></div>';
+    d.s.forEach(function(sl){h+='<div class="slot"><div class="ico">'+(ICO[sl[0]]||ICO.Morning)+'</div><div><div class="when">'+esc(sl[0])+'</div><h4>'+esc(sl[1])+'</h4><p>'+esc(sl[2])+'</p>'+chips(sl[3])+'</div></div>'});
+    h+='</article>';
+  });
+  return h+'</div><p class="vip-note">First Class picks checked October 2026. Places and prices change, so check before you go.</p></section>';
+}
+function addChinaVip(){
+  var cv=$('chinaView'),plan=cv&&cv.querySelector('#plan');if(!plan)return;
+  plan.classList.add('baseplan');
+  var old=cv.querySelector('.vipplan');if(old)old.parentNode.removeChild(old);
+  var h=vipPlan('china');if(!h)return;
+  var d=document.createElement('div');d.innerHTML=h;plan.parentNode.insertBefore(d.firstChild,plan.nextSibling);
+}
+var vipLast=null,UPLEN={premium:'month',first:'year'};
+function upLinks(){
+  $('upBuyPremium').href=MLINKS['premium_'+UPLEN.premium]||'https://stan.store/digitalwithdavidk';
+  $('upBuyFirst').href=MLINKS['first_'+UPLEN.first]||'https://stan.store/digitalwithdavidk';
+  [].forEach.call(document.querySelectorAll('[data-up]'),function(b){b.setAttribute('aria-pressed',String(UPLEN[b.dataset.up]===b.dataset.len))});
+}
+document.addEventListener('click',function(e){var b=e.target.closest('[data-up]');if(!b)return;UPLEN[b.dataset.up]=b.dataset.len;upLinks()});
+function openUp(which,place){
+  closeSheet();
+  var sh=$('vipSheet');vipLast=document.activeElement;
+  $('upWhat').textContent=place&&place.live?(place.short||place.name):(which==='first'?'First Class':'every country');
+  $('upPremium').hidden=paid();
+  $('upPremium').classList.toggle('focus',which!=='first');$('upFirst').classList.toggle('focus',which==='first');
+  upLinks();$('vipMsg').hidden=true;
+  sh.hidden=false;void sh.offsetWidth;sh.classList.add('on');
+  var tgt=which==='first'||paid()?$('upFirst'):$('upPremium');
+  setTimeout(function(){try{if(which==='first')tgt.scrollIntoView({block:'nearest'});tgt.querySelector('a.btn').focus({preventScroll:true})}catch(e){}},60);
+}
+$('ecoGo').addEventListener('click',function(){openUp('premium')});
+function closeVip(){var sh=$('vipSheet');sh.classList.remove('on');setTimeout(function(){if(!sh.classList.contains('on'))sh.hidden=true},320);try{vipLast&&vipLast.focus({preventScroll:true})}catch(e){}}
+$('vipX').addEventListener('click',closeVip);
+$('vipSheet').addEventListener('click',function(e){if(e.target===this)closeVip()});
+document.addEventListener('keydown',function(e){if(e.key==='Escape'&&$('vipSheet').classList.contains('on'))closeVip()});
+$('vipForm').addEventListener('submit',function(ev){
+  ev.preventDefault();
+  var em=($('vipEmail').value||'').trim().toLowerCase(),m=$('vipMsg'),b=$('vipGo');
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)){m.textContent='That email looks off. Check it and try again.';m.hidden=false;return}
+  b.disabled=true;b.textContent='...';
+  DWDKVault.unlock(em,null).then(function(r){
+    b.disabled=false;b.textContent='Unlock';
+    if(r.level!=='premium'&&r.level!=='first'){m.textContent='That email is not a member yet. Pick a plan above to join.';m.hidden=false;return}
+    var was=cur;applyAccess(r);
+    var p=readPass()||{};p.e=em;p.at=Date.now();sSet('localStorage',KEY,JSON.stringify(p));
+    closeVip();setTier(r.level==='first'?'vip':'premium',true);if(was&&was!=='china')openTrip(was,true);
+  }).catch(function(){b.disabled=false;b.textContent='Unlock';m.textContent='Could not check right now. Try again.';m.hidden=false});
+});
 setTier(getTier(),false);
 (function(){
   var g=$('tpGlobe');if(g)g.innerHTML=tierPicker(true);
@@ -1289,8 +1578,14 @@ function revealInit(root){
 }
 
 /* ===== Start ===== */
-var saved=readPass();
-if(saved){guest=cleanName(saved.n);enterApp()}else{$('gate').hidden=false;getAccess()}
+var saved=readPass(),PASSK=null;
+$('gate').hidden=false;
+if(saved){
+  guest=cleanName(saved.n);
+  if(guest){$('fname').value=guest;$('paxName').textContent=guest.toUpperCase()}
+  if(saved.e){PASSK=saved.k||null;$('email').value=saved.e;board(saved.e,true)}
+  else{$('err').innerHTML='<p><b>One quick step.</b> Type your email once more to open the plans.</p>';$('err').hidden=false}
+}
 })();
 </script>
 </body>

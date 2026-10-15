@@ -208,5 +208,13 @@
  ],
  "keys": [
   "0b07da856a314de666e5b7edbce92d5776df2915810870868133162b7e001169"
- ]
+ ],
+ "premium": [],
+ "first": [],
+ "boxes": {},
+ "kdf": {
+  "alg": "PBKDF2-SHA256",
+  "salt": "dwdk-globe-v2",
+  "iter": 150000
+ }
 }
