@@ -210,8 +210,14 @@
   "0b07da856a314de666e5b7edbce92d5776df2915810870868133162b7e001169"
  ],
  "premium": [],
- "first": [],
- "boxes": {},
+ "first": [
+  "09c86abf0add695f116c4cc08f99a892ac9f88dc1fdaf06c098f5aaccbe3cdc4",
+  "8cff51ac97fc19888e2bd2d2ffa3d45f6cc3d0cd4d761cde05b9fb296d9cc43e"
+ ],
+ "boxes": {
+  "09c86abf0add695f116c4cc08f99a892ac9f88dc1fdaf06c098f5aaccbe3cdc4": "Rbgo7lD07UaL3jefWdNIhvIhchclUtm7bdP46HGT8YRI4eQLzeY4KF2C8ZymGjRXIDqXFJqOnurp0ZhMcTAf0wKAy5XQhEPYmYwBBUbfMnbmwmgF6Lju0ZTEl2tZtc27nbA6qTYsnEJazuP6IKKcj62RmLKkcuJgH4SLgjEWTD+8XVUms2o=",
+  "8cff51ac97fc19888e2bd2d2ffa3d45f6cc3d0cd4d761cde05b9fb296d9cc43e": "r1ExXQyBalhaq25UaIg/vbfR332afstkLzZD5trl2X/oyTykJJnBEdu+HJpcrOGTkeVDuVaLZiD7cHIlNXK1VE8RtVfUAFPs0SCTF0rVH4uT7r+mRjzFdk9efK7+mpzeJZj3M+7cqStK+cdSQcWj0k+ETqGw+URVLU+kjN3jH7EEWqRsHFs="
+ },
  "kdf": {
   "alg": "PBKDF2-SHA256",
   "salt": "dwdk-globe-v2",
