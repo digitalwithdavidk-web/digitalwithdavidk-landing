@@ -553,7 +553,7 @@ html.vip-on .g-card.locked{background:rgba(255,255,255,.035);color:var(--vtext);
       <div class="pass-grid four">
         <div class="pax"><small>Passenger</small><b id="paxName">GUEST</b></div>
         <div><small>Gate</small><b>DK</b></div>
-        <div><small>Seat</small><b>1A</b></div>
+        <div><small>Seat</small><b id="seatNo">36D</b></div>
         <div><small>Class</small><b class="clsName">ECONOMY</b></div>
       </div>
       <h1>Your boarding pass</h1>
@@ -1109,6 +1109,13 @@ function applyAccess(r){
   var cv=$('chinaView');if(cv){[].forEach.call(cv.querySelectorAll('.tbox'),function(b){b.parentNode.removeChild(b)});addTiers(cv,'china')}
   refreshPickers();addChinaVip();paintCards();cur=null;
 }
+/* Seats: Economy 36D, Premium rows 11-20, First rows 1-10 (same seat every time for the same email) */
+function seatFor(level,email){
+  var h=0,i;for(i=0;i<email.length;i++)h=(h*31+email.charCodeAt(i))>>>0;
+  if(level==='first')return (1+h%10)+'ADFK'.charAt((h>>>4)%4);
+  if(level==='premium')return (11+h%10)+'ABCDEF'.charAt((h>>>4)%6);
+  return '36D';
+}
 function board(email,auto){
   $('err').hidden=true;busy(true);
   var k=graceKey||(PASSK||'');
@@ -1120,6 +1127,7 @@ function board(email,auto){
       return;
     }
     applyAccess(r);
+    $('seatNo').textContent=seatFor(r.level,email);
     if(!auto){guest=cleanName($('fname').value)}
     $('paxName').textContent=guest?guest.toUpperCase():'GUEST';
     var keep={e:email,at:Date.now(),n:guest};if(graceKey&&r.level!=='none')keep.k=graceKey;else if(PASSK)keep.k=PASSK;
