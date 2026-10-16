@@ -19,11 +19,11 @@
     "stops": "nonstop"
   },
   "today": {
-    "price_cad": 9866,
+    "price_cad": 7616,
     "airline": "Air Canada",
     "trip": "round trip",
-    "dates": "2026-10-29 to 2026-11-08",
-    "as_of": "2026-10-15",
+    "dates": "2026-10-30 to 2026-11-09",
+    "as_of": "2026-10-16",
     "source": "Google Flights"
   }
 }
