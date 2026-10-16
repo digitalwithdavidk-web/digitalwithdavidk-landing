@@ -251,6 +251,7 @@ img{display:block;max-width:100%}
 .row small{display:block;font-size:12px;color:var(--sage);line-height:1.35;margin-top:2px}
 .row .pr{font-weight:800;color:var(--em);font-size:15px;text-align:right;white-space:nowrap}
 .row .pr s{display:block;font-weight:400;font-size:11px;color:#999}
+.row small.soon{color:var(--em);font-weight:700}
 .row .pr em{display:block;font-style:normal;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--sage);font-weight:600}
 .fine{display:flex;justify-content:center;gap:20px;flex-wrap:wrap;margin-top:28px;font-size:13px;font-weight:600}
 .fine button,.fine a{color:var(--sage);text-decoration:underline;text-underline-offset:3px;padding:8px}
@@ -467,7 +468,7 @@ p.dk-slogan,small.dk-slogan{font-size:15px!important}
     free:{name:'Free Travel Checklist + Credit Card Guide',short:'Free guides',price:'Free',img:'images/site/product-free-guides.jpg',url:'https://stan.store/digitalwithdavidk',cta:'Get my free guides',
       line:'Packing list, card picks and lounge tips. Instant download.',
       bullets:['Pre-trip checklist so you never forget a thing','The exact cards I use, and why','Lounge and airport tips','Instant download, no card needed']},
-    blueprint:{name:'The Travel Hacking Blueprint',short:'Blueprint',price:'$19.97',img:'images/site/product-blueprint.jpg',url:'https://stan.store/digitalwithdavidk/p/get-my-travel-hack-blueprint-now',cta:'Get the Blueprint, $19.97',
+    blueprint:{name:'The Travel Hacking Blueprint',short:'Blueprint',price:'$19.97',soon:'$19.97 now. Goes to $49.97 on Oct 31.',img:'images/site/product-blueprint.jpg',url:'https://stan.store/digitalwithdavidk/p/get-my-travel-hack-blueprint-now',cta:'Get the Blueprint, $19.97',
       line:'My full playbook. Lounges, cheaper business class, hotel perks.',
       bullets:['How I get into lounges','How to find business class for less','Hotel status perks most people miss','Scripts to ask for upgrades']},
     call:{name:'Free 15 Minute Discovery Call',short:'Free call',price:'Free',img:'images/site/product-discovery-call.jpg',url:'https://stan.store/digitalwithdavidk/p/not-sure--book-a-discovery-call',cta:'Book my free call',
@@ -685,7 +686,7 @@ p.dk-slogan,small.dk-slogan{font-size:15px!important}
   function rowHTML(k){
     var o=O[k], pr = o.price;
     var sub = o.was ? '<s>'+o.was+'</s>' : (o.tag ? '<em>'+o.tag+'</em>' : '');
-    return '<a class="row" href="'+o.url+'" target="_blank" rel="noopener"><img src="'+o.img+'" alt="" loading="lazy"><span><b>'+o.name+'</b><small>'+o.line+'</small></span><span class="pr">'+pr+sub+'</span></a>';
+    return '<a class="row" href="'+o.url+'" target="_blank" rel="noopener"><img src="'+o.img+'" alt="" loading="lazy"><span><b>'+o.name+'</b><small>'+o.line+'</small>'+(o.soon?'<small class="soon">'+o.soon+'</small>':'')+'</span><span class="pr">'+pr+sub+'</span></a>';
   }
   document.getElementById('offerList1').innerHTML = ORDER.map(rowHTML).join('');
   document.getElementById('offerList2').innerHTML = ORDER.map(rowHTML).join('');
@@ -716,7 +717,7 @@ p.dk-slogan,small.dk-slogan{font-size:15px!important}
       '<div class="fromto"><div><small>From</small><b>Where you are</b></div><svg viewBox="0 0 46 20" aria-hidden="true"><path d="M2 10h30" stroke="#C9B59C" stroke-width="1.5" stroke-dasharray="2 4"/><path fill="#C9B59C" transform="translate(36 10)" d="M-9 -1.2 L4 -1.2 L8.5 -1.2 C10.5 -1.2 11 0 11 0 C11 0 10.5 1.2 8.5 1.2 L4 1.2 L-9 1.2 Z M-1 -1 L-5 -8 L-2.6 -8 L4 -1 Z M-1 1 L-5 8 L-2.6 8 L4 1 Z"/></svg><div class="to"><small>To</small><b>'+g.to+'</b></div></div>'+
       '<h3>'+m.name+'</h3><p class="why">'+WHY[pk[0]]+'</p><ul>'+m.bullets.map(function(b){return '<li>'+b+'</li>';}).join('')+'</ul>'+
       '<a class="btn btn-gold" href="'+m.url+'" target="_blank" rel="noopener">'+m.cta+' <span class="arrow">&rarr;</span></a>'+
-      '<p class="note">'+(pk[0]==='free'||pk[0]==='blueprint'?'Instant download':'I take every call myself. Limited weekly spots.')+'</p></div>'+
+      '<p class="note">'+(m.soon?'Instant download. '+m.soon:(pk[0]==='free'||pk[0]==='blueprint'?'Instant download':'I take every call myself. Limited weekly spots.'))+'</p></div>'+
       '<div class="pass-stub"><img src="'+m.img+'" alt=""><div>'+price+'<div class="barcode"></div></div></div>';
     var sec = document.getElementById('rSecond');
     sec.href = s2.url; sec.target='_blank'; sec.rel='noopener';
