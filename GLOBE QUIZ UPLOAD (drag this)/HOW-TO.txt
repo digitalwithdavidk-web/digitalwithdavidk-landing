@@ -1,4 +1,0 @@
-1) Open github.com/digitalwithdavidk-web/digitalwithdavidk-landing/upload/main
-2) Drag the globe-preview folder (inside this folder) onto the page
-3) Commit message: Globe quiz
-4) Click Commit changes. Then tell Sterling "pushed" and he checks it live.
