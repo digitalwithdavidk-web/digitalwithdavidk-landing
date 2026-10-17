@@ -221,6 +221,9 @@ body.g-on-dark{background:var(--em2)}
 .pass .btn[disabled]{opacity:.6}
 .pass .opt{font-weight:600;letter-spacing:.06em;text-transform:none;color:#8a8f86}
 .pass .fine{font-size:11.5px;color:#6b6f68;margin:6px 0 14px}
+.pass .btn-have{background:none;box-shadow:none;color:var(--em);min-height:44px;margin-top:6px;font-size:14px;font-weight:700;text-decoration:underline;text-underline-offset:3px}
+.pass .btn-have:active{transform:scale(.97)}
+.pass .fine.mail{margin:10px 0 0;text-align:center}
 .pax{min-width:0}.pax b{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .g-hi{display:inline-block;margin:0 0 10px;font-size:13px;font-weight:700;color:var(--beige);letter-spacing:.04em}
 .g-cta{margin:26px auto 0;display:grid;gap:10px;max-width:560px}
@@ -557,16 +560,18 @@ html.vip-on .g-card.locked{background:rgba(255,255,255,.035);color:var(--vtext);
         <div><small>Class</small><b class="clsName">ECONOMY</b></div>
       </div>
       <h1>Your boarding pass</h1>
-      <p class="hint">Enter the email you signed up with.</p>
+      <p class="hint">New here? Type your email and tap Start free. China and Japan open right away.</p>
       <label for="fname">First name <span class="opt">(optional)</span></label>
       <input id="fname" name="fname" type="text" autocomplete="given-name" autocapitalize="words" maxlength="20" placeholder="Your first name">
       <p class="fine">Your name stays on this phone only. It is never sent anywhere.</p>
       <label for="email">Your email</label>
       <input id="email" name="email" type="email" inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" placeholder="you@email.com" required>
-      <button class="btn btn-em" id="go" type="submit">Board now <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg></button>
+      <button class="btn btn-em" id="go" type="submit">Start free <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg></button>
+      <p class="fine mail">A new tab opens so we can email you the free China plan. Tap Send it to me there.</p>
+      <button class="btn btn-have" id="have" type="button">I already have a pass</button>
       <div class="err" id="err" role="alert" hidden></div>
       <div class="barcode" aria-hidden="true"></div>
-      <p class="only">Invited guests only</p>
+      <p class="only">Free: China + Japan</p>
     </div>
   </form>
 </div>
@@ -1078,18 +1083,27 @@ function greet(){
 }
 $('fname').addEventListener('input',function(){var n=cleanName(this.value);$('paxName').textContent=n?n.toUpperCase():'GUEST'});
 function showError(html){var e=$('err');e.innerHTML=html;e.hidden=false;var p=$('passForm');p.classList.remove('shake');void p.offsetWidth;if(!REDUCED)p.classList.add('shake')}
-var NOPE='<p><b>We can\'t find that email.</b> <a href="'+STAN+'" target="_blank" rel="noopener">Grab your free pass here</a>.</p><p>Just signed up? Use the link in your email.</p>';
+var NOPE='<p><b>We can\'t find that pass.</b> Tap <b>Start free</b> above. China and Japan open right away.</p>';
 
-$('passForm').addEventListener('submit',function(ev){
-  ev.preventDefault();
+function readEmail(){
   var email=($('email').value||'').trim().toLowerCase();
   $('err').hidden=true;
-  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){showError('<p><b>That email looks off.</b> Check it and try again.</p>');return}
-  if(!(window.crypto&&crypto.subtle)){showError('<p><b>This browser can\'t check your pass.</b> Try opening the link in Safari or Chrome.</p>');return}
-  board(email,false);
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){showError('<p><b>That email looks off.</b> Check it and try again.</p>');return null}
+  if(!(window.crypto&&crypto.subtle)){showError('<p><b>This browser can\'t check your pass.</b> Try opening the link in Safari or Chrome.</p>');return null}
+  return email;
+}
+/* Start free: Economy (China + Japan) opens right here, and Stan opens in a new tab with the email filled in,
+   so one tap on "Send it to me" adds them to David's list. Paid tiers still come only from access.json. */
+$('passForm').addEventListener('submit',function(ev){
+  ev.preventDefault();
+  var email=readEmail();if(!email)return;
+  var nm=cleanName($('fname').value);
+  try{window.open(STAN+'?email='+encodeURIComponent(email)+(nm?'&name='+encodeURIComponent(nm):''),'_blank','noopener')}catch(e){}
+  board(email,false,true);
 });
+$('have').addEventListener('click',function(){var email=readEmail();if(email)board(email,false,false)});
 var GO_HTML=null;
-function busy(on){var b=$('go');if(GO_HTML===null)GO_HTML=b.innerHTML;b.disabled=on;b.innerHTML=on?'Checking your pass...':GO_HTML}
+function busy(on){var b=$('go');if(GO_HTML===null)GO_HTML=b.innerHTML;b.disabled=on;$('have').disabled=on;b.innerHTML=on?'Opening the Globe...':GO_HTML}
 function applyAccess(r){
   LEVEL=r.level;VIPP=r.vip||null;
   var P=r.premium||null,k;
@@ -1116,11 +1130,13 @@ function seatFor(level,email){
   if(level==='premium')return (11+h%10)+'ABCDEF'.charAt((h>>>4)%6);
   return '36D';
 }
-function board(email,auto){
+function board(email,auto,free){
   $('err').hidden=true;busy(true);
   var k=graceKey||(PASSK||'');
+  var pf=readPass(),isFree=!!free||!!(pf&&pf.f&&pf.e===email);
   DWDKVault.unlock(email,k).then(function(r){
     busy(false);
+    if(r.level==='none'&&isFree)r={level:'economy',premium:null,vip:null};
     if(r.level==='none'){
       if(auto){try{localStorage.removeItem(KEY)}catch(e){}showError('<p><b>This pass is not active anymore.</b> <a href="'+STAN+'" target="_blank" rel="noopener">Grab your free pass here</a>.</p>')}
       else showError(NOPE);
@@ -1130,7 +1146,7 @@ function board(email,auto){
     $('seatNo').textContent=seatFor(r.level,email);
     if(!auto){guest=cleanName($('fname').value)}
     $('paxName').textContent=guest?guest.toUpperCase():'GUEST';
-    var keep={e:email,at:Date.now(),n:guest};if(graceKey&&r.level!=='none')keep.k=graceKey;else if(PASSK)keep.k=PASSK;
+    var keep={e:email,at:Date.now(),n:guest};if(isFree)keep.f=1;if(graceKey&&r.level!=='none')keep.k=graceKey;else if(PASSK)keep.k=PASSK;
     sSet('localStorage',KEY,JSON.stringify(keep));
     $('passForm').classList.add('ok');
     setTimeout(enterApp,(REDUCED||auto)?0:750);
