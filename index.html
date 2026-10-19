@@ -209,6 +209,7 @@ img{display:block;max-width:100%}
 .pass-stub .pr{font-size:30px;font-weight:800;color:var(--beige);line-height:1}
 .pass-stub .pr s{font-size:14px;color:var(--silver);font-weight:400;margin-left:6px}
 .pass-stub .pr small{font-size:12px;color:var(--silver);font-weight:400;margin-left:4px}
+.pass-stub .pr small.vipnote{display:block;margin:8px 0 0;font-size:11px;line-height:1.3;color:var(--silver)}
 .barcode{height:26px;margin-top:8px;width:150px;max-width:100%;background:repeating-linear-gradient(90deg,var(--stone) 0 2px,transparent 2px 4px,var(--stone) 4px 5px,transparent 5px 8px,var(--stone) 8px 11px,transparent 11px 12px,var(--stone) 12px 13px,transparent 13px 16px);opacity:.75;border-radius:2px}
 
 .second{margin-top:14px;display:flex;align-items:center;gap:14px;background:#fff;border-radius:18px;padding:14px;text-decoration:none;color:var(--ink);box-shadow:0 8px 24px rgba(14,47,36,.08);border:1px solid rgba(14,47,36,.08);transition:transform .25s var(--ease),box-shadow .25s}
@@ -252,6 +253,7 @@ img{display:block;max-width:100%}
 .row .pr{font-weight:800;color:var(--em);font-size:15px;text-align:right;white-space:nowrap}
 .row .pr s{display:block;font-weight:400;font-size:11px;color:#999}
 .row small.soon{color:var(--em);font-weight:700}
+.row .pr small.vipnote{white-space:normal;max-width:118px;margin-left:auto;font-size:10.5px;font-weight:600;color:var(--sage);line-height:1.3}
 .row .pr em{display:block;font-style:normal;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--sage);font-weight:600}
 .fine{display:flex;justify-content:center;gap:20px;flex-wrap:wrap;margin-top:28px;font-size:13px;font-weight:600}
 .fine button,.fine a{color:var(--sage);text-decoration:underline;text-underline-offset:3px;padding:8px}
@@ -482,9 +484,12 @@ p.dk-slogan,small.dk-slogan{font-size:15px!important}
       bullets:['A 1 on 1 video call every week','Your own card stack, built for your spending','Lounges, upgrade bids and hotel status set up','A plan to book your flights and hotels']},
     three:{name:'Travel Rewards Audit, 3 Months',short:'3 months',price:'$1,497',per:'/ 3 months',img:'images/site/product-3-months.jpg',url:'https://v2.stan.store/digitalwithdavidk/p/private-travel-coaching-3-months-best-value',cta:'Book my spot',
       line:'3 months of weekly calls. We build it all, start to finish.',
-      bullets:['A 1 on 1 video call every week for 3 months','Your card stack, built and fixed as you go','Lounges, upgrade bids and hotel status set up','A plan to book your flights and hotels']}
+      bullets:['A 1 on 1 video call every week for 3 months','Your card stack, built and fixed as you go','Lounges, upgrade bids and hotel status set up','A plan to book your flights and hotels']},
+    vip:{name:'VIP Year',short:'1 year',price:'$3,997',per:'/ year',small:'About $333 a month. Best value.',img:'images/site/about-david.jpg',url:'https://stan.store/digitalwithdavidk/p/vip-year',cta:'Get my VIP Year',
+      line:'Your travel and points partner for 12 months. Everything included, plus a VIP bonus.',
+      bullets:['Everything in the 1 hour, 1 month and 3 month plans','A 1 on 1 call every week, all year','2 trips planned for you, start to finish','VIP bonus: your own AI team to give you time back']}
   };
-  var ORDER = ['free','blueprint','call','consult','month','three'];
+  var ORDER = ['free','blueprint','call','consult','month','three','vip'];
 
   /* ---------- questions ---------- */
   var Q = [
@@ -662,7 +667,8 @@ p.dk-slogan,small.dk-slogan{font-size:15px!important}
       if(a.level==='busy') return ['month','call'];
       return ['consult','call'];
     }
-    if(a.level==='busy' || a.freq==='4') return ['three','call'];
+    if(a.level==='busy' && a.freq==='4') return ['vip','three'];
+    if(a.level==='busy' || a.freq==='4') return ['three','vip'];
     return ['month','call'];
   }
   var GOAL = {
@@ -679,14 +685,15 @@ p.dk-slogan,small.dk-slogan{font-size:15px!important}
     call:'You are new, so let\'s talk first. 15 minutes, free. I\'ll tell you exactly where to start, then we go from there.',
     consult:'You know a bit already. One hour together and you leave with your next card and your next trip planned.',
     month:'You want it done with you, not just explained. Weekly calls for a month and we set everything up together.',
-    three:'You travel a lot, so every trip should run on points. 3 months of weekly calls to build it all with me.'
+    three:'You travel a lot, so every trip should run on points. 3 months of weekly calls to build it all with me.',
+    vip:'You travel all the time and want it done with you. A full year with me as your partner, everything included.'
   };
-  var SECOND_LABEL = {free:'Or start free',blueprint:'Want to go deeper?',call:'Not sure yet? Talk first',consult:'Want a full hour?',month:'Want more time?',three:'Want the full 3 months?'};
+  var SECOND_LABEL = {free:'Or start free',blueprint:'Want to go deeper?',call:'Not sure yet? Talk first',consult:'Want a full hour?',month:'Want more time?',three:'Want the full 3 months?',vip:'Want the whole year?'};
 
   function rowHTML(k){
     var o=O[k], pr = o.price;
     var sub = o.was ? '<s>'+o.was+'</s>' : (o.tag ? '<em>'+o.tag+'</em>' : '');
-    return '<a class="row" href="'+o.url+'" target="_blank" rel="noopener"><img src="'+o.img+'" alt="" loading="lazy"><span><b>'+o.name+'</b><small>'+o.line+'</small>'+(o.soon?'<small class="soon">'+o.soon+'</small>':'')+'</span><span class="pr">'+pr+sub+'</span></a>';
+    return '<a class="row" href="'+o.url+'" target="_blank" rel="noopener"><img src="'+o.img+'" alt="" loading="lazy"><span><b>'+o.name+'</b><small>'+o.line+'</small>'+(o.soon?'<small class="soon">'+o.soon+'</small>':'')+'</span><span class="pr">'+pr+sub+(o.small?'<small class="vipnote">'+o.per+'<br>'+o.small+'</small>':'')+'</span></a>';
   }
   document.getElementById('offerList1').innerHTML = ORDER.map(rowHTML).join('');
   document.getElementById('offerList2').innerHTML = ORDER.map(rowHTML).join('');
@@ -711,7 +718,7 @@ p.dk-slogan,small.dk-slogan{font-size:15px!important}
     if(a.budget) chips.push({'0':'Free only','50':'Under $50','mid':'$150 to $500','high':'$500+'}[a.budget]); else chips.push('Free only');
     document.getElementById('rChips').innerHTML = chips.map(function(c){return '<span class="chip">'+c+'</span>';}).join('');
     document.getElementById('rRoute').innerHTML = g.steps.map(function(s,i){return '<div><i>'+(i+1)+'</i>'+s+'</div>';}).join('');
-    var price = '<span class="pr">'+m.price+(m.was?'<s>'+m.was+'</s>':'')+(m.per?'<small>'+m.per+'</small>':'')+'</span>';
+    var price = '<span class="pr">'+m.price+(m.was?'<s>'+m.was+'</s>':'')+(m.per?'<small>'+m.per+'</small>':'')+(m.small?'<small class="vipnote">'+m.small+'</small>':'')+'</span>';
     document.getElementById('rPass').innerHTML =
       '<div class="pass-main"><div class="pass-top"><span>Boarding pass</span><span class="badge">Best fit for you</span></div>'+
       '<div class="fromto"><div><small>From</small><b>Where you are</b></div><svg viewBox="0 0 46 20" aria-hidden="true"><path d="M2 10h30" stroke="#C9B59C" stroke-width="1.5" stroke-dasharray="2 4"/><path fill="#C9B59C" transform="translate(36 10)" d="M-9 -1.2 L4 -1.2 L8.5 -1.2 C10.5 -1.2 11 0 11 0 C11 0 10.5 1.2 8.5 1.2 L4 1.2 L-9 1.2 Z M-1 -1 L-5 -8 L-2.6 -8 L4 -1 Z M-1 1 L-5 8 L-2.6 8 L4 1 Z"/></svg><div class="to"><small>To</small><b>'+g.to+'</b></div></div>'+
