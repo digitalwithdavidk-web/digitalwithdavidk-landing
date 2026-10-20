@@ -1170,7 +1170,11 @@ function board(email,auto,free){
     sSet('localStorage',KEY,JSON.stringify(keep));
     $('passForm').classList.add('ok');
     setTimeout(enterApp,(REDUCED||auto)?0:750);
-  }).catch(function(){busy(false);showError('<p><b>We could not check your pass right now.</b> Check your internet and try again.</p>')});
+  }).catch(function(){
+    busy(false);
+    if(auto&&!board.retried){board.retried=true;setTimeout(function(){board(email,true,free)},1500);return}
+    showError('<p><b>We could not check your pass right now.</b> Check your internet and tap the button again.</p>');
+  });
 }
 
 /* ===== App views ===== */
@@ -1386,11 +1390,14 @@ function loadDrop(){
 var G={};
 function loadScript(src){return new Promise(function(res,rej){var s=document.createElement('script');s.src=src;s.async=false;s.crossOrigin='anonymous';s.onload=res;s.onerror=rej;document.head.appendChild(s)})}
 function globeFail(){$('globeWrap').hidden=true;$('gHelp').hidden=true;$('gFail').hidden=false}
-function loadGlobe(){
+/* Slow phones: show the note at 12s but keep waiting, and try once more on an error (Silas bug, Oct 19) */
+function globeBack(){$('gFail').hidden=true;$('globeWrap').hidden=false;$('gHelp').hidden=false}
+function loadGlobe(tries){
+  tries=tries||0;
   var t=setTimeout(globeFail,12000);
   Promise.all([LIBS.reduce(function(p,s){return p.then(function(){return loadScript(s)})},Promise.resolve()),fetch(ATLAS).then(function(r){if(!r.ok)throw 0;return r.json()})])
-  .then(function(r){clearTimeout(t);if(!$('gFail').hidden)return;startGlobe(r[1])})
-  .catch(function(){clearTimeout(t);globeFail()});
+  .then(function(r){clearTimeout(t);if(G.started)return;G.started=true;globeBack();startGlobe(r[1])})
+  .catch(function(){clearTimeout(t);if(tries<1){setTimeout(function(){loadGlobe(tries+1)},1500)}else globeFail()});
 }
 function startGlobe(world){
   var d3=window.d3,topo=window.topojson;
