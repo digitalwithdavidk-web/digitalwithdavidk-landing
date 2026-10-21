@@ -304,6 +304,7 @@ body.g-on-dark{background:var(--em2)}
 .g-vrow.me .c::after{content:" \2713";color:#7fd1a4}
 .g-votes-empty{font-size:13px;color:#cfc8bd;padding:6px 2px}
 .g-card .vc{font-weight:700}
+.g-card .vw,.g-card.live .vw{font-size:11px;color:var(--silver);font-weight:600}
 .v-count{display:flex;align-items:baseline;gap:8px;margin:10px 0 0}
 .v-count b{font-size:34px;font-weight:800;color:var(--em);line-height:1}
 .v-count span{font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--sage)}
@@ -593,7 +594,7 @@ html.vip-on .g-card.locked{background:rgba(255,255,255,.035);color:var(--vtext);
 <!-- ===== Round 2: App ===== -->
 <div id="app" hidden>
   <div class="g-banner">Early access &middot; Founding prices locked in forever &middot; Ends at launch, Oct 31</div>
-  <div class="g-drop" id="gDrop">New countries every week. Next drop: <b>Wed Oct 21</b></div>
+  <div class="g-drop" id="gDrop">New countries every week. Next drop: <b>Wed Oct 28</b></div>
   <div class="eco-bar" id="ecoBar" hidden><p>You're in Economy: China + Japan. Upgrade for every country.</p><button type="button" class="eco-go" id="ecoGo">Upgrade</button></div>
 
   <!-- Globe view -->
@@ -611,7 +612,7 @@ html.vip-on .g-card.locked{background:rgba(255,255,255,.035);color:var(--vtext);
         <p>Spin the globe. Tap a glowing pin to open a day by day plan. China and Japan are free. 9 places are open now.</p>
       </div>
       <div class="g-globe" id="globeWrap">
-        <canvas id="globe" aria-label="Spinning globe. Open now: China, Japan, South Korea, Thailand, Vietnam, Dubai, Canada, United States and Australia. Vote for what comes next: Mexico, Italy, Greece, Bali, Portugal, Spain, Turkey, Philippines, Taiwan, Singapore, Iceland, Switzerland, Morocco, Egypt and Peru." role="img"></canvas>
+        <canvas id="globe" aria-label="Spinning globe. Open now: China, Japan, South Korea, Thailand, Vietnam, Dubai, Canada, United States, Australia, Morocco and Iceland. Vote for what comes next: Mexico, Italy, Greece, Bali, Portugal, Spain, Turkey, Philippines, Taiwan, Singapore, Switzerland, Egypt, Peru, Croatia and Argentina." role="img"></canvas>
         <div class="g-load" id="gLoad">Loading the globe</div>
       </div>
       <p class="g-help" id="gHelp">Drag to spin. Tap a glowing pin for a plan. Tap a grey pin to vote.</p>
@@ -962,7 +963,7 @@ html.vip-on .g-card.locked{background:rgba(255,255,255,.035);color:var(--vtext);
       <button class="btn btn-em btn-sm" id="vBtn" type="button">Vote</button>
       <button class="btn btn-line btn-sm" id="sheetX" type="button">Close</button>
     </div>
-    <p class="v-note" id="vNote">One vote per country. New countries every week. Next drop: Wed Oct 21.</p>
+    <p class="v-note" id="vNote">One vote per country. New countries every week. Next drop: Wed Oct 28.</p>
   </div>
 </div>
 
@@ -1013,6 +1014,7 @@ html.vip-on .g-card.locked{background:rgba(255,255,255,.035);color:var(--vtext);
 
 <script src="tiers.js"></script>
 <script src="japan.js"></script>
+<script src="drops.js"></script>
 <script src="members.js"></script>
 <script>
 (function(){
@@ -1038,6 +1040,8 @@ var PLACES=[
   {key:'canada',id:124,name:'Canada',lon:-79.38,lat:43.65,live:true,side:2},
   {key:'usa',id:840,name:'United States',short:'USA',lon:-80.19,lat:25.76,live:true},
   {key:'australia',id:36,name:'Australia',lon:151.21,lat:-33.87,live:true,side:-1},
+  {key:'morocco',id:504,v:'morocco',won:1,name:'Morocco',lon:-7.99,lat:31.63,live:true,side:-1},
+  {key:'iceland',id:352,v:'iceland',won:0,name:'Iceland',lon:-21.94,lat:64.15,live:true},
   {id:484,v:'mexico',name:'Mexico',lon:-99.13,lat:19.43,side:-1},
   {id:380,v:'italy',name:'Italy',lon:12.50,lat:41.90,side:-1},
   {id:300,v:'greece',name:'Greece',lon:23.73,lat:37.98},
@@ -1048,13 +1052,13 @@ var PLACES=[
   {id:608,v:'philippines',name:'Philippines',lon:120.98,lat:14.60},
   {id:158,v:'taiwan',name:'Taiwan',lon:121.56,lat:25.03},
   {id:702,v:'singapore',name:'Singapore',lon:103.82,lat:1.35,side:-1},
-  {id:352,v:'iceland',name:'Iceland',lon:-21.94,lat:64.15},
   {id:756,v:'switzerland',name:'Switzerland',lon:8.54,lat:47.37,side:2},
-  {id:504,v:'morocco',name:'Morocco',lon:-7.99,lat:31.63,side:-1},
   {id:818,v:'egypt',name:'Egypt',lon:31.24,lat:30.04},
-  {id:604,v:'peru',name:'Peru',lon:-71.97,lat:-13.53,side:-1}
+  {id:604,v:'peru',name:'Peru',lon:-71.97,lat:-13.53,side:-1},
+  {id:191,v:'croatia',name:'Croatia',lon:18.09,lat:42.65},
+  {id:32,v:'argentina',name:'Argentina',lon:-58.38,lat:-34.60,side:-1}
 ];
-var SUBS={japan:'7 days: Tokyo, Kyoto, Osaka',korea:'6 days: Seoul, Busan',thailand:'7 days: Bangkok, Phuket',vietnam:'7 days: Ho Chi Minh City, Da Nang, Hoi An',dubai:'5 days: Dubai, Abu Dhabi',canada:'7 days: Toronto, Niagara Falls, Montreal',usa:'7 days: New York, Miami',australia:'7 days: Sydney, Melbourne'};
+var SUBS={japan:'7 days: Tokyo, Kyoto, Osaka',korea:'6 days: Seoul, Busan',thailand:'7 days: Bangkok, Phuket',vietnam:'7 days: Ho Chi Minh City, Da Nang, Hoi An',dubai:'5 days: Dubai, Abu Dhabi',canada:'7 days: Toronto, Niagara Falls, Montreal',usa:'7 days: New York, Miami',australia:'7 days: Sydney, Melbourne',morocco:'7 days: Marrakech, Fes',iceland:'6 days: Reykjavik, Selfoss, Vik'};
 PLACES.forEach(function(p){if(p.live&&p.key!=='china')p.sub=SUBS[p.key]});
 var BYKEY={};PLACES.forEach(function(p){if(p.key)BYKEY[p.key]=p});
 var URLS={call:'https://stan.store/digitalwithdavidk/p/not-sure--book-a-discovery-call',bp:'https://stan.store/digitalwithdavidk/p/get-my-travel-hack-blueprint-now',ig:'https://www.instagram.com/digitalwithdavidk/'};
@@ -1269,10 +1273,11 @@ function closeSheet(){$('sheet').classList.remove('on');sheetP=null}
 $('sheetX').addEventListener('click',closeSheet);
 document.addEventListener('keydown',function(e){if(e.key==='Escape')closeSheet()});
 document.addEventListener('pointerdown',function(e){if($('sheet').classList.contains('on')&&!e.target.closest('.sheet-in')&&!e.target.closest('.g-card')&&!e.target.closest('.g-vrow'))closeSheet()});
+function wonTag(p){return typeof p.won==='number'?'<span class="vw">Vote count: '+nVotes(p.won)+'</span>':''}
 function cardHTML(p){
   if(!p.live)return '<small>Vote for next</small><b>'+esc(p.name)+'</b><span class="vc" data-v="'+p.v+'">Tap to vote</span>';
-  if(!canOpen(p.key))return '<small>'+LOCKSVG+'Members only</small><b>'+esc(p.name)+'</b><span>Tap to see how to unlock</span>';
-  return '<small><i></i>'+(FREEK[p.key]&&!paid()?'Free with your pass':'Open now')+'</small><b>'+esc(p.name)+'</b><span>'+esc(p.sub||'')+'</span>';
+  if(!canOpen(p.key))return '<small>'+LOCKSVG+'Members only</small><b>'+esc(p.name)+'</b><span>Tap to see how to unlock</span>'+wonTag(p);
+  return '<small><i></i>'+(FREEK[p.key]&&!paid()?'Free with your pass':'Open now')+'</small><b>'+esc(p.name)+'</b><span>'+esc(p.sub||'')+'</span>'+wonTag(p);
 }
 function buildList(){
   var l=$('list');
@@ -1288,7 +1293,7 @@ function paintCards(){
 
 /* ===== Live votes (shared counter: abacus.jasoncameron.dev, namespace dwdk-globe, key vote-<country>) ===== */
 var VAPI='https://abacus.jasoncameron.dev',VNS='dwdk-globe';
-var VOTES={},VSTATE='load',MYV={},VBUSY={},sheetP=null,NEXTDROP='Wed Oct 21';
+var VOTES={},VSTATE='load',MYV={},VBUSY={},sheetP=null,NEXTDROP='Wed Oct 28';
 function vUrl(kind,p){return VAPI+'/'+kind+'/'+VNS+'/vote-'+p.v}
 function voted(p){return !!MYV[p.v]||sGet('localStorage','dwdk_voted_'+p.v)==='1'}
 function nVotes(n){return n.toLocaleString('en-US')+(n===1?' vote':' votes')}
