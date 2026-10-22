@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Hotel Collab Packages | Digital with David K</title>
+<meta name="description" content="Hotel collab packages from Digital with David K. A full content shoot for your hotel on our February 2027 China tour.">
+<meta name="theme-color" content="#0E2F24">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Digital with David K">
+<meta property="og:title" content="Hotel Collab Packages | Digital with David K">
+<meta property="og:description" content="A full content shoot for your hotel: reels, stories, photos and ad-ready clips.">
+<meta property="og:url" content="https://digitalwithdavidk-web.github.io/digitalwithdavidk-landing/hotel-packages.html">
+<meta property="og:image" content="https://digitalwithdavidk-web.github.io/digitalwithdavidk-landing/images/og-card.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/svg+xml" href="images/brand/dk-emerald.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap">
+<style>
+:root {
+  --emerald: #0E2F24;
+  --emerald-2: #143B2E;
+  --sage: #5E6B5E;
+  --beige: #C9B59C;
+  --beige-pale: #EFE4D3;
+  --stone: #EDE6DC;
+  --stone-2: #E3DACD;
+  --silver: #C0C0C0;
+  --ink: #111111;
+  --white: #FFFFFF;
+  --font: "Montserrat", "Helvetica Neue", Arial, sans-serif;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--stone); color: var(--ink); font-family: var(--font); font-weight: 400; font-size: 15px; line-height: 1.6; overflow-x: hidden; }
+img { max-width: 100%; }
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--beige); outline-offset: 3px; }
+
+.band { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 72px; }
+.band.dark { background: var(--emerald); color: var(--stone); }
+.band.stone2 { background: var(--stone-2); }
+.wrap { max-width: 1080px; margin: 0 auto; }
+
+.eyebrow { font-size: 11px; font-weight: 600; letter-spacing: .28em; text-transform: uppercase; color: var(--sage); margin: 0 0 14px; }
+.dark .eyebrow { color: var(--beige); }
+h1, h2, h3 { margin: 0; text-wrap: balance; }
+h2 { font-size: clamp(24px, 3.4vw, 34px); font-weight: 800; letter-spacing: -.01em; text-transform: uppercase; line-height: 1.15; color: var(--ink); }
+.dark h2 { color: var(--stone); font-weight: 300; letter-spacing: .12em; }
+.lede { max-width: 62ch; margin: 14px 0 0; font-size: 16px; color: #2b2f2b; }
+.dark .lede { color: #D9D3C9; }
+
+.top { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; padding-bottom: 56px; }
+.lockup { display: flex; align-items: center; gap: 14px; text-decoration: none; }
+.lockup img { width: 92px; height: auto; display: block; }
+.lockup .rule { width: 1px; align-self: stretch; background: var(--silver); opacity: .6; }
+.wordmark { line-height: 1.25; }
+.wordmark b { display: block; font-weight: 300; letter-spacing: .32em; font-size: 15px; color: var(--stone); }
+.wordmark span { display: block; font-weight: 500; letter-spacing: .26em; font-size: 10px; color: var(--silver); }
+.top .tag { font-size: 10px; letter-spacing: .26em; text-transform: uppercase; color: var(--silver); border: 1px solid rgba(192,192,192,.45); padding: 7px 12px; border-radius: 999px; }
+
+.hero h1 { font-weight: 300; text-transform: uppercase; letter-spacing: .14em; line-height: 1.08; font-size: clamp(30px, 6.4vw, 68px); color: var(--stone); overflow-wrap: break-word; }
+.hero h1 em { font-style: normal; display: block; font-weight: 600; letter-spacing: .2em; font-size: .36em; color: var(--beige); margin-top: 18px; }
+.hero .lede { font-size: 17px; margin-top: 22px; }
+.cities { display: flex; flex-wrap: wrap; gap: 8px; margin: 26px 0 0; padding: 0; list-style: none; }
+.cities li { font-size: 11px; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; color: var(--stone); background: var(--emerald-2); border: 1px solid rgba(201,181,156,.35); padding: 6px 12px; border-radius: 999px; }
+.cities-note { font-size: 12px; color: var(--silver); margin: 10px 0 0; }
+.btns { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+.btn { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; font-size: 12px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; padding: 14px 22px; border-radius: 999px; border: 1px solid var(--beige); }
+.btn.solid { background: var(--beige); color: var(--emerald); }
+.btn.ghost { color: var(--stone); }
+.btn:hover { filter: brightness(1.06); }
+
+.stats { margin-top: 56px; border-top: 1px solid rgba(192,192,192,.4); padding-top: 28px; display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 24px; }
+.stat b { display: block; font-size: clamp(26px, 3.6vw, 38px); font-weight: 800; color: var(--white); font-variant-numeric: tabular-nums; letter-spacing: -.01em; line-height: 1.1; }
+.stat span { display: block; margin-top: 6px; font-size: 11px; font-weight: 500; letter-spacing: .18em; text-transform: uppercase; color: var(--silver); }
+.source { font-size: 12px; color: var(--silver); margin: 22px 0 0; }
+
+.why { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 18px; margin-top: 36px; }
+.why-item { background: var(--white); border-radius: 14px; padding: 26px; display: grid; grid-template-columns: auto 1fr; gap: 18px; align-items: start; }
+.why-item .num { font-size: 30px; font-weight: 800; color: var(--emerald); line-height: 1; font-variant-numeric: tabular-nums; min-width: 4.2ch; }
+.why-item .num small { display: block; font-size: 10px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--sage); margin-top: 6px; }
+.why-item h3 { font-size: 14px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--ink); }
+.why-item p { margin: 8px 0 0; font-size: 14px; color: #383d38; min-width: 0; }
+.angles { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+.angles span { font-size: 10px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; background: var(--beige-pale); color: var(--emerald); padding: 5px 10px; border-radius: 999px; }
+
+.nights-why { margin-top: 26px; display: flex; gap: 14px; align-items: flex-start; background: var(--ink); color: var(--stone); border-radius: 14px; padding: 20px 22px; max-width: 760px; }
+.nights-why svg { flex: none; margin-top: 2px; }
+.nights-why p { margin: 0; font-size: 14px; }
+.nights-why strong { color: var(--white); }
+.pkgs { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 18px; margin-top: 36px; align-items: stretch; }
+.pkg { background: var(--white); border-radius: 16px; padding: 28px 24px 24px; display: flex; flex-direction: column; border: 1px solid rgba(94,107,94,.18); min-width: 0; }
+.pkg.feature { background: var(--emerald); color: var(--stone); border-color: var(--emerald); }
+.pkg .flag { align-self: flex-start; font-size: 10px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; background: var(--beige); color: var(--emerald); padding: 5px 10px; border-radius: 999px; margin-bottom: 14px; }
+.pkg .flag.blank { visibility: hidden; }
+.pkg h3 { font-size: 13px; font-weight: 600; letter-spacing: .32em; text-transform: uppercase; color: var(--sage); }
+.pkg.feature h3 { color: var(--beige); }
+.pkg .stay { font-size: 22px; font-weight: 800; line-height: 1.2; margin-top: 8px; color: var(--ink); text-transform: uppercase; letter-spacing: -.005em; }
+.pkg.feature .stay { color: var(--white); }
+.moons { display: flex; gap: 6px; margin-top: 12px; }
+.moons i { width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid var(--sage); display: grid; place-items: center; }
+.moons i::before { content: ""; width: 9px; height: 9px; border-radius: 50%; background: var(--sage); }
+.pkg.feature .moons i { border-color: var(--beige); }
+.pkg.feature .moons i::before { background: var(--beige); }
+.moons-label { font-size: 10px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--sage); margin-top: 6px; }
+.pkg.feature .moons-label { color: var(--silver); }
+.list { list-style: none; margin: 20px 0 0; padding: 0; display: grid; gap: 10px; }
+.list li { display: grid; grid-template-columns: 18px 1fr; gap: 10px; font-size: 14px; line-height: 1.45; }
+.list li::before { content: ""; width: 16px; height: 16px; margin-top: 2px; border-radius: 50%; background: var(--beige) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4.5 8.2l2.2 2.2 4.8-4.8' fill='none' stroke='%230E2F24' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/16px no-repeat; }
+.list li b { font-weight: 700; }
+.value { margin-top: auto; padding-top: 22px; }
+.value-box { background: var(--beige-pale); color: var(--ink); border-radius: 12px; padding: 16px 16px 14px; }
+.pkg.feature .value-box { background: var(--emerald-2); color: var(--stone); border: 1px solid rgba(201,181,156,.4); }
+.value-box .lbl { font-size: 10px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--sage); }
+.pkg.feature .value-box .lbl { color: var(--beige); }
+.value-box .amt { font-size: 22px; font-weight: 800; font-variant-numeric: tabular-nums; margin-top: 4px; line-height: 1.15; }
+.math { margin: 10px 0 0; padding: 10px 0 0; border-top: 1px dashed rgba(94,107,94,.4); list-style: none; display: grid; gap: 4px; font-size: 12px; font-variant-numeric: tabular-nums; }
+.pkg.feature .math { border-top-color: rgba(201,181,156,.4); }
+.math li { display: flex; justify-content: space-between; gap: 10px; }
+.math li span:last-child { white-space: nowrap; font-weight: 600; }
+.fine { font-size: 12px; color: var(--sage); margin: 22px 0 0; max-width: 80ch; }
+
+.shots { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 16px; margin-top: 36px; }
+.shot { background: var(--white); border-radius: 14px; padding: 22px 22px 20px; min-width: 0; }
+.shot header { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding-bottom: 12px; border-bottom: 1px solid var(--stone-2); }
+.shot h3 { font-size: 13px; font-weight: 800; letter-spacing: .18em; text-transform: uppercase; color: var(--emerald); }
+.shot .count { font-size: 11px; font-weight: 600; color: var(--sage); font-variant-numeric: tabular-nums; letter-spacing: .08em; }
+.checks { list-style: none; margin: 12px 0 0; padding: 0; display: grid; gap: 7px; }
+.checks li { display: grid; grid-template-columns: 16px 1fr; gap: 10px; font-size: 13.5px; line-height: 1.4; }
+.checks li::before { content: ""; width: 14px; height: 14px; margin-top: 2px; border: 1.5px solid var(--sage); border-radius: 4px; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14'%3E%3Cpath d='M3.5 7.2l2.1 2.1 4.6-4.6' fill='none' stroke='%235E6B5E' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/12px no-repeat; }
+.shot.who { background: var(--ink); color: var(--stone); }
+.shot.who header { border-bottom-color: rgba(237,230,220,.15); }
+.shot.who h3 { color: var(--beige); }
+.shot.who .count { color: var(--silver); }
+.shot.who .checks li::before { border-color: var(--beige); background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14'%3E%3Cpath d='M3.5 7.2l2.1 2.1 4.6-4.6' fill='none' stroke='%23C9B59C' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); }
+
+.site { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 18px; margin-top: 36px; }
+.site-col { border: 1px solid rgba(192,192,192,.35); border-radius: 16px; padding: 26px; min-width: 0; }
+.site-col h3 { font-size: 13px; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; color: var(--beige); }
+.site-col p { margin: 10px 0 0; font-size: 14px; color: #D9D3C9; }
+.site-col .list li { color: var(--stone); }
+.days { list-style: none; margin: 18px 0 0; padding: 0; display: grid; gap: 0; }
+.days li { display: grid; grid-template-columns: 74px 1fr; gap: 14px; padding: 12px 0; border-top: 1px solid rgba(192,192,192,.22); font-size: 14px; color: var(--stone); }
+.days li:first-child { border-top: 0; padding-top: 4px; }
+.days b { font-size: 10px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--silver); padding-top: 3px; }
+.launch { display: inline-flex; align-items: center; gap: 10px; margin-top: 26px; font-size: 11px; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; color: var(--emerald); background: var(--beige); padding: 9px 16px; border-radius: 999px; }
+
+.steps { list-style: none; margin: 36px 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 18px; counter-reset: s; }
+.steps li { counter-increment: s; display: grid; grid-template-columns: 40px 1fr; gap: 14px; align-items: start; min-width: 0; }
+.steps li::before { content: counter(s); width: 40px; height: 40px; border-radius: 50%; background: var(--ink); color: var(--white); display: grid; place-items: center; font-weight: 800; font-size: 15px; }
+.steps h3 { font-size: 13px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: var(--ink); margin-top: 2px; }
+.steps p { margin: 6px 0 0; font-size: 14px; color: #383d38; }
+
+.cta h2 { max-width: 20ch; }
+.contact { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 16px; margin-top: 34px; }
+.c-card { background: var(--emerald-2); border: 1px solid rgba(201,181,156,.35); border-radius: 14px; padding: 20px; min-width: 0; }
+.c-card .lbl { font-size: 10px; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; color: var(--beige); }
+.c-card .val { margin-top: 8px; font-size: 15px; font-weight: 600; color: var(--white); overflow-wrap: anywhere; user-select: all; }
+.c-card a.val { display: block; text-decoration: none; user-select: auto; }
+.c-card a.val:hover { text-decoration: underline; }
+.copy { margin-top: 12px; font-family: var(--font); font-size: 10px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--emerald); background: var(--beige); border: 0; border-radius: 999px; padding: 8px 14px; cursor: pointer; }
+.slogan { margin-top: 56px; padding-top: 26px; border-top: 1px solid rgba(192,192,192,.35); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 14px; align-items: center; }
+.slogan b { font-size: 14px; font-weight: 800; letter-spacing: .3em; text-transform: uppercase; color: var(--stone); }
+.slogan span, .slogan a { font-size: 12px; color: var(--silver); letter-spacing: .06em; }
+
+@media (max-width: 900px) {
+  .pkgs, .contact, .steps { grid-template-columns: minmax(0,1fr); }
+  .shots { grid-template-columns: repeat(2, minmax(0,1fr)); }
+  .stats { grid-template-columns: repeat(2, minmax(0,1fr)); }
+  .pkg .flag.blank { display: none; }
+}
+@media (max-width: 640px) {
+  .band { padding-block: 52px; }
+  .why, .site, .shots { grid-template-columns: minmax(0,1fr); }
+  .why-item { grid-template-columns: minmax(0,1fr); gap: 10px; }
+  .top { padding-bottom: 40px; }
+  .top .tag { display: none; }
+  .hero h1 { letter-spacing: .08em; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .btn { transition: filter .2s ease; }
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="band dark hero">
+  <div class="wrap">
+    <div class="top">
+      <a class="lockup" href="./" aria-label="Digital with David K home">
+        <img src="images/brand/dk-stone.svg" alt="DK logo">
+        <span class="rule" aria-hidden="true"></span>
+        <div class="wordmark"><b>DIGITAL</b><span>WITH DAVID K.</span></div>
+      </a>
+      <span class="tag">Partner packages &middot; 2027</span>
+    </div>
+
+    <p class="eyebrow">February 14 to 27, 2027 &middot; 14 days in China</p>
+    <h1>Hotel Collab Packages<em>February 2027 China tour</em></h1>
+    <p class="lede">One reel and a few stories is a small thank you for a night in a great hotel. We do more than that. We bring a full content shoot, so your hotel gets a whole library of videos, photos and ad clips you can use long after we check out.</p>
+
+    <ul class="cities" aria-label="Cities we plan to visit">
+      <li>Shanghai</li><li>Beijing</li><li>Hangzhou</li><li>Chengdu</li><li>Chongqing</li><li>Shenzhen</li><li>Guangzhou</li>
+    </ul>
+    <p class="cities-note">Cities we plan to visit. Dates in each city are flexible and set around our hotel partners.</p>
+
+    <div class="btns">
+      <a class="btn solid" href="#packages">See the packages <span aria-hidden="true">&rarr;</span></a>
+      <a class="btn ghost" href="media-kit.html">Full media kit</a>
+    </div>
+
+    <div class="stats">
+      <div class="stat"><b>40.3K+</b><span>Instagram followers</span></div>
+      <div class="stat"><b>13.2M+</b><span>Views since July 2026</span></div>
+      <div class="stat"><b>95.5%</b><span>Of views from non-followers</span></div>
+      <div class="stat"><b>357.0K+</b><span>Saves</span></div>
+    </div>
+    <p class="source">Numbers from our media kit, updated October 21, 2026, 1:30pm Central. We grew from 200 followers in July 2026.</p>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section class="band">
+  <div class="wrap">
+    <p class="eyebrow">Why hotels work with us</p>
+    <h2>Your hotel in front of new travellers</h2>
+    <div class="why">
+      <div class="why-item">
+        <div class="num">95.5%<small>New eyes</small></div>
+        <div>
+          <h3>Most of our views come from new people</h3>
+          <p>Almost every view comes from people who do not follow us yet. So your hotel reaches new travellers, not the same crowd over and over.</p>
+        </div>
+      </div>
+      <div class="why-item">
+        <div class="num">94.6%<small>Men</small></div>
+        <div>
+          <h3>Men 25 to 34 who travel on points</h3>
+          <p>Our crowd is 94.6% men and 54.3% are 25 to 34. They love travel, credit card points and nice hotels. Top countries: United States 42.6%, United Kingdom 6.8%, Canada 6.4%.</p>
+        </div>
+      </div>
+      <div class="why-item">
+        <div class="num">1.1M+<small>Views</small></div>
+        <div>
+          <h3>China content already works for us</h3>
+          <p>Our video "10/10 Week of Chinamaxxing" passed 1.1 million views, almost all from people who did not follow us yet. People want to see China, and they watch to the end.</p>
+        </div>
+      </div>
+      <div class="why-item">
+        <div class="num">2<small>Creators</small></div>
+        <div>
+          <h3>Two creators, three angles</h3>
+          <p>We film as a duo: David (@digitalwithdavidk) and Mary (@marymanyfest). One stay gives you content for three kinds of guests.</p>
+          <div class="angles"><span>Solo male</span><span>Solo female</span><span>Couple</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PACKAGES -->
+<section class="band stone2" id="packages">
+  <div class="wrap">
+    <p class="eyebrow">Pick your package</p>
+    <h2>Three ways to host us</h2>
+    <div class="nights-why">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C9B59C" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg>
+      <p><strong>More nights means more content.</strong> Each extra night gives us a new day of light, a new meal and a new angle. That is how one stay turns into weeks of posts for your hotel.</p>
+    </div>
+
+    <div class="pkgs">
+      <article class="pkg">
+        <span class="flag blank" aria-hidden="true">.</span>
+        <h3>Starter</h3>
+        <div class="stay">1 night for 2</div>
+        <div class="moons" aria-hidden="true"><i></i></div>
+        <div class="moons-label">1 night</div>
+        <ul class="list">
+          <li><span><b>1 Reel</b> posted as an Instagram Collab on our feed and yours</span></li>
+          <li><span><b>5 Story frames</b> with your tags and a link sticker</span></li>
+          <li><span><b>10 edited photos</b></span></li>
+          <li><span><b>Raw clips</b> from the stay</span></li>
+        </ul>
+        <div class="value">
+          <div class="value-box">
+            <div class="lbl">Estimated content value</div>
+            <div class="amt">US$770 to US$1,050</div>
+            <ul class="math">
+              <li><span>1 Reel on our page</span><span>US$600 to US$800</span></li>
+              <li><span>5 Story frames</span><span>US$170 to US$250</span></li>
+              <li><span>Photos and raw clips</span><span>Bonus</span></li>
+            </ul>
+          </div>
+        </div>
+      </article>
+
+      <article class="pkg feature">
+        <span class="flag">Our pick</span>
+        <h3>Signature</h3>
+        <div class="stay">2 nights for 2 + 1 dinner</div>
+        <div class="moons" aria-hidden="true"><i></i><i></i></div>
+        <div class="moons-label">2 nights</div>
+        <ul class="list">
+          <li><span><b>2 Reels</b>, 1 posted as an Instagram Collab</span></li>
+          <li><span><b>8 Story frames</b> with your tags and a link sticker</span></li>
+          <li><span><b>20 edited photos</b></span></li>
+          <li><span><b>3 ad-ready clips</b>, 15 seconds, vertical, with 90 days of paid ad use</span></li>
+          <li><span><b>Solo male, solo female and couple</b> angles</span></li>
+          <li><span><b>Feature on our new travel guide site</b></span></li>
+        </ul>
+        <div class="value">
+          <div class="value-box">
+            <div class="lbl">Estimated content value</div>
+            <div class="amt">US$2,500 to US$3,500</div>
+            <ul class="math">
+              <li><span>2 Reels on our page</span><span>US$1,200 to US$1,600</span></li>
+              <li><span>8 Story frames</span><span>US$270 to US$400</span></li>
+              <li><span>3 ad-ready clips</span><span>US$900 to US$1,200</span></li>
+              <li><span>90-day ad use</span><span>US$150 to US$300</span></li>
+              <li><span>Photos and site feature</span><span>Bonus</span></li>
+            </ul>
+          </div>
+        </div>
+      </article>
+
+      <article class="pkg">
+        <span class="flag blank" aria-hidden="true">.</span>
+        <h3>Suite</h3>
+        <div class="stay">3 nights + dining + airport transfer or spa</div>
+        <div class="moons" aria-hidden="true"><i></i><i></i><i></i></div>
+        <div class="moons-label">3 nights</div>
+        <ul class="list">
+          <li><span><b>3 Reels</b>, including a full room tour and a "10/10" style list reel</span></li>
+          <li><span><b>12 Story frames</b> with your tags and a link sticker</span></li>
+          <li><span><b>30 edited photos</b></span></li>
+          <li><span><b>6 ad-ready clips</b> with 6 months of paid ad use</span></li>
+          <li><span><b>Featured listing and a custom itinerary</b> on our travel guide site, launching February 20, 2027</span></li>
+          <li><span><b>A planning meeting</b> with your team to shape the feature</span></li>
+        </ul>
+        <div class="value">
+          <div class="value-box">
+            <div class="lbl">Estimated content value</div>
+            <div class="amt">US$4,000 to US$5,600</div>
+            <ul class="math">
+              <li><span>3-Reel package</span><span>US$1,500 to US$2,000</span></li>
+              <li><span>12 Story frames</span><span>US$400 to US$600</span></li>
+              <li><span>6 ad-ready clips</span><span>US$1,800 to US$2,400</span></li>
+              <li><span>6-month ad use</span><span>US$300 to US$600</span></li>
+              <li><span>Photos and site listing</span><span>Bonus</span></li>
+            </ul>
+          </div>
+        </div>
+      </article>
+    </div>
+    <p class="fine">Values are estimates, worked out from the starting rates in our media kit: Reel on our page US$600 to US$800, 3-Reel package US$1,500 to US$2,000, Story set of 3 frames US$100 to US$150, ad-ready clip US$300 to US$400 (our UGC rate), ad use US$150 to US$300 per 90 days. Edited photos, raw clips and the travel guide site feature are extras we do not count. Want a different mix? We can build one for you.</p>
+  </div>
+</section>
+
+<!-- SHOT LIST -->
+<section class="band">
+  <div class="wrap">
+    <p class="eyebrow">The shot list</p>
+    <h2>What we film at every hotel</h2>
+    <p class="lede">This is our checklist for every stay. You see your whole hotel on camera, from the front door to the last light of the night.</p>
+    <div class="shots">
+      <div class="shot">
+        <header><h3>Arrival</h3><span class="count">5 shots</span></header>
+        <ul class="checks"><li>Outside of the hotel, day and night</li><li>The entrance</li><li>The lobby</li><li>Welcome drink</li><li>Check-in</li></ul>
+      </div>
+      <div class="shot">
+        <header><h3>Room</h3><span class="count">9 shots</span></header>
+        <ul class="checks"><li>Door reveal</li><li>Wide shot of the room</li><li>The bed</li><li>View from the window</li><li>Bathroom and tub</li><li>Amenities</li><li>Robe moment</li><li>Balcony</li><li>Turndown</li></ul>
+      </div>
+      <div class="shot">
+        <header><h3>Facilities</h3><span class="count">7 shots</span></header>
+        <ul class="checks"><li>Pool</li><li>Gym</li><li>Spa</li><li>Club lounge</li><li>Bar</li><li>Each restaurant and its signature dish</li><li>Breakfast spread</li></ul>
+      </div>
+      <div class="shot">
+        <header><h3>People</h3><span class="count">2 shots</span></header>
+        <ul class="checks"><li>Staff moments</li><li>A tip from the concierge</li></ul>
+      </div>
+      <div class="shot who">
+        <header><h3>Solo male</h3><span class="count">4 shots</span></header>
+        <ul class="checks"><li>Fit check in the lobby</li><li>Laptop and work from the room</li><li>Gym session</li><li>Drink at the bar</li></ul>
+      </div>
+      <div class="shot who">
+        <header><h3>Solo female</h3><span class="count">4 shots</span></header>
+        <ul class="checks"><li>Getting ready</li><li>Tub and robe</li><li>Pool</li><li>Spa</li></ul>
+      </div>
+      <div class="shot who">
+        <header><h3>Couple</h3><span class="count">4 shots</span></header>
+        <ul class="checks"><li>Dinner together</li><li>Breakfast in bed</li><li>Walk around the hotel</li><li>The view at night</li></ul>
+      </div>
+      <div class="shot">
+        <header><h3>Details</h3><span class="count">4 shots</span></header>
+        <ul class="checks"><li>Logo and signs</li><li>Textures and materials</li><li>Local art</li><li>Amenities flat-lay</li></ul>
+      </div>
+      <div class="shot">
+        <header><h3>Stories</h3><span class="count">3 sets</span></header>
+        <ul class="checks"><li>Morning routine</li><li>Room reveal</li><li>Q&amp;A with our followers</li></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRAVEL GUIDE SITE -->
+<section class="band dark">
+  <div class="wrap">
+    <p class="eyebrow">Signature and Suite bonus</p>
+    <h2>Featured on our new travel guide site</h2>
+    <p class="lede">We are building a travel guide site where our followers plan real trips. Hotels on the Signature and Suite packages get a spot on it, so travellers keep finding you after the videos go out.</p>
+    <div class="site">
+      <div class="site-col">
+        <h3>Your hotel card</h3>
+        <p>A page for your hotel inside the city guide.</p>
+        <ul class="list">
+          <li><span>Your best photos from our shoot</span></li>
+          <li><span>Why we picked you, in our own words</span></li>
+          <li><span>Our favourite room, dish and spot in the hotel</span></li>
+          <li><span>A link to book with you, plus a member code if you want one</span></li>
+          <li><span>Suite: a featured spot near the top of the city list</span></li>
+        </ul>
+      </div>
+      <div class="site-col">
+        <h3>A custom itinerary around you</h3>
+        <p>Suite package. A day-by-day plan with your hotel at the centre. Here is the shape:</p>
+        <ul class="days">
+          <li><b>Day 1</b><span>Check in, welcome drink, dinner at your restaurant</span></li>
+          <li><b>Day 2</b><span>Breakfast at the hotel, then nearby sights and food we love</span></li>
+          <li><b>Day 3</b><span>Spa or pool morning, night out, back to the hotel bar</span></li>
+          <li><b>Plus</b><span>Our tips on getting around, local apps and the best time to visit</span></li>
+        </ul>
+      </div>
+    </div>
+    <span class="launch">Site launches February 20, 2027</span>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="band">
+  <div class="wrap">
+    <p class="eyebrow">How it works</p>
+    <h2>Three simple steps</h2>
+    <ol class="steps">
+      <li><div><h3>Pick a package</h3><p>Choose Starter, Signature or Suite, or ask us for a custom mix.</p></div></li>
+      <li><div><h3>Lock your date</h3><p>We pick a night inside February 14 to 27, 2027 and share the shot list with your team.</p></div></li>
+      <li><div><h3>We film and deliver</h3><p>We shoot, edit and send everything to you. Then the posts go live and tag your hotel.</p></div></li>
+    </ol>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="band dark cta">
+  <div class="wrap">
+    <p class="eyebrow">Let's work together</p>
+    <h2>Pick a package or ask for a custom mix</h2>
+    <p class="lede">Reply to our message or reach us here. We will send dates and next steps.</p>
+    <div class="contact">
+      <div class="c-card">
+        <div class="lbl">Email</div>
+        <div class="val" id="email">digitalwithdavidk@gmail.com</div>
+        <button class="copy" id="copyEmail" type="button">Copy email</button>
+      </div>
+      <div class="c-card">
+        <div class="lbl">Instagram</div>
+        <a class="val" href="https://www.instagram.com/digitalwithdavidk/" target="_blank" rel="noopener">@digitalwithdavidk</a>
+      </div>
+      <div class="c-card">
+        <div class="lbl">Media kit</div>
+        <a class="val" href="media-kit.html">View the full media kit &rarr;</a>
+      </div>
+    </div>
+    <div class="slogan">
+      <b>Make it look effortless.</b>
+      <span>Digital with David K &middot; Winnipeg, MB, Canada &middot; <a href="./">Home</a></span>
+    </div>
+  </div>
+</section>
+
+<script>
+(function () {
+  var btn = document.getElementById('copyEmail');
+  var el = document.getElementById('email');
+  if (!btn || !el) return;
+  btn.addEventListener('click', function () {
+    var text = el.textContent.trim();
+    function selectIt() {
+      var r = document.createRange(); r.selectNodeContents(el);
+      var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+      btn.textContent = 'Selected, press copy';
+    }
+    try {
+      navigator.clipboard.writeText(text).then(function () {
+        btn.textContent = 'Copied';
+        setTimeout(function () { btn.textContent = 'Copy email'; }, 1800);
+      }, selectIt);
+    } catch (e) { selectIt(); }
+  });
+})();
+</script>
+</body>
+</html>

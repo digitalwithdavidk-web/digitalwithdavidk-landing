@@ -313,6 +313,12 @@ body.light{--hdr:58px}
 .dk-mission .t{margin-top:8px;font-size:15px;line-height:1.5;color:rgba(237,230,220,.82)}
 .dk-mission .t b{color:var(--stone);font-weight:600}
 @media (min-width:900px){.dk-mission{margin-top:34px;padding:22px 28px}.dk-mission .t{font-size:17px;max-width:70ch}}
+.dk-pkgs{margin-top:16px;padding:20px;border-radius:18px;background:var(--em);border:1px solid rgba(201,181,156,.32);display:grid;gap:14px}
+.dk-pkgs .k{font-size:10.5px;font-weight:800;letter-spacing:.24em;text-transform:uppercase;color:var(--beige)}
+.dk-pkgs h2{font-size:22px;font-weight:800;line-height:1.2;color:var(--stone);margin-top:6px}
+.dk-pkgs .t{margin-top:8px;font-size:15px;line-height:1.5;color:rgba(237,230,220,.82)}
+.dk-pkgs .btn{width:100%}
+@media (min-width:900px){.dk-pkgs{grid-template-columns:1fr auto;align-items:center;gap:28px;padding:24px 28px}.dk-pkgs h2{font-size:26px}.dk-pkgs .t{max-width:62ch}.dk-pkgs .btn{width:auto}}
 .dk-slogan{text-align:center;font-size:14px;font-weight:600;letter-spacing:.04em;color:var(--em);margin-top:30px}
 .dk-slogan + .foot{margin-top:6px}
 
@@ -368,6 +374,14 @@ p.dk-slogan,small.dk-slogan{font-size:15px!important}
       <p class="k">Our mission</p>
       <p class="t">We help busy young professionals turn <b>the money they already spend</b> into <b>luxury travel and a richer life</b>, with a clear plan built for them, so it all looks effortless.</p>
     </div>
+    <section class="dk-pkgs" id="hotel-packages" aria-label="Hotel and brand packages">
+      <div>
+        <p class="k">For hotels and brands</p>
+        <h2>Hotel &amp; Brand Packages</h2>
+        <p class="t">Host us and get a full content shoot: reels, stories, photos and ad-ready clips of your place. Pick from 3 simple packages for our February 2027 China tour, or ask us for a custom mix.</p>
+      </div>
+      <a class="btn btn-gold" href="hotel-packages.html">See the packages <span class="arrow">&rarr;</span></a>
+    </section>
   </section>
 
   <!-- QUESTIONS are built by JS into this container -->
@@ -423,6 +437,7 @@ p.dk-slogan,small.dk-slogan{font-size:15px!important}
       <button type="button" id="retake">Retake the quiz</button>
       <a href="https://www.instagram.com/digitalwithdavidk/" target="_blank" rel="noopener">Instagram @digitalwithdavidk</a>
       <a href="media-kit.html">For brands: media kit</a>
+      <a href="hotel-packages.html">For hotels: packages</a>
     </div>
     <p class="dk-slogan">Make it look effortless.</p>
     <p class="foot">&copy; 2026 Digital with David K. Winnipeg, Canada.</p>
@@ -453,7 +468,8 @@ p.dk-slogan,small.dk-slogan{font-size:15px!important}
       </aside>
     </div>
     <div class="fine"><a href="https://www.instagram.com/digitalwithdavidk/" target="_blank" rel="noopener">Instagram @digitalwithdavidk</a>
-      <a href="media-kit.html">For brands: media kit</a></div>
+      <a href="media-kit.html">For brands: media kit</a>
+      <a href="hotel-packages.html">For hotels: packages</a></div>
     <p class="dk-slogan">Make it look effortless.</p>
     <p class="foot">&copy; 2026 Digital with David K. Winnipeg, Canada.</p>
   </section>
@@ -487,7 +503,7 @@ p.dk-slogan,small.dk-slogan{font-size:15px!important}
       bullets:['A 1 on 1 video call every week for 3 months','Your card stack, built and fixed as you go','Lounges, upgrade bids and hotel status set up','A plan to book your flights and hotels']},
     vip:{name:'VIP Year',short:'1 year',price:'$3,997',per:'/ year',small:'About $333 a month. Best value.',img:'images/site/about-david.jpg',url:'https://stan.store/digitalwithdavidk/p/vip-year',cta:'Get my VIP Year',
       line:'Your travel and points partner for 12 months. Everything included, plus a VIP bonus.',
-      bullets:['Everything in the 1 hour, 1 month and 3 month plans','A 1 on 1 call every week, all year','2 trips planned for you, start to finish','VIP bonus: your own AI team to give you time back']}
+      bullets:['Everything in the 1 hour, 1 month and 3 month plans','A 1 on 1 call every week, all year','2 trips planned for you, start to finish','VIP bonus: your own system automation setup to give you time back']}
   };
   var ORDER = ['free','blueprint','call','consult','month','three','vip'];
 
