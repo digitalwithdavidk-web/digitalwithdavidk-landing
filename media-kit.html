@@ -111,6 +111,11 @@
     display: block; white-space: nowrap; line-height: 1.2;
   }
   .stat-label { font-size: clamp(10px, 2.3vw, 12px); color: var(--mid); margin-top: 6px; letter-spacing: 0.2px; }
+  .stat-proof {
+    max-width: 1040px; margin: 18px auto 0; text-align: center;
+    font-size: clamp(13px, 3.2vw, 16px); font-weight: 600; color: var(--gold-l); line-height: 1.5;
+  }
+  .stat-proof span { color: var(--mid); font-weight: 500; }
   @media (max-width: 640px) {
     .stat-grid { grid-template-columns: repeat(2, 1fr); border-radius: var(--radius); overflow: hidden; }
     .stat-cell:first-child, .stat-cell:last-child { border-radius: 0; }
@@ -216,6 +221,7 @@ section.block:not(.dark) p.section-sub, .pillar-card p { color: var(--gold-d); }
       <div class="stat-cell"><span class="stat-num">95.3%</span><span class="stat-label">Non-follower reach</span></div>
       <div class="stat-cell"><span class="stat-num">370.8K+</span><span class="stat-label">Saves</span></div>
     </div>
+    <p class="stat-proof">381K saves and 433K shares in the last 90 days <span>·</span> 2.9% average save rate on reels<br><span>People keep this content to use later, not just scroll past it.</span></p>
   </div>
 
   <section class="block">
