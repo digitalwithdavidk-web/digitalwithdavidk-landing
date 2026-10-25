@@ -19,11 +19,11 @@
     "stops": "nonstop"
   },
   "today": {
-    "price_cad": 6147,
-    "airline": "Korean Air",
+    "price_cad": 13172,
+    "airline": "Air Canada",
     "trip": "round trip",
-    "dates": "2026-11-07 to 2026-11-17",
-    "as_of": "2026-10-24",
+    "dates": "2026-11-08 to 2026-11-18",
+    "as_of": "2026-10-25",
     "source": "Google Flights"
   }
 }
