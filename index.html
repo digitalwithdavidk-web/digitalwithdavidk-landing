@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- PHOTO SLOTS: every photo lives in images/site/. To swap a photo, upload a new file with the SAME name (keep it .jpg). Slots: intro-hero.jpg, about-david.jpg, product-free-guides.jpg, product-blueprint.jpg, product-discovery-call.jpg, product-1-hour.jpg, product-1-month.jpg, product-3-months.jpg, quiz-ready-yes.jpg, quiz-ready-free.jpg, quiz-level-new.jpg, quiz-level-some.jpg, quiz-level-busy.jpg, quiz-goal-flights.jpg, quiz-goal-business.jpg, quiz-goal-hotels.jpg, quiz-goal-credit.jpg. -->
+<!-- PHOTO SLOTS: every photo lives in images/site/. To swap a photo, upload a new file with the SAME name (keep it .jpg). Slots: intro-hero.jpg, about-david.jpg, product-free-guides.jpg, product-blueprint.jpg, product-1-hour.jpg, product-1-month.jpg, product-3-months.jpg, quiz-ready-yes.jpg, quiz-ready-free.jpg, quiz-level-new.jpg, quiz-level-some.jpg, quiz-level-busy.jpg, quiz-goal-flights.jpg, quiz-goal-business.jpg, quiz-goal-hotels.jpg, quiz-goal-credit.jpg. -->
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -449,7 +449,7 @@ p.dk-slogan,small.dk-slogan{font-size:15px!important}
       <div>
         <p class="eyebrow">No quiz, no problem</p>
         <h1><span>Here's</span>Everything, in one place.</h1>
-        <p>Start free. Go deeper when you're ready. Not sure? The free 15 minute call is the easiest first step.</p>
+        <p>Start free. Go deeper when you're ready.</p>
       </div>
     </div>
     <div class="result-grid">
@@ -486,12 +486,12 @@ p.dk-slogan,small.dk-slogan{font-size:15px!important}
     free:{name:'Free Travel Checklist + Credit Card Guide',short:'Free guides',price:'Free',img:'images/site/product-free-guides.jpg',url:'https://stan.store/digitalwithdavidk',cta:'Get my free guides',
       line:'Packing list, card picks and lounge tips. Instant download.',
       bullets:['Pre-trip checklist so you never forget a thing','The exact cards I use, and why','Lounge and airport tips','Instant download, no card needed']},
-    blueprint:{name:'The Travel Hacking Blueprint',short:'Blueprint',price:'$19.97',soon:'$19.97 now. Goes to $49.97 on Oct 31.',img:'images/site/product-blueprint.jpg',url:'https://stan.store/digitalwithdavidk/p/get-my-travel-hack-blueprint-now',cta:'Get the Blueprint, $19.97',
+    blueprint:{name:'The Travel Hacking Blueprint',short:'Blueprint',price:'US$19.97',soon:'US$19.97 now. Goes to US$49.97 on Oct 31.',img:'images/site/product-blueprint.jpg',url:'https://stan.store/digitalwithdavidk/p/get-my-travel-hack-blueprint-now',cta:'Get the Blueprint, US$19.97',
       line:'My full playbook. Lounges, cheaper business class, hotel perks.',
       bullets:['How I get into lounges','How to find business class for less','Hotel status perks most people miss','Scripts to ask for upgrades']},
-    call:{name:'Free 15 Minute Discovery Call',short:'Free call',price:'Free',img:'images/site/product-discovery-call.jpg',url:'https://stan.store/digitalwithdavidk/p/not-sure--book-a-discovery-call',cta:'Book my free call',
-      line:'Not sure what fits? Talk to me for 15 minutes. No pressure.',
-      bullets:['15 minutes, just you and me','We look at your goal together','I tell you the best next step','No pressure, no sales team']},
+    aesthetic:{name:'Aesthetic Blueprint: Look Expensive in Every Photo',short:'Aesthetic',price:'US$29.97',was:'US$49.97',img:'images/site/product-blueprint.jpg',url:'https://stan.store/digitalwithdavidk/p/aesthetic-blueprint',cta:'Get the Aesthetic Blueprint, US$29.97',
+      line:'Simple steps to make every photo look rich and clean.',
+      bullets:['How to pick your look','Easy photo tricks that look expensive','Clean edits in a few taps','Instant download']},
     consult:{name:'1 Hour Consultation',short:'1 hour call',price:'US$147',per:'/ 1 hour',img:'images/site/product-1-hour.jpg',url:'https://stan.store/digitalwithdavidk/p/1-hour-consultation-l4btmsgu',cta:'Book my 1 hour call',
       line:'One call. We build your points plan together, live.',
       bullets:['One 60 minute video call with me','Your cards and spending checked live','Your best next card, picked for you','A clear plan for your next trip']},
@@ -505,7 +505,7 @@ p.dk-slogan,small.dk-slogan{font-size:15px!important}
       line:'Your travel or content partner for 12 months. Everything included, plus a VIP bonus.',
       bullets:['Everything in the 1 hour, 1 month and 3 month plans','A 1 on 1 call every week, all year','2 trips planned for you, start to finish','VIP bonus: your own setup to save you time every week']}
   };
-  var ORDER = ['free','blueprint','call','consult','month','three','vip'];
+  var ORDER = ['free','blueprint','aesthetic','consult','month','three','vip'];
 
   /* ---------- questions ---------- */
   var Q = [
@@ -679,13 +679,12 @@ p.dk-slogan,small.dk-slogan{font-size:15px!important}
     if(a.invest==='no' || a.budget==='0') return ['free','blueprint'];
     if(a.budget==='50') return ['blueprint','free'];
     if(a.budget==='mid'){
-      if(a.level==='new') return ['call','consult'];
-      if(a.level==='busy') return ['month','call'];
-      return ['consult','call'];
+      if(a.level==='busy') return ['month','consult'];
+      return ['consult','month'];
     }
     if(a.level==='busy' && a.freq==='4') return ['vip','three'];
     if(a.level==='busy' || a.freq==='4') return ['three','vip'];
-    return ['month','call'];
+    return ['month','consult'];
   }
   var GOAL = {
     flights:{title:'Free flights on points.',to:'Free flights',steps:['Pick the right first card','Earn points on food, bills and rent','Book a flight with points']},
@@ -698,13 +697,13 @@ p.dk-slogan,small.dk-slogan{font-size:15px!important}
   var WHY = {
     free:'Start here. Grab my free checklist and card guide. You will know which card to get first and what to pack. Zero cost.',
     blueprint:'You want real tricks, not just basics. The Blueprint is my full playbook for less than a lunch out.',
-    call:'You are new, so let\'s talk first. 15 minutes, free. I\'ll tell you exactly where to start, then we go from there.',
+    aesthetic:'You want your photos to look rich and clean. This Blueprint shows you how, step by step.',
     consult:'You know a bit already. One hour together and you leave with your next card and your next trip planned.',
     month:'You want it done with you, not just explained. Weekly calls for a month and we set everything up together.',
     three:'You travel a lot, so every trip should run on points. 3 months of weekly calls to build it all with me.',
     vip:'You travel all the time and want it done with you. A full year with me as your partner, everything included.'
   };
-  var SECOND_LABEL = {free:'Or start free',blueprint:'Want to go deeper?',call:'Not sure yet? Talk first',consult:'Want a full hour?',month:'Want more time?',three:'Want the full 3 months?',vip:'Want the whole year?'};
+  var SECOND_LABEL = {free:'Or start free',blueprint:'Want to go deeper?',aesthetic:'Want better photos?',consult:'Want a full hour?',month:'Want more time?',three:'Want the full 3 months?',vip:'Want the whole year?'};
 
   function rowHTML(k){
     var o=O[k], pr = o.price;
@@ -740,7 +739,7 @@ p.dk-slogan,small.dk-slogan{font-size:15px!important}
       '<div class="fromto"><div><small>From</small><b>Where you are</b></div><svg viewBox="0 0 46 20" aria-hidden="true"><path d="M2 10h30" stroke="#C9B59C" stroke-width="1.5" stroke-dasharray="2 4"/><path fill="#C9B59C" transform="translate(36 10)" d="M-9 -1.2 L4 -1.2 L8.5 -1.2 C10.5 -1.2 11 0 11 0 C11 0 10.5 1.2 8.5 1.2 L4 1.2 L-9 1.2 Z M-1 -1 L-5 -8 L-2.6 -8 L4 -1 Z M-1 1 L-5 8 L-2.6 8 L4 1 Z"/></svg><div class="to"><small>To</small><b>'+g.to+'</b></div></div>'+
       '<h3>'+m.name+'</h3><p class="why">'+WHY[pk[0]]+'</p><ul>'+m.bullets.map(function(b){return '<li>'+b+'</li>';}).join('')+'</ul>'+
       '<a class="btn btn-gold" href="'+m.url+'" target="_blank" rel="noopener">'+m.cta+' <span class="arrow">&rarr;</span></a>'+
-      '<p class="note">'+(m.soon?'Instant download. '+m.soon:(pk[0]==='free'||pk[0]==='blueprint'?'Instant download':'I take every call myself. Limited weekly spots.'))+'</p></div>'+
+      '<p class="note">'+(m.soon?'Instant download. '+m.soon:(pk[0]==='free'||pk[0]==='blueprint'||pk[0]==='aesthetic'?'Instant download':'I take every call myself. Limited weekly spots.'))+'</p></div>'+
       '<div class="pass-stub"><img src="'+m.img+'" alt=""><div>'+price+'<div class="barcode"></div></div></div>';
     var sec = document.getElementById('rSecond');
     sec.href = s2.url; sec.target='_blank'; sec.rel='noopener';
