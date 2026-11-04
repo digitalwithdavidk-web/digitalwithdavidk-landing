@@ -107,6 +107,23 @@ textarea{min-height:120px;margin-top:10px}
 .dl li b{color:var(--accent);font-weight:700;margin-right:6px}
 .pay{background:var(--bg);border-radius:10px;padding:10px 12px;font-size:14px}
 .bnote{font-size:13px;color:var(--muted);margin-top:8px}
+.bfilt{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;margin:14px -16px 10px;padding:0 16px}
+.bfilt::-webkit-scrollbar{display:none}
+.bfilt button{flex:none;height:38px;padding:0 12px;border-radius:999px;border:1px solid var(--line);background:var(--panel);font-weight:700;font-size:13px}
+.bfilt button[aria-pressed=true]{background:var(--accent);color:var(--emerald);border-color:var(--accent)}
+.bfilt .n{margin-left:6px;font-size:11px;opacity:.85}
+.bsearch{margin:0 0 14px}
+.bsearch input{height:46px;padding:0 14px}
+.bmini{background:var(--panel);border:1px solid var(--line);border-radius:14px;margin-bottom:8px}
+.bmini>summary{list-style:none;display:flex;align-items:center;gap:10px;padding:12px 14px;min-height:56px;cursor:pointer}
+.bmini>summary::-webkit-details-marker{display:none}
+.bmini>summary .mn{flex:1;min-width:0}
+.bmini>summary b{display:block;font-size:15px;font-weight:800;word-break:break-word}
+.bmini>summary small{display:block;font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bmini>summary:after{content:'+';color:var(--accent);font-weight:800;font-size:18px;flex:none}
+.bmini[open]>summary:after{content:'\2212'}
+.bmini .brand{border:0;border-top:1px solid var(--line);border-radius:0 0 14px 14px;margin:0}
+.pill.act{background:#16402f;color:var(--ok)}.pill.cls{background:#3a1f1a;color:var(--bad)}
 
 /* links */
 .kinds{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:10px 0}
@@ -214,7 +231,7 @@ var MONEY = [
   ['ugc','UGC','Film, edit or send brand videos'],
   ['calls','Calls','Take booked calls, book new ones']
 ];
-var S = {data:null, view:'home', tab:'dms', sel:{}, editing:null, kind:'inspo', views30:null, vaultUpdated:''};
+var S = {data:null, view:'home', tab:'dms', sel:{}, editing:null, kind:'inspo', views30:null, vaultUpdated:'', bf:'active', bq:'', bopen:{}};
 
 function store(k,v){try{if(v===undefined)return localStorage.getItem(k);if(v===null)localStorage.removeItem(k);else localStorage.setItem(k,v);}catch(e){return null;}}
 function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
@@ -314,12 +331,13 @@ function render(){
   $('redoBtn').disabled=!d.canRedo;
   var w=waiting().length;$('navBadge').textContent=w;$('navBadge').classList.toggle('hidden',!w);
   [].forEach.call(document.querySelectorAll('nav button'),function(b){if(b.dataset.v===S.view)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current');});
-  var v=$('view');
+  var v=$('view'), ae=document.activeElement, bqFocus=ae&&ae.id==='bq', bqPos=bqFocus?ae.selectionStart:0;
   if(S.view==='home')v.innerHTML=homeHTML();
   else if(S.view==='approve')v.innerHTML=approveHTML();
   else if(S.view==='brands')v.innerHTML=brandsHTML();
   else if(S.view==='links')v.innerHTML=linksHTML();
   else v.innerHTML=doneHTML();
+  if(bqFocus&&$('bq')){var bi=$('bq');bi.focus();try{bi.setSelectionRange(bqPos,bqPos);}catch(x){}}
   showGlobe(S.view==='home');
   var sel=S.view==='approve'?selectedIds().length:0;
   $('bulk').classList.toggle('hidden',!sel);
@@ -378,13 +396,53 @@ function approveHTML(){
   return h+'</div>';
 }
 
+/* Brand groups come from the paymentStatus column.
+   Active: money moving or work due (paid, owed, withdraw, transfer, gift, not started...),
+   plus "not agreed" deals with a live Decide step (not the old Oct 8 tracker rows),
+   plus any brand with a waiting message. Closed: closed/lost/declined. Rest: waiting / pitched. */
+var BF=[['active','Active'],['waiting','Waiting / pitched'],['closed','Closed'],['all','All']];
+function brandGroup(br){
+  var s=String(br.paymentStatus||'').toLowerCase().trim(), dl=String(br.deliverables||'');
+  if(/^(closed|lost|declined|passed|dead|ended|cancel+ed|done)\b/.test(s))return 'closed';
+  if(q().some(function(r){return r.status==='waiting'&&r.brand===br.id;}))return 'active';
+  if(s==='not agreed')return (/^Decide \|/m.test(dl)&&!/Oct 8 tracker/.test(dl))?'active':'waiting';
+  if(/(paid|owed|owe|withdraw|transfer|ongoing|not started|gift|signed|agreed|active|in progress|live|due)/.test(s))return 'active';
+  return 'waiting';
+}
+function brandMatch(br,qs){if(!qs)return true;return (String(br.name||'')+' '+String(br.id||'')).toLowerCase().indexOf(qs)>=0;}
+function brandSets(){
+  var all=((S.data.brands)||[]).slice().sort(function(x,y){return Number(x.order)-Number(y.order);});
+  var qs=S.bq.trim().toLowerCase(), c={active:0,waiting:0,closed:0,all:0}, list=[];
+  all.forEach(function(br){var g=brandGroup(br);br._g=g;if(!brandMatch(br,qs))return;c[g]++;c.all++;if(S.bf==='all'||S.bf===g)list.push(br);});
+  return {c:c,list:list};
+}
+function brandChipsHTML(c){return BF.map(function(f){return '<button data-bf="'+f[0]+'" aria-pressed="'+(S.bf===f[0])+'">'+f[1]+'<span class="n">'+c[f[0]]+'</span></button>';}).join('');}
+function brandListHTML(list){
+  if(!list.length)return '<div class="empty">'+(S.bq.trim()?'No brand matches "'+esc(S.bq.trim())+'" here.':'Nothing in this group.')+'</div>';
+  var h='';
+  list.forEach(function(br){
+    if(br._g==='active'){h+=brandBoxHTML(br);return;}
+    var next=String(br.deliverables||'').split('\n').filter(Boolean).pop()||'';
+    next=next.split(' | ').slice(-1)[0];
+    h+='<details class="bmini" data-bid="'+esc(br.id)+'"'+(S.bopen[br.id]?' open':'')+'><summary><span class="mn"><b>'+esc(br.name)+'</b>'+(next?'<small>'+esc(next)+'</small>':'')+'</span>';
+    if(br.paymentStatus)h+='<span class="pill'+(br._g==='closed'?' cls':'')+'">'+esc(br.paymentStatus)+'</span>';
+    h+='</summary>'+(S.bopen[br.id]?brandBoxHTML(br):'')+'</details>';
+  });
+  return h;
+}
 function brandsHTML(){
-  var b=((S.data.brands)||[]).slice().sort(function(x,y){return Number(x.order)-Number(y.order);});
-  var h='<h1>Brands</h1><p class="sub">One box per brand. Nothing is shared between boxes.</p><div style="margin-top:14px">';
-  b.forEach(function(br){
+  var s=brandSets();
+  var h='<h1>Brands</h1><p class="sub">Active deals up top. Pitches and closed deals are one tap away.</p>';
+  h+='<div class="bfilt" id="bchips">'+brandChipsHTML(s.c)+'</div>';
+  h+='<div class="bsearch"><input type="text" id="bq" placeholder="Search brand name" autocomplete="off" enterkeyhint="search" value="'+esc(S.bq)+'"></div>';
+  return h+'<div id="blist">'+brandListHTML(s.list)+'</div>';
+}
+function refreshBrandList(){var s=brandSets();$('bchips').innerHTML=brandChipsHTML(s.c);$('blist').innerHTML=brandListHTML(s.list);}
+function brandBoxHTML(br){
+    var h='';
     var msgs=q().filter(function(r){return r.status==='waiting'&&r.brand===br.id;});
     h+='<section class="brand" id="b-'+esc(br.id)+'"><div class="bhead"><div><div class="bname">'+esc(br.name)+'</div><div class="bacct">Account: '+esc(br.account||'Not set')+'</div></div>';
-    if(br.paymentStatus)h+='<span class="pill">'+esc(br.paymentStatus)+'</span>';
+    if(br.paymentStatus)h+='<span class="pill'+(br._g==='active'?' act':'')+'">'+esc(br.paymentStatus)+'</span>';
     h+='</div>';
     if(br.loginUrl)h+='<a class="blogin" href="'+esc(br.loginUrl)+'" target="_blank" rel="noopener">Open '+esc(br.loginLabel||'login')+'</a>';
     if(br.contact)h+='<div class="bnote">Contact: '+esc(br.contact)+'</div>';
@@ -397,8 +455,7 @@ function brandsHTML(){
     if(br.notes)h+='<div class="bnote">'+esc(br.notes)+'</div>';
     if(br.updatedAt)h+='<div class="bnote">Box updated '+esc(fmtWhen(br.updatedAt))+'</div>';
     h+='</section>';
-  });
-  return h+'</div>';
+    return h;
 }
 
 function linksHTML(){
@@ -430,6 +487,7 @@ document.addEventListener('click',function(e){
   if(t.dataset.goto){S.view='approve';S.tab=t.dataset.goto;render();window.scrollTo(0,0);return;}
   if(t.dataset.tab){S.tab=t.dataset.tab;S.sel={};S.editing=null;render();return;}
   if(t.hasAttribute('data-ctx')){t.classList.toggle('open');return;}
+  if(t.dataset.bf){S.bf=t.dataset.bf;refreshBrandList();return;}
   if(t.dataset.task){var on=!tasksToday()[t.dataset.task];act('task',{date:today(),task:t.dataset.task,done:on},on?'Nice. Ticked.':'Unticked',false);return;}
   if(t.dataset.kind){S.kind=t.dataset.kind;[].forEach.call(document.querySelectorAll('[data-kind]'),function(b){b.setAttribute('aria-pressed',b.dataset.kind===S.kind);});return;}
   if(t.hasAttribute('data-selall')){var list=waiting(S.tab),all=list.every(function(r){return S.sel[r.id];});list.forEach(function(r){S.sel[r.id]=!all;});render();return;}
@@ -444,6 +502,12 @@ document.addEventListener('click',function(e){
     act('edit',{id:id,text:txt,approve:t.dataset.save==='send'},t.dataset.save==='send'?'Edited and sent':'Edit saved',true);
   }
 });
+document.addEventListener('input',function(e){if(e.target.id==='bq'){S.bq=e.target.value;refreshBrandList();}});
+document.addEventListener('toggle',function(e){
+  var d=e.target;if(!d.dataset||!d.dataset.bid)return;var id=d.dataset.bid;
+  if(d.open){S.bopen[id]=true;if(!d.querySelector('.brand')){var br=((S.data.brands)||[]).filter(function(x){return x.id===id;})[0];if(br){br._g=brandGroup(br);d.insertAdjacentHTML('beforeend',brandBoxHTML(br));}}}
+  else delete S.bopen[id];
+},true);
 document.addEventListener('submit',function(e){
   if(e.target.id!=='linkForm')return;e.preventDefault();
   var url=$('linkUrl').value.trim(),note=$('linkNote').value.trim();
