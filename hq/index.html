@@ -139,6 +139,15 @@ nav .badge{position:absolute;top:8px;left:calc(50% + 6px);background:var(--accen
 .toast span{flex:1}
 .toast button{background:var(--emerald);color:var(--stone);border:0;border-radius:10px;height:38px;padding:0 14px;font-weight:800}
 .busy{position:fixed;top:calc(64px + env(safe-area-inset-top));left:50%;transform:translateX(-50%);z-index:45;background:var(--panel2);border:1px solid var(--accent);color:var(--accent);font-size:12px;font-weight:700;padding:6px 12px;border-radius:999px}
+
+/* globe (same look as /globe/, Nov 4) */
+.hqg{max-width:720px;margin:0 auto;padding:0 16px 8px}
+.hqg .gwrap{position:relative;width:100%;max-width:420px;margin:0 auto;aspect-ratio:1/1}
+.hqg canvas{width:100%;height:100%;display:block;cursor:grab;touch-action:pan-y;-webkit-user-select:none;user-select:none}
+.hqg canvas.drag{cursor:grabbing}
+.hqg .gload{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;letter-spacing:.2em;color:var(--muted);text-transform:uppercase}
+.hqg .ghelp{text-align:center;font-size:12px;color:var(--muted);margin:4px 0 0}
+.hqg .gopen{display:flex;align-items:center;justify-content:center;height:48px;border-radius:12px;border:1px solid var(--accent);color:var(--accent);font-weight:800;text-decoration:none;margin:12px auto 0;max-width:420px}
 </style>
 </head>
 <body>
@@ -167,6 +176,13 @@ nav .badge{position:absolute;top:8px;left:calc(50% + 6px);background:var(--accen
 </header>
 
 <main id="view"></main>
+
+<section class="hqg hidden" id="hqGlobe" aria-label="The Globe">
+  <h2>The Globe</h2>
+  <div class="gwrap"><canvas id="hqGlobeCv" role="img" aria-label="Spinning globe. Gold countries are open on the Globe. Grey dots are in the vote."></canvas><div class="gload" id="hqGlobeLoad">Loading the globe</div></div>
+  <p class="ghelp" id="hqGlobeHelp">Drag to spin. Tap a gold pin to open that trip.</p>
+  <a class="gopen" href="../globe/" target="_blank" rel="noopener">Open the Globe</a>
+</section>
 
 <div class="bulk hidden" id="bulk">
   <button class="btn pri" id="bulkSend">Send 0 selected</button>
@@ -304,6 +320,7 @@ function render(){
   else if(S.view==='brands')v.innerHTML=brandsHTML();
   else if(S.view==='links')v.innerHTML=linksHTML();
   else v.innerHTML=doneHTML();
+  showGlobe(S.view==='home');
   var sel=S.view==='approve'?selectedIds().length:0;
   $('bulk').classList.toggle('hidden',!sel);
   $('bulkSend').textContent='Send '+sel+' selected';$('bulkSkip').textContent='Skip '+sel+' selected';
@@ -432,6 +449,105 @@ document.addEventListener('submit',function(e){
   var url=$('linkUrl').value.trim(),note=$('linkNote').value.trim();
   act('addLink',{url:url,kind:S.kind,note:note},'Link saved',false);
 });
+
+
+/* ---------- spinning globe (from /globe/, d3-geo + world-atlas) ---------- */
+var GPL=[
+  {key:'china',id:156,name:'China',lon:121.47,lat:31.23,live:1,side:-1},{key:'japan',id:392,name:'Japan',lon:139.69,lat:35.69,live:1},
+  {key:'korea',id:410,name:'Korea',lon:126.98,lat:37.57,live:1,side:2},{key:'thailand',id:764,name:'Thailand',lon:100.50,lat:13.75,live:1,side:-1},
+  {key:'vietnam',id:704,name:'Vietnam',lon:108.22,lat:16.05,live:1},{key:'dubai',id:784,name:'Dubai',lon:55.27,lat:25.20,live:1,side:-1},
+  {key:'canada',id:124,name:'Canada',lon:-79.38,lat:43.65,live:1,side:2},{key:'usa',id:840,name:'USA',lon:-80.19,lat:25.76,live:1},
+  {key:'australia',id:36,name:'Australia',lon:151.21,lat:-33.87,live:1,side:-1},{key:'morocco',id:504,name:'Morocco',lon:-7.99,lat:31.63,live:1,side:-1},
+  {key:'iceland',id:352,name:'Iceland',lon:-21.94,lat:64.15,live:1},
+  {id:484,name:'Mexico',lon:-99.13,lat:19.43},{id:380,name:'Italy',lon:12.50,lat:41.90},{id:300,name:'Greece',lon:23.73,lat:37.98},
+  {id:360,name:'Bali',lon:115.19,lat:-8.41},{id:620,name:'Portugal',lon:-9.14,lat:38.72},{id:724,name:'Spain',lon:2.17,lat:41.39},
+  {id:792,name:'Turkey',lon:28.98,lat:41.01},{id:608,name:'Philippines',lon:120.98,lat:14.60},{id:158,name:'Taiwan',lon:121.56,lat:25.03},
+  {id:702,name:'Singapore',lon:103.82,lat:1.35},{id:756,name:'Switzerland',lon:8.54,lat:47.37},{id:818,name:'Egypt',lon:31.24,lat:30.04},
+  {id:604,name:'Peru',lon:-71.97,lat:-13.53},{id:191,name:'Croatia',lon:18.09,lat:42.65},{id:32,name:'Argentina',lon:-58.38,lat:-34.60}
+];
+var GLIBS=['https://cdn.jsdelivr.net/npm/d3-array@3.2.4/dist/d3-array.min.js','https://cdn.jsdelivr.net/npm/d3-geo@3.1.1/dist/d3-geo.min.js','https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js'];
+var GATLAS='https://cdn.jsdelivr.net/npm/world-atlas@2.0.2/countries-110m.json';
+var GRED=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+var HG={on:false,loading:false,ready:false};
+function gScript(src){return new Promise(function(res,rej){var s=document.createElement('script');s.src=src;s.async=false;s.crossOrigin='anonymous';s.onload=res;s.onerror=rej;document.head.appendChild(s);});}
+function showGlobe(on){
+  $('hqGlobe').classList.toggle('hidden',!on);HG.on=on;
+  if(!on){if(HG.pause)HG.pause();return;}
+  if(HG.ready){HG.resume();return;}
+  if(HG.loading)return;HG.loading=true;
+  Promise.all([GLIBS.reduce(function(p,s){return p.then(function(){return gScript(s);});},Promise.resolve()),fetch(GATLAS).then(function(r){if(!r.ok)throw 0;return r.json();})])
+  .then(function(r){startHQGlobe(r[1]);})
+  .catch(function(){$('hqGlobeLoad').textContent='Globe could not load';$('hqGlobeHelp').textContent='Use the button below to open it.';});
+}
+function startHQGlobe(world){
+  var d3=window.d3,topo=window.topojson;
+  var countries=topo.feature(world,world.objects.countries).features,land=topo.feature(world,world.objects.land);
+  var borders=topo.mesh(world,world.objects.countries,function(a,b){return a!==b;});
+  var byId={};countries.forEach(function(f){byId[+f.id]=f;});GPL.forEach(function(p){p.f=byId[p.id];});
+  var cv=$('hqGlobeCv'),ctx=cv.getContext('2d'),proj=d3.geoOrthographic().clipAngle(90).precision(.5),path=d3.geoPath(proj,ctx),grat=d3.geoGraticule10();
+  var rot=[-112,-24,0],vel=0,dragging=false,idleAt=0,running=false,raf=0,W=0,R=0,dpr=1,bg=document.createElement('canvas');
+  function size(){var w=cv.clientWidth;if(!w)return;dpr=Math.min(window.devicePixelRatio||1,2);W=w;R=w/2-14;
+    cv.width=bg.width=w*dpr;cv.height=bg.height=w*dpr;proj.scale(R).translate([w/2,w/2]);
+    var b=bg.getContext('2d');b.setTransform(dpr,0,0,dpr,0,0);b.clearRect(0,0,w,w);
+    var glow=b.createRadialGradient(w/2,w/2,R*.9,w/2,w/2,R*1.08);glow.addColorStop(0,'rgba(201,181,156,.18)');glow.addColorStop(1,'rgba(201,181,156,0)');
+    b.fillStyle=glow;b.beginPath();b.arc(w/2,w/2,R*1.08,0,7);b.fill();
+    var sea=b.createRadialGradient(w*.38,w*.32,R*.1,w/2,w/2,R);sea.addColorStop(0,'#1d4a3a');sea.addColorStop(1,'#03100b');
+    b.fillStyle=sea;b.beginPath();b.arc(w/2,w/2,R,0,7);b.fill();}
+  function vis(p){return d3.geoDistance([p.lon,p.lat],[-rot[0],-rot[1]])<Math.PI/2-.08;}
+  function rr(x,y,w,h,r){ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath();}
+  function hit(a,b){return a[0]<b[0]+b[2]+2&&b[0]<a[0]+a[2]+2&&a[1]<b[1]+b[3]+2&&b[1]<a[1]+a[3]+2;}
+  function label(xy,txt,live,fs,side,boxes){
+    ctx.font=(live?'800 ':'700 ')+fs+'px Montserrat, sans-serif';
+    var w=ctx.measureText(txt).width+14,h=fs+10,x=side<0?xy[0]-12-w:xy[0]+12,y=xy[1]-h/2;
+    if(side===2){x=xy[0]-w/2;y=xy[1]-h-9;}
+    if(x+w>W-4)x=Math.min(xy[0]-12-w,W-4-w);if(x<4)x=side===2?4:xy[0]+12;
+    var bx=[x,y,w,h];
+    if(!live){var t=[bx,[xy[0]-12-w,y,w,h],[xy[0]+12,y,w,h],[xy[0]-w/2,xy[1]-h-9,w,h],[xy[0]-w/2,xy[1]+9,w,h]];bx=null;
+      for(var i=0;i<t.length;i++){var c=t[i];if(c[0]<4||c[0]+c[2]>W-4)continue;if(!boxes.some(function(b){return hit(c,b);})){bx=c;break;}}if(!bx)return;}
+    boxes.push(bx);ctx.globalAlpha=live?1:.85;ctx.fillStyle=live?'#C9B59C':'rgba(3,16,11,.85)';rr(bx[0],bx[1],w,h,h/2);ctx.fill();
+    ctx.fillStyle=live?'#0E2F24':'#C0C0C0';ctx.textBaseline='middle';ctx.fillText(txt,bx[0]+7,bx[1]+h/2+.5);ctx.globalAlpha=1;}
+  function draw(t){
+    ctx.setTransform(1,0,0,1,0,0);ctx.clearRect(0,0,cv.width,cv.height);ctx.drawImage(bg,0,0);ctx.setTransform(dpr,0,0,dpr,0,0);proj.rotate(rot);
+    ctx.beginPath();path(grat);ctx.strokeStyle='rgba(237,230,220,.08)';ctx.lineWidth=.7;ctx.stroke();
+    ctx.beginPath();path(land);ctx.fillStyle='#2f4a40';ctx.fill();
+    GPL.forEach(function(p){if(!p.f||p.live||p.name==='Bali')return;ctx.beginPath();path(p.f);ctx.fillStyle='rgba(192,192,192,.3)';ctx.fill();});
+    ctx.shadowColor='rgba(201,181,156,.8)';ctx.shadowBlur=12;ctx.fillStyle='#C9B59C';
+    GPL.forEach(function(p){if(!p.f||!p.live)return;ctx.beginPath();path(p.f);ctx.fill();});ctx.shadowBlur=0;
+    ctx.beginPath();path(borders);ctx.strokeStyle='rgba(237,230,220,.22)';ctx.lineWidth=.5;ctx.stroke();
+    ctx.beginPath();ctx.arc(W/2,W/2,R,0,7);ctx.strokeStyle='rgba(201,181,156,.5)';ctx.lineWidth=1.2;ctx.stroke();
+    var fs=Math.max(10,Math.round(W/40)),boxes=[];
+    GPL.filter(function(p){return !p.live;}).concat(GPL.filter(function(p){return p.live;})).forEach(function(p){
+      if(!vis(p)){p.xy=null;return;}var xy=proj([p.lon,p.lat]);p.xy=xy;
+      if(p.live){var ph=GRED?0:((t/1400)+(p.id%7)/7)%1;
+        ctx.beginPath();ctx.arc(xy[0],xy[1],7+ph*18,0,7);ctx.strokeStyle='rgba(237,230,220,'+(0.8*(1-ph))+')';ctx.lineWidth=2;ctx.stroke();
+        ctx.beginPath();ctx.arc(xy[0],xy[1],7,0,7);ctx.fillStyle='#FFFFFF';ctx.shadowColor='#EDE6DC';ctx.shadowBlur=16;ctx.fill();ctx.shadowBlur=0;
+        ctx.beginPath();ctx.arc(xy[0],xy[1],3.2,0,7);ctx.fillStyle='#0E2F24';ctx.fill();
+      }else{ctx.beginPath();ctx.arc(xy[0],xy[1],4.5,0,7);ctx.fillStyle='#8E8E94';ctx.fill();ctx.strokeStyle='#03100b';ctx.lineWidth=1.5;ctx.stroke();}
+      boxes.push([xy[0]-7,xy[1]-7,14,14]);});
+    GPL.forEach(function(p){if(p.live&&p.xy)label(p.xy,p.name.toUpperCase(),true,fs*.9,p.side||1,boxes);});
+    GPL.forEach(function(p){if(!p.live&&p.xy)label(p.xy,p.name.toUpperCase(),false,fs*.85,p.side||1,boxes);});
+  }
+  function frame(t){if(!running)return;
+    if(!dragging){if(Math.abs(vel)>.01){rot[0]+=vel;vel*=.93;}else if(!GRED&&t-idleAt>2500)rot[0]+=.12;}
+    draw(t);raf=requestAnimationFrame(frame);}
+  HG.pause=function(){running=false;cancelAnimationFrame(raf);};
+  HG.resume=function(){if(!HG.on||document.hidden)return;size();if(!running){running=true;raf=requestAnimationFrame(frame);}};
+  var last=null,moved=0;
+  cv.addEventListener('pointerdown',function(e){last=[e.clientX,e.clientY];moved=0;dragging=true;vel=0;cv.classList.add('drag');try{cv.setPointerCapture(e.pointerId);}catch(x){}});
+  cv.addEventListener('pointermove',function(e){
+    if(!dragging||!last||!R){var r0=cv.getBoundingClientRect(),x0=e.clientX-r0.left,y0=e.clientY-r0.top;cv.style.cursor=GPL.some(function(p){return p.live&&p.xy&&Math.hypot(p.xy[0]-x0,p.xy[1]-y0)<26;})?'pointer':'';return;}
+    var dx=e.clientX-last[0],dy=e.clientY-last[1];moved+=Math.abs(dx)+Math.abs(dy);var k=90/R;rot[0]+=dx*k;rot[1]=Math.max(-70,Math.min(70,rot[1]-dy*k));vel=dx*k;last=[e.clientX,e.clientY];});
+  function end(e){if(!dragging)return;dragging=false;cv.classList.remove('drag');idleAt=performance.now();if(moved<8&&e.type==='pointerup')tap(e);last=null;}
+  cv.addEventListener('pointerup',end);cv.addEventListener('pointercancel',end);
+  function tap(e){var r=cv.getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top,best=null,bd=26;
+    GPL.forEach(function(p){if(!p.live||!p.xy)return;var d=Math.hypot(p.xy[0]-x,p.xy[1]-y);if(d<bd){bd=d;best=p;}});
+    if(!best){var ll=proj.invert([x,y]);if(ll&&Math.hypot(x-W/2,y-W/2)<R)GPL.forEach(function(p){if(p.live&&p.f&&d3.geoContains(p.f,ll))best=p;});}
+    if(best)window.open('../globe/#'+best.key,'_blank','noopener');}
+  if('IntersectionObserver' in window)new IntersectionObserver(function(es){es.forEach(function(en){if(en.isIntersecting)HG.resume();else HG.pause();});}).observe(cv);
+  document.addEventListener('visibilitychange',function(){if(document.hidden)HG.pause();else HG.resume();});
+  window.addEventListener('resize',function(){if(cv.clientWidth&&cv.clientWidth!==W){size();draw(performance.now());}});
+  $('hqGlobeLoad').classList.add('hidden');HG.ready=true;HG.resume();
+}
 
 /* 30-day views from the Content Vault */
 fetch('../vault/data.json?t='+Date.now()).then(function(r){return r.json();}).then(function(v){
