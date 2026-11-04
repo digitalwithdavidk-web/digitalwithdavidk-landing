@@ -1,0 +1,536 @@
+<!doctype html><html><head><meta charset=utf-8><meta name="robots" content="noindex,nofollow"><link rel="icon" href="../images/brand/dk-beige.svg"><script src="../hq/config.js"></script><script src="../hq/hqdb.js" data-app="day"></script><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>David's Day</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap">
+<style>
+/* Layout: one narrow column, a timeline of time blocks, "now" card pinned up top. Works as a side window. */
+:root{
+  --emerald:#0E2F24; --sage:#5E6B5E; --beige:#C9B59C; --stone:#EDE6DC; --silver:#C0C0C0;
+  --bg:#EDE6DC; --surface:#F7F3EC; --fg:#0E2F24; --muted:#5E6B5E; --line:#D9CFC1;
+  --accent:#0E2F24; --accent-fg:#EDE6DC; --now:#C9B59C; --now-soft:rgba(201,181,156,.28);
+  --done:#8A938A;
+  --font:"Montserrat",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0A221A; --surface:#0E2F24; --fg:#EDE6DC; --muted:#AEB6AA; --line:#24463A;
+  --accent:#C9B59C; --accent-fg:#0A221A; --now:#C9B59C; --now-soft:rgba(201,181,156,.14);
+  --done:#6F7D73; color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --bg:#0A221A; --surface:#0E2F24; --fg:#EDE6DC; --muted:#AEB6AA; --line:#24463A;
+  --accent:#C9B59C; --accent-fg:#0A221A; --now:#C9B59C; --now-soft:rgba(201,181,156,.14);
+  --done:#6F7D73; color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--font);font-size:15px;line-height:1.4}
+.wrap{max-width:640px;margin:0 auto;padding-inline:16px;padding-block:16px 40px;display:flex;flex-direction:column;gap:14px}
+header{display:flex;flex-wrap:wrap;align-items:flex-start;justify-content:space-between;gap:12px}
+.wxnow{display:flex;align-items:center;justify-content:flex-end;gap:6px;margin-top:4px;font-size:18px;font-weight:700;font-variant-numeric:tabular-nums}
+.wxnow span:first-child{font-size:20px;line-height:1}
+.wxhl{font-size:11px;font-weight:600;color:var(--muted);margin-top:2px;text-align:right}
+.wxtip{flex:1 1 100%;display:flex;flex-direction:column;gap:6px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:10px 12px}
+.wxtip .row{display:grid;grid-template-columns:22px minmax(0,1fr);gap:8px;font-size:13.5px;font-weight:600;align-items:start}
+.wxtip .row span:first-child{text-align:center}
+.wxtip .row span:last-child{overflow-wrap:anywhere}
+.wxtip .row.sub span:last-child{font-weight:500;color:var(--muted)}
+.wxtip .src{font-size:10.5px;color:var(--muted);letter-spacing:.04em}
+.brand{font-size:10px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;color:var(--muted)}
+h1{margin:4px 0 0;font-size:26px;font-weight:800;letter-spacing:-.01em;text-wrap:balance}
+.date{font-size:13px;color:var(--muted);font-weight:500}
+.clock{font-size:22px;font-weight:700;font-variant-numeric:tabular-nums;text-align:right;white-space:nowrap}
+.clock small{display:block;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.headline{font-size:14px;font-weight:600;color:var(--muted);margin:0}
+.next{background:var(--accent);color:var(--accent-fg);border-radius:14px;padding:14px 16px;display:flex;flex-direction:column;gap:4px}
+.next .lbl{font-size:10px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;opacity:.8}
+.next .cd{font-size:30px;font-weight:800;font-variant-numeric:tabular-nums;line-height:1.1}
+.next .what{font-size:14px;font-weight:600;min-width:0;overflow-wrap:anywhere}
+.progress{display:flex;align-items:center;gap:10px;font-size:12px;color:var(--muted);font-weight:600}
+.bar{flex:1;height:6px;border-radius:3px;background:var(--line);overflow:hidden}
+.bar i{display:block;height:100%;background:var(--sage);width:0;transition:width .3s}
+ol{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+li.item{display:grid;grid-template-columns:70px minmax(0,1fr) 44px;gap:10px;align-items:start;padding:12px 4px;border-top:1px solid var(--line);position:relative}
+li.item:first-child{border-top:0}
+.t{font-weight:700;font-variant-numeric:tabular-nums;font-size:15px;padding-top:2px}
+.t small{display:block;font-weight:500;font-size:11px;color:var(--muted)}
+.body{min-width:0}
+.title{font-weight:600;overflow-wrap:anywhere}
+.note{font-size:13px;color:var(--muted);margin-top:2px;overflow-wrap:anywhere}
+.tag{display:inline-block;font-size:10px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;padding:2px 7px;border-radius:999px;margin-top:6px}
+li.now{background:var(--now-soft);border-radius:12px;border-top-color:transparent}
+li.now + li{border-top-color:transparent}
+li.now .tag{background:var(--now);color:#0E2F24}
+li.skipped .tag{background:var(--line);color:var(--muted)}
+li.done .title,li.done .t,li.skipped .title,li.skipped .t{color:var(--done)}
+li.done .title{text-decoration:line-through}
+li.done,li.skipped{opacity:.6}
+.nowline{position:absolute;left:0;right:0;height:2px;background:var(--now);pointer-events:none}
+.nowline::before{content:"";position:absolute;left:-2px;top:-4px;width:10px;height:10px;border-radius:50%;background:var(--now)}
+.chk{width:40px;height:40px;border-radius:10px;border:2px solid var(--sage);background:transparent;cursor:pointer;display:grid;place-items:center;color:var(--accent-fg);padding:0}
+.chk:hover{border-color:var(--fg)}
+.chk:focus-visible{outline:3px solid var(--beige);outline-offset:2px}
+.chk svg{width:22px;height:22px;opacity:0}
+li.done .chk{background:var(--sage);border-color:var(--sage);color:#EDE6DC}
+li.done .chk svg{opacity:1}
+.chk:disabled{cursor:default;opacity:.5}
+li.divider{display:flex;align-items:center;gap:10px;font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);padding:14px 4px 6px}
+li.divider::before,li.divider::after{content:"";flex:1;height:1px;background:var(--line)}
+li.divider + li.item{border-top-color:transparent}
+.flip{transition:transform .35s ease}
+@media (prefers-reduced-motion:reduce){.flip{transition:none}}
+.empty{padding:28px 16px;text-align:center;color:var(--muted);border:1px dashed var(--line);border-radius:14px;font-size:14px}
+.foot{font-size:11px;color:var(--muted);text-align:center}
+.err{color:#9B3B2E;font-size:12px;text-align:center}
+@media (min-width:900px){.wrap{padding-block:32px 48px}h1{font-size:32px}}
+@media (prefers-reduced-motion:reduce){.bar i{transition:none}}
+#dkgate .dkgate{margin-bottom:0}#dkgate .dkchip{margin-bottom:0}
+</style>
+
+<div class="wrap">
+  <header>
+    <div>
+      <div class="brand">Digital with David K</div>
+      <h1>David's Day</h1>
+      <div class="date" id="date"></div>
+    </div>
+    <div class="clock"><small>Winnipeg</small><span id="clock">--:--</span>
+      <div class="wxnow" id="wxNow" hidden><span id="wxIco" aria-hidden="true"></span><span id="wxTemp"></span></div>
+      <div class="wxhl" id="wxHL" hidden></div>
+    </div>
+    <div class="wxtip" id="wxTip" hidden aria-live="polite"></div>
+  </header>
+  <div id="dkgate"></div>
+  <p class="headline" id="headline" hidden></p>
+  <section class="next" id="next" aria-live="polite">
+    <div class="lbl" id="nextLbl">Loading your day</div>
+    <div class="cd" id="nextCd"></div>
+    <div class="what" id="nextWhat"></div>
+  </section>
+  <div class="progress" id="progress" hidden><div class="bar"><i id="barFill"></i></div><span id="progTxt"></span></div>
+  <ol id="list"></ol>
+  <div class="empty" id="empty" hidden>Nothing on today's list yet. Ask Sterling to add today's plan and it shows up here within a minute.</div>
+  <div class="err" id="err" hidden></div>
+  <div class="foot" id="foot">Tap a box to mark it done. Updates every minute.</div>
+</div>
+
+<style>
+/* Camera-first gate (D6b): the day starts at 3am Winnipeg. Until today's MAIN reel link is saved, everything but the gate card and client calls is blurred. */
+.dkblur{transition:filter .7s ease,opacity .7s ease}
+html.dk-locked .dkblur{filter:blur(10px);opacity:.6;pointer-events:none;user-select:none;-webkit-user-select:none}
+.dkgate{background:#0E2F24;color:#EDE6DC;border:1px solid rgba(201,181,156,.45);border-radius:16px;padding:18px 16px;margin-bottom:14px;font-family:"Montserrat",system-ui,-apple-system,"Segoe UI",Arial,sans-serif}
+.dkgate .glvl{display:inline-flex;align-items:center;gap:6px;font-size:10.5px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;padding:5px 10px;border-radius:999px;background:rgba(201,181,156,.18);color:#C9B59C;border:1px solid rgba(201,181,156,.45);margin-bottom:10px}
+.dkgate h2{margin:0 0 6px;font-size:20px;font-weight:800;letter-spacing:0;text-transform:none;color:#EDE6DC;line-height:1.25;text-wrap:balance}
+.dkgate .gsub{margin:0 0 14px;font-size:13.5px;color:#C9B59C;line-height:1.45}
+.dkgate form{display:flex;gap:8px;flex-wrap:wrap}
+.dkgate input{flex:1 1 220px;min-width:0;font:inherit;font-size:16px;padding:12px 14px;border-radius:12px;border:1px solid #C9B59C;background:#EDE6DC;color:#0E2F24}
+.dkgate input::placeholder{color:#5E6B5E}
+.dkgate input:focus-visible{outline:3px solid #C9B59C;outline-offset:2px}
+.dkgate button{flex:0 0 auto;font:inherit;font-size:14px;font-weight:800;letter-spacing:.04em;padding:12px 18px;border-radius:12px;border:0;background:#C9B59C;color:#0E2F24;cursor:pointer}
+.dkgate button:hover{background:#EDE6DC}
+.dkgate button:focus-visible{outline:3px solid #EDE6DC;outline-offset:2px}
+.dkgate button:disabled{opacity:.6;cursor:default}
+.dkgate .gerr{margin:8px 0 0;font-size:12.5px;color:#F0B4A8;min-height:0}
+.dkgate .gwait{margin:12px 0 0;font-size:12px;letter-spacing:.08em;text-transform:uppercase;font-weight:600;color:#C0C0C0}
+.dkgate .gcalls{margin:14px 0 0;padding:12px;border-radius:12px;background:#EDE6DC;color:#0E2F24}
+.dkgate .gcalls b{display:block;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:#5E6B5E;margin-bottom:6px}
+.dkgate .gcall{display:grid;grid-template-columns:70px minmax(0,1fr);gap:10px;padding:6px 0;border-top:1px solid #D9CFC1;font-size:14px}
+.dkgate .gcall:first-of-type{border-top:0}
+.dkgate .gcall span:first-child{font-weight:700;font-variant-numeric:tabular-nums}
+.dkgate .gcall span:last-child{font-weight:600;overflow-wrap:anywhere}
+.dkwin{display:flex;align-items:center;gap:12px;background:#0E2F24;color:#EDE6DC;border:1px solid #C9B59C;border-radius:16px;padding:14px 16px;margin-bottom:14px;font-family:"Montserrat",system-ui,sans-serif;animation:dkpop .55s cubic-bezier(.2,1.4,.4,1) both}
+.dkwin .wbig{font-size:20px;font-weight:800;line-height:1.2}
+.dkwin .wsub{font-size:12.5px;color:#C9B59C;margin-top:2px}
+.dkwin .wico{font-size:30px;line-height:1;animation:dkspin .8s ease-out both}
+@keyframes dkpop{0%{transform:scale(.85);opacity:0}100%{transform:scale(1);opacity:1}}
+@keyframes dkspin{0%{transform:rotate(-30deg) scale(.4)}70%{transform:rotate(10deg) scale(1.15)}100%{transform:none}}
+.dkchip{display:inline-flex;align-items:center;gap:6px;font-family:"Montserrat",system-ui,sans-serif;font-size:12px;font-weight:700;letter-spacing:.04em;padding:7px 12px;border-radius:999px;background:#5E6B5E;color:#EDE6DC;text-decoration:none;margin-bottom:12px}
+a.dkchip:hover{background:#0E2F24}
+a.dkchip:focus-visible{outline:3px solid #C9B59C;outline-offset:2px}
+@media (prefers-reduced-motion:reduce){.dkblur{transition:none}.dkwin,.dkwin .wico{animation:none}}
+</style>
+<script>
+/* Shared gate logic. The page calls DKGate.setup({mount, blur, data, names}) after its markup exists.
+   Day key = the Winnipeg date of the most recent 3am (1am Tue still counts as Monday).
+   Unlock = doc gate/<day key> {posted:true, link, at}. The page writes it, or Sterling/agents write it with ArtifactData. */
+(function(){
+  /* Nov 4 2026, David: no mission lock on David's Day (lock stays on CEO v2 only). */
+  const TZ="America/Winnipeg", RESET_HOUR=3;
+  const CALL=/\b(call|calls|meeting|consult|consultation|kickoff|kick-off|in[- ]person|zoom|facetime|interview|(dinner|lunch|coffee|drinks) with)\b/i;
+  const MEET=/meet\.google\.com|zoom\.us\/|teams\.microsoft\.com|calendly\.com/i;
+  const IG=/^https:\/\/(www\.|m\.)?instagram\.com\/(reel|reels|p)\/[A-Za-z0-9_-]{5,}/i;
+  /* Paying clients. Sterling can add more by writing meta/clients {names:[...]} on this page's db. */
+  const BASE_CLIENTS=["Florian","Wilian","AJ","Abdul","Chris Anosike"];
+  let extraNames=[];
+  function gateDay(){
+    const f=new Intl.DateTimeFormat("en-CA",{timeZone:TZ,year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",hourCycle:"h23"});
+    const o={};f.formatToParts(new Date()).forEach(p=>o[p.type]=p.value);
+    let y=+o.year,m=+o.month,d=+o.day;
+    if(+o.hour<RESET_HOUR){const t=new Date(Date.UTC(y,m-1,d)-86400000);y=t.getUTCFullYear();m=t.getUTCMonth()+1;d=t.getUTCDate();}
+    return y+"-"+String(m).padStart(2,"0")+"-"+String(d).padStart(2,"0");
+  }
+  function esc(s){return String(s).replace(/[.*+?^${}()|[\]\\]/g,"\\$&");}
+  function nameRx(){
+    const live=(cfg&&cfg.names&&cfg.names())||[];
+    const all=BASE_CLIENTS.concat(extraNames,live).map(n=>String(n||"").trim()).filter(Boolean);
+    const long=[],short=[];
+    all.forEach(n=>{(n.length<3?short:long).push(esc(n));const first=n.split(/\s+/)[0];if(first&&first!==n&&first.length>=3)long.push(esc(first));});
+    return {long:long.length?new RegExp("\\b("+long.join("|")+")\\b","i"):null,short:short.length?new RegExp("\\b("+short.join("|")+")\\b"):null};
+  }
+  function isCall(r){
+    if(!r)return false;
+    const tags=[r.kind,r.tag,r.type].concat(Array.isArray(r.tags)?r.tags:[]).map(x=>String(x||"").trim());
+    if(tags.some(x=>/^(call|calls|meeting|client|clients|client call|sales call)$/i.test(x)))return true;
+    const t=String(r.title||"");
+    if(CALL.test(t)||/^\s*meet\s/i.test(t))return true;
+    const rx=nameRx();
+    if((rx.long&&rx.long.test(t))||(rx.short&&rx.short.test(t)))return true;
+    return MEET.test([r.link,r.url,r.meet,r.note].map(x=>x==null?"":String(x)).join(" "));
+  }
+  const START="2026-10-12"; /* D6c: lock applies from Mon Oct 12 */
+  let cfg=null, db=null, date=gateDay(), state=null, saving=false, errMsg="", lastKey="", built=false;
+  let sawLocked=false, celebrate=false, winTimer=null;
+  const G={isCall,today:gateDay,day:gateDay,
+    setup(c){cfg=c;build();connect();},
+    refresh(){if(cfg)paint();},
+    isLocked(){return false;}
+  };
+  window.DKGate=G;
+  function el(tag,cls,text){const e=document.createElement(tag);if(cls)e.className=cls;if(text!=null)e.textContent=text;return e;}
+  let card,listBox,waitLine,errLine,input,btn,chipBox,winBox;
+  function build(){
+    const m=cfg.mount;m.textContent="";
+    card=el("section","dkgate");card.setAttribute("aria-labelledby","dkgate-h");
+    const lvl=el("div","glvl","Level locked 🔒");
+    const h=el("h2",null,"🎬 Post a main reel to unlock your day");h.id="dkgate-h";
+    const sub=el("p","gsub","Camera first. Post one main feed reel (not a trial reel). Paste the link here and your whole day opens. Client calls stay open no matter what.");
+    const f=el("form");f.noValidate=true;
+    input=el("input");input.type="url";input.inputMode="url";input.placeholder="Paste your reel link";input.setAttribute("aria-label","Link to the main reel you posted");input.autocomplete="off";
+    btn=el("button",null,"Unlock");btn.type="submit";
+    f.append(input,btn);
+    f.addEventListener("submit",e=>{e.preventDefault();submit();});
+    errLine=el("p","gerr");errLine.setAttribute("role","status");
+    listBox=el("div","gcalls");
+    waitLine=el("p","gwait");
+    card.append(lvl,h,sub,f,errLine,listBox,waitLine);
+    winBox=el("div");winBox.setAttribute("role","status");winBox.setAttribute("aria-live","polite");
+    chipBox=el("div");
+    m.append(card,winBox,chipBox);
+    built=true;paint();
+  }
+  function setBlur(on){
+    cfg.blur().forEach(e=>{if(!e)return;e.classList.add("dkblur");if(on){e.setAttribute("inert","");e.setAttribute("aria-hidden","true");}else{e.removeAttribute("inert");e.removeAttribute("aria-hidden");}});
+  }
+  function showWin(){
+    winBox.textContent="";
+    const w=el("div","dkwin");
+    const ico=el("div","wico","🎉");ico.setAttribute("aria-hidden","true");
+    const tx=el("div");tx.append(el("div","wbig","Day unlocked ✅"),el("div","wsub","Level cleared. Everything is open. Go get it."));
+    w.append(ico,tx);winBox.append(w);
+    clearTimeout(winTimer);winTimer=setTimeout(()=>{winBox.textContent="";},6000);
+  }
+  function paint(){
+    if(!built)return;
+    const locked=false;
+    document.documentElement.classList.toggle("dk-locked",locked);
+    setBlur(locked);
+    card.hidden=!locked;
+    chipBox.textContent="";chipBox.hidden=locked;
+    if(!locked){
+      if(celebrate){celebrate=false;showWin();}
+      if(!state)return;
+      const ok=IG.test(String(state.link||""));
+      const chip=el(ok?"a":"span","dkchip","✅ Main reel posted today");
+      if(ok){chip.href=state.link;chip.target="_blank";chip.rel="noopener";chip.setAttribute("aria-label","Main reel posted today. Open the reel");}
+      chipBox.append(chip);
+      return;
+    }
+    winBox.textContent="";
+    const d=(cfg.data&&cfg.data())||{calls:[],waiting:0};
+    const key=JSON.stringify([d.calls,d.waiting,errMsg,saving]);
+    if(key===lastKey)return;lastKey=key;
+    listBox.textContent="";
+    if(d.calls&&d.calls.length){
+      listBox.hidden=false;listBox.append(el("b",null,"Client calls stay open"));
+      d.calls.forEach(c=>{const r=el("div","gcall");r.append(el("span",null,c.time||""),el("span",null,c.title||""));listBox.append(r);});
+    }else listBox.hidden=true;
+    const n=+d.waiting||0;
+    waitLine.textContent="🔒 "+n+(n===1?" task waiting":" tasks waiting");
+    errLine.textContent=errMsg;errLine.hidden=!errMsg;
+    btn.disabled=saving;btn.textContent=saving?"Saving...":"Unlock";
+  }
+  /* sawLocked = we confirmed from the db that today was locked, so an unlock now is a real "level cleared" moment. */
+  function setState(v,fromCheck){
+    const next=v&&v.posted===true?v:null;
+    const wasLocked=false;
+    if(wasLocked&&next&&sawLocked)celebrate=true;
+    state=next;
+    if(fromCheck&&!state)sawLocked=true;
+    lastKey="";paint();
+  }
+  async function check(){
+    if(!db)return;
+    const d=date;
+    try{const s=await db.doc("gate/"+d).get();if(d!==date)return;setState(s.exists?s.data():null,true);if(errMsg&&!saving){errMsg="";lastKey="";paint();}}
+    catch(e){console.log("[DKGate] check failed",e&&e.code);}
+  }
+  async function loadNames(){
+    try{const s=await db.doc("meta/clients").get();if(s.exists){const n=s.data().names;if(Array.isArray(n))extraNames=n;lastKey="";paint();}}catch(e){}
+  }
+  async function submit(){
+    const link=String(input.value||"").trim();
+    if(!IG.test(link)){errMsg="That is not a reel link. Copy the link from your posted reel. It starts with https://www.instagram.com/reel/";lastKey="";paint();input.focus();return;}
+    if(!db){errMsg="Open this page in Claude to save it.";lastKey="";paint();return;}
+    saving=true;errMsg="";lastKey="";paint();
+    const d=date, doc={posted:true,link:link.split("?")[0],at:new Date().toISOString(),by:"page"};
+    try{await db.doc("gate/"+d).set(doc);saving=false;input.value="";sawLocked=true;setState(doc);}
+    catch(e){saving=false;const ro=e&&(e.code==="permission_denied"||e.code==="not_granted"||e.code==="invalid_argument");
+      errMsg=ro?"This view can't unlock the day. Open it from your own account.":"Could not save. Check your connection and tap again.";lastKey="";paint();}
+  }
+  async function connect(){
+    try{db=window.claude&&window.claude.use?await window.claude.use("db"):null;}catch(e){db=null;}
+    if(!db)return;
+    await Promise.all([check(),loadNames()]);
+    setInterval(check,30000);
+    setInterval(loadNames,300000);
+    document.addEventListener("visibilitychange",()=>{if(!document.hidden)check();});
+  }
+  /* 3am Winnipeg: new day, lock again, then look for that day's doc. */
+  setInterval(()=>{const t=gateDay();if(t!==date){date=t;state=null;sawLocked=false;celebrate=false;lastKey="";paint();check();}},15000);
+})();
+</script>
+
+<script>
+(function(){
+  const TZ="America/Winnipeg";
+  let lastKey="", items=[], meta=null, db=null, canWrite=true, lastSync=null;
+  const $=id=>document.getElementById(id);
+  const check='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
+
+  function parts(d){
+    const f=new Intl.DateTimeFormat("en-CA",{timeZone:TZ,year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit",second:"2-digit",hourCycle:"h23"});
+    const o={};f.formatToParts(d).forEach(p=>o[p.type]=p.value);return o;
+  }
+  function todayStr(){const p=parts(new Date());return p.year+"-"+p.month+"-"+p.day;}
+  function nowMin(){const p=parts(new Date());return (+p.hour)*60+(+p.minute)+(+p.second)/60;}
+  function toMin(hhmm){const [h,m]=String(hhmm||"0:0").split(":").map(Number);return h*60+(m||0);}
+  function fmt12(hhmm){let [h,m]=String(hhmm).split(":").map(Number);const ap=h>=12?"pm":"am";h=h%12||12;return h+":"+String(m).padStart(2,"0")+ap;}
+  function fmtDur(min){min=Math.round(min);if(min<60)return min+" min";const h=Math.floor(min/60),m=min%60;return h+"h"+(m?" "+m+"m":"");}
+  function cd(mins){const s=Math.max(0,Math.round(mins*60));const h=Math.floor(s/3600),m=Math.floor(s%3600/60),ss=s%60;return (h?h+":"+String(m).padStart(2,"0"):m)+":"+String(ss).padStart(2,"0");}
+
+  /* Done (and skipped) items always sit below the ones still to do. Time order stays inside each group. */
+  const isOff=i=>i.status==="done"||i.status==="skipped";
+  function display(list){return list.filter(i=>!isOff(i)).concat(list.filter(isOff));}
+  function snap(ol){const m=new Map();ol.querySelectorAll("li[data-id]").forEach(e=>m.set(e.dataset.id,e.getBoundingClientRect().top));return m;}
+  function slide(ol,m){if(!m.size)return;const moved=[];ol.querySelectorAll("li[data-id]").forEach(e=>{if(!m.has(e.dataset.id))return;const d=m.get(e.dataset.id)-e.getBoundingClientRect().top;if(Math.abs(d)<1)return;e.classList.remove("flip");e.style.transform="translateY("+d+"px)";moved.push(e);});
+    if(!moved.length)return;void ol.offsetHeight;moved.forEach(e=>{e.classList.add("flip");e.style.transform="";e.addEventListener("transitionend",()=>e.classList.remove("flip"),{once:true});});}
+  function sorted(){return items.filter(i=>i.day===todayStr()).sort((a,b)=>toMin(a.start)-toMin(b.start)||(a.order||0)-(b.order||0));}
+  window.DDayItems=()=>sorted().filter(i=>!isOff(i)&&!/^\s*🌤️\s*Weather/.test(i.title||""));
+
+  function render(){
+    const now=nowMin(), list=sorted();
+    const p=parts(new Date());
+    $("clock").textContent=fmt12(p.hour+":"+p.minute);
+    $("date").textContent=new Intl.DateTimeFormat("en-CA",{timeZone:TZ,weekday:"long",month:"long",day:"numeric"}).format(new Date());
+    if(meta&&meta.date===todayStr()&&meta.headline){$("headline").textContent=meta.headline;$("headline").hidden=false;}else $("headline").hidden=true;
+
+    const ol=$("list");
+    $("empty").hidden=list.length>0||!lastSync;
+    let current=null,next=null;
+    list.forEach(it=>{const s=toMin(it.start),e=s+(+it.minutes||0);
+      if(!current&&now>=s&&now<e)current=it;
+      if(!next&&s>now)next=it;});
+    const key=JSON.stringify([list,current&&current.id,next&&next.id,!!db,canWrite]);
+    const rebuild=key!==lastKey;lastKey=key;
+    if(rebuild){const fid=document.activeElement&&document.activeElement.id;const pos=snap(ol);ol.textContent="";
+    let lineDone=false;
+    const shown=display(list),nOff=shown.filter(isOff).length;
+    shown.forEach((it,idx)=>{
+      const s=toMin(it.start);
+      if(isOff(it)&&(idx===0||!isOff(shown[idx-1]))&&nOff<shown.length){const dv=document.createElement("li");dv.className="divider";dv.textContent="Done ("+nOff+")";ol.appendChild(dv);}
+      const li=document.createElement("li");li.dataset.id=it.id;
+      const st=it.status||"todo";
+      li.className="item "+st+(it===current?" now":"");
+      if(!lineDone&&!current&&!isOff(it)&&s>now){const nl=document.createElement("div");nl.className="nowline";nl.style.top="-1px";li.appendChild(nl);lineDone=true;}
+      const t=document.createElement("div");t.className="t";t.textContent=fmt12(it.start);
+      const sm=document.createElement("small");sm.textContent=fmtDur(+it.minutes||0);t.appendChild(sm);
+      const b=document.createElement("div");b.className="body";
+      const ti=document.createElement("div");ti.className="title";ti.textContent=it.title||"";b.appendChild(ti);
+      if(it.note){const n=document.createElement("div");n.className="note";n.textContent=it.note;b.appendChild(n);}
+      if(it===current){const tg=document.createElement("span");tg.className="tag";tg.textContent="Now";b.appendChild(tg);}
+      else if(st==="skipped"){const tg=document.createElement("span");tg.className="tag";tg.textContent="Skipped";b.appendChild(tg);}
+      const c=document.createElement("button");c.className="chk";c.id="chk-"+it.id;c.innerHTML=check;
+      c.setAttribute("aria-label",(st==="done"?"Mark not done: ":"Mark done: ")+(it.title||""));
+      c.setAttribute("aria-pressed",st==="done"?"true":"false");
+      c.disabled=!db||!canWrite;
+      c.dataset.id=it.id;
+      li.append(t,b,c);ol.appendChild(li);
+    });
+    slide(ol,pos);
+    if(fid&&fid.startsWith("chk-")){const el=document.getElementById(fid);if(el)el.focus({preventScroll:true});}}
+
+    const done=list.filter(i=>i.status==="done").length;
+    if(list.length){$("progress").hidden=false;$("barFill").style.width=(done/list.length*100)+"%";$("progTxt").textContent=done+" of "+list.length+" done";}
+    else $("progress").hidden=true;
+
+    if(!lastSync&&db!==false){$("nextLbl").textContent="Loading your day";$("nextCd").textContent="";$("nextWhat").textContent="";}
+    else if(current){const left=toMin(current.start)+(+current.minutes||0)-now;
+      $("nextLbl").textContent="Now"+(next?"  ·  next at "+fmt12(next.start)+" in "+cd(toMin(next.start)-now):"  ·  last one today");
+      $("nextCd").textContent=cd(left)+" left";
+      $("nextWhat").textContent=current.title;}
+    else if(next){$("nextLbl").textContent="Next up at "+fmt12(next.start);$("nextCd").textContent=cd(toMin(next.start)-now);$("nextWhat").textContent=next.title;}
+    else if(list.length){$("nextLbl").textContent="Day is done";$("nextCd").textContent=done+" of "+list.length;$("nextWhat").textContent="Nothing else on the plan. Good work.";}
+    else {$("nextLbl").textContent="No plan yet";$("nextCd").textContent="";$("nextWhat").textContent="";}
+    if(window.DKGate)DKGate.refresh();
+    if(lastSync)$("foot").textContent="Tap a box to mark it done. Updated "+new Intl.DateTimeFormat("en-US",{timeZone:TZ,hour:"numeric",minute:"2-digit"}).format(lastSync)+".";
+  }
+
+  async function toggle(it){
+    console.log("[DavidsDay] toggle",it.id);$("foot").textContent="Saving...";
+    if(!db)return;
+    const prev=it.status||"todo", nextSt=prev==="done"?"todo":"done";
+    it.status=nextSt;render();
+    try{await db.collection("items").doc(it.id).update({status:nextSt});$("err").hidden=true;}
+    catch(e){console.log("[DavidsDay] save failed",e&&e.code,e&&e.message);it.status=prev;render();$("err").textContent=(e&&e.code==="invalid_argument")?"You can view this page but not change it.":"Could not save. Check your connection and tap again.";$("err").hidden=false;if(e&&e.code==="invalid_argument"){canWrite=false;render();}}
+  }
+
+  async function load(){
+    if(!db)return;
+    try{
+      const day=todayStr();
+      const [q,m]=await Promise.all([db.collection("items").where("day","==",day).get(),db.doc("meta/today").get()]);
+      items=q.docs.map(d=>Object.assign({id:d.id},d.data()));
+      meta=m.exists?m.data():null;lastSync=new Date();$("err").hidden=true;
+    }catch(e){$("err").textContent="Could not load the plan. Trying again in a minute.";$("err").hidden=false;}
+    render();
+  }
+
+  $("list").addEventListener("click",e=>{const b=e.target.closest&&e.target.closest(".chk");if(!b||b.disabled)return;const it=items.find(x=>x.id===b.dataset.id);if(it)toggle(it);});
+  DKGate.setup({mount:$("dkgate"),
+    blur:()=>Array.from(document.querySelectorAll(".wrap > :not(header):not(#dkgate)")),
+    data:()=>{const l=sorted();return {calls:l.filter(i=>!isOff(i)&&DKGate.isCall(i)).map(i=>({time:fmt12(i.start),title:i.title||""})),waiting:l.filter(i=>!isOff(i)&&!DKGate.isCall(i)).length};}});
+  render();
+  setInterval(render,1000);
+  (async()=>{
+    try{db=window.claude&&window.claude.use?await window.claude.use("db"):null;}catch(e){db=null;}
+    if(!db){db=false;lastSync=null;$("nextLbl").textContent="Open this page in Claude to see the plan";render();return;}
+    try{const u=await window.claude.use("user");if(u){const w=await u.can("data.write");console.log("[DavidsDay] can write:",w);}}catch(e){}
+    await load();
+    setInterval(load,60000);
+    document.addEventListener("visibilitychange",()=>{if(!document.hidden)load();});
+  })();
+})();
+</script>
+
+<script>
+/* Weather in the header. Live from Open-Meteo when this view allows it, else the weather/<day> doc Sterling writes each morning + midday.
+   Advice is worked out from the hour you're in, so it changes through the day. */
+(function(){
+  const TZ="America/Winnipeg", LAT=49.8951, LON=-97.1384;
+  const URL="https://api.open-meteo.com/v1/forecast?latitude="+LAT+"&longitude="+LON+"&current=temperature_2m,apparent_temperature,weather_code&hourly=temperature_2m,apparent_temperature,precipitation_probability,weather_code&daily=temperature_2m_max,temperature_2m_min,precipitation_probability_max&timezone=America%2FWinnipeg&forecast_days=2";
+  const $=id=>document.getElementById(id);
+  let W=null, liveAt=0, db=null;
+  function parts(d){const f=new Intl.DateTimeFormat("en-CA",{timeZone:TZ,year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit",hourCycle:"h23"});const o={};f.formatToParts(d).forEach(p=>o[p.type]=p.value);return o;}
+  function today(){const p=parts(new Date());return p.year+"-"+p.month+"-"+p.day;}
+  function nowKey(){const p=parts(new Date());return p.year+"-"+p.month+"-"+p.day+"T"+p.hour;}
+  function h12(h){h=+h;const ap=h>=12?"pm":"am";return (h%12||12)+ap;}
+  const ICON_TXT={clear:"☀️",sunny:"☀️",mostly_sunny:"🌤️",partly_cloudy:"⛅",partly_sunny:"⛅",cloudy:"☁️",overcast:"☁️",fog:"🌫️",drizzle:"🌦️",rain:"🌧️",showers:"🌦️",thunderstorm:"⛈️",snow:"🌨️",sleet:"🌨️",freezing_rain:"🌧️",windy:"💨"};
+  function icon(code,night){
+    if(typeof code==="string"){const k=code.toLowerCase().replace(/[\s-]+/g,"_");if((k==="clear"||k==="sunny")&&night)return "🌙";return ICON_TXT[k]||"🌡️";}
+    code=+code;
+    if(code===0)return night?"🌙":"☀️"; if(code<=2)return night?"☁️":"⛅"; if(code===3)return "☁️";
+    if(code===45||code===48)return "🌫️"; if(code>=51&&code<=57)return "🌦️"; if(code>=61&&code<=67)return "🌧️";
+    if(code>=71&&code<=77)return "🌨️"; if(code>=80&&code<=82)return "🌦️"; if(code===85||code===86)return "🌨️"; if(code>=95)return "⛈️"; return "🌡️";
+  }
+  const isSnow=c=>typeof c==="string"?/snow|sleet/i.test(c):((+c>=71&&+c<=77)||+c===85||+c===86);
+  function outfit(t){
+    if(t>=20)return "T-shirt weather";
+    if(t>=15)return "T-shirt, bring a light layer";
+    if(t>=10)return "Light jacket or a hoodie";
+    if(t>=0)return "Real jacket, wear layers";
+    if(t>=-10)return "Winter coat, toque and gloves";
+    return "Parka, toque, gloves, scarf and boots. Cover your face";
+  }
+  function dress(it){
+    const s=(it.title||"")+" "+(it.note||"");
+    if(/\b(gym|workout|leg day|chest|back \+|abs|shoulders|lift)\b/i.test(it.title||""))return "gym clothes + a warm layer for the drive";
+    if(/\b(date|dinner|party|gala|wedding|birthday|steakhouse|restaurant)\b/i.test(it.title||""))return "dressy: nice shirt or sweater, good jacket, clean shoes";
+    if(/meet\.google|google meet|zoom|teams\.microsoft|\bcall\b|facetime|online/i.test(s))return ""; /* online calls: no outfit tip (David, Oct 14) */
+    if(/\b(meeting|client|interview|pitch|in[- ]person|office|business)\b/i.test(s))return "business casual";
+    if(/\b(errand|coffee|groceries|hang|lunch|brunch|burger|shopping)\b/i.test(it.title||""))return "casual";
+    return "";
+  }
+  function fromLive(j){
+    const hrs=(j.hourly&&j.hourly.time||[]).map((t,i)=>({k:t.slice(0,13),h:+t.slice(11,13),temp:j.hourly.temperature_2m[i],feels:j.hourly.apparent_temperature[i],pop:j.hourly.precipitation_probability[i],code:j.hourly.weather_code[i]}));
+    const d=j.daily||{};
+    return {src:"live",at:new Date(),cur:j.current?{temp:j.current.temperature_2m,feels:j.current.apparent_temperature,code:j.current.weather_code}:null,hours:hrs,
+      high:d.temperature_2m_max?d.temperature_2m_max[0]:null,low:d.temperature_2m_min?d.temperature_2m_min[0]:null,pop:d.precipitation_probability_max?d.precipitation_probability_max[0]:null};
+  }
+  function fromDoc(v,day){
+    const hrs=(Array.isArray(v.hours)?v.hours:[]).map(x=>{const hh=String(x.t||x.time||"").slice(0,2);return {k:(x.day||day)+"T"+hh,h:+hh,temp:+x.temp,feels:x.feels!=null?+x.feels:+x.temp,pop:+x.pop||0,code:x.code!=null?x.code:x.cond};}).filter(x=>!isNaN(x.temp));
+    const n=v.now||{};
+    return {src:"doc",at:v.at?new Date(v.at):null,cur:n.temp!=null?{temp:+n.temp,feels:n.feels!=null?+n.feels:+n.temp,code:n.code!=null?n.code:n.cond}:null,hours:hrs,high:v.high,low:v.low,pop:v.pop};
+  }
+  function row(ico,txt,sub){const r=document.createElement("div");r.className="row"+(sub?" sub":"");const a=document.createElement("span");a.textContent=ico;a.setAttribute("aria-hidden","true");const b=document.createElement("span");b.textContent=txt;r.append(a,b);return r;}
+  function render(){
+    if(!W)return;
+    const nk=nowKey(), hNow=+nk.slice(11,13);
+    const idx=W.hours.findIndex(x=>x.k===nk);
+    const here=idx>=0?W.hours[idx]:null;
+    /* Live: current block. Doc: this hour's forecast if we have it, else the last reading. */
+    const cur=(W.src==="live"&&W.cur)?W.cur:(here||W.cur);
+    if(!cur)return;
+    const night=hNow<7||hNow>=19;
+    const t=Math.round(cur.temp), f=Math.round(cur.feels!=null?cur.feels:cur.temp);
+    $("wxIco").textContent=icon(cur.code,night);
+    $("wxTemp").textContent=t+"°C";
+    $("wxNow").hidden=false;
+    $("wxNow").setAttribute("aria-label","Now "+t+" degrees"+(f!==t?", feels like "+f:""));
+    const hl=[];if(f!==t)hl.push("Feels "+f+"°");if(W.high!=null&&W.low!=null)hl.push("H "+Math.round(W.high)+"° · L "+Math.round(W.low)+"°");
+    $("wxHL").textContent=hl.join(" · ");$("wxHL").hidden=!hl.length;
+
+    const tip=$("wxTip");tip.textContent="";
+    tip.append(row("🧥","Wear: "+outfit(f)));
+    tip.append(row("🚗",f<10?(f<-15?"Start the car 10 to 15 min before you leave":"Start the car 5 min before you leave"):"No need to start the car"));
+    const ahead=idx>=0?W.hours.slice(idx+1,idx+9):[];
+    const wet=ahead.slice(0,4).find(x=>x.pop>=40);
+    if(isSnow(cur.code)||ahead.slice(0,4).some(x=>isSnow(x.code)&&x.pop>=40))tip.append(row("🥾","Snow around. Wear boots"));
+    else if(wet)tip.append(row("☔","Rain "+wet.pop+"% around "+h12(wet.h)+". Bring an umbrella"));
+    else if(idx<0&&W.pop!=null&&W.pop>=40)tip.append(row("☔","Rain "+W.pop+"% today. Bring an umbrella"));
+    if(ahead.length){const cold=ahead.reduce((a,b)=>b.feels<a.feels?b:a);if(cold.feels<=f-5)tip.append(row("🌙","Gets colder: "+Math.round(cold.feels)+"° by "+h12(cold.h)+". Bring a warmer layer",true));}
+    else if(W.low!=null&&W.low<=f-5&&hNow>=12)tip.append(row("🌙","Drops to "+Math.round(W.low)+"° tonight. Bring a warmer layer",true));
+    const list=(window.DDayItems?window.DDayItems():[]);
+    const nowMin=hNow*60+(+parts(new Date()).minute);
+    const nxt=list.find(i=>{const [h,m]=String(i.start||"0:0").split(":").map(Number);const s=h*60+(m||0);return s+(+i.minutes||0)>nowMin&&s-nowMin<=360&&dress(i);});
+    if(nxt){const [h,m]=String(nxt.start).split(":").map(Number);const tt=(h%12||12)+":"+String(m||0).padStart(2,"0")+(h>=12?"pm":"am");
+      let name=String(nxt.title||"").replace(/^[^\p{L}\p{N}]+/u,"");if(name.length>34)name=name.slice(0,33)+"…";
+      tip.append(row("👔",tt+" "+name+": "+dress(nxt),true));}
+    const src=document.createElement("div");src.className="src";
+    src.textContent=W.src==="live"?"Live weather, updates every 20 min":(W.at?"Forecast from "+new Intl.DateTimeFormat("en-US",{timeZone:TZ,hour:"numeric",minute:"2-digit"}).format(W.at)+", advice follows the hour":"");
+    if(src.textContent)tip.append(src);
+    tip.hidden=false;
+  }
+  async function live(){
+    try{
+      const c=new AbortController();const to=setTimeout(()=>c.abort(),8000);
+      const r=await fetch(URL,{signal:c.signal});clearTimeout(to);
+      if(!r.ok)throw new Error("http "+r.status);
+      W=fromLive(await r.json());liveAt=Date.now();render();return true;
+    }catch(e){console.log("[DavidsDay] live weather off:",e&&e.message);return false;}
+  }
+  async function fromDb(){
+    if(liveAt&&Date.now()-liveAt<3600000)return;
+    if(!db)return;
+    try{const d=today();const s=await db.doc("weather/"+d).get();if(s.exists){W=fromDoc(s.data(),d);render();}}catch(e){console.log("[DavidsDay] weather doc failed",e&&e.code);}
+  }
+  (async()=>{
+    const ok=await live();
+    try{db=window.claude&&window.claude.use?await window.claude.use("db"):null;}catch(e){db=null;}
+    if(!ok)await fromDb();
+    setInterval(async()=>{if(!(await live()))await fromDb();},20*60000);
+    setInterval(fromDb,5*60000);
+    setInterval(render,60000);
+    document.addEventListener("visibilitychange",()=>{if(!document.hidden)render();});
+  })();
+})();
+</script>
+<style>.dkbar{position:fixed;left:0;right:0;bottom:0;z-index:50;display:grid;grid-template-columns:repeat(4,1fr);background:#06150f;border-top:1px solid rgba(201,181,156,.3);padding-bottom:env(safe-area-inset-bottom)}.dkbar a{display:flex;align-items:center;justify-content:center;height:52px;font:700 13px Montserrat,system-ui,sans-serif;color:#AEB6AA;text-decoration:none}.dkbar a[aria-current=page]{color:#C9B59C}body{padding-bottom:calc(60px + env(safe-area-inset-bottom))}</style><nav class="dkbar" aria-label="HQ pages"><a href="../hq/">HQ</a><a href="../day/" aria-current="page">Day</a><a href="../maxing/">Maxing</a><a href="../vault/">Vault</a></nav>
+</body></html>
