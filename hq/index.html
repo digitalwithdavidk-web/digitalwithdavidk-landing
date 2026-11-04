@@ -193,9 +193,8 @@ nav .badge{position:absolute;top:8px;left:calc(50% + 6px);background:var(--accen
 </header>
 
 <section class="hqg hidden" style="padding-top:12px" id="hqGlobe" aria-label="The Globe">
-    <div class="gwrap"><canvas id="hqGlobeCv" role="img" aria-label="Spinning globe. Gold countries are open on the Globe. Grey dots are in the vote."></canvas><div class="gload" id="hqGlobeLoad">Loading the globe</div></div>
-  <p class="ghelp" id="hqGlobeHelp">Drag to spin. Tap a gold pin to open that trip.</p>
-  <a class="gopen" href="../globe/" target="_blank" rel="noopener">Open the Globe</a>
+    <div class="gwrap"><canvas id="hqGlobeCv" role="img" aria-label="Spinning globe. Drag to spin."></canvas><div class="gload" id="hqGlobeLoad">Loading the globe</div></div>
+  <p class="ghelp" id="hqGlobeHelp">Drag to spin.</p>
 </section>
 
 <main id="view"></main>
@@ -572,23 +571,9 @@ function startHQGlobe(world){
   function draw(t){
     ctx.setTransform(1,0,0,1,0,0);ctx.clearRect(0,0,cv.width,cv.height);ctx.drawImage(bg,0,0);ctx.setTransform(dpr,0,0,dpr,0,0);proj.rotate(rot);
     ctx.beginPath();path(grat);ctx.strokeStyle='rgba(237,230,220,.08)';ctx.lineWidth=.7;ctx.stroke();
-    ctx.beginPath();path(land);ctx.fillStyle='#2f4a40';ctx.fill();
-    GPL.forEach(function(p){if(!p.f||p.live||p.name==='Bali')return;ctx.beginPath();path(p.f);ctx.fillStyle='rgba(192,192,192,.3)';ctx.fill();});
-    ctx.shadowColor='rgba(201,181,156,.8)';ctx.shadowBlur=12;ctx.fillStyle='#C9B59C';
-    GPL.forEach(function(p){if(!p.f||!p.live)return;ctx.beginPath();path(p.f);ctx.fill();});ctx.shadowBlur=0;
-    ctx.beginPath();path(borders);ctx.strokeStyle='rgba(237,230,220,.22)';ctx.lineWidth=.5;ctx.stroke();
+    ctx.beginPath();path(land);ctx.fillStyle='#C9B59C';ctx.shadowColor='rgba(201,181,156,.5)';ctx.shadowBlur=10;ctx.fill();ctx.shadowBlur=0;
+    ctx.beginPath();path(borders);ctx.strokeStyle='rgba(14,47,36,.35)';ctx.lineWidth=.5;ctx.stroke();
     ctx.beginPath();ctx.arc(W/2,W/2,R,0,7);ctx.strokeStyle='rgba(201,181,156,.5)';ctx.lineWidth=1.2;ctx.stroke();
-    var fs=Math.max(10,Math.round(W/40)),boxes=[];
-    GPL.filter(function(p){return !p.live;}).concat(GPL.filter(function(p){return p.live;})).forEach(function(p){
-      if(!vis(p)){p.xy=null;return;}var xy=proj([p.lon,p.lat]);p.xy=xy;
-      if(p.live){var ph=GRED?0:((t/1400)+(p.id%7)/7)%1;
-        ctx.beginPath();ctx.arc(xy[0],xy[1],7+ph*18,0,7);ctx.strokeStyle='rgba(237,230,220,'+(0.8*(1-ph))+')';ctx.lineWidth=2;ctx.stroke();
-        ctx.beginPath();ctx.arc(xy[0],xy[1],7,0,7);ctx.fillStyle='#FFFFFF';ctx.shadowColor='#EDE6DC';ctx.shadowBlur=16;ctx.fill();ctx.shadowBlur=0;
-        ctx.beginPath();ctx.arc(xy[0],xy[1],3.2,0,7);ctx.fillStyle='#0E2F24';ctx.fill();
-      }else{ctx.beginPath();ctx.arc(xy[0],xy[1],4.5,0,7);ctx.fillStyle='#8E8E94';ctx.fill();ctx.strokeStyle='#03100b';ctx.lineWidth=1.5;ctx.stroke();}
-      boxes.push([xy[0]-7,xy[1]-7,14,14]);});
-    GPL.forEach(function(p){if(p.live&&p.xy)label(p.xy,p.name.toUpperCase(),true,fs*.9,p.side||1,boxes);});
-    GPL.forEach(function(p){if(!p.live&&p.xy)label(p.xy,p.name.toUpperCase(),false,fs*.85,p.side||1,boxes);});
   }
   function frame(t){if(!running)return;
     if(!dragging){if(Math.abs(vel)>.01){rot[0]+=vel;vel*=.93;}else if(!GRED&&t-idleAt>2500)rot[0]+=.12;}
@@ -598,14 +583,10 @@ function startHQGlobe(world){
   var last=null,moved=0;
   cv.addEventListener('pointerdown',function(e){last=[e.clientX,e.clientY];moved=0;dragging=true;vel=0;cv.classList.add('drag');try{cv.setPointerCapture(e.pointerId);}catch(x){}});
   cv.addEventListener('pointermove',function(e){
-    if(!dragging||!last||!R){var r0=cv.getBoundingClientRect(),x0=e.clientX-r0.left,y0=e.clientY-r0.top;cv.style.cursor=GPL.some(function(p){return p.live&&p.xy&&Math.hypot(p.xy[0]-x0,p.xy[1]-y0)<26;})?'pointer':'';return;}
+    if(!dragging||!last||!R)return;
     var dx=e.clientX-last[0],dy=e.clientY-last[1];moved+=Math.abs(dx)+Math.abs(dy);var k=90/R;rot[0]+=dx*k;rot[1]=Math.max(-70,Math.min(70,rot[1]-dy*k));vel=dx*k;last=[e.clientX,e.clientY];});
-  function end(e){if(!dragging)return;dragging=false;cv.classList.remove('drag');idleAt=performance.now();if(moved<8&&e.type==='pointerup')tap(e);last=null;}
+  function end(e){if(!dragging)return;dragging=false;cv.classList.remove('drag');idleAt=performance.now();last=null;}
   cv.addEventListener('pointerup',end);cv.addEventListener('pointercancel',end);
-  function tap(e){var r=cv.getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top,best=null,bd=26;
-    GPL.forEach(function(p){if(!p.live||!p.xy)return;var d=Math.hypot(p.xy[0]-x,p.xy[1]-y);if(d<bd){bd=d;best=p;}});
-    if(!best){var ll=proj.invert([x,y]);if(ll&&Math.hypot(x-W/2,y-W/2)<R)GPL.forEach(function(p){if(p.live&&p.f&&d3.geoContains(p.f,ll))best=p;});}
-    if(best)window.open('../globe/#'+best.key,'_blank','noopener');}
   if('IntersectionObserver' in window)new IntersectionObserver(function(es){es.forEach(function(en){if(en.isIntersecting)HG.resume();else HG.pause();});}).observe(cv);
   document.addEventListener('visibilitychange',function(){if(document.hidden)HG.pause();else HG.resume();});
   window.addEventListener('resize',function(){if(cv.clientWidth&&cv.clientWidth!==W){size();draw(performance.now());}});
