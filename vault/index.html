@@ -46,6 +46,9 @@ input{flex:1 1 180px;max-width:280px;min-width:0}
 .chart{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:16px;position:relative}
 .chart svg{width:100%;height:auto;display:block}
 .tip{position:absolute;pointer-events:none;background:#000;border:1px solid var(--line);border-radius:8px;padding:6px 9px;font-size:12px;white-space:nowrap}
+.acct{display:flex;align-items:center;gap:10px;margin:14px 0 4px;flex-wrap:wrap}
+.acct label{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.acct select{font-weight:700;font-size:14px;padding:10px 14px;border-color:var(--gold);color:var(--gold);cursor:pointer;max-width:100%}
 .empty{color:var(--muted);font-size:14px;padding:30px 0}
 footer{color:var(--muted);font-size:12px;border-top:1px solid var(--line);padding-top:16px}
 @media (prefers-reduced-motion:reduce){.card{transition:none}}
@@ -55,6 +58,7 @@ footer{color:var(--muted);font-size:12px;border-top:1px solid var(--line);paddin
 <div class="wrap">
   <div class="brand">DIGITAL WITH DAVID K</div>
   <h1>Content Vault</h1>
+  <div class="acct" id="acctbox" hidden><label for="acct">Account</label><select id="acct"></select></div>
   <p class="sub" id="updated">Loading your posts…</p>
 
   <div class="stats">
@@ -108,7 +112,7 @@ footer{color:var(--muted);font-size:12px;border-top:1px solid var(--line);paddin
     <div class="chart" id="chart"></div>
   </section>
 
-  <footer>Numbers come from Instagram and refresh every morning at 6:37am Winnipeg time. Trial reels are reels not shared to your grid.</footer>
+  <footer>Pick an account at the top to switch vaults. Numbers come from Instagram and TikTok and refresh every morning at 6:37am Winnipeg time. Trial reels are reels not shared to your grid.</footer>
 </div>
 
 <script>
@@ -176,9 +180,18 @@ function drawChart() {
   });
 }
 
-fetch('data.json?' + Date.now()).then((r) => r.json()).then((d) => {
+let ACCTS = [{ id: 'digitalwithdavidk', label: '@digitalwithdavidk', file: 'data.json' }];
+const pick = () => { let id = new URLSearchParams(location.search).get('a'); if (!id) { try { id = localStorage.getItem('vault-acct'); } catch (e) {} } return ACCTS.find((a) => a.id === id) || ACCTS[0]; };
+function load(acct) {
+  try { localStorage.setItem('vault-acct', acct.id); } catch (e) {}
+  const u = new URL(location.href); if (acct.id === ACCTS[0].id) u.searchParams.delete('a'); else u.searchParams.set('a', acct.id); history.replaceState(null, '', u);
+  document.getElementById('acct').value = acct.id;
+  document.title = 'Content Vault ' + acct.label + ' | Digital with David K';
+  document.getElementById('updated').textContent = 'Loading ' + acct.label + '…';
+  ['top', 'trials', 'all', 'chart'].forEach((id) => document.getElementById(id).replaceChildren());
+fetch(acct.file + '?' + Date.now()).then((r) => r.json()).then((d) => {
   POSTS = d.posts || [];
-  document.getElementById('updated').textContent = (d.account || '') + ' · numbers updated ' + (d.updated || '');
+  document.getElementById('updated').textContent = (d.account || acct.label) + (d.updated ? ' · numbers updated ' + d.updated : ' · no numbers yet, they show up after this account\'s first morning refresh');
   const sum = POSTS.reduce((s, p) => s + (p.views || 0), 0);
   document.getElementById('s-posts').textContent = comma(POSTS.length);
   document.getElementById('s-views').textContent = fmt(sum);
@@ -190,7 +203,15 @@ fetch('data.json?' + Date.now()).then((r) => r.json()).then((d) => {
   document.getElementById('top').replaceChildren(...byV.slice(0, 12).map((p, i) => card(p, i, true)));
   document.getElementById('trials').replaceChildren(...tr.sort((a, b) => (b.views || 0) - (a.views || 0)).slice(0, 12).map((p, i) => card(p, i)));
   drawAll(); drawChart();
-}).catch(() => { document.getElementById('updated').textContent = 'Could not load the numbers. Refresh the page.'; });
+}).catch(() => { document.getElementById('updated').textContent = 'Could not load the numbers for ' + acct.label + '. Refresh the page.'; });
+}
+fetch('accounts.json?' + Date.now()).then((r) => r.json()).then((a) => { if (Array.isArray(a) && a.length) ACCTS = a; }).catch(() => {}).finally(() => {
+  const sel = document.getElementById('acct');
+  sel.replaceChildren(...ACCTS.map((a) => { const o = document.createElement('option'); o.value = a.id; o.textContent = a.label; return o; }));
+  document.getElementById('acctbox').hidden = ACCTS.length < 2;
+  sel.addEventListener('change', () => load(ACCTS.find((a) => a.id === sel.value)));
+  load(pick());
+});
 
 document.querySelectorAll('.chip').forEach((b) => b.addEventListener('click', () => {
   st.k = b.dataset.k || ''; st.p = b.dataset.p || '';
