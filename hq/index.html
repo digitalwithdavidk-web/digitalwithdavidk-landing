@@ -184,7 +184,7 @@ nav .badge{position:absolute;top:8px;left:calc(50% + 6px);background:var(--accen
 </div>
 
 <header>
-  <img src="../images/brand/dk-beige.svg" alt="">
+  <a href="https://digitalwithdavidk.com/" aria-label="Digital with David K homepage" style="display:flex"><img src="../images/brand/dk-beige.svg" alt=""></a>
   <div class="htitle"><b>DIGITAL WITH DAVID K</b><span id="hsub">CEO Dashboard</span></div>
   <div class="ur">
     <button id="undoBtn" disabled aria-label="Undo last action">Undo</button>
@@ -192,14 +192,13 @@ nav .badge{position:absolute;top:8px;left:calc(50% + 6px);background:var(--accen
   </div>
 </header>
 
-<main id="view"></main>
-
-<section class="hqg hidden" id="hqGlobe" aria-label="The Globe">
-  <h2>The Globe</h2>
-  <div class="gwrap"><canvas id="hqGlobeCv" role="img" aria-label="Spinning globe. Gold countries are open on the Globe. Grey dots are in the vote."></canvas><div class="gload" id="hqGlobeLoad">Loading the globe</div></div>
+<section class="hqg hidden" style="padding-top:12px" id="hqGlobe" aria-label="The Globe">
+    <div class="gwrap"><canvas id="hqGlobeCv" role="img" aria-label="Spinning globe. Gold countries are open on the Globe. Grey dots are in the vote."></canvas><div class="gload" id="hqGlobeLoad">Loading the globe</div></div>
   <p class="ghelp" id="hqGlobeHelp">Drag to spin. Tap a gold pin to open that trip.</p>
   <a class="gopen" href="../globe/" target="_blank" rel="noopener">Open the Globe</a>
 </section>
+
+<main id="view"></main>
 
 <div class="bulk hidden" id="bulk">
   <button class="btn pri" id="bulkSend">Send 0 selected</button>
