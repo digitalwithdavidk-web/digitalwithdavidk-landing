@@ -117,13 +117,7 @@ h2 small{margin-left:auto;letter-spacing:0;text-transform:none;font-weight:600;c
 .chk{width:30px;height:30px;border-radius:9px;border:2px solid var(--accent);flex:none;display:inline-flex;align-items:center;justify-content:center;color:var(--onacc);font-weight:800;background:transparent}
 .chk.on{background:var(--accent)}
 .cards{display:flex;flex-direction:column;gap:12px}
-.swrap{position:relative;border-radius:var(--r);overflow:hidden}
-.swrap .under{position:absolute;inset:0;display:flex;align-items:center;justify-content:space-between;padding:0 22px;font-weight:800;font-size:14px;letter-spacing:.06em;text-transform:uppercase;border-radius:var(--r)}
-.swrap .under .l{color:#fff}.swrap .under .r{color:#5a2a22}
-.swrap.toR .under{background:var(--accent)}.swrap.toL .under{background:#d9b0a7}
-.swrap.toR .under .r,.swrap.toL .under .l{visibility:hidden}
-.card{position:relative;background:var(--s1);border:1px solid var(--line);border-radius:var(--r);padding:14px;touch-action:pan-y;transition:border-color .15s}
-.card.drag{transition:none}
+.card{position:relative;background:var(--s1);border:1px solid var(--line);border-radius:var(--r);padding:14px;transition:border-color .15s}
 .card.fly{transition:transform .22s var(--ease),opacity .22s}
 .card.sel,.card.kfocus{border-color:var(--accent)}
 .ctop{display:flex;gap:12px;align-items:flex-start}
@@ -135,7 +129,9 @@ h2 small{margin-left:auto;letter-spacing:0;text-transform:none;font-weight:600;c
 .pill.time{background:#f3ecd9;color:var(--warn)}.pill.hot{color:#fff}
 .ctx{color:var(--muted);font-size:13px;margin:10px 0 0;display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden;cursor:pointer}
 .ctx.open{-webkit-line-clamp:unset}
-.draft{background:var(--bg);border-left:3px solid var(--accent);border-radius:10px;padding:10px 12px;margin-top:10px;white-space:pre-wrap;font-size:15px}
+.draft{background:var(--bg);border-left:3px solid var(--accent);border-radius:10px;padding:10px 12px;margin-top:10px;white-space:pre-wrap;font-size:15px;-webkit-user-select:text;user-select:text;-webkit-touch-callout:default}
+.acts.acts4{grid-template-columns:1.6fr 1fr 1fr 1fr}
+@media(max-width:360px){.acts.acts4{grid-template-columns:1fr 1fr;}.acts.acts4 .btn{height:44px}}
 .trans{font-size:13px;color:var(--muted);margin-top:6px;white-space:pre-wrap}
 .trans b{color:var(--accent)}
 .acts{display:grid;grid-template-columns:2fr 1fr 1fr;gap:8px;margin-top:12px}
@@ -441,6 +437,13 @@ function fmtWhen(iso){var d=new Date(iso);if(isNaN(d))return '';return new Intl.
 function num(n){return Number(n).toLocaleString('en-US');}
 function short(n){n=Number(n)||0;if(n>=1e6)return (n/1e6).toFixed(n>=1e7?0:1).replace(/\.0$/,'')+'M';if(n>=1e4)return Math.round(n/1e3)+'K';if(n>=1e3)return (n/1e3).toFixed(1).replace(/\.0$/,'')+'K';return String(n);}
 function hasTime(s){return /\b\d{1,2}(:\d{2})?\s?(am|pm)\b/i.test(s||'')||/\b(today|tomorrow|tonight)\b/i.test(s||'');}
+function copyDraft(id,btn){
+  var r=q().filter(function(x){return x.id===id;})[0];if(!r)return;
+  var txt=r.editedDraft||r.draft||'';
+  function ok(){buzz();toast('Copied. Paste it in iMessage or email.',false);if(btn){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy';},1400);}}
+  function fb(){try{var ta=document.createElement('textarea');ta.value=txt;ta.setAttribute('readonly','');ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.focus();ta.select();var d=document.execCommand('copy');document.body.removeChild(ta);d?ok():toast('Could not copy. Hold the text to select it.',false);}catch(e){toast('Could not copy. Hold the text to select it.',false);}}
+  if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(txt).then(ok,fb);else fb();
+}
 function buzz(){try{navigator.vibrate&&navigator.vibrate(12);}catch(e){}}
 function clone(o){return JSON.parse(JSON.stringify(o));}
 
@@ -882,7 +885,7 @@ function spark(days){
 function cardHTML(r, opts){
   opts=opts||{};
   var sel=!!S.sel[r.id], draft=r.editedDraft||r.draft;
-  var h=(opts.noSelect?'':'<div class="swrap"><div class="under"><span class="l">Send</span><span class="r">Skip</span></div>')+'<div class="card'+(sel?' sel':'')+'" data-id="'+esc(r.id)+'"'+(opts.noSelect?'':' data-swipe')+'><div class="ctop">';
+  var h='<div class="card'+(sel?' sel':'')+'" data-id="'+esc(r.id)+'"><div class="ctop">';
   if(!opts.noSelect)h+='<button class="chk'+(sel?' on':'')+'" data-sel="'+esc(r.id)+'" aria-label="Select">'+(sel?'&#10003;':'')+'</button>';
   h+='<div style="flex:1;min-width:0"><div class="who">'+esc(r.who)+'</div><div class="meta">';
   if(r.priority==='hot')h+='<span class="pill hot">Hot</span>';
@@ -896,9 +899,9 @@ function cardHTML(r, opts){
   } else {
     h+='<div class="draft">'+esc(draft)+'</div>';
     if(r.translation)h+='<div class="trans"><b>English:</b> '+esc(r.translation)+'</div>';
-    h+='<div class="acts"><button class="btn pri" data-do="approve">Send</button><button class="btn" data-do="edit">Edit</button><button class="btn ghost" data-do="skip">Skip</button></div>';
+    h+='<div class="acts acts4"><button class="btn pri" data-do="approve">Send</button><button class="btn" data-do="copy">Copy</button><button class="btn" data-do="edit">Edit</button><button class="btn ghost" data-do="skip">Skip</button></div>';
   }
-  return h+'</div>'+(opts.noSelect?'':'</div>');
+  return h+'</div>';
 }
 
 function approveHTML(){
@@ -912,7 +915,7 @@ function approveHTML(){
     return h+'<div class="empty" style="margin-top:14px">Nothing waiting in this tab.<br><button class="btn pri" style="margin-top:12px;padding:0 18px" data-tab="'+other[0]+'">Next: '+other[1]+' ('+waiting(other[0]).length+')</button></div>';
   }
   var allSel=list.every(function(r){return S.sel[r.id];});
-  h+='<div class="tools"><button class="selall" data-selall><span class="chk'+(allSel?' on':'')+'">'+(allSel?'&#10003;':'')+'</span>'+(allSel?'Clear all':'Select all '+list.length)+'</button><span class="hint">Swipe right to send<br>Swipe left to skip</span></div><div class="cards">';
+  h+='<div class="tools"><button class="selall" data-selall><span class="chk'+(allSel?' on':'')+'">'+(allSel?'&#10003;':'')+'</span>'+(allSel?'Clear all':'Select all '+list.length)+'</button><span class="hint">Copy for iMessage or email<br>Send goes through Instagram</span></div><div class="cards">';
   list.forEach(function(r){h+=cardHTML(r);});
   return h+'</div>';
 }
@@ -1031,9 +1034,7 @@ function go(view, tab){
 (function fromHash(){var m=String(location.hash||'').replace('#','').split('/');if(VIEWS[m[0]]){S.view=m[0];if(m[0]==='approve'&&m[1]&&TABS.some(function(t){return t[0]===m[1];}))S.tab=m[1];if(m[0]==='home'&&m[1]&&HOMES.some(function(t){return t[0]===m[1];}))S.home=m[1];}})();
 
 /* ---------- events ---------- */
-var swipeMoved=false;
 document.addEventListener('click',function(e){
-  if(swipeMoved){swipeMoved=false;e.preventDefault();return;}
   var t=e.target.closest('button,[data-ctx]');if(!t)return;
   if(t.closest('nav')){go(t.dataset.v);return;}
   if(t.closest('#pal'))return;
@@ -1057,6 +1058,7 @@ document.addEventListener('click',function(e){
   var card=t.closest('.card');if(!card)return;var id=card.dataset.id;
   if(t.dataset.do==='approve')decide([id],'approve');
   else if(t.dataset.do==='skip')decide([id],'skip');
+  else if(t.dataset.do==='copy')copyDraft(id,t);
   else if(t.dataset.do==='edit'){S.editing=id;render();var b=$('editBox');if(b){b.focus();}}
   else if(t.dataset.save){
     if(t.dataset.save==='cancel'){S.editing=null;render();return;}
@@ -1081,33 +1083,6 @@ document.addEventListener('submit',function(e){
   enqueue('addLink',{url:url,kind:S.kind,note:note});toast('Link saved',false);
 });
 
-/* ---------- swipe to triage (Superhuman style): right = send, left = skip ---------- */
-(function(){
-  var sx=0,sy=0,card=null,wrap=null,dx=0,locked=null;
-  document.addEventListener('pointerdown',function(e){
-    if(e.pointerType==='mouse')return;
-    var c=e.target.closest('[data-swipe]');if(!c||S.editing||e.target.closest('textarea'))return;
-    card=c;wrap=c.parentNode;sx=e.clientX;sy=e.clientY;dx=0;locked=null;
-  },{passive:true});
-  document.addEventListener('pointermove',function(e){
-    if(!card)return;var mx=e.clientX-sx,my=e.clientY-sy;
-    if(locked===null){if(Math.abs(mx)>12&&Math.abs(mx)>Math.abs(my)*1.4)locked='x';else if(Math.abs(my)>10)locked='y';}
-    if(locked!=='x')return;
-    dx=mx;card.classList.add('drag');card.style.transform='translateX('+dx+'px) rotate('+(dx/40)+'deg)';
-    wrap.classList.toggle('toR',dx>0);wrap.classList.toggle('toL',dx<0);
-  },{passive:true});
-  function end(){
-    if(!card)return;var c=card,w=wrap;card=null;c.classList.remove('drag');
-    if(locked!=='x'){return;}
-    swipeMoved=true;setTimeout(function(){swipeMoved=false;},350);
-    if(Math.abs(dx)>Math.min(110,c.offsetWidth*.3)){
-      c.classList.add('fly');c.style.transform='translateX('+(dx>0?1:-1)*(c.offsetWidth+40)+'px)';c.style.opacity='0';
-      var id=c.dataset.id,kind=dx>0?'approve':'skip';setTimeout(function(){decide([id],kind);},180);
-    } else {c.classList.add('fly');c.style.transform='';setTimeout(function(){c.classList.remove('fly');w.classList.remove('toR','toL');},230);}
-  }
-  document.addEventListener('pointerup',end);document.addEventListener('pointercancel',function(){if(card){card.style.transform='';card.classList.remove('drag');wrap.classList.remove('toR','toL');card=null;}});
-})();
-
 /* ---------- keyboard (Mac): Cmd+K palette; on Approve J/K move, A send, S skip, E edit, X select ---------- */
 function markKF(){var cs=document.querySelectorAll('#view .cards .card');[].forEach.call(cs,function(c,i){c.classList.toggle('kfocus',i===S.kf&&kbUsed);});}
 var kbUsed=false;
@@ -1126,6 +1101,7 @@ document.addEventListener('keydown',function(e){
   else if(k==='a'){decide([list[S.kf].id],'approve');S.kf=Math.min(S.kf,list.length-2);}
   else if(k==='s'){decide([list[S.kf].id],'skip');S.kf=Math.min(S.kf,list.length-2);}
   else if(k==='e'){e.preventDefault();S.editing=list[S.kf].id;render();var b=$('editBox');if(b)b.focus();}
+  else if(k==='c'){copyDraft(list[S.kf].id,null);}
   else if(k==='x'){var id=list[S.kf].id;S.sel[id]=!S.sel[id];render();}
   if(S.kf<0)S.kf=0;
 });
