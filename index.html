@@ -327,6 +327,31 @@ body.light{--hdr:58px}
 /* Slogan font: Montserrat ExtraBold, uppercase, wide spacing (David's pick, Oct 12, W2) */
 .dk-slogan{font-family:'Montserrat',system-ui,-apple-system,'Segoe UI',sans-serif!important;font-weight:800!important;letter-spacing:.18em!important;text-transform:uppercase!important;font-style:normal!important;line-height:1.4!important}
 p.dk-slogan,small.dk-slogan{font-size:15px!important}
+
+/* ---------- prices + booking (Nov 5 2026) ---------- */
+.dk-prices{margin-top:30px;scroll-margin-top:calc(var(--hdr) + 12px)}
+.dk-prices>.k{font-size:10.5px;font-weight:800;letter-spacing:.24em;text-transform:uppercase;color:var(--beige)}
+.dk-prices>h2{font-size:clamp(24px,5.6vw,36px);font-weight:800;line-height:1.1;letter-spacing:-.02em;color:var(--white);margin-top:6px}
+.dk-prices>.t{margin-top:8px;font-size:15px;line-height:1.5;color:rgba(237,230,220,.82);max-width:560px}
+.dk-pgrid{display:grid;gap:14px;margin-top:18px}
+.dk-book{padding:22px 20px;border-radius:20px;background:var(--stone);color:var(--ink);box-shadow:0 24px 60px rgba(0,0,0,.35);display:grid;gap:14px;align-content:start}
+.dk-book .badge{justify-self:start;font-size:10.5px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;background:var(--em);color:var(--stone);padding:6px 10px;border-radius:999px}
+.dk-book h3{font-size:22px;font-weight:800;line-height:1.15;color:var(--ink)}
+.dk-book .pr{font-size:40px;font-weight:800;line-height:1;color:var(--em);letter-spacing:-.02em}
+.dk-book .pr small{font-size:14px;font-weight:600;color:var(--sage);margin-left:6px;letter-spacing:0}
+.dk-book ul{list-style:none;display:grid;gap:8px;font-size:14.5px;line-height:1.45;color:#2a2a2a;padding:0;margin:0}
+.dk-book li{padding-left:24px;position:relative}
+.dk-book li::before{content:"";position:absolute;left:2px;top:6px;width:12px;height:7px;border-left:2.4px solid var(--em);border-bottom:2.4px solid var(--em);transform:rotate(-45deg)}
+.dk-book .btn{width:100%}
+.dk-book .note{font-size:12.5px;color:var(--sage);text-align:center}
+.dk-plist{display:grid;gap:10px;align-content:start}
+.dk-prow{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:15px 16px;border-radius:16px;background:rgba(237,230,220,.05);border:1px solid rgba(201,181,156,.22);text-decoration:none;color:var(--stone);transition:border-color .2s,background .2s,transform .2s var(--ease)}
+.dk-prow:hover{border-color:var(--beige);background:rgba(237,230,220,.09);transform:translateY(-1px)}
+.dk-prow b{display:block;font-size:15px;font-weight:700;color:var(--white)}
+.dk-prow span.d{display:block;font-size:12.5px;line-height:1.4;color:rgba(237,230,220,.72);margin-top:3px}
+.dk-prow .p{flex:none;text-align:right;font-size:16px;font-weight:800;color:var(--beige);white-space:nowrap}
+.dk-prow .p small{display:block;font-size:11px;font-weight:600;color:rgba(237,230,220,.7)}
+@media (min-width:860px){.dk-pgrid{grid-template-columns:.95fr 1.05fr;gap:18px}}
 </style>
 <link rel="stylesheet" href="assets/seoul.css"><style>.dk-sv-wrap{display:block!important;padding:18px!important}.dk-sv-wrap .dk-sv{margin-top:0}.stat.wide.dk-sv-wrap b,.stat.wide.dk-sv-wrap span{display:inline;font-size:inherit;color:inherit;margin:0;letter-spacing:normal;line-height:inherit;font-weight:inherit}.stat.wide.dk-sv-wrap .dk-sv-line b,.stat.wide.dk-sv-wrap .dk-sv-row b{font-weight:800;color:var(--beige)}.stat.wide.dk-sv-wrap .dk-sv-row b{font-size:15px}.stat.wide.dk-sv-wrap .dk-sv-save b{font-size:30px;font-weight:800;color:var(--beige);line-height:1}.stat.wide.dk-sv-wrap .dk-sv-asof{font-size:.8em}</style>
 </head>
@@ -367,11 +392,40 @@ p.dk-slogan,small.dk-slogan{font-size:15px!important}
         <p class="lead">Tell me where you're at. I'll show you the one best next step for you. Free or paid, no email needed.</p>
         <div class="intro-actions">
           <button class="btn btn-gold" id="startBtn" type="button">Start the quiz <span class="arrow">&rarr;</span></button>
+          <a class="btn btn-ghost" href="#prices">See prices and book a call</a>
           <button class="btn btn-ghost" id="skipBtn2" type="button">Skip, show me everything</button>
         </div>
         <div class="meta-row"><span>About 30 seconds</span><span>5 questions</span><span>No sign up</span></div>
       </div>
     </div>
+    <section class="dk-prices" id="prices" aria-label="Prices and booking">
+      <p class="k">Prices</p>
+      <h2>Work with me</h2>
+      <p class="t">Pick what fits. Book your call right here, no DM needed. Every call is with me, live on video.</p>
+      <div class="dk-pgrid">
+        <div class="dk-book">
+          <span class="badge">Most people start here</span>
+          <h3>1 on 1 Hour with David</h3>
+          <p class="pr">US$147<small>/ 1 hour</small></p>
+          <ul>
+            <li>One 60 minute video call with me</li>
+            <li>Your cards and spending checked live</li>
+            <li>Your best next card, picked for you</li>
+            <li>A clear plan for your next trip, travel or content</li>
+          </ul>
+          <a class="btn btn-em" href="https://stan.store/digitalwithdavidk/p/1-hour-consultation-l4btmsgu" target="_blank" rel="noopener">Book my call, US$147 <span class="arrow">&rarr;</span></a>
+          <p class="note">Pick your time and pay on the booking page. Only a few spots each week.</p>
+        </div>
+        <div class="dk-plist">
+          <a class="dk-prow" href="https://stan.store/digitalwithdavidk/p/get-my-travel-hack-blueprint-now" target="_blank" rel="noopener"><span><b>The Travel Hacking Blueprint</b><span class="d">My full playbook. Lounges, cheaper business class, hotel perks.</span></span><span class="p">US$49.97<small>instant download</small></span></a>
+          <a class="dk-prow" href="https://stan.store/digitalwithdavidk/p/private-travel-coaching-3-months-best-value" target="_blank" rel="noopener"><span><b>1:1 Coaching, 3 Months</b><span class="d">Weekly calls for 3 months, travel or content. A Blueprint included.</span></span><span class="p">US$1,497<small>/ 3 months</small></span></a>
+          <a class="dk-prow" href="https://stan.store/digitalwithdavidk/p/vip-year" target="_blank" rel="noopener"><span><b>VIP Year</b><span class="d">Weekly calls all year, 2 trips planned for you, plus a VIP bonus.</span></span><span class="p">US$3,997<small>/ year</small></span></a>
+          <a class="dk-prow" href="https://stan.store/digitalwithdavidk/p/1on1-travel-strategy-call-with-david" target="_blank" rel="noopener"><span><b>1:1 Coaching, 1 Month</b><span class="d">A 1 on 1 call every week for a month.</span></span><span class="p">US$597<small>/ 1 month</small></span></a>
+          <a class="dk-prow" href="https://stan.store/digitalwithdavidk/p/aesthetic-blueprint" target="_blank" rel="noopener"><span><b>Aesthetic Blueprint</b><span class="d">Make every photo look rich and clean.</span></span><span class="p">US$49.97<small>instant download</small></span></a>
+          <a class="dk-prow" href="https://stan.store/digitalwithdavidk" target="_blank" rel="noopener"><span><b>Free Travel Checklist + Credit Card Guide</b><span class="d">Packing list, card picks and lounge tips.</span></span><span class="p">Free</span></a>
+        </div>
+      </div>
+    </section>
     <div class="dk-mission" id="mission" aria-label="Our mission">
       <p class="k">Our mission</p>
       <p class="t">We help busy young professionals turn <b>the money they already spend</b> into <b>luxury travel and a richer life</b>, with a clear plan built for them, so it all looks effortless.</p>
@@ -429,7 +483,7 @@ p.dk-slogan,small.dk-slogan{font-size:15px!important}
           <div class="stat"><b data-count="7" data-dec="0" data-suf="M+">7M+</b><span>Views in the last 30 days</span></div>
           <div class="stat"><b data-count="473" data-dec="0" data-suf="K+">473K+</b><span>Saves since July</span></div>
           <div class="stat"><b>4 cards</b><span>Cobalt, Platinum, Wealthsimple, Chexy</span></div>
-          <div class="stat wide dk-sv-wrap" id="seoul"><div class="dk-sv" role="group" aria-label="What was paid vs the cash price today"><p class="dk-sv-line">Business class to Seoul and back. I paid <b data-seoul="paid">59,200 points + $3,239</b>. Same trip in cash today: <b data-seoul="today">$8,149</b><br><span class="dk-sv-asof">Price updated as of <span data-seoul="asof">Nov 2, 2026</span></span></p><div class="dk-sv-bar"><div class="dk-sv-row"><span>What I paid in cash</span><b data-seoul="paidcash">$3,239</b></div><div class="dk-sv-track"><div class="dk-sv-fill paid"></div></div><small>plus <span data-seoul="points">59,200</span> points</small></div><div class="dk-sv-bar"><div class="dk-sv-row"><span>Same trip in cash today</span><b data-seoul="today">$9,866</b></div><div class="dk-sv-track"><div class="dk-sv-fill cash"></div></div></div><p class="dk-sv-save"><b data-seoul="save">$6,627</b> less in cash</p><p class="dk-sv-note">Business both ways, Oct 2025. Price today: Air Canada business, Vancouver to Seoul and back, Google Flights, <span data-seoul="asof">Oct 13, 2026</span>.</p></div></div>
+          <div class="stat wide dk-sv-wrap" id="seoul"><div class="dk-sv" role="group" aria-label="What was paid vs the cash price today"><p class="dk-sv-line">Business class to Seoul and back. I paid <b data-seoul="paid">59,200 points + CA$3,239</b>. Same trip in cash today: <b data-seoul="today">CA$8,149</b><br><span class="dk-sv-asof">Price updated as of <span data-seoul="asof">Nov 2, 2026</span></span></p><div class="dk-sv-bar"><div class="dk-sv-row"><span>What I paid in cash</span><b data-seoul="paidcash">CA$3,239</b></div><div class="dk-sv-track"><div class="dk-sv-fill paid"></div></div><small>plus <span data-seoul="points">59,200</span> points</small></div><div class="dk-sv-bar"><div class="dk-sv-row"><span>Same trip in cash today</span><b data-seoul="today">CA$8,149</b></div><div class="dk-sv-track"><div class="dk-sv-fill cash"></div></div></div><p class="dk-sv-save"><b data-seoul="save">CA$4,910</b> less in cash</p><p class="dk-sv-note">Business both ways, Oct 2025. Price today: Air Canada business, Vancouver to Seoul and back, Google Flights, <span data-seoul="asof">Nov 2, 2026</span>.</p></div></div>
         </div>
       </aside>
     </div>
@@ -464,7 +518,7 @@ p.dk-slogan,small.dk-slogan{font-size:15px!important}
         <div class="stats reveal">
           <div class="stat"><b>47.9K</b><span>Instagram followers</span></div>
           <div class="stat"><b>7M+</b><span>Views in the last 30 days</span></div>
-          <div class="stat wide dk-sv-wrap"><div class="dk-sv" role="group" aria-label="What was paid vs the cash price today"><p class="dk-sv-line">Business class to Seoul and back. I paid <b data-seoul="paid">59,200 points + $3,239</b>. Same trip in cash today: <b data-seoul="today">$8,149</b><br><span class="dk-sv-asof">Price updated as of <span data-seoul="asof">Nov 2, 2026</span></span></p><div class="dk-sv-bar"><div class="dk-sv-row"><span>What I paid in cash</span><b data-seoul="paidcash">$3,239</b></div><div class="dk-sv-track"><div class="dk-sv-fill paid"></div></div><small>plus <span data-seoul="points">59,200</span> points</small></div><div class="dk-sv-bar"><div class="dk-sv-row"><span>Same trip in cash today</span><b data-seoul="today">$9,866</b></div><div class="dk-sv-track"><div class="dk-sv-fill cash"></div></div></div><p class="dk-sv-save"><b data-seoul="save">$6,627</b> less in cash</p><p class="dk-sv-note">Business both ways, Oct 2025. Price today: Air Canada business, Vancouver to Seoul and back, Google Flights, <span data-seoul="asof">Oct 13, 2026</span>.</p></div></div>
+          <div class="stat wide dk-sv-wrap"><div class="dk-sv" role="group" aria-label="What was paid vs the cash price today"><p class="dk-sv-line">Business class to Seoul and back. I paid <b data-seoul="paid">59,200 points + CA$3,239</b>. Same trip in cash today: <b data-seoul="today">CA$8,149</b><br><span class="dk-sv-asof">Price updated as of <span data-seoul="asof">Nov 2, 2026</span></span></p><div class="dk-sv-bar"><div class="dk-sv-row"><span>What I paid in cash</span><b data-seoul="paidcash">CA$3,239</b></div><div class="dk-sv-track"><div class="dk-sv-fill paid"></div></div><small>plus <span data-seoul="points">59,200</span> points</small></div><div class="dk-sv-bar"><div class="dk-sv-row"><span>Same trip in cash today</span><b data-seoul="today">CA$8,149</b></div><div class="dk-sv-track"><div class="dk-sv-fill cash"></div></div></div><p class="dk-sv-save"><b data-seoul="save">CA$4,910</b> less in cash</p><p class="dk-sv-note">Business both ways, Oct 2025. Price today: Air Canada business, Vancouver to Seoul and back, Google Flights, <span data-seoul="asof">Nov 2, 2026</span>.</p></div></div>
         </div>
         <button class="btn btn-em" id="takeQuiz" type="button" style="width:100%;margin-top:16px">Take the 30 second quiz <span class="arrow">&rarr;</span></button>
       </aside>
@@ -488,10 +542,10 @@ p.dk-slogan,small.dk-slogan{font-size:15px!important}
     free:{name:'Free Travel Checklist + Credit Card Guide',short:'Free guides',price:'Free',img:'images/site/product-free-guides.jpg',url:'https://stan.store/digitalwithdavidk',cta:'Get my free guides',
       line:'Packing list, card picks and lounge tips. Instant download.',
       bullets:['Pre-trip checklist so you never forget a thing','The exact cards I use, and why','Lounge and airport tips','Instant download, no card needed']},
-    blueprint:{name:'The Travel Hacking Blueprint',short:'Blueprint',price:'US$19.97',soon:'US$19.97 now. Goes to US$49.97 on Oct 31.',img:'images/site/product-blueprint.jpg',url:'https://stan.store/digitalwithdavidk/p/get-my-travel-hack-blueprint-now',cta:'Get the Blueprint, US$19.97',
+    blueprint:{name:'The Travel Hacking Blueprint',short:'Blueprint',price:'US$49.97',img:'images/site/product-blueprint.jpg',url:'https://stan.store/digitalwithdavidk/p/get-my-travel-hack-blueprint-now',cta:'Get the Blueprint, US$49.97',
       line:'My full playbook. Lounges, cheaper business class, hotel perks.',
       bullets:['How I get into lounges','How to find business class for less','Hotel status perks most people miss','Scripts to ask for upgrades']},
-    aesthetic:{name:'Aesthetic Blueprint: Look Expensive in Every Photo',short:'Aesthetic',price:'US$29.97',was:'US$49.97',img:'images/site/product-blueprint.jpg',url:'https://stan.store/digitalwithdavidk/p/aesthetic-blueprint',cta:'Get the Aesthetic Blueprint, US$29.97',
+    aesthetic:{name:'Aesthetic Blueprint: Look Expensive in Every Photo',short:'Aesthetic',price:'US$49.97',img:'images/site/product-blueprint.jpg',url:'https://stan.store/digitalwithdavidk/p/aesthetic-blueprint',cta:'Get the Aesthetic Blueprint, US$49.97',
       line:'Simple steps to make every photo look rich and clean.',
       bullets:['How to pick your look','Easy photo tricks that look expensive','Clean edits in a few taps','Instant download']},
     consult:{name:'1 Hour Consultation',short:'1 hour call',price:'US$147',per:'/ 1 hour',img:'images/site/product-1-hour.jpg',url:'https://stan.store/digitalwithdavidk/p/1-hour-consultation-l4btmsgu',cta:'Book my 1 hour call',
@@ -503,7 +557,7 @@ p.dk-slogan,small.dk-slogan{font-size:15px!important}
     three:{name:'1:1 Coaching (Travel or Content), 3 Months',short:'3 months',price:'US$1,497',per:'/ 3 months',img:'images/site/product-3-months.jpg',url:'https://stan.store/digitalwithdavidk/p/private-travel-coaching-3-months-best-value',cta:'Book my spot',
       line:'3 months of weekly calls. Pick travel on points or content creation. We build it all, start to finish.',
       bullets:['A 1 on 1 video call every week for 3 months','Travel lane: your card stack, lounges and trip plan','Content lane: your content plan and growth steps','A free Blueprint included (travel Blueprint or aesthetic photo Blueprint)']},
-    vip:{name:'VIP Year',short:'1 year',price:'US$3,997',per:'/ year',small:'About $333 a month. Best value.',img:'images/site/about-david.jpg',url:'https://stan.store/digitalwithdavidk/p/vip-year',cta:'Get my VIP Year',
+    vip:{name:'VIP Year',short:'1 year',price:'US$3,997',per:'/ year',small:'About US$333 a month. Best value.',img:'images/site/about-david.jpg',url:'https://stan.store/digitalwithdavidk/p/vip-year',cta:'Get my VIP Year',
       line:'Your travel or content partner for 12 months. Everything included, plus a VIP bonus.',
       bullets:['Everything in the 1 hour, 1 month and 3 month plans','A 1 on 1 call every week, all year','2 trips planned for you, start to finish','VIP bonus: your own setup to save you time every week']}
   };
