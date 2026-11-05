@@ -418,11 +418,10 @@ p.dk-slogan,small.dk-slogan{font-size:15px!important}
         </div>
         <div class="dk-plist">
           <a class="dk-prow" href="https://stan.store/digitalwithdavidk/p/get-my-travel-hack-blueprint-now" target="_blank" rel="noopener"><span><b>The Travel Hacking Blueprint</b><span class="d">My full playbook. Lounges, cheaper business class, hotel perks.</span></span><span class="p">US$49.97<small>instant download</small></span></a>
+          <a class="dk-prow" href="https://stan.store/digitalwithdavidk" target="_blank" rel="noopener"><span><b>Free Canadian Travel Checklist</b><span class="d">Packing list, card picks and lounge tips.</span></span><span class="p">Free</span></a>
           <a class="dk-prow" href="https://stan.store/digitalwithdavidk/p/private-travel-coaching-3-months-best-value" target="_blank" rel="noopener"><span><b>1:1 Coaching, 3 Months</b><span class="d">Weekly calls for 3 months, travel or content. A Blueprint included.</span></span><span class="p">US$1,497<small>/ 3 months</small></span></a>
           <a class="dk-prow" href="https://stan.store/digitalwithdavidk/p/vip-year" target="_blank" rel="noopener"><span><b>VIP Year</b><span class="d">Weekly calls all year, 2 trips planned for you, plus a VIP bonus.</span></span><span class="p">US$3,997<small>/ year</small></span></a>
-          <a class="dk-prow" href="https://stan.store/digitalwithdavidk/p/1on1-travel-strategy-call-with-david" target="_blank" rel="noopener"><span><b>1:1 Coaching, 1 Month</b><span class="d">A 1 on 1 call every week for a month.</span></span><span class="p">US$597<small>/ 1 month</small></span></a>
-          <a class="dk-prow" href="https://stan.store/digitalwithdavidk/p/aesthetic-blueprint" target="_blank" rel="noopener"><span><b>Aesthetic Blueprint</b><span class="d">Make every photo look rich and clean.</span></span><span class="p">US$49.97<small>instant download</small></span></a>
-          <a class="dk-prow" href="https://stan.store/digitalwithdavidk" target="_blank" rel="noopener"><span><b>Free Travel Checklist + Credit Card Guide</b><span class="d">Packing list, card picks and lounge tips.</span></span><span class="p">Free</span></a>
+          <a class="dk-prow" href="https://stan.store/digitalwithdavidk" target="_blank" rel="noopener"><span><b>Founders Circle Waitlist</b><span class="d">Get first access when my private community opens.</span></span><span class="p">Free<small>waitlist</small></span></a>
         </div>
       </div>
     </section>
@@ -539,7 +538,7 @@ p.dk-slogan,small.dk-slogan{font-size:15px!important}
 
   /* ---------- offers (exact links) ---------- */
   var O = {
-    free:{name:'Free Travel Checklist + Credit Card Guide',short:'Free guides',price:'Free',img:'images/site/product-free-guides.jpg',url:'https://stan.store/digitalwithdavidk',cta:'Get my free guides',
+    free:{name:'Free Canadian Travel Checklist',short:'Free checklist',price:'Free',img:'images/site/product-free-guides.jpg',url:'https://stan.store/digitalwithdavidk',cta:'Get my free checklist',
       line:'Packing list, card picks and lounge tips. Instant download.',
       bullets:['Pre-trip checklist so you never forget a thing','The exact cards I use, and why','Lounge and airport tips','Instant download, no card needed']},
     blueprint:{name:'The Travel Hacking Blueprint',short:'Blueprint',price:'US$49.97',img:'images/site/product-blueprint.jpg',url:'https://stan.store/digitalwithdavidk/p/get-my-travel-hack-blueprint-now',cta:'Get the Blueprint, US$49.97',
@@ -556,12 +555,12 @@ p.dk-slogan,small.dk-slogan{font-size:15px!important}
       bullets:['A 1 on 1 video call every week','Travel lane: your own card stack and trip plan','Content lane: your content plan and growth steps','Pick the lane that fits your goal']},
     three:{name:'1:1 Coaching (Travel or Content), 3 Months',short:'3 months',price:'US$1,497',per:'/ 3 months',img:'images/site/product-3-months.jpg',url:'https://stan.store/digitalwithdavidk/p/private-travel-coaching-3-months-best-value',cta:'Book my spot',
       line:'3 months of weekly calls. Pick travel on points or content creation. We build it all, start to finish.',
-      bullets:['A 1 on 1 video call every week for 3 months','Travel lane: your card stack, lounges and trip plan','Content lane: your content plan and growth steps','A free Blueprint included (travel Blueprint or aesthetic photo Blueprint)']},
+      bullets:['A 1 on 1 video call every week for 3 months','Travel lane: your card stack, lounges and trip plan','Content lane: your content plan and growth steps','A free Blueprint included']},
     vip:{name:'VIP Year',short:'1 year',price:'US$3,997',per:'/ year',small:'About US$333 a month. Best value.',img:'images/site/about-david.jpg',url:'https://stan.store/digitalwithdavidk/p/vip-year',cta:'Get my VIP Year',
       line:'Your travel or content partner for 12 months. Everything included, plus a VIP bonus.',
-      bullets:['Everything in the 1 hour, 1 month and 3 month plans','A 1 on 1 call every week, all year','2 trips planned for you, start to finish','VIP bonus: your own setup to save you time every week']}
+      bullets:['Everything in the 1 hour and 3 month plans','A 1 on 1 call every week, all year','2 trips planned for you, start to finish','VIP bonus: your own setup to save you time every week']}
   };
-  var ORDER = ['free','blueprint','aesthetic','consult','month','three','vip'];
+  var ORDER = ['consult','blueprint','free','three','vip'];
 
   /* ---------- questions ---------- */
   var Q = [
@@ -735,12 +734,11 @@ p.dk-slogan,small.dk-slogan{font-size:15px!important}
     if(a.invest==='no' || a.budget==='0') return ['free','blueprint'];
     if(a.budget==='50') return ['blueprint','free'];
     if(a.budget==='mid'){
-      if(a.level==='busy') return ['month','consult'];
-      return ['consult','month'];
+      return ['consult','three'];
     }
     if(a.level==='busy' && a.freq==='4') return ['vip','three'];
     if(a.level==='busy' || a.freq==='4') return ['three','vip'];
-    return ['month','consult'];
+    return ['consult','three'];
   }
   var GOAL = {
     flights:{title:'Free flights on points.',to:'Free flights',steps:['Pick the right first card','Earn points on food, bills and rent','Book a flight with points']},
