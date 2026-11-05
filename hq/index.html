@@ -187,7 +187,7 @@ textarea{min-height:120px;margin-top:10px}
 .pill.act{background:#e3efe7;color:var(--ok)}.pill.cls{background:#f3e3df;color:var(--bad)}
 
 /* links */
-.kinds{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:10px 0}
+.kinds{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:10px 0}
 .kinds button{height:48px;border-radius:12px;border:1px solid var(--line);background:var(--s1);font-weight:700}
 .kinds button[aria-pressed=true]{background:var(--accent);color:var(--onacc);border-color:var(--accent)}
 .lrow{background:var(--s1);border:1px solid var(--line);border-radius:12px;padding:10px 12px;font-size:13px;word-break:break-all}
@@ -274,6 +274,17 @@ textarea,input[type=url],input[type=text],input[type=password],input[type=search
 
 body.infilm header,body.infilm nav,body.infilm #hqGlobe{display:none}
 
+/* Idea box (David, Nov 5): drop an idea or question, Sterling reviews every morning */
+.ideabox{background:#fff;border-radius:22px;padding:14px;box-shadow:var(--shadow);margin-top:14px}
+.ideabox textarea{min-height:96px;margin-top:0;background:#f4f6f2;border:0;border-radius:14px}
+.ideabox input{margin-top:8px;background:#f4f6f2;border:0}
+.idea{background:#fff;border-radius:20px;padding:14px;box-shadow:var(--shadow)}
+.idea .it{font-size:15px;font-weight:700;white-space:pre-wrap}.idea .im{font-size:12px;color:var(--muted);margin-top:4px}
+.idea .vd{margin-top:10px;border-radius:14px;padding:10px 12px;background:#f4f6f2;font-size:14px;line-height:1.45}
+.idea .vd b{display:block;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;margin-bottom:4px}
+.idea.yes .vd{background:#e3efe7}.idea.yes .vd b{color:var(--ok)}.idea.no .vd{background:#f3e3df}.idea.no .vd b{color:var(--bad)}.idea.maybe .vd{background:#f3ecd9}.idea.maybe .vd b{color:var(--warn)}
+.idea .vd .bn{margin-top:8px;font-size:13px;color:var(--fg)}.idea .vd .bn b{display:inline;letter-spacing:0;text-transform:none;font-size:13px;color:var(--fg);margin-right:4px}
+.pill.yes{background:#e3efe7;color:var(--ok)}.pill.no{background:#f3e3df;color:var(--bad)}.pill.maybe{background:#f3ecd9;color:var(--warn)}.pill.new{background:#eef1ec;color:var(--muted)}
 /* Focus Strip layout (David's pick Nov 5: reviewers' tweaks folded in) */
 .hdrow{display:flex;align-items:center;gap:12px}.hdrow>div{flex:1;min-width:0}.ava{width:52px;height:52px;border-radius:50%;object-fit:cover;border:2px solid #fff;box-shadow:var(--shadow);flex:none}
 .nowbig{position:relative;margin-top:12px;background:var(--accent);color:#fff;border-radius:26px;padding:16px 16px 16px;box-shadow:0 14px 34px rgba(14,47,36,.25);display:grid;grid-template-columns:1fr auto;gap:12px;align-items:start}
@@ -419,7 +430,7 @@ var MONEY = [
 var VIEWS = {home:'CEO Dashboard',approve:'Approve',brands:'Brands',links:'Links',done:'Done',film:'Film Mode'};
 var HOMES=[['today','Today'],['pipeline','Pipeline'],['content','Content'],['week','Week']];
 /* S.base = last snapshot from the server. S.data = S.base with every not-yet-saved change on top (what you see). */
-var S = {base:null, data:null, view:'home', home:'today', pstage:'', cstage:'', tab:'dms', sel:{}, editing:null, kind:'inspo', vault:null, bf:'active', bq:'', bopen:{}, kf:0};
+var S = {base:null, data:null, view:'home', home:'today', pstage:'', cstage:'', tab:'dms', sel:{}, editing:null, kind:'idea', vault:null, bf:'active', bq:'', bopen:{}, kf:0};
 
 function store(k,v){try{if(v===undefined)return localStorage.getItem(k);if(v===null)localStorage.removeItem(k);else localStorage.setItem(k,v);}catch(e){return null;}}
 function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
@@ -969,15 +980,35 @@ function brandBoxHTML(br){
 }
 
 function linksHTML(){
-  var h='<h1>Drop a link</h1><p class="sub">Inspo gets a breakdown. My post goes to the Content Vault.</p>';
-  h+='<form id="linkForm" style="margin-top:14px"><input type="url" id="linkUrl" placeholder="Paste a link" required inputmode="url" autocomplete="off">';
-  h+='<div class="kinds">'+[['inspo','Inspo'],['mypost','My post'],['other','Other']].map(function(k){return '<button type="button" data-kind="'+k[0]+'" aria-pressed="'+(S.kind===k[0])+'">'+k[1]+'</button>';}).join('')+'</div>';
+  var h='<h1>Drop a link or an idea</h1><p class="sub">Inspo gets a breakdown. My post goes to the Content Vault. Ideas get a yes, no or maybe from Sterling every morning.</p>';
+  h+='<div class="kinds" style="margin-top:14px">'+[['idea','Idea'],['inspo','Inspo'],['mypost','My post'],['other','Other']].map(function(k){return '<button type="button" data-kind="'+k[0]+'" aria-pressed="'+(S.kind===k[0])+'">'+k[1]+'</button>';}).join('')+'</div>';
+  if(S.kind==='idea'){
+    h+='<form id="ideaForm" class="ideabox"><textarea id="ideaText" placeholder="What is the idea, or the question? Example: add a weekly voice note recap, or should I start a hotel review series?" required></textarea><input type="url" id="ideaUrl" placeholder="Link (optional)" inputmode="url" autocomplete="off"><button class="btn pri" style="width:100%;margin-top:10px" type="submit">Drop it in the box</button></form>';
+    return h+ideasHTML();
+  }
+  h+='<form id="linkForm" style="margin-top:10px"><input type="url" id="linkUrl" placeholder="Paste a link" required inputmode="url" autocomplete="off">';
   h+='<input type="text" id="linkNote" placeholder="Note (optional)"><button class="btn pri" style="width:100%;margin-top:10px" type="submit">Save</button></form>';
   var L=((S.data.links)||[]).slice().reverse();
   h+='<h2>Recent links</h2>';
   if(!L.length)return h+'<div class="empty">No links yet.</div>';
   h+='<div class="cards">';
   L.forEach(function(l){var pend=String(l.id).indexOf('pending-')===0;h+='<div class="lrow"><span class="pill">'+esc({inspo:'Inspo',mypost:'My post',other:'Other'}[l.kind]||l.kind)+'</span><span class="pill">'+(pend?'Saving':esc(l.status==='done'?'Done':'New'))+'</span><a href="'+esc(l.url)+'" target="_blank" rel="noopener">'+esc(l.url)+'</a>'+(l.note?'<div class="sub" style="margin-top:4px">'+esc(l.note)+'</div>':'')+(l.resultUrl?'<div style="margin-top:4px"><a href="'+esc(l.resultUrl)+'" target="_blank" rel="noopener">Result</a></div>':'')+'</div>';});
+  return h+'</div>';
+}
+
+/* ideas: stats key "ideas" = [{id,text,url,at,status:new|yes|no|maybe,why,benefit,reviewedAt}]; Sterling fills status/why/benefit each morning */
+function ideas(){var I=stat('ideas',[]);return Array.isArray(I)?I:[];}
+function ideasHTML(){
+  var I=ideas().slice().sort(function(a,b){return String(b.at).localeCompare(String(a.at));}),nw=I.filter(function(x){return x.status==='new'||!x.status;}).length;
+  var h='<h2>Idea box<small>'+(nw?nw+' waiting for review':I.length+' ideas')+'</small></h2>';
+  if(!I.length)return h+'<div class="empty">Nothing in the box yet. Drop the first one above.</div>';
+  var W={yes:'Yes, do it',no:'No, skip it',maybe:'Maybe, not yet',new:'Reviewing'};
+  h+='<div class="cards">';
+  I.forEach(function(x){var st=x.status||'new';
+    h+='<div class="idea '+esc(st)+'"><div class="meta" style="margin:0 0 6px"><span class="pill '+esc(st)+'">'+esc(W[st]||st)+'</span>'+(x.url?'<a class="pill" href="'+esc(x.url)+'" target="_blank" rel="noopener">Link</a>':'')+'</div><div class="it">'+esc(x.text)+'</div><div class="im">Dropped '+esc(fmtWhen(x.at))+(x.reviewedAt?' . Reviewed '+esc(fmtWhen(x.reviewedAt)):'')+'</div>';
+    if(st==='new')h+='<div class="vd"><b>Sterling reviews every morning</b>You get yes, no or maybe, the reason, and what it would do for the business.</div>';
+    else h+='<div class="vd"><b>'+esc(W[st]||st)+'</b>'+esc(x.why||'')+(x.benefit?'<div class="bn"><b>For the business:</b>'+esc(x.benefit)+'</div>':'')+(x.next?'<div class="bn"><b>Next:</b>'+esc(x.next)+'</div>':'')+'</div>';
+    h+='</div>';});
   return h+'</div>';
 }
 
@@ -1020,7 +1051,7 @@ document.addEventListener('click',function(e){
   if(t.hasAttribute('data-ctx')){t.classList.toggle('open');return;}
   if(t.dataset.bf){S.bf=t.dataset.bf;refreshBrandList();return;}
   if(t.dataset.task){var on=!tasksToday()[t.dataset.task];buzz();enqueue('task',{date:today(),task:t.dataset.task,done:on});if(on)toast('Nice. Ticked.',false);return;}
-  if(t.dataset.kind){S.kind=t.dataset.kind;[].forEach.call(document.querySelectorAll('[data-kind]'),function(b){b.setAttribute('aria-pressed',b.dataset.kind===S.kind);});return;}
+  if(t.dataset.kind){var was=S.kind;S.kind=t.dataset.kind;if(was==='idea'||S.kind==='idea'){render();if(S.kind==='idea'&&$('ideaText'))$('ideaText').focus();return;}[].forEach.call(document.querySelectorAll('[data-kind]'),function(b){b.setAttribute('aria-pressed',b.dataset.kind===S.kind);});return;}
   if(t.hasAttribute('data-selall')){var list=waiting(S.tab),all=list.every(function(r){return S.sel[r.id];});list.forEach(function(r){S.sel[r.id]=!all;});render();return;}
   if(t.dataset.sel){S.sel[t.dataset.sel]=!S.sel[t.dataset.sel];render();return;}
   var card=t.closest('.card');if(!card)return;var id=card.dataset.id;
@@ -1042,6 +1073,8 @@ document.addEventListener('toggle',function(e){
   else delete S.bopen[id];
 },true);
 document.addEventListener('submit',function(e){
+  if(e.target.id==='ideaForm'){e.preventDefault();var tx=$('ideaText').value.trim(),iu=$('ideaUrl').value.trim();if(!tx){toast('Type the idea first',false);return;}
+    var I=ideas();I.push({id:'I'+Date.now().toString(36),text:tx,url:iu,at:new Date().toISOString(),status:'new'});buzz();setStat('ideas',I);toast('In the box. Review tomorrow morning.',false);return;}
   if(e.target.id!=='linkForm')return;e.preventDefault();
   var url=$('linkUrl').value.trim(),note=$('linkNote').value.trim();
   if(!/^https?:\/\//i.test(url)){toast('Paste a full link (https://...)',false);return;}
@@ -1102,7 +1135,7 @@ var PAL={items:[],on:0};
 function palItems(qs){
   var out=[['Home','home'],['Approve','approve'],['Brands','brands'],['Links','links'],['Done','done']].map(function(x){return {t:x[0],k:'Page',run:function(){go(x[1]);}};});
   TABS.forEach(function(tb){out.push({t:'Approve: '+tb[1],k:waiting(tb[0]).length+' waiting',run:function(){go('approve',tb[0]);}});});
-  out.push({t:'Film Mode',k:'Page',run:function(){go('film');}},{t:'Pipeline',k:'Home',run:function(){go('home','pipeline');}},{t:'Content pipeline',k:'Home',run:function(){go('home','content');}},{t:'Week scoreboard',k:'Home',run:function(){go('home','week');}});
+  out.push({t:'Idea box',k:'Links',run:function(){S.kind='idea';go('links');}},{t:'Film Mode',k:'Page',run:function(){go('film');}},{t:'Pipeline',k:'Home',run:function(){go('home','pipeline');}},{t:'Content pipeline',k:'Home',run:function(){go('home','content');}},{t:'Week scoreboard',k:'Home',run:function(){go('home','week');}});
   out.push({t:"David's Day",k:'Page',run:function(){location.href='../day/';}},{t:'Business Maxing',k:'Page',run:function(){location.href='../maxing/';}},{t:'Content Vault',k:'Page',run:function(){location.href='../vault/';}});
   if(S.data){
     waiting().forEach(function(r){out.push({t:r.who,k:(TABS.filter(function(x){return x[0]===r.tab;})[0]||['',r.tab])[1],run:function(){go('approve',r.tab);}});});
