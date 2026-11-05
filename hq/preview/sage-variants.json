@@ -1,0 +1,37 @@
+[
+ {
+  "n": 1,
+  "slug": "portrait-hero",
+  "name": "Portrait Hero",
+  "tag": "Your photo up top, the day under it",
+  "why": "Opens on your portrait fading into sage with the greeting over it, then Next up, Film Mode, and the run sheet as a clean list. Photos on the blocks and deals keep it alive. Closest to the Soft Sage you picked, now with a face."
+ },
+ {
+  "n": 2,
+  "slug": "timeline",
+  "name": "Timeline",
+  "tag": "The day as a rail with photo stops",
+  "why": "A vertical time rail runs down the left with a photo at each stop, so you see the whole day as a path, where you are, and what is done. The current block is open with its to-dos. Best for feeling the shape of the day at a glance."
+ },
+ {
+  "n": 3,
+  "slug": "photo-tiles",
+  "name": "Photo Tiles",
+  "tag": "Four big photo doors, Apple Fitness style",
+  "why": "Home is four tall photo tiles: Film, Pipeline, Content, Week, each with its live number on it, like the Fitness and Journal apps. Tap a tile to enter. Under them, Next up and the run sheet. The most visual of the five, and the fastest to navigate by thumb."
+ },
+ {
+  "n": 4,
+  "slug": "focus-strip",
+  "name": "Focus Strip",
+  "tag": "One big now card, a photo strip of what is next",
+  "why": "The Now card is huge with the block photo behind it and one button. Under it a horizontal strip of the next blocks as photo cards you swipe through, then money and waiting. Fewer things on screen, more air, still everything one tap away."
+ },
+ {
+  "n": 5,
+  "slug": "magazine-sage",
+  "name": "Magazine Sage",
+  "tag": "Big type, a photo mosaic, a filmstrip of your reels",
+  "why": "A light Montserrat greeting over a mosaic of your travel photos, the run sheet as a numbered list with hairlines, and the content pipeline as a filmstrip of real post thumbnails. Looks like a travel magazine issue about your day. Most on-brand with the website."
+ }
+]
