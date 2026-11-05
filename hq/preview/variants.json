@@ -1,0 +1,82 @@
+[
+ {
+  "n": 1,
+  "slug": "emerald-signature",
+  "name": "Emerald Signature",
+  "tag": "The current look, finished properly",
+  "why": "Same emerald and beige you already know, so nothing feels foreign. Tighter spacing, a clearer type ladder, the new month-to-US$100K bar under the hero, and softer card edges. Lowest risk, fastest to ship.",
+  "light": false
+ },
+ {
+  "n": 2,
+  "slug": "stone-daylight",
+  "name": "Stone Daylight",
+  "tag": "Light mode in brand stone",
+  "why": "Stone background with emerald cards and near-black headlines, straight from the print brand kit. Easiest to read outdoors and in daylight, and it looks like your decks and PDFs. Good if HQ is mostly a daytime phone habit.",
+  "light": true
+ },
+ {
+  "n": 3,
+  "slug": "midnight-glass",
+  "name": "Midnight Glass",
+  "tag": "Near black, frosted cards, beige glow",
+  "why": "The luxury app feel: almost black base, translucent frosted cards, soft beige light behind the hero. Numbers pop, the globe looks like it is floating. Best if you want HQ to feel like a private members app.",
+  "light": false
+ },
+ {
+  "n": 4,
+  "slug": "bento-board",
+  "name": "Bento Board",
+  "tag": "Everything on one mosaic screen",
+  "why": "The whole day in one screen of tiles, no scrolling for the essentials: next action, money ring, US$ month, waiting counts, views, top post. The layout Apple and Linear use for a reason. Best for a quick glance between filming.",
+  "light": false
+ },
+ {
+  "n": 5,
+  "slug": "editorial",
+  "name": "Editorial",
+  "tag": "Magazine type, hairlines, no boxes",
+  "why": "Wide-spaced Montserrat Light caps, hairline rules instead of cards, huge numerals. It reads like a luxury travel magazine and matches your brand headings exactly. Best if you want HQ to look like nobody else’s dashboard.",
+  "light": true
+ },
+ {
+  "n": 6,
+  "slug": "command-center",
+  "name": "Command Center",
+  "tag": "Dense, data first, status lights",
+  "why": "Built like a trading desk: a stat strip across the top, status lights on every row, tabular numbers, and the US$100K tracker as the headline. Most information per screen of the ten. Best if you want to run the business from one glance.",
+  "light": false
+ },
+ {
+  "n": 7,
+  "slug": "golden-hour",
+  "name": "Golden Hour",
+  "tag": "Photo hero fading into emerald",
+  "why": "Opens on a full-bleed golden-hour photo that fades into emerald, the same look as your stories and brand world. The dashboard sits under it like an app over a wallpaper. Best if you want HQ to feel like the lifestyle, not a spreadsheet.",
+  "light": false
+ },
+ {
+  "n": 8,
+  "slug": "focus-mode",
+  "name": "Focus Mode",
+  "tag": "One thing on screen at a time",
+  "why": "Deliberately empty. One giant next action fills the screen with a single button, and everything else sits in a thin strip you expand when you want it. The ADHD-friendly design: no noise until the money task is done.",
+  "light": false
+ },
+ {
+  "n": 9,
+  "slug": "card-deck",
+  "name": "Card Deck",
+  "tag": "Approve as a stacked swipe deck",
+  "why": "Approve becomes a single stacked deck in the middle of the screen with two big round buttons, Skip and Send, like the apps people cannot put down. Home gets a story strip of your tabs up top. Best for clearing 20 DMs in two minutes with one thumb.",
+  "light": false
+ },
+ {
+  "n": 10,
+  "slug": "soft-sage",
+  "name": "Soft Sage",
+  "tag": "Calm, rounded, white cards on sage",
+  "why": "Pale sage background, white rounded cards, emerald buttons and gentle shadows. Feels like a calm wellness app instead of a control room, which is a nice reset on a stressful day. The friendliest of the ten, and still fully on brand.",
+  "light": true
+ }
+]
