@@ -3,6 +3,7 @@
  * Google Apps Script web app + Google Sheet database.
  * Page: https://digitalwithdavidk.com/hq/
  * All data requests are POST (text/plain JSON) and carry the HQ passcode.
+ * v2 (Nov 5 2026): reads skip the lock, row writes are batched. Same API, same deployment URL.
  * Only a salted SHA-256 hash of the passcode is kept, in Script Properties.
  */
 var COLS = {
@@ -31,8 +32,9 @@ function doPost(e) {
     if (a === 'status') return json_({ok:true, passcodeSet: !!PROPS.getProperty('PASS_HASH')});
     if (a === 'setPasscode') return json_(setPasscode_(body.passcode));
     if (!checkKey_(body.key)) return json_({ok:false, error:'locked'});
+    if (a === 'get') { var snap = snapshot_(); snap.ok = true; snap.result = {}; return json_(snap); } // reads need no lock (v2, Nov 5)
     var lock = LockService.getScriptLock();
-    lock.waitLock(20000);
+    lock.waitLock(28000);
     try {
       var out;
       switch (a) {
@@ -105,8 +107,9 @@ function ensureSetup_() {
   });
   seed_();
 }
+var SS_ = null;
 function rows_(name) {
-  var sh = ss_().getSheetByName(name);
+  var sh = (SS_ = SS_ || ss_()).getSheetByName(name);
   var v = sh.getDataRange().getValues();
   var head = v.shift();
   return v.map(function(r, i) { var o = {_row: i + 2}; head.forEach(function(h, j){ o[h] = r[j] === undefined ? '' : String(r[j]); }); return o; });
@@ -116,11 +119,14 @@ function append_(name, obj) {
   sh.appendRow(COLS[name].map(function(c){ return obj[c] === undefined || obj[c] === null ? '' : String(obj[c]); }));
 }
 function patch_(name, rowNum, fields) {
-  var sh = ss_().getSheetByName(name);
+  // v2 (Nov 5): one read + one write per row instead of one write per cell
+  var sh = (SS_ = SS_ || ss_()).getSheetByName(name), n = COLS[name].length;
+  var rng = sh.getRange(rowNum, 1, 1, n), row = rng.getValues()[0], changed = false;
   Object.keys(fields).forEach(function(k) {
     var col = COLS[name].indexOf(k);
-    if (col >= 0) sh.getRange(rowNum, col + 1).setValue(String(fields[k] === null || fields[k] === undefined ? '' : fields[k]));
+    if (col >= 0) { row[col] = String(fields[k] === null || fields[k] === undefined ? '' : fields[k]); changed = true; }
   });
+  if (changed) rng.setValues([row]);
 }
 function now_() { return new Date().toISOString(); }
 function json_(o) { return ContentService.createTextOutput(JSON.stringify(o)).setMimeType(ContentService.MimeType.JSON); }
