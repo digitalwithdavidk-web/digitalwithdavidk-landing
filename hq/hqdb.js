@@ -12,8 +12,9 @@
   function post(action,extra){
     if(!store('hq_key'))return Promise.reject(err('permission_denied','locked'));
     var body=Object.assign({action:action,key:store('hq_key')},extra||{});
-    return fetch(API,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(body),redirect:'follow'})
-      .then(function(r){return r.json();})
+    var ctl=window.AbortController?new AbortController():null, to=ctl?setTimeout(function(){ctl.abort();},30000):0;
+    return fetch(API,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(body),redirect:'follow',signal:ctl?ctl.signal:undefined})
+      .then(function(r){clearTimeout(to);return r.json();},function(e){clearTimeout(to);throw err('unavailable','network');})
       .then(function(d){
         if(!d||!d.ok){if(d&&d.error==='locked'){store('hq_key',null);showLock('Wrong passcode. Try again.');throw err('permission_denied','locked');}throw err('unavailable',d&&d.error);}
         absorb(d);return d;
@@ -22,7 +23,9 @@
   function absorb(d){
     var s=d.stats||{},n={};
     Object.keys(s).forEach(function(k){if(k.indexOf(PFX)===0)n[k.slice(PFX.length)]=s[k]&&s[k].value;});
+    Object.keys(pending).forEach(function(k){n[k]=pending[k];}); // a save still in flight wins over an older server copy
     cache=n;loaded=true;lastFetch=Date.now();hideLock();readyRes();notify();
+    try{if(d.queue)localStorage.setItem('hq_snap',JSON.stringify(d));}catch(e){}
   }
   function parse(v){if(v==null||v==='')return null;try{return JSON.parse(v);}catch(e){return null;}}
   function snapDoc(id,obj){return {id:id,exists:obj!=null,data:function(){return obj==null?undefined:JSON.parse(JSON.stringify(obj));}};}
@@ -37,9 +40,18 @@
   function fresh(){return (loaded&&Date.now()-lastFetch<20000)?Promise.resolve():refresh();}
   function refresh(){return post('get').catch(function(e){if(!loaded)throw e;});}
   function notify(){subs.forEach(function(s){try{s.cb(list(s.coll,s.filters));}catch(e){console.log('[hqdb] listener',e);}});}
+  /* writes show at once, then save with up to 5 tries (slow first wake or a busy backend no longer drops a tap) */
+  var pending={};
   function write(key,obj){
-    var prev=cache[key];cache[key]=obj==null?'':JSON.stringify(obj);notify();
-    return post('setStat',{k:PFX+key,value:cache[key]}).catch(function(e){cache[key]=prev;notify();throw e;});
+    var prev=cache[key], val=obj==null?'':JSON.stringify(obj);cache[key]=val;pending[key]=val;notify();
+    var tries=0;
+    function attempt(){
+      return post('setStat',{k:PFX+key,value:val}).then(function(d){if(pending[key]===val)delete pending[key];return d;},function(e){
+        if(e.code==='permission_denied'||++tries>=5){if(pending[key]===val){delete pending[key];cache[key]=prev;notify();}throw e;}
+        return new Promise(function(r){setTimeout(r,[1500,3000,6000,12000][tries-1]);}).then(attempt);
+      });
+    }
+    return attempt();
   }
   function query(coll,filters){
     return {
@@ -79,6 +91,8 @@
   }
   function hideLock(){if(lock)lock.hidden=true;}
   function start(){
+    /* open instantly from the last copy saved on this phone (shared with /hq/), then refresh */
+    if(store('hq_key')){try{var snap=JSON.parse(store('hq_snap')||'null');if(snap&&snap.stats){var n={};Object.keys(snap.stats).forEach(function(k){if(k.indexOf(PFX)===0)n[k.slice(PFX.length)]=snap.stats[k]&&snap.stats[k].value;});cache=n;loaded=true;readyRes();notify();}}catch(e){}}
     if(!store('hq_key'))showLock();else refresh().catch(function(e){if(e.code!=='permission_denied')console.log('[hqdb] load failed',e);});
     setInterval(function(){if(!document.hidden&&store('hq_key'))refresh().catch(function(){});},POLL);
     document.addEventListener('visibilitychange',function(){if(!document.hidden&&store('hq_key')&&Date.now()-lastFetch>15000)refresh().catch(function(){});});
