@@ -119,7 +119,7 @@ h2 small{margin-left:auto;letter-spacing:0;text-transform:none;font-weight:600;c
 .cards{display:flex;flex-direction:column;gap:12px}
 .card{position:relative;background:var(--s1);border:1px solid var(--line);border-radius:var(--r);padding:14px;transition:border-color .15s}
 .card.fly{transition:transform .22s var(--ease),opacity .22s}
-.card.sel,.card.kfocus{border-color:var(--accent)}
+.card.sel,.card.kfocus{border-color:var(--accent)}.card.hot{box-shadow:inset 4px 0 0 var(--accent)}
 .ctop{display:flex;gap:12px;align-items:flex-start}
 .ctop .chk{margin-top:2px}
 .who{font-weight:800;font-size:16px;word-break:break-word}
@@ -885,10 +885,10 @@ function spark(days){
 function cardHTML(r, opts){
   opts=opts||{};
   var sel=!!S.sel[r.id], draft=r.editedDraft||r.draft;
-  var h='<div class="card'+(sel?' sel':'')+'" data-id="'+esc(r.id)+'"><div class="ctop">';
+  var h='<div class="card'+(sel?' sel':'')+(r.priority==='hot'?' hot':'')+'" data-id="'+esc(r.id)+'"><div class="ctop">';
   if(!opts.noSelect)h+='<button class="chk'+(sel?' on':'')+'" data-sel="'+esc(r.id)+'" aria-label="Select">'+(sel?'&#10003;':'')+'</button>';
   h+='<div style="flex:1;min-width:0"><div class="who">'+esc(r.who)+'</div><div class="meta">';
-  if(r.priority==='hot')h+='<span class="pill hot">Hot</span>';
+  if(r.priority==='hot')h+='<span class="pill hot">&#128293; Hot</span>';
   if(r.channel)h+='<span class="pill">'+esc(r.channel)+'</span>';
   if(r.createdAt)h+='<span class="pill'+(hasTime(draft)?' time':'')+'">Written '+esc(fmtWhen(r.createdAt))+'</span>';
   if(r.editedDraft)h+='<span class="pill">Edited</span>';
