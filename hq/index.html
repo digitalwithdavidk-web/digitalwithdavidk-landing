@@ -352,6 +352,41 @@ body.infilm header,body.infilm nav,body.infilm #hqGlobe{display:none}
 .review{margin-top:12px;background:#fff;border-radius:20px;padding:16px;box-shadow:var(--shadow)}.review small{font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);font-weight:700}.review p{margin:8px 0 0;font-size:14px;line-height:1.5;white-space:pre-wrap}
 .rvrow{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}.rvrow div{background:#f4f6f2;border-radius:14px;padding:10px 12px;font-size:13px}.rvrow div b{display:block;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:4px}.rvrow .more b{color:var(--ok)}.rvrow .less b{color:var(--bad)}
 .streakrow{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+
+/* ---------- Desktop: Command Desk (David's pick, Nov 6 2026). Nothing below 1100px changes. ---------- */
+@media (min-width:1100px){
+  body{display:grid;grid-template-columns:232px minmax(0,1fr);grid-template-rows:auto auto 1fr;padding-bottom:60px}
+  header{grid-column:2;grid-row:1;padding-left:24px;padding-right:24px}
+  .banner{grid-column:2;grid-row:2;max-width:none;padding:0 24px}
+  main{grid-column:2;grid-row:3;max-width:none;width:100%;padding:22px 24px 40px}
+  main:not(.isdsk){max-width:860px;margin:0 auto}
+  main.isdsk{max-width:1700px}
+  nav{grid-column:1;grid-row:1/span 3;position:sticky;top:0;height:100vh;left:auto;right:auto;bottom:auto;max-width:none;margin:0;border:0;border-right:1px solid var(--line);border-radius:0;display:flex;flex-direction:column;gap:2px;padding:84px 14px 20px;background:rgba(255,255,255,.55)}
+  nav:before{content:'';position:absolute;top:22px;left:18px;width:48px;height:30px;background:url(../images/brand/dk-emerald.svg) left center/auto 30px no-repeat}
+  nav:after{content:'DIGITAL WITH DAVID K';position:absolute;top:24px;left:74px;width:120px;line-height:1.3;font-size:9px;letter-spacing:.16em;font-weight:700;color:var(--accent)}
+  nav button,nav a{height:44px;flex-direction:row;justify-content:flex-start;gap:12px;padding:0 12px;border-radius:14px;font-size:14px;letter-spacing:0}
+  nav button svg,nav a svg{width:20px;height:20px}
+  nav [aria-current=page]{background:var(--accent);color:#fff}
+  nav [aria-current=page]:before{display:none}
+  nav .badge{position:static;margin-left:auto;background:var(--beige);color:var(--emerald)}
+  .hseg{display:none}
+  .dsk{display:grid;grid-template-columns:minmax(330px,1fr) minmax(400px,1.25fr) minmax(330px,1fr);gap:20px;align-items:start}
+  .dsk>section{min-width:0}
+  .dsk .upnext,.dsk .stages{margin-left:0;margin-right:0;padding-left:0;padding-right:0}
+  .dsk .wait{grid-template-columns:repeat(5,1fr)}
+  .dsk .stages{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;overflow:visible}
+  .dsk .stg{min-width:0;width:auto;padding:10px 6px;text-align:center}
+  .dsk .dc2 .seg{flex-wrap:wrap;overflow:visible}
+  .dsk .tiles{grid-template-columns:1fr 1fr}
+  .dsk .nowbig{padding:14px}
+  .dsk .dc2 .cards{display:flex;flex-direction:column;gap:12px}
+  .dsk .dc2 .tools .hint{display:none}
+  .dsk .seg{margin:0 0 10px;padding-left:0;padding-right:0}
+  .dsk .bar{margin-top:0}
+  .bulk{left:232px;bottom:0;padding:10px 24px}
+  .toast{left:232px;bottom:24px}
+  body.infilm{display:block}
+}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
@@ -661,7 +696,7 @@ function render(){
   var v=$('view'), ae=document.activeElement, bqFocus=ae&&ae.id==='bq', bqPos=bqFocus?ae.selectionStart:0;
   var h;
   if(S.view==='film')h=filmHTML();
-  else if(S.view==='home')h=homeHTML();
+  else if(S.view==='home')h=isDesk()?deskHomeHTML():homeHTML();
   else if(S.view==='approve')h=approveHTML();
   else if(S.view==='brands')h=brandsHTML();
   else if(S.view==='links')h=linksHTML();
@@ -675,11 +710,13 @@ function render(){
   var g=$('hqGlobe'),anchor=v.querySelector('.strip4');
   if(S.view==='home'&&S.home==='today'&&anchor&&anchor.nextSibling)anchor.parentNode.insertBefore(g,anchor.nextSibling);
   document.body.classList.toggle('infilm',S.view==='film');
-  var sel=S.view==='approve'?selectedIds().length:0;
+  var inbox=S.view==='approve'||(S.view==='home'&&isDesk());v.classList.toggle('isdsk',S.view==='home'&&isDesk());
+  var sel=inbox?selectedIds().length:0;
   $('bulk').classList.toggle('hidden',!sel);
   $('bulkSend').textContent='Send '+sel+' selected';$('bulkSkip').textContent='Skip '+sel+' selected';
-  if(S.view==='approve')markKF();
+  if(inbox)markKF();
 }
+if(window.matchMedia){try{window.matchMedia('(min-width:1100px)').addEventListener('change',function(){if(S.data)render();});}catch(e){}}
 
 function greet(){var h=Number(new Intl.DateTimeFormat('en-US',{timeZone:TZ,hour:'numeric',hour12:false}).format(new Date()))%24;return h<5?'Late night':h<12?'Good morning':h<17?'Good afternoon':'Good evening';}
 
@@ -702,8 +739,15 @@ function homeHTML(){
   if(S.home==='pipeline')return h+pipelineHTML();
   if(S.home==='content')return h+contentHTML();
   if(S.home==='week')return h+weekHTML();
-  var na=nextAction(t), streak=filmStreak();
-  h+=runHTML();
+  h+=runHTML()+moneyGateHTML(st,t);
+  h+='<h2>Waiting on you<small>'+waiting().length+' total</small></h2><div class="wait">';
+  TABS.forEach(function(tb){var n=waiting(tb[0]).length;h+='<button class="'+(n?'has':'')+'" data-goto="'+tb[0]+'"><b>'+n+'</b><span>'+tb[1]+'</span></button>';});
+  h+='</div>'+numbersHTML(st);
+  return h;
+}
+function moneyGateHTML(st,t){
+  var done=MONEY.filter(function(m){return t[m[0]];}).length, C=2*Math.PI*36, off=C*(1-done/MONEY.length);
+  var na=nextAction(t), streak=filmStreak(), h='';
   h+='<h2>Money gate<small>'+done+' of '+MONEY.length+'</small></h2><div class="hero"><div class="ring"><svg viewBox="0 0 84 84"><circle class="tr" cx="42" cy="42" r="36"/><circle class="pr" cx="42" cy="42" r="36" stroke-dasharray="'+C.toFixed(1)+'" stroke-dashoffset="'+off.toFixed(1)+'"/></svg><b class="num">'+done+'/'+MONEY.length+'<small>MONEY</small></b></div>';
   h+='<div class="next"><small>'+esc(na.k)+'</small><b>'+esc(na.t)+'</b><span>'+esc(na.s||'')+'</span>';
   if(na.btn)h+='<div><button class="go" '+(na.task?'data-task="'+na.task+'"':'data-go="'+esc(na.go)+'"')+'>'+esc(na.btn)+' &rarr;</button></div>';
@@ -711,9 +755,22 @@ function homeHTML(){
   h+=moneyBarHTML(st);
   h+='<div class="tasks" style="margin-top:10px">';
   MONEY.forEach(function(m){var on=!!t[m[0]];h+='<button class="task'+(on?' on':'')+'" data-task="'+m[0]+'"><span class="box">'+(on?'&#10003;':'')+'</span><span class="tl">'+esc(m[1])+(m[2]?'<small>'+esc(m[2])+'</small>':'')+'</span></button>';});
-  h+='</div><h2>Waiting on you<small>'+waiting().length+' total</small></h2><div class="wait">';
+  h+='</div>';
+  return h;
+}
+/* Desktop (Mac, 1100px and up): Command Desk, David's pick Nov 6 2026. Phone layout above is untouched.
+   Column 1 = the phone Today screen, column 2 = the Approve inbox, column 3 = every number. */
+function isDesk(){return !!(window.matchMedia&&window.matchMedia('(min-width:1100px)').matches);}
+function deskHomeHTML(){
+  var d=S.data, st=d.stats||{}, t=tasksToday();
+  var dateLabel=new Intl.DateTimeFormat('en-US',{timeZone:TZ,weekday:'long',month:'long',day:'numeric'}).format(new Date());
+  var h='<div class="dsk"><section class="dc1"><div class="hdrow"><div><h1>'+greet()+', David</h1><p class="sub">'+esc(dateLabel)+'. Your 3 jobs: film, calls, send.</p></div></div>';
+  h+=runHTML()+moneyGateHTML(st,t)+'</section>';
+  h+='<section class="dc2"><h2 style="margin-top:4px">Approve<small>'+waiting().length+' waiting</small></h2>'+approveHTML()+'</section>';
+  h+='<section class="dc3">'+moneyBarHTML(st)+'<div id="dsk-pipeline">'+pipelineHTML(true)+'</div><div id="dsk-content">'+contentHTML()+'</div><div id="dsk-week">'+weekHTML()+'</div>';
+  h+='<h2>Waiting on you<small>'+waiting().length+' total</small></h2><div class="wait">';
   TABS.forEach(function(tb){var n=waiting(tb[0]).length;h+='<button class="'+(n?'has':'')+'" data-goto="'+tb[0]+'"><b>'+n+'</b><span>'+tb[1]+'</span></button>';});
-  h+='</div>'+numbersHTML(st);
+  h+='</div>'+numbersHTML(st)+'</section></div>';
   return h;
 }
 
@@ -807,9 +864,9 @@ function deals(){var d=stat('deals',[]);if(!Array.isArray(d))d=[];
   var ids={};d.forEach(function(x){ids[String(x.who).toLowerCase()]=1;});
   waiting().forEach(function(r){if(r.priority==='hot'&&!ids[String(r.who).toLowerCase()])d.push({id:'q-'+r.id,who:r.who,stage:'lead',value:0,next:'Reply to the hot DM',due:today(),fromQueue:true,tab:r.tab});});
   return d;}
-function pipelineHTML(){
+function pipelineHTML(noBar){
   var D=deals(),ym=today().slice(0,7),mon=0;D.forEach(function(x){if(x.stage!=='lead'&&x.stage!=='call'&&String(x.paidAt||'').slice(0,7)===ym)mon+=Number(x.value)||0;});
-  var h='<h2 style="margin-top:14px">Deal pipeline<small>'+D.length+' people</small></h2>'+moneyBarHTML(S.data.stats||{})+'<div class="stages">';
+  var h='<h2 style="margin-top:14px">Deal pipeline<small>'+D.length+' people</small></h2>'+(noBar?'':moneyBarHTML(S.data.stats||{}))+'<div class="stages">';
   PSTAGES.forEach(function(st){var L=D.filter(function(x){return x.stage===st[0];}),v=L.reduce(function(a,x){return a+(Number(x.value)||0);},0);h+='<button class="stg" data-pstage="'+st[0]+'" aria-pressed="'+(S.pstage===st[0])+'"><b>'+L.length+'</b><span>'+st[1]+'</span>'+(v?'<small>US$'+num(v)+'</small>':'')+'</button>';});
   h+='</div>';
   var L=D.filter(function(x){return !S.pstage||x.stage===S.pstage;}).sort(function(a,b){return String(a.due||'9').localeCompare(String(b.due||'9'));});
@@ -1038,8 +1095,8 @@ document.addEventListener('click',function(e){
   var t=e.target.closest('button,[data-ctx]');if(!t)return;
   if(t.closest('nav')){go(t.dataset.v);return;}
   if(t.closest('#pal'))return;
-  if(t.dataset.goto){go('approve',t.dataset.goto);return;}
-  if(t.dataset.home){go('home',t.dataset.home);return;}
+  if(t.dataset.goto){if(S.view==='home'&&isDesk()){S.tab=t.dataset.goto;S.sel={};S.editing=null;S.kf=0;render();var c2=document.querySelector('.dc2');if(c2)c2.scrollIntoView({block:'start',behavior:'smooth'});return;}go('approve',t.dataset.goto);return;}
+  if(t.dataset.home){if(S.view==='home'&&isDesk()){var sec=$('dsk-'+t.dataset.home);if(sec)sec.scrollIntoView({block:'start',behavior:'smooth'});return;}go('home',t.dataset.home);return;}
   if(t.dataset.pstage!==undefined){S.pstage=S.pstage===t.dataset.pstage?'':t.dataset.pstage;render();return;}
   if(t.dataset.cstage!==undefined){S.cstage=S.cstage===t.dataset.cstage?'':t.dataset.cstage;render();return;}
   if(t.dataset.blk){S.rsOpen=t.dataset.blk;render();var el=document.querySelector('details.blk');if(el)el.scrollIntoView({block:'start',behavior:'smooth'});return;}
@@ -1048,7 +1105,7 @@ document.addEventListener('click',function(e){
     if(fc[t.dataset.fs]&&!tasksToday().film)enqueue('task',{date:today(),task:'film',done:true});return;}
   if(t.dataset.cs){var C=stat('content',[]);C.forEach(function(x){if(x.id===t.dataset.cs){x.stage=t.dataset.to;x.updatedAt=new Date().toISOString();}});buzz();setStat('content',C);toast('Moved to '+t.dataset.to,false);return;}
   if(t.dataset.go){var g=t.dataset.go.split(':');go(g[0],g[1]);return;}
-  if(t.dataset.tab){S.tab=t.dataset.tab;S.sel={};S.editing=null;S.kf=0;try{history.replaceState(null,'','#approve/'+S.tab);}catch(x){}render();return;}
+  if(t.dataset.tab){S.tab=t.dataset.tab;S.sel={};S.editing=null;S.kf=0;if(S.view==='approve'){try{history.replaceState(null,'','#approve/'+S.tab);}catch(x){}}render();return;}
   if(t.hasAttribute('data-ctx')){t.classList.toggle('open');return;}
   if(t.dataset.bf){S.bf=t.dataset.bf;refreshBrandList();return;}
   if(t.dataset.task){var on=!tasksToday()[t.dataset.task];buzz();enqueue('task',{date:today(),task:t.dataset.task,done:on});if(on)toast('Nice. Ticked.',false);return;}
@@ -1093,7 +1150,7 @@ document.addEventListener('keydown',function(e){
   if((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==='z'&&!typing){e.preventDefault();if(e.shiftKey)$('redoBtn').click();else undo();return;}
   if(typing||e.metaKey||e.ctrlKey||e.altKey)return;
   if(e.key==='/'){e.preventDefault();palOpen();return;}
-  if(S.view!=='approve')return;
+  if(S.view!=='approve'&&!(S.view==='home'&&isDesk()))return;
   var list=waiting(S.tab);if(!list.length)return;
   var k=e.key.toLowerCase();kbUsed=true;
   if(k==='j'||e.key==='ArrowDown'&&e.shiftKey){S.kf=Math.min(S.kf+1,list.length-1);markKF();scrollKF();e.preventDefault();}
