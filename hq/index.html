@@ -354,6 +354,7 @@ body.infilm header,body.infilm nav,body.infilm #hqGlobe{display:none}
 .rvrow{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}.rvrow div{background:#f4f6f2;border-radius:14px;padding:10px 12px;font-size:13px}.rvrow div b{display:block;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:4px}.rvrow .more b{color:var(--ok)}.rvrow .less b{color:var(--bad)}
 .streakrow{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
 
+.dupnote{margin:10px 2px 0;font-size:12px;color:var(--muted);line-height:1.4}
 /* ---------- Desktop: Command Desk (David's pick, Nov 6 2026). Nothing below 1100px changes. ---------- */
 @media (min-width:1100px){
   body{display:grid;grid-template-columns:232px minmax(0,1fr);grid-template-rows:auto auto 1fr;padding-bottom:60px}
@@ -673,7 +674,10 @@ function selectedIds(){var w=waiting(S.tab).map(function(r){return r.id;});retur
 
 /* ---------- data helpers ---------- */
 function q(){return (S.data&&S.data.queue)||[];}
-function waiting(tab){return q().filter(function(r){return r.status==='waiting'&&(!tab||r.tab===tab);}).sort(function(a,b){return (b.priority==='hot')-(a.priority==='hot')||String(a.createdAt).localeCompare(String(b.createdAt));});}
+/* dedupe guard (David, Nov 6): never two open Send cards for the same person on the same tab. Newest wins, older ones are hidden and listed in a note. */
+function whoKey(r){var w=String(r.who||'').toLowerCase(),m=w.match(/[\w.+-]+@[\w.-]+/);if(m)return m[0];m=w.match(/@[a-z0-9._]+/);if(m)return m[0];return w.replace(/\(.*?\)/g,'').replace(/[^a-z0-9]+/g,' ').trim();}
+function hiddenDupes(tab){var seen={},hid=[];q().filter(function(r){return r.status==='waiting'&&(!tab||r.tab===tab);}).sort(function(a,b){return String(b.createdAt).localeCompare(String(a.createdAt));}).forEach(function(r){var k=r.tab+'|'+whoKey(r);if(!k.replace(/^\w+\|/,''))return;if(seen[k]){r.dupOf=seen[k];hid.push(r);}else seen[k]=r.id;});return hid;}
+function waiting(tab){var hid=hiddenDupes(tab);return q().filter(function(r){return r.status==='waiting'&&(!tab||r.tab===tab)&&hid.indexOf(r)<0;}).sort(function(a,b){return (b.priority==='hot')-(a.priority==='hot')||String(a.createdAt).localeCompare(String(b.createdAt));});}
 function tasksOn(date){var s=S.data&&S.data.stats&&S.data.stats['tasks:'+date];try{return s?JSON.parse(s.value):{};}catch(e){return {};}}
 function tasksToday(){return tasksOn(today());}
 /* film streak: days in a row with Film ticked (today counts once ticked; an unticked today does not break it yet) */
@@ -988,7 +992,10 @@ function approveHTML(){
   var allSel=list.every(function(r){return S.sel[r.id];});
   h+='<div class="tools"><button class="selall" data-selall><span class="chk'+(allSel?' on':'')+'">'+(allSel?'&#10003;':'')+'</span>'+(allSel?'Clear all':'Select all '+list.length)+'</button><span class="hint">Copy for iMessage or email<br>Send goes through Instagram</span></div><div class="cards">';
   list.forEach(function(r){h+=cardHTML(r);});
-  return h+'</div>';
+  h+='</div>';
+  var hid=hiddenDupes(S.tab);
+  if(hid.length){h+='<div class="dupnote">'+hid.length+' older card'+(hid.length>1?'s':'')+' hidden so you never send twice: '+hid.map(function(r){return esc(String(r.who||'').replace(/\s*\(.*?\)/g,''))+' (newer card shown)';}).join(', ')+'</div>';}
+  return h;
 }
 
 /* Brand groups come from the paymentStatus column.
