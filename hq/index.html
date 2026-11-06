@@ -289,6 +289,7 @@ body.infilm header,body.infilm nav,body.infilm #hqGlobe{display:none}
 .nowbig .tl{display:flex;align-items:center;gap:8px;margin-top:10px;font-size:12.5px;color:#d6dfd8;font-weight:600;flex-wrap:wrap}.nowbig .tl i{font-style:normal;color:#C9B59C;font-weight:800}
 .nowbig .go{grid-column:1/-1;height:48px;border-radius:999px;border:0;background:#C9B59C;color:var(--emerald);font-weight:800;font-size:15px;margin-top:4px}
 .nowsteps{background:#fff;border-radius:0 0 22px 22px;margin:-14px 8px 0;padding:22px 10px 8px;box-shadow:var(--shadow)}
+.hw{background:#fff;border-radius:22px;padding:8px 10px;box-shadow:var(--shadow)}.hw .todo{align-items:flex-start}.hw .todo .box{margin-top:2px}.hw .hwt{display:inline-block;font-size:11px;font-weight:800;color:var(--accent);margin-right:8px}.hw .hwn{display:block;font-size:12px;color:var(--muted);font-weight:500;margin-top:2px}.hw .act{margin-top:8px}
 .strip4{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:12px}.strip4 button{background:#fff;border:0;border-radius:16px;padding:10px 6px;box-shadow:var(--shadow);text-align:center;min-height:62px}.strip4 b{display:block;font-size:17px;font-weight:800;color:var(--accent);letter-spacing:-.02em;font-variant-numeric:tabular-nums}.strip4 span{display:block;font-size:9.5px;font-weight:700;color:var(--muted);letter-spacing:.02em;margin-top:2px}.strip4 button.warn b{color:var(--bad)}
 .upnext{display:flex;gap:10px;overflow-x:auto;scrollbar-width:none;margin:0 -16px;padding:0 16px 4px}.upnext::-webkit-scrollbar{display:none}
 .upnext button{flex:none;width:132px;height:150px;border-radius:20px;background-size:cover;background-position:center;position:relative;overflow:hidden;color:#fff;text-align:left;display:flex;flex-direction:column;justify-content:flex-end;padding:12px;border:0;box-shadow:var(--shadow);background-color:var(--s3)}
@@ -811,6 +812,14 @@ function filmToday(){var f=stat('film:'+today(),null);if(!f||!f.shots){f={shots:
 var BIMG={film:'../images/david-portrait.jpg',post:'../images/mk-cn-tower.jpg',dms:'../images/about-lounge.jpg',calls:'../images/hero-business-class.jpg',ugc:'../images/mk-intercontinental.jpg',close:'../images/mk-hallway.jpg'};
 function bimg(b){if(b.img)return b.img;if(b.kind==='post'&&S.vault&&S.vault.top&&S.vault.top.thumb)return '../vault/'+S.vault.top.thumb;return BIMG[b.kind]||BIMG.close;}
 function minsLeft(b){var hm=nowHM(),p=String(b.end||'').split(':');if(!b.end)return 0;var e=Number(p[0])*60+Number(p[1]),n=Number(hm.slice(0,2))*60+Number(hm.slice(3));return Math.max(0,e-n);}
+/* Homework (David Nov 6): rescheduled personal to-dos from his calendar, written daily as hw:<date> {items:[{id,time,t,note,link}]}; ticks in hwstate:<date> */
+function hwToday(){var w=stat('hw:'+today(),null);if(!w||!w.items||!w.items.length)return null;var st=stat('hwstate:'+today(),{});w.items.forEach(function(x){x.done=!!st[x.id];});return w;}
+function hwHTML(){
+  var w=hwToday();if(!w)return '';
+  var n=w.items.filter(function(x){return x.done;}).length,h='<h2>Homework<small>'+n+' of '+w.items.length+'</small></h2><div class="hw todos">';
+  w.items.forEach(function(x){h+='<div class="todo'+(x.done?' on':'')+'"><button class="todo" style="padding:0" data-hw="'+esc(x.id)+'"><span class="box">'+(x.done?'&#10003;':'')+'</span><span>'+(x.time?'<small class="hwt">'+esc(fmtTime(x.time))+'</small>':'')+esc(x.t)+(x.note?'<small class="hwn">'+esc(x.note)+'</small>':'')+'</span></button>'+(x.link?'<a class="act" href="'+esc(x.link)+'" target="_blank" rel="noopener">Open</a>':'')+'</div>';});
+  return h+'</div>';
+}
 function runHTML(){
   var r=runToday(),cur=curBlock(r),hm=nowHM(),f=filmToday(),fd=f.shots.filter(function(x){return x.done;}).length;
   var evening=hm>='18:00'&&(!cur||cur.done||r.blocks.every(function(b){return b.done;}));
@@ -820,6 +829,7 @@ function runHTML(){
     h+='<div class="nowbig"><div><small>'+(isNow?'Now, ':'Next, ')+esc(fmtTime(cur.time))+'</small><b>'+esc(cur.title)+'</b><span>'+(td?'Next step: '+esc(td.t):'All steps done')+'</span><div class="tl">'+(isNow&&ml?'<i>'+(ml>=60?Math.floor(ml/60)+'h '+(ml%60?ml%60+'m':''):ml+'m')+' left</i>':'')+(nx?'<span>then '+esc(fmtTime(nx.time))+' '+esc(nx.title)+'</span>':'<span>last block of the day</span>')+'</div></div><img src="'+esc(bimg(cur))+'" alt="" onerror="this.style.display=\'none\'"><button class="go" data-'+(td&&td.go?'go="'+esc(td.go)+'"':'blk="'+esc(cur.id)+'"')+'>'+(td&&td.go?'Open ':'Start ')+'&rarr;</button></div>';
     h+='<div class="nowsteps todos">';cur.todos.forEach(function(t){h+='<div class="todo'+(t.done?' on':'')+'"><button class="todo" style="padding:0" data-rs="'+esc(cur.id+'.'+t.id)+'"><span class="box">'+(t.done?'&#10003;':'')+'</span><span>'+esc(t.t)+'</span></button>'+(t.go?'<button class="act" data-go="'+esc(t.go)+'">Open</button>':'')+'</div>';});h+='</div>';}
   else h+='<div class="nowbig"><div><small>All clear</small><b>Every block is done</b><span>Film one extra for the buffer, or rest.</span></div><img src="'+esc(BIMG.close)+'" alt=""></div>';
+  h+=hwHTML();
   /* tappable stat strip: US$ month, DMs waiting, calls booked today, reels this week */
   var ym=today().slice(0,7),row=(S.data.stats||{})['money:'+ym],usd=row?Number(String(row.value).replace(/[^0-9.]/g,'')):0;
   var dmsW=waiting('dms').length,callsT=deals().filter(function(x){return x.stage==='call'&&String(x.due||'').slice(0,10)===today();}).length;
@@ -1104,6 +1114,7 @@ document.addEventListener('click',function(e){
   if(t.dataset.cstage!==undefined){S.cstage=S.cstage===t.dataset.cstage?'':t.dataset.cstage;render();return;}
   if(t.dataset.blk){S.rsOpen=t.dataset.blk;render();var el=document.querySelector('details.blk');if(el)el.scrollIntoView({block:'start',behavior:'smooth'});return;}
   if(t.dataset.rs){var k='runstate:'+today(),cur=stat(k,{});cur[t.dataset.rs]=!cur[t.dataset.rs];buzz();S.rsOpen=t.dataset.rs.split('.')[0];setStat(k,cur);return;}
+  if(t.dataset.hw){var hk='hwstate:'+today(),hc=stat(hk,{});hc[t.dataset.hw]=!hc[t.dataset.hw];buzz();setStat(hk,hc);return;}
   if(t.dataset.fs){var fk='filmstate:'+today(),fc=stat(fk,{});fc[t.dataset.fs]=!fc[t.dataset.fs];buzz();setStat(fk,fc);
     if(fc[t.dataset.fs]&&!tasksToday().film)enqueue('task',{date:today(),task:'film',done:true});return;}
   if(t.dataset.cs){var C=stat('content',[]);C.forEach(function(x){if(x.id===t.dataset.cs){x.stage=t.dataset.to;x.updatedAt=new Date().toISOString();}});buzz();setStat('content',C);toast('Moved to '+t.dataset.to,false);return;}
