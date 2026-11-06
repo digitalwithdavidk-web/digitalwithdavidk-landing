@@ -816,6 +816,23 @@ function filmToday(){var f=stat('film:'+today(),null);if(!f||!f.shots){f={shots:
 var BIMG={film:'../images/david-portrait.jpg',post:'../images/mk-cn-tower.jpg',dms:'../images/about-lounge.jpg',calls:'../images/hero-business-class.jpg',ugc:'../images/mk-intercontinental.jpg',close:'../images/mk-hallway.jpg'};
 function bimg(b){if(b.img)return b.img;if(b.kind==='post'&&S.vault&&S.vault.top&&S.vault.top.thumb)return '../vault/'+S.vault.top.thumb;return BIMG[b.kind]||BIMG.close;}
 function minsLeft(b){var hm=nowHM(),p=String(b.end||'').split(':');if(!b.end)return 0;var e=Number(p[0])*60+Number(p[1]),n=Number(hm.slice(0,2))*60+Number(hm.slice(3));return Math.max(0,e-n);}
+/* Boards move the moment David taps (Nov 6): filming a shot sets its content row to Filmed, ticking a Post step sets today's rows to Posted and logs it to the maxing board. No timer needed. */
+function normT(t){return String(t||'').toLowerCase().replace(/[^a-z0-9]+/g,' ').trim();}
+function shotKind(x){var k=String(x.kind||'');return /main|reel/i.test(k)&&!/trial/i.test(k)?'Reel':/trial/i.test(k)?'Trial':/carousel/i.test(k)?'Carousel':/ugc/i.test(k)?'UGC':'Reel';}
+function syncShots(shots,stage,on){
+  if(!shots.length)return;var C=stat('content',[]);if(!Array.isArray(C))C=[];var now=new Date().toISOString(),d=today(),changed=false;
+  shots.forEach(function(x){var kd=shotKind(x),tt=normT(x.title),row=null;
+    C.forEach(function(r){if(row)return;var rt=normT(r.title);if(rt&&tt&&(rt===tt||rt.indexOf(tt)>=0||tt.indexOf(rt)>=0)&&(r.kind||'Reel')===kd)row=r;});
+    if(on){
+      if(row){var order=['idea','scripted','filmed','edited','qc','ready','posted'];if(order.indexOf(row.stage)<order.indexOf(stage)){row.stage=stage;row.updatedAt=now;changed=true;}}
+      else{C.push({id:'hq-'+d+'-'+x.id,title:x.title||kd,kind:kd,stage:stage,due:d,updatedAt:now});changed=true;}
+      if(stage==='posted')setStat('db:maxing:log:'+d+'-hq-post-'+x.id,{at:now,by:'HQ',day:d,detail:kd.toUpperCase()+': '+(x.title||'')+' posted (ticked in HQ)',n:1,type:kd==='Reel'?'reel':kd.toLowerCase()});
+    }else if(row){
+      if(String(row.id).indexOf('hq-'+d)===0){C.splice(C.indexOf(row),1);changed=true;}
+      else if(row.stage===stage){row.stage=stage==='posted'?'ready':'scripted';row.updatedAt=now;changed=true;}
+    }});
+  if(changed)setStat('content',C);
+}
 /* Homework (David Nov 6): rescheduled personal to-dos from his calendar, written daily as hw:<date> {items:[{id,time,t,note,link}]}; ticks in hwstate:<date> */
 function hwToday(){var w=stat('hw:'+today(),null);if(!w||!w.items||!w.items.length)return null;var st=stat('hwstate:'+today(),{});w.items.forEach(function(x){x.done=!!st[x.id];});return w;}
 function hwHTML(){
@@ -1121,10 +1138,13 @@ document.addEventListener('click',function(e){
   if(t.dataset.pstage!==undefined){S.pstage=S.pstage===t.dataset.pstage?'':t.dataset.pstage;render();return;}
   if(t.dataset.cstage!==undefined){S.cstage=S.cstage===t.dataset.cstage?'':t.dataset.cstage;render();return;}
   if(t.dataset.blk){S.rsOpen=t.dataset.blk;render();var el=document.querySelector('details.blk');if(el)el.scrollIntoView({block:'start',behavior:'smooth'});return;}
-  if(t.dataset.rs){var k='runstate:'+today(),cur=stat(k,{});cur[t.dataset.rs]=!cur[t.dataset.rs];buzz();S.rsOpen=t.dataset.rs.split('.')[0];setStat(k,cur);return;}
+  if(t.dataset.rs){var k='runstate:'+today(),cur=stat(k,{});cur[t.dataset.rs]=!cur[t.dataset.rs];buzz();S.rsOpen=t.dataset.rs.split('.')[0];setStat(k,cur);
+    var PM={'post.p1':/^Main reel|^Reel/i,'post.p2':/^Carousel/i,'trials.t1':/^Trial/i},pm=PM[t.dataset.rs];
+    if(pm)syncShots(filmToday().shots.filter(function(x){return pm.test(String(x.kind||''));}),'posted',!!cur[t.dataset.rs]);return;}
   if(t.dataset.hw){var hk='hwstate:'+today(),hc=stat(hk,{});hc[t.dataset.hw]=!hc[t.dataset.hw];buzz();setStat(hk,hc);return;}
   if(t.dataset.fs){var fk='filmstate:'+today(),fc=stat(fk,{});fc[t.dataset.fs]=!fc[t.dataset.fs];buzz();setStat(fk,fc);
-    if(fc[t.dataset.fs]&&!tasksToday().film)enqueue('task',{date:today(),task:'film',done:true});return;}
+    if(fc[t.dataset.fs]&&!tasksToday().film)enqueue('task',{date:today(),task:'film',done:true});
+    syncShots(filmToday().shots.filter(function(x){return x.id===t.dataset.fs;}),'filmed',!!fc[t.dataset.fs]);return;}
   if(t.dataset.cs){var C=stat('content',[]);C.forEach(function(x){if(x.id===t.dataset.cs){x.stage=t.dataset.to;x.updatedAt=new Date().toISOString();}});buzz();setStat('content',C);toast('Moved to '+t.dataset.to,false);return;}
   if(t.dataset.go){var g=t.dataset.go.split(':');go(g[0],g[1]);return;}
   if(t.dataset.tab){S.tab=t.dataset.tab;S.sel={};S.editing=null;S.kf=0;if(S.view==='approve'){try{history.replaceState(null,'','#approve/'+S.tab);}catch(x){}}render();return;}
