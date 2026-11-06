@@ -833,7 +833,7 @@ function runHTML(){
   /* tappable stat strip: US$ month, DMs waiting, calls booked today, reels this week */
   var ym=today().slice(0,7),row=(S.data.stats||{})['money:'+ym],usd=row?Number(String(row.value).replace(/[^0-9.]/g,'')):0;
   var dmsW=waiting('dms').length,callsT=deals().filter(function(x){return x.stage==='call'&&String(x.due||'').slice(0,10)===today();}).length;
-  var mon=monday(),reels=0;for(var i=0;i<7;i++){var k=addDays(mon,i),fs=stat('filmstate:'+k,{}),n=Object.keys(fs).filter(function(x){return fs[x];}).length;reels+=n||(tasksOn(k).film?1:0);}
+  var mon=monday(),reels=0;for(var i=0;i<7;i++){var k=addDays(mon,i),fs=stat('filmstate:'+k,{}),n=Object.keys(fs).filter(function(x){return fs[x];}).length;reels+=n||(tasksOn(k).film?1:0);}reels=Math.max(reels,postedWeek(mon,addDays(mon,6)));
   h+='<div class="strip4"><button data-home="pipeline"><b>US$'+short(usd)+'</b><span>of US$100K</span></button><button data-goto="dms" class="'+(dmsW>=5?'warn':'')+'"><b>'+dmsW+'</b><span>DMs waiting</span></button><button data-home="pipeline"><b>'+callsT+'</b><span>calls today</span></button><button data-home="week"><b>'+reels+'</b><span>reels this week</span></button></div>';
   /* up next strip */
   var rest=r.blocks.filter(function(b){return !cur||b.id!==cur.id;});
@@ -905,11 +905,12 @@ function contentHTML(){
   return h+'</div>';
 }
 
+function postedWeek(mon,sun){var C=stat('content',[]);if(!Array.isArray(C))return 0;return C.filter(function(x){if(x.stage!=='posted')return false;var k=String(x.kind||'');if(!/reel|trial/i.test(k))return false;var at=String(x.updatedAt||x.due||'').slice(0,10);return at>=mon&&at<=sun;}).length;}
 function weekHTML(){
   var mon=monday(),days=[];for(var i=0;i<7;i++)days.push(addDays(mon,i));
   var T=stat('targets',{reels:35,dms:50,calls:5,usd:25000});
   var reels=0,dmsN=0,calls=0,filmDays=0;
-  days.forEach(function(k){var f=stat('film:'+k,null),fs=stat('filmstate:'+k,{}),n=Object.keys(fs).filter(function(x){return fs[x];}).length;var t=tasksOn(k);if(t.film)filmDays++;reels+=n||(t.film?(f&&f.shots?0:1):0);if(t.calls)calls++;});
+  days.forEach(function(k){var f=stat('film:'+k,null),fs=stat('filmstate:'+k,{}),n=Object.keys(fs).filter(function(x){return fs[x];}).length;var t=tasksOn(k);if(t.film)filmDays++;reels+=n||(t.film?(f&&f.shots?0:1):0);if(t.calls)calls++;});reels=Math.max(reels,postedWeek(mon,days[6]));
   q().forEach(function(r){var at=String(r.sentAt||r.decidedAt||'').slice(0,10);if((r.status==='sent'||r.status==='approved')&&at>=mon&&at<=days[6])dmsN++;});
   var row=(S.data.stats||{})['money:'+today().slice(0,7)],usd=row?Number(String(row.value).replace(/[^0-9.]/g,'')):0;
   var di=(days.indexOf(today())+1)||7,pace=function(v,t){return Math.round(t*di/7)<=v;};
