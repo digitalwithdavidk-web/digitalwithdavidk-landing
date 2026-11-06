@@ -125,7 +125,7 @@ h2 small{margin-left:auto;letter-spacing:0;text-transform:none;font-weight:600;c
 .who{font-weight:800;font-size:16px;word-break:break-word}
 .meta{display:flex;flex-wrap:wrap;gap:6px;margin-top:5px}
 .pill{font-size:11px;font-weight:700;padding:3px 8px;border-radius:999px;background:var(--s3);color:var(--muted)}
-.pill.hot{background:var(--accent);color:var(--onacc)}
+.pill.hot{background:var(--accent);color:var(--onacc)}.pill.link{background:#C9B59C;color:var(--emerald);text-decoration:none;font-weight:800}.ctx a{color:var(--accent);font-weight:700;word-break:break-all}
 .pill.time{background:#f3ecd9;color:var(--warn)}.pill.hot{color:#fff}
 .ctx{color:var(--muted);font-size:13px;margin:10px 0 0;display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden;cursor:pointer}
 .ctx.open{-webkit-line-clamp:unset}
@@ -939,9 +939,11 @@ function spark(days){
   return '<svg viewBox="0 0 '+W+' '+H+'" preserveAspectRatio="none" aria-hidden="true"><path d="'+dl+' L'+W+' '+H+' L0 '+H+' Z" fill="rgba(14,47,36,.10)"/><path d="'+dl+'" fill="none" stroke="#0E2F24" stroke-width="1.6" vector-effect="non-scaling-stroke"/></svg>';
 }
 
+function postLink(r){var m=String(r.context||'').match(/https?:\/\/(?:www\.)?instagram\.com\/(?:p|reel|reels|tv)\/[A-Za-z0-9_-]+\/?/);return m?m[0]:'';}
+function ctxHTML(txt){return esc(txt).replace(/https?:\/\/[^\s)]+/g,function(u){return '<a href="'+u+'" target="_blank" rel="noopener">'+u.replace(/^https?:\/\/(www\.)?/,'').replace(/\/$/,'')+'</a>';});}
 function cardHTML(r, opts){
   opts=opts||{};
-  var sel=!!S.sel[r.id], draft=r.editedDraft||r.draft;
+  var sel=!!S.sel[r.id], draft=r.editedDraft||r.draft, pl=postLink(r);
   var h='<div class="card'+(sel?' sel':'')+(r.priority==='hot'?' hot':'')+'" data-id="'+esc(r.id)+'"><div class="ctop">';
   if(!opts.noSelect)h+='<button class="chk'+(sel?' on':'')+'" data-sel="'+esc(r.id)+'" aria-label="Select">'+(sel?'&#10003;':'')+'</button>';
   h+='<div style="flex:1;min-width:0"><div class="who">'+esc(r.who)+'</div><div class="meta">';
@@ -949,8 +951,9 @@ function cardHTML(r, opts){
   if(r.channel)h+='<span class="pill">'+esc(r.channel)+'</span>';
   if(r.createdAt)h+='<span class="pill'+(hasTime(draft)?' time':'')+'">Written '+esc(fmtWhen(r.createdAt))+'</span>';
   if(r.editedDraft)h+='<span class="pill">Edited</span>';
+  if(pl)h+='<a class="pill link" href="'+esc(pl)+'" target="_blank" rel="noopener">View post &#8599;</a>';
   h+='</div></div></div>';
-  if(r.context)h+='<p class="ctx" data-ctx>'+esc(r.context)+'</p>';
+  if(r.context)h+='<p class="ctx" data-ctx>'+ctxHTML(r.context)+'</p>';
   if(S.editing===r.id){
     h+='<textarea id="editBox">'+esc(draft)+'</textarea><div class="acts"><button class="btn pri" data-save="send">Save + Send</button><button class="btn" data-save="save">Save</button><button class="btn ghost" data-save="cancel">Cancel</button></div>';
   } else {
