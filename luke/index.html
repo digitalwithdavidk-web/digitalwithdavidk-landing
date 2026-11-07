@@ -60,7 +60,7 @@ button.top{background:var(--em);color:var(--onem)}
 </g></svg><div class="v"></div><div class="t">DIGITAL<br>WITH DAVID K.</div></div>
  <h1>Brand discovery questionnaire</h1>
  <p class="lede">This shapes your plan before anything is made. Short answers are fine, and rough beats perfect. Skip anything you would rather cover on a call.</p>
- <div class="toprow"><span><strong>Prefer to talk it through?</strong> Skip the form.</span><button type="button" class="top" id="callTop">I'd rather do a call</button></div><div class="s" id="stTop" role="status"></div><textarea id="outTop" readonly aria-label="Message to copy"></textarea>
+ <div class="toprow"><span><strong>Prefer to talk it through?</strong> Skip the form, tap the button and I will text you times.</span><button type="button" class="top" id="callTop">I'd rather do a call</button></div><div class="s" id="stTop" role="status"></div><textarea id="outTop" readonly aria-label="Message to copy"></textarea>
  <div class="meta"><span>About 8 minutes</span><span>Private</span><span id="cnt">0 of 19 answered</span></div>
  <div class="bar"><i id="prog"></i></div>
 </header>
@@ -98,8 +98,8 @@ button.top{background:var(--em);color:var(--onem)}
 </section>
 </form>
 <div class="done"><h2>When you are finished</h2>
-<p>Tap Copy my answers, then paste them into our WhatsApp chat. I will review them before we finalize the agreement.</p>
-<button type="button" id="copy">Copy my answers</button><button type="button" class="ghost" id="call">I'd rather do a call</button><button type="button" class="ghost" id="clear">Clear</button>
+<p>Tap Send and your answers come straight to me. I will review them before we finalize the agreement.</p>
+<button type="button" id="copy">Send my answers</button><button type="button" class="ghost" id="call">I'd rather do a call</button><button type="button" class="ghost" id="clear">Clear</button>
 <div class="s" id="st" role="status"></div>
 <textarea id="out" readonly aria-label="Your answers"></textarea></div>
 </div>
@@ -112,11 +112,23 @@ function answered(){var n=0;f.querySelectorAll('.q').forEach(function(q){var t=q
 function upd(){var n=answered(),tot=f.querySelectorAll('.q').length;document.getElementById('cnt').textContent=n+' of '+tot+' answered';document.getElementById('prog').style.width=(100*n/tot)+'%'}
 function build(){var out=['BRAND DISCOVERY ANSWERS',''],i=0;f.querySelectorAll('.q').forEach(function(q){i++;var t=q.querySelector('textarea'),ans,lab;if(t){ans=t.value.trim();lab=t.getAttribute('data-q')}else{lab=q.querySelector('.opts').getAttribute('data-q');ans=[].map.call(q.querySelectorAll('input:checked'),function(x){return x.value}).join(', ')}out.push(i+'. '+lab);out.push(ans||'(skipped)');out.push('')});return out.join('\n')}
 f.addEventListener('input',function(){save();upd()});f.addEventListener('change',function(){save();upd()});
-document.getElementById('copy').onclick=function(){var s=build(),o=document.getElementById('out'),st=document.getElementById('st');o.value=s;o.style.display='block';function fb(){o.focus();o.select();st.textContent='Select the text above and copy it.'}
-try{navigator.clipboard.writeText(s).then(function(){st.textContent='Copied. Paste it into WhatsApp.'},fb)}catch(e){fb()}};
-function callMsg(outId,stId){var s='David, I would rather do the discovery on a quick call. Send me a few 15-minute times this week.',o=document.getElementById(outId),st=document.getElementById(stId);o.value=s;o.style.display='block';function fb(){o.focus();o.select();st.textContent='Select the text above and copy it.'}try{navigator.clipboard.writeText(s).then(function(){st.textContent='Copied. Paste it into WhatsApp and I will send times.'},fb)}catch(e){fb()}}
-document.getElementById('callTop').onclick=function(){callMsg('outTop','stTop')};
-document.getElementById('call').onclick=function(){callMsg('out','st');return;var s='David, I would rather do the discovery on a quick call. Send me a few 15-minute times this week.',o=document.getElementById('out'),st=document.getElementById('st');o.value=s;o.style.display='block';function fb(){o.focus();o.select();st.textContent='Select the text above and copy it.'}try{navigator.clipboard.writeText(s).then(function(){st.textContent='Copied. Paste it into WhatsApp and I will send times.'},fb)}catch(e){fb()}};
+
+var API='https://script.google.com/macros/s/AKfycbzJ0e5gz60R5waDizOEwIODysFqwK9wxJKJo101371U9Ka1rkemBiZx9Nvrjq6IiM0r9A/exec';
+var MAIL='https://formsubmit.co/ajax/digitalwithdavidk@gmail.com';
+function deliver(kind,text){
+  var at=new Date().toISOString();
+  var a=fetch(API,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({action:'setStat',k:'intake:luke:'+Date.now(),value:JSON.stringify({kind:kind,at:at,text:text})}),redirect:'follow'}).then(function(r){return r.json()}).then(function(d){if(!d||d.ok===false)throw 0;return 1});
+  var b=fetch(MAIL,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({_subject:'Brand discovery: '+kind,_template:'box',_captcha:'false',message:text})}).then(function(r){if(!r.ok)throw 0;return 1});
+  return Promise.allSettled([a,b]).then(function(r){if(!r.some(function(x){return x.status==='fulfilled'}))throw 0});
+}
+function sendBtn(btn,st,kind,text,okMsg,out){
+  btn.disabled=true;var old=btn.textContent;btn.textContent='Sending...';st.textContent='';
+  deliver(kind,text).then(function(){btn.textContent='Sent';st.textContent=okMsg;try{localStorage.removeItem(KEY)}catch(e){}},function(){btn.disabled=false;btn.textContent=old;out.value=text;out.style.display='block';out.focus();out.select();st.textContent='Could not send just now. Copy the text above and paste it into our WhatsApp chat.'});
+}
+var CALL='I would rather do the discovery on a quick 15-minute call. Please text me a few times.';
+document.getElementById('copy').onclick=function(){sendBtn(this,document.getElementById('st'),'answers',build(),'Sent. Thank you, I will review your answers and get back to you on WhatsApp.',document.getElementById('out'))};
+document.getElementById('call').onclick=function(){sendBtn(this,document.getElementById('st'),'call request',CALL,'Done. I will text you a few times on WhatsApp.',document.getElementById('out'))};
+document.getElementById('callTop').onclick=function(){sendBtn(this,document.getElementById('stTop'),'call request',CALL,'Done. I will text you a few times on WhatsApp.',document.getElementById('outTop'))};
 document.getElementById('clear').onclick=function(){f.reset();try{localStorage.removeItem(KEY)}catch(e){}upd();document.getElementById('out').style.display='none';document.getElementById('st').textContent='Cleared.'};
 load();upd();
 })();
