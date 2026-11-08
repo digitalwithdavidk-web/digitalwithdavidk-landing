@@ -995,6 +995,18 @@ function weekHTML(){
   var h='<h2 style="margin-top:14px">Scoreboard<small>'+esc(fmtD(mon))+' to '+esc(fmtD(days[6]))+'</small></h2><div class="score">';
   h+=card('Reels posted',W.reels,T.reels)+card('DMs sent',W.dms,T.dms)+card('Calls held',W.held,T.calls)+card('US$ this month',usd,T.usd,function(v){return 'US$'+short(v);});
   h+='</div>';
+  /* six numbers (funnel audit, Nov 8): views, keyword DMs, calls booked, closes, clients hitting first booking, testimonials. Live math first, six:<monday> snapshot fills gaps. */
+  var six=stat('six:'+mon,{})||{},F6=feed(),sun6=days[6];
+  var views=0;((S.vault&&S.vault.posts)||[]).forEach(function(p){if(inWeek(p.posted,mon,sun6))views+=Number(p.views)||0;});views=views||Number(six.views)||0;
+  var kw=0;q().forEach(function(r){var at=String(r.sentAt||r.decidedAt||'');if((r.status==='sent'||r.status==='approved')&&inWeek(at,mon,sun6)&&/\b(GAME|CONTENT|LENS|APP|BLUEPRINT|LIVE|SPOTS|EDIT)\b/.test(String(r.context||'')+' '+String(r.draft||'')))kw++;});kw=Math.max(kw,Number(six.keywordDms)||0);
+  var firstBook=F6.filter(function(x){return /^WIN$/i.test(String(x.ev))&&inWeek(x.at,mon,sun6);}).length;firstBook=Math.max(firstBook,deals(true).filter(function(x){return inWeek(x.firstBookingAt,mon,sun6);}).length,Number(six.firstBookings)||0);
+  var testi=F6.filter(function(x){return /TESTIMONIAL|REVIEW/i.test(String(x.ev)+' '+String(x.next||''))&&inWeek(x.at,mon,sun6);}).length;testi=Math.max(testi,deals(true).filter(function(x){return inWeek(x.testimonialAt,mon,sun6);}).length,Number(six.testimonials)||0);
+  var sixRows=[['Views',short(views),'this week\'s posts'],['Keyword DMs',kw,'GAME, CONTENT, LENS, APP'],['Calls booked',Math.max(W.booked,Number(six.booked)||0),'fit calls'],['Closes',Math.max(W.paid,Number(six.closes)||0),'paid coaching'],['First bookings',firstBook,'clients who flew on points'],['Testimonials',testi,'wins with consent']];
+  h+='<h2>Six numbers<small>the audit\'s weekly set</small></h2><div class="deskrow" style="grid-template-columns:repeat(3,1fr)">';
+  sixRows.forEach(function(r){h+='<button style="pointer-events:none"><b style="font-size:20px">'+esc(String(r[1]))+'</b><span>'+esc(r[0])+'</span><span style="font-size:9px">'+esc(r[2])+'</span></button>';});
+  h+='</div>';
+  var TR=stat('trust:'+mon,null)||stat('trust:'+addDays(mon,-7),null);
+  h+='<div class="leak" style="background:'+(TR?(TR.ok?'var(--ok)':'var(--bad)'):'#5E6B5E')+'"><small>Weekly trust check</small><b>'+(TR?(TR.ok?'Site, Stan and bio say the same prices and promise.':'Mismatch: '+esc(TR.note||'see note')):'Not checked yet this week.')+'</b><span>'+(TR?(TR.ok&&TR.note?esc(TR.note)+' . ':'')+'Checked '+esc(fmtWhen(TR.at)):'The Sunday run reads the site prices, the Stan store and the Instagram bio and flags any price or promise that differs.')+'</span></div>';
   /* funnel: this week vs last week. The leak = the biggest drop between steps. */
   function delta(a,b,pct){if(!b&&!a)return '<span class="dl fl">same</span>';if(!b)return '<span class="dl up">new</span>';var d=a-b;if(!d)return '<span class="dl fl">same</span>';return '<span class="dl '+(d>0?'up':'dn')+'">'+(d>0?'+':'')+(pct?d+' pts':d)+'</span>';}
   var rows=[['Reels posted','content that starts it',W.reels,P.reels],['DMs sent','conversations opened',W.dms,P.dms],['New leads','people with a buying signal',W.leads,P.leads],['Calls booked','fit calls on the calendar',W.booked,P.booked],['Calls held','showed up',W.held,P.held],['Paid','money seen at the source',W.paid,P.paid]];
@@ -1392,7 +1404,7 @@ fetch('../vault/data.json?t='+Date.now()).then(function(r){return r.json();}).th
   var days=[];for(var i=29;i>=0;i--)days.push(byDay[dayKey(new Date(now-i*864e5))]||0);
   recent.sort(function(a,b){return a-b;});
   var med=recent.length?recent[Math.floor(recent.length/2)]:0;
-  S.vault={sum:sum,days:days,top:top&&top.thumb?top:top,median:med,updated:v.updated||''};
+  S.vault={sum:sum,days:days,top:top&&top.thumb?top:top,median:med,updated:v.updated||'',posts:v.posts||[]};
   if(S.view==='home'&&S.data)render();
 }).catch(function(){S.vault={sum:0,days:new Array(30).fill(0),top:null,median:0,updated:''};});
 
