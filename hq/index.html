@@ -784,16 +784,44 @@ function moneyGateHTML(st,t){
 /* Desktop (Mac, 1100px and up): Command Desk, David's pick Nov 6 2026. Phone layout above is untouched.
    Column 1 = the phone Today screen, column 2 = the Approve inbox, column 3 = every number. */
 function isDesk(){return !!(window.matchMedia&&window.matchMedia('(min-width:1100px)').matches);}
+/* Needs you (David, Nov 8: "am I that behind?"). Only things that need David's own hand, nothing else. */
+function needsYouHTML(){
+  var W=waiting(),hot=W.filter(function(r){return r.priority==='hot';}),items=[];
+  if(hot.length)items.push({n:hot.length,t:hot.length===1?'hot card to send':'hot cards to send',s:hot.map(function(r){return r.who;}).slice(0,3).join(', '),go:'goto:'+hot[0].tab});
+  var callsT=deals().filter(function(x){return x.stage==='call'&&String(x.callAt||x.due||'').slice(0,10)===today();});
+  if(callsT.length)items.push({n:callsT.length,t:callsT.length===1?'call today':'calls today',s:callsT.map(function(x){return x.who;}).join(', '),go:'home:pipeline'});
+  var hw=hwToday();if(hw){var left=hw.items.filter(function(x){return !x.done;});if(left.length)items.push({n:left.length,t:'homework left',s:left.map(function(x){return x.t;}).slice(0,2).join(', '),go:'hw'});}
+  var C=stat('content',[]);if(!Array.isArray(C))C=[];var film=C.filter(function(x){return x.stage==='scripted';}).length,post=C.filter(function(x){return x.stage==='ready';}).length;
+  if(film)items.push({n:film,t:'to film',s:'scripts ready in Film Mode',go:'film'});
+  if(post)items.push({n:post,t:'to post',s:'edited and QC passed',go:'home:content'});
+  var stale=staleDeals();if(stale.length)items.push({n:stale.length,t:stale.length===1?'deal needs a push':'deals need a push',s:'cards are made for you in HQ',go:'home:pipeline'});
+  var batches=0,byRun={};W.forEach(function(r){var k=String(r.createdBy||'');byRun[k]=(byRun[k]||0)+1;});Object.keys(byRun).forEach(function(k){if(byRun[k]>=5)batches++;});
+  var normal=W.length-hot.length;
+  var h='<h2>Needs you<small>'+(items.length?items.length+' thing'+(items.length===1?'':'s'):'nothing right now')+'</small></h2>';
+  if(!items.length)h+='<div class="empty">Nothing needs your hand. The desks are on the rest.</div>';
+  else{h+='<div class="cards">';items.forEach(function(x){var attr=x.go.indexOf('goto:')===0?'data-goto="'+esc(x.go.slice(5))+'"':x.go.indexOf('home:')===0?'data-home="'+esc(x.go.slice(5))+'"':x.go==='film'?'data-go="film:x"':'data-home="today"';h+='<button class="deal" style="width:100%;text-align:left;border:0" '+attr+'><div><div class="w">'+x.n+' '+esc(x.t)+'</div><div class="n">'+esc(x.s)+'</div></div><div class="v"><small>open</small></div></button>';});h+='</div>';}
+  if(normal)h+='<p class="dupnote">'+normal+' other card'+(normal===1?'':'s')+' waiting'+(batches?' ('+batches+' batch'+(batches===1?'':'es')+', one tap to approve all)':'')+'. Not urgent, they can wait for a quiet moment.</p>';
+  return h;
+}
 function deskHomeHTML(){
   var d=S.data, st=d.stats||{}, t=tasksToday();
   var dateLabel=new Intl.DateTimeFormat('en-US',{timeZone:TZ,weekday:'long',month:'long',day:'numeric'}).format(new Date());
   var h='<div class="dsk"><section class="dc1"><div class="hdrow"><div><h1>'+greet()+', David</h1><p class="sub">'+esc(dateLabel)+'. Your 3 jobs: film, calls, send.</p></div></div>';
-  h+=runHTML()+moneyGateHTML(st,t)+'</section>';
-  h+='<section class="dc2"><h2 style="margin-top:4px">Approve<small>'+waiting().length+' waiting</small></h2>'+approveHTML()+'</section>';
-  h+='<section class="dc3">'+moneyBarHTML(st)+'<div id="dsk-pipeline">'+pipelineHTML(true)+'</div><div id="dsk-content">'+contentHTML()+'</div><div id="dsk-week">'+weekHTML()+'</div><div id="dsk-desks">'+desksHTML()+'</div>';
-  h+='<h2>Waiting on you<small>'+waiting().length+' total</small></h2><div class="wait">';
+  h+=needsYouHTML()+runHTML();
+  var done=MONEY.filter(function(m){return t[m[0]];}).length;
+  h+='<details class="bmini" style="margin-top:12px"'+(done<MONEY.length?' open':'')+'><summary><div class="mn"><b>Money gate '+done+' of '+MONEY.length+'</b><small>'+(done<MONEY.length?'Next money task below':'Done for today. Unlocked.')+'</small></div></summary><div style="padding:0 2px 4px">'+moneyGateHTML(st,t)+'</div></details></section>';
+  var W=waiting(),hot=W.filter(function(r){return r.priority==='hot';}).length;
+  h+='<section class="dc2"><h2 style="margin-top:4px">Approve<small>'+W.length+' waiting'+(hot?', '+hot+' hot':'')+'</small></h2>'+approveHTML()+'</section>';
+  var stale=staleDeals(),C=stat('content',[]);if(!Array.isArray(C))C=[];var you=C.filter(function(x){return x.stage==='scripted'||x.stage==='ready';}).length,W1=weekStats(monday()),F=feed();
+  function sec(id,title,sub,body,open){return '<details class="bmini" id="'+id+'" style="margin-top:12px"'+(open?' open':'')+'><summary><div class="mn"><b>'+title+'</b><small>'+sub+'</small></div></summary><div style="padding:0 2px 6px">'+body+'</div></details>';}
+  h+='<section class="dc3">'+moneyBarHTML(st);
+  h+=sec('dsk-pipeline','Deal pipeline',deals().length+' people'+(stale.length?', <b style="color:var(--bad)">'+stale.length+' need a push</b>':''),pipelineHTML(true),S.dskOpen==='pipeline');
+  h+=sec('dsk-content','Content pipeline',C.filter(function(x){return x.stage!=='posted';}).length+' in flight'+(you?', <b style="color:var(--accent)">'+you+' need you</b>':''),contentHTML(),S.dskOpen==='content');
+  h+=sec('dsk-week','Scoreboard','US$'+short(W1.usd)+' closed this week, '+W1.held+' calls held, '+W1.reels+' reels',weekHTML(),S.dskOpen==='week');
+  h+=sec('dsk-desks','Desks',F.length?'Last: '+esc(F[0].desk||'')+' '+esc(String(F[0].ev||'').toLowerCase())+(F[0].who?' '+esc(F[0].who):'')+', '+esc(fmtWhen(F[0].at)):'No events yet',desksHTML(),S.dskOpen==='desks');
+  h+='<h2>Waiting on you<small>'+W.length+' total</small></h2><div class="wait">';
   TABS.forEach(function(tb){var n=waiting(tb[0]).length;h+='<button class="'+(n?'has':'')+'" data-goto="'+tb[0]+'"><b>'+n+'</b><span>'+tb[1]+'</span></button>';});
-  h+='</div>'+numbersHTML(st)+'</section></div>';
+  h+='</div>'+sec('dsk-numbers','Numbers','Followers, views, top post',numbersHTML(st),false)+'</section></div>';
   return h;
 }
 
@@ -1117,8 +1145,15 @@ function approveHTML(){
   }
   var allSel=list.every(function(r){return S.sel[r.id];});
   h+='<div class="tools"><button class="selall" data-selall><span class="chk'+(allSel?' on':'')+'">'+(allSel?'&#10003;':'')+'</span>'+(allSel?'Clear all':'Select all '+list.length)+'</button><span class="hint">Copy for iMessage or email<br>Send goes through Instagram</span></div><div class="cards">';
-  list.forEach(function(r){h+=cardHTML(r);});
+  /* batches (David, Nov 8: desktop felt messy): 5+ waiting cards from one run collapse into one row with Approve all / Skip all */
+  var byRun={};list.forEach(function(r){var k=String(r.createdBy||'');(byRun[k]=byRun[k]||[]).push(r);});
+  var batchKeys=Object.keys(byRun).filter(function(k){return byRun[k].length>=5&&!byRun[k].some(function(r){return r.priority==='hot';});});
+  var single=list.filter(function(r){return batchKeys.indexOf(String(r.createdBy||''))<0;});
+  single.forEach(function(r){h+=cardHTML(r);});
   h+='</div>';
+  batchKeys.forEach(function(k){var B=byRun[k],ids=B.map(function(r){return r.id;}).join(','),label=/china/i.test(k)?'China hotel pitches':/sweep/i.test(k)?'Comment and email sweep':/follow/i.test(k)?'Follow-ups':k.replace(/^Sterling |^Hunter |^Grace |^Sage /,'');
+    h+='<details class="bmini batch" style="margin-top:10px"'+(S.batchOpen===k?' open':'')+' data-batch="'+esc(k)+'"><summary><div class="mn"><b>'+esc(label)+' <span style="color:var(--muted);font-weight:600">'+B.length+' cards</span></b><small>One batch from '+esc(k)+', '+esc(fmtD(String(B[0].createdAt).slice(0,10)))+'. Open to read, or decide all at once.</small></div></summary><div style="padding:0 14px 12px"><div class="tools" style="margin:0 0 10px"><button class="btn pri" style="padding:0 14px" data-batch-approve="'+esc(ids)+'">Approve all '+B.length+'</button><button class="btn" style="padding:0 14px;margin-left:8px" data-batch-skip="'+esc(ids)+'">Skip all</button></div><div class="cards">';
+    B.forEach(function(r){h+=cardHTML(r);});h+='</div></div></details>';});
   var hid=hiddenDupes(S.tab);
   if(hid.length){h+='<div class="dupnote">'+hid.length+' older card'+(hid.length>1?'s':'')+' hidden so you never send twice: '+hid.map(function(r){return esc(String(r.who||'').replace(/\s*\(.*?\)/g,''))+' (newer card shown)';}).join(', ')+'</div>';}
   return h;
@@ -1238,12 +1273,13 @@ function go(view, tab){
 (function fromHash(){var m=String(location.hash||'').replace('#','').split('/');if(VIEWS[m[0]]){S.view=m[0];if(m[0]==='approve'&&m[1]&&TABS.some(function(t){return t[0]===m[1];}))S.tab=m[1];if(m[0]==='home'&&m[1]&&HOMES.some(function(t){return t[0]===m[1];}))S.home=m[1];}})();
 
 /* ---------- events ---------- */
+document.addEventListener('toggle',function(e){var dd=e.target;if(!dd||!dd.classList||!dd.classList.contains('bmini'))return;if(dd.dataset.batch!==undefined)S.batchOpen=dd.open?dd.dataset.batch:'';else if(dd.id&&dd.id.indexOf('dsk-')===0)S.dskOpen=dd.open?dd.id.slice(4):(S.dskOpen===dd.id.slice(4)?'':S.dskOpen);},true);
 document.addEventListener('click',function(e){
   var t=e.target.closest('button,[data-ctx]');if(!t)return;
   if(t.closest('nav')){go(t.dataset.v);return;}
   if(t.closest('#pal'))return;
   if(t.dataset.goto){if(S.view==='home'&&isDesk()){S.tab=t.dataset.goto;S.sel={};S.editing=null;S.kf=0;render();var c2=document.querySelector('.dc2');if(c2)c2.scrollIntoView({block:'start',behavior:'smooth'});return;}go('approve',t.dataset.goto);return;}
-  if(t.dataset.home){if(S.view==='home'&&isDesk()){var sec=$('dsk-'+t.dataset.home);if(sec)sec.scrollIntoView({block:'start',behavior:'smooth'});return;}go('home',t.dataset.home);return;}
+  if(t.dataset.home){if(S.view==='home'&&isDesk()){var sec=$('dsk-'+t.dataset.home);if(sec){S.dskOpen=t.dataset.home;if(sec.tagName==='DETAILS')sec.open=true;sec.scrollIntoView({block:'start',behavior:'smooth'});}return;}go('home',t.dataset.home);return;}
   if(t.dataset.pstage!==undefined){S.pstage=S.pstage===t.dataset.pstage?'':t.dataset.pstage;render();return;}
   if(t.dataset.desk!==undefined){S.desk=S.desk===t.dataset.desk?'':t.dataset.desk;render();return;}
   if(t.dataset.cstage!==undefined){S.cstage=S.cstage===t.dataset.cstage?'':t.dataset.cstage;render();return;}
@@ -1262,6 +1298,8 @@ document.addEventListener('click',function(e){
   if(t.dataset.bf){S.bf=t.dataset.bf;refreshBrandList();return;}
   if(t.dataset.task){var on=!tasksToday()[t.dataset.task];buzz();enqueue('task',{date:today(),task:t.dataset.task,done:on});if(on)toast('Nice. Ticked.',false);return;}
   if(t.dataset.kind){var was=S.kind;S.kind=t.dataset.kind;if(was==='idea'||S.kind==='idea'){render();if(S.kind==='idea'&&$('ideaText'))$('ideaText').focus();return;}[].forEach.call(document.querySelectorAll('[data-kind]'),function(b){b.setAttribute('aria-pressed',b.dataset.kind===S.kind);});return;}
+  if(t.dataset.batchApprove){decide(t.dataset.batchApprove.split(','),'approve');return;}
+  if(t.dataset.batchSkip){decide(t.dataset.batchSkip.split(','),'skip');return;}
   if(t.hasAttribute('data-selall')){var list=waiting(S.tab),all=list.every(function(r){return S.sel[r.id];});list.forEach(function(r){S.sel[r.id]=!all;});render();return;}
   if(t.dataset.sel){S.sel[t.dataset.sel]=!S.sel[t.dataset.sel];render();return;}
   var card=t.closest('.card');if(!card)return;var id=card.dataset.id;
