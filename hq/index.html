@@ -295,8 +295,8 @@ body.infilm header,body.infilm nav,body.infilm #hqGlobe{display:none}
 .upnext button{flex:none;width:132px;height:150px;border-radius:20px;background-size:cover;background-position:center;position:relative;overflow:hidden;color:#fff;text-align:left;display:flex;flex-direction:column;justify-content:flex-end;padding:12px;border:0;box-shadow:var(--shadow);background-color:var(--s3)}
 .upnext button:before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(14,47,36,0) 30%,rgba(14,47,36,.92))}.upnext button>*{position:relative}.upnext small{font-size:10px;font-weight:800;color:#C9B59C;letter-spacing:.1em}.upnext b{display:block;font-size:14px;font-weight:800;line-height:1.15;margin:2px 0}.upnext span{font-size:11px;color:#d6dfd8}.upnext button.done{opacity:.55}.upnext button.done b{text-decoration:line-through}
 /* Home segments: Today, Pipeline, Content, Week */
-.hseg{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;background:#e9ece6;border-radius:999px;padding:4px;margin-top:12px}
-.hseg button{height:38px;border-radius:999px;border:0;background:transparent;font-weight:700;font-size:12.5px;color:var(--muted)}
+.hseg{display:grid;grid-template-columns:repeat(5,1fr);gap:4px;background:#e9ece6;border-radius:999px;padding:4px;margin-top:12px}
+.hseg button{height:38px;border-radius:999px;border:0;background:transparent;font-weight:700;font-size:11.5px;color:var(--muted)}
 .hseg button[aria-pressed=true]{background:#fff;color:var(--accent);box-shadow:var(--shadow)}
 /* run sheet */
 .rs{display:flex;flex-direction:column;gap:10px}
@@ -353,6 +353,23 @@ body.infilm header,body.infilm nav,body.infilm #hqGlobe{display:none}
 .review{margin-top:12px;background:#fff;border-radius:20px;padding:16px;box-shadow:var(--shadow)}.review small{font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);font-weight:700}.review p{margin:8px 0 0;font-size:14px;line-height:1.5;white-space:pre-wrap}
 .rvrow{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}.rvrow div{background:#f4f6f2;border-radius:14px;padding:10px 12px;font-size:13px}.rvrow div b{display:block;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:4px}.rvrow .more b{color:var(--ok)}.rvrow .less b{color:var(--bad)}
 .streakrow{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+
+/* scoreboard v2 (Level 7 move 3, Nov 8): funnel this week vs last, stale deals, desk feed */
+.funnel{margin-top:12px;background:#fff;border-radius:20px;box-shadow:var(--shadow);overflow:hidden}
+.funnel .fr{display:grid;grid-template-columns:1.4fr .8fr .8fr .9fr;gap:6px;padding:10px 14px;border-top:1px solid #eef1ec;align-items:center;font-size:13px}
+.funnel .fr:first-child{border-top:0;background:#f4f6f2;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.funnel .fr b{font-size:16px;font-weight:800}.funnel .fr .lw{color:var(--muted);font-weight:600}.funnel .fr .dl{font-size:11.5px;font-weight:800;border-radius:999px;padding:3px 8px;text-align:center}
+.funnel .dl.up{background:#e3efe3;color:var(--ok)}.funnel .dl.dn{background:#f3e3df;color:var(--bad)}.funnel .dl.fl{background:#eef1ec;color:var(--muted)}
+.funnel .fr .nm{font-weight:700}.funnel .fr .nm small{display:block;font-size:10.5px;color:var(--muted);font-weight:600;margin-top:1px}
+.leak{margin-top:12px;background:var(--accent);color:#fff;border-radius:20px;padding:14px 16px;box-shadow:var(--shadow)}.leak small{display:block;font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;opacity:.75;font-weight:700}.leak b{display:block;font-size:16px;margin-top:4px;line-height:1.35}.leak span{display:block;font-size:12.5px;opacity:.85;margin-top:4px;line-height:1.4}
+.deal .age{display:inline-block;font-size:10.5px;font-weight:800;border-radius:999px;padding:2px 7px;margin-left:6px;background:#eef1ec;color:var(--muted)}.deal .age.stale{background:#f3e3df;color:var(--bad)}
+.deal .own{font-size:11px;color:var(--muted);font-weight:600}
+.deskrow{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:12px}
+.deskrow button{background:#fff;border:0;border-radius:14px;padding:10px 4px;box-shadow:var(--shadow);text-align:center}.deskrow b{display:block;font-size:13px;font-weight:800}.deskrow span{display:block;font-size:10px;color:var(--muted);font-weight:600;margin-top:2px}
+.deskrow button.quiet{opacity:.55}.deskrow button[aria-pressed=true]{outline:2px solid var(--accent)}.deskrow button.stuck b{color:var(--bad)}
+.feed{margin-top:12px}.fe{background:#fff;border-radius:16px;padding:10px 14px;box-shadow:var(--shadow);display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:start;margin-top:6px}
+.fe .dk{font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;border-radius:999px;padding:4px 7px;background:#eef1ec;color:var(--accent);margin-top:2px;min-width:52px;text-align:center}
+.fe .ev{font-size:13.5px;line-height:1.4}.fe .ev b{font-weight:800}.fe .ev .ty{font-weight:800;color:var(--accent)}.fe .ev .ty.bad{color:var(--bad)}.fe .ev .ty.ok{color:var(--ok)}.fe .wh{font-size:11px;color:var(--muted);margin-top:2px;font-weight:600}
 
 .dupnote{margin:10px 2px 0;font-size:12px;color:var(--muted);line-height:1.4}
 /* ---------- Desktop: Command Desk (David's pick, Nov 6 2026). Nothing below 1100px changes. ---------- */
@@ -461,7 +478,7 @@ var MONEY = [
   ['calls','Calls','Take booked calls, book new ones']
 ];
 var VIEWS = {home:'CEO Dashboard',approve:'Approve',brands:'Brands',links:'Links',done:'Done',film:'Film Mode'};
-var HOMES=[['today','Today'],['pipeline','Pipeline'],['content','Content'],['week','Week']];
+var HOMES=[['today','Today'],['pipeline','Pipeline'],['content','Content'],['week','Scoreboard'],['desks','Desks']];
 /* S.base = last snapshot from the server. S.data = S.base with every not-yet-saved change on top (what you see). */
 var S = {base:null, data:null, view:'home', home:'today', pstage:'', cstage:'', tab:'dms', sel:{}, editing:null, kind:'idea', vault:null, bf:'active', bq:'', bopen:{}, kf:0};
 
@@ -744,6 +761,7 @@ function homeHTML(){
   if(S.home==='pipeline')return h+pipelineHTML();
   if(S.home==='content')return h+contentHTML();
   if(S.home==='week')return h+weekHTML();
+  if(S.home==='desks')return h+desksHTML();
   h+=runHTML()+moneyGateHTML(st,t);
   h+='<h2>Waiting on you<small>'+waiting().length+' total</small></h2><div class="wait">';
   TABS.forEach(function(tb){var n=waiting(tb[0]).length;h+='<button class="'+(n?'has':'')+'" data-goto="'+tb[0]+'"><b>'+n+'</b><span>'+tb[1]+'</span></button>';});
@@ -772,7 +790,7 @@ function deskHomeHTML(){
   var h='<div class="dsk"><section class="dc1"><div class="hdrow"><div><h1>'+greet()+', David</h1><p class="sub">'+esc(dateLabel)+'. Your 3 jobs: film, calls, send.</p></div></div>';
   h+=runHTML()+moneyGateHTML(st,t)+'</section>';
   h+='<section class="dc2"><h2 style="margin-top:4px">Approve<small>'+waiting().length+' waiting</small></h2>'+approveHTML()+'</section>';
-  h+='<section class="dc3">'+moneyBarHTML(st)+'<div id="dsk-pipeline">'+pipelineHTML(true)+'</div><div id="dsk-content">'+contentHTML()+'</div><div id="dsk-week">'+weekHTML()+'</div>';
+  h+='<section class="dc3">'+moneyBarHTML(st)+'<div id="dsk-pipeline">'+pipelineHTML(true)+'</div><div id="dsk-content">'+contentHTML()+'</div><div id="dsk-week">'+weekHTML()+'</div><div id="dsk-desks">'+desksHTML()+'</div>';
   h+='<h2>Waiting on you<small>'+waiting().length+' total</small></h2><div class="wait">';
   TABS.forEach(function(tb){var n=waiting(tb[0]).length;h+='<button class="'+(n?'has':'')+'" data-goto="'+tb[0]+'"><b>'+n+'</b><span>'+tb[1]+'</span></button>';});
   h+='</div>'+numbersHTML(st)+'</section></div>';
@@ -785,7 +803,9 @@ function deskHomeHTML(){
    run:<date>   {blocks:[{id,time,title,kind,todos:[{id,t,done,go}]}]} Daily run sheet (default below if missing)
    deals        [{id,who,stage,value,next,due,paidAt}]                stages lead, call, paid, onboarded, renewal
    content      [{id,title,kind,stage,owner,due}]                     stages idea, scripted, filmed, edited, qc, ready, posted
-   targets      {reels,dms,calls,usd}   review:<monday> {text,more,less}   money:<YYYY-MM> US$ closed */
+   targets      {reels,dms,calls,usd}   review:<monday> {text,more,less,at}   money:<YYYY-MM> US$ closed
+   deals extras (Nov 8): stageAt, owner, source, leadAt, callAt, heldAt, paidAt, lastTouch. feed [{at,desk,who,ev,next,link,usd}]
+   scoreboard:<monday> snapshot by the Sunday routine. db:feed:log:<ts>-<desk> single events from routines. */
 function stat(k,fb){var r=S.data&&S.data.stats&&S.data.stats[k];if(!r||r.value==null||r.value==='')return fb;try{return JSON.parse(r.value);}catch(e){return fb;}}
 function setStat(k,obj){enqueue('setStat',{k:k,value:JSON.stringify(obj)});}
 function nowHM(){return new Intl.DateTimeFormat('en-GB',{timeZone:TZ,hour:'2-digit',minute:'2-digit',hour12:false}).format(new Date());}
@@ -890,7 +910,7 @@ function filmHTML(){
 }
 
 var PSTAGES=[['lead','Leads'],['call','Call booked'],['paid','Paid'],['onboarded','Onboarded'],['renewal','Renewal due']];
-function deals(){var d=stat('deals',[]);if(!Array.isArray(d))d=[];
+function deals(all){var d=stat('deals',[]);if(!Array.isArray(d))d=[];if(!all)d=d.filter(function(x){return x&&x.stage!=='lost'&&!(x.kind==='guide'&&x.stage!=='lead'&&x.stage!=='call');});
   /* hot waiting DMs count as leads until Hunter logs them */
   var ids={};d.forEach(function(x){ids[String(x.who).toLowerCase()]=1;});
   waiting().forEach(function(r){if(r.priority==='hot'&&!ids[String(r.who).toLowerCase()])d.push({id:'q-'+r.id,who:r.who,stage:'lead',value:0,next:'Reply to the hot DM',due:today(),fromQueue:true,tab:r.tab});});
@@ -904,7 +924,7 @@ function pipelineHTML(noBar){
   h+='<h2>'+(S.pstage?esc((PSTAGES.filter(function(s){return s[0]===S.pstage;})[0]||['',''])[1]):'Next step for each')+'<small>'+L.length+'</small></h2>';
   if(!L.length)return h+'<div class="empty">Nothing here yet. Hunter, Grace and Ledger fill this in.</div>';
   h+='<div class="cards">';
-  L.forEach(function(x){var late=x.due&&x.due<today();h+='<div class="deal'+(late?' late':'')+'"><div><div class="w">'+esc(x.who)+'</div><div class="n">'+(x.next?'Next: <b>'+esc(x.next)+'</b>':'')+(x.due?' . '+(late?'<b>late, '+esc(fmtD(x.due))+'</b>':'by '+esc(fmtD(x.due))):'')+'</div></div><div class="v">'+(x.value?'US$'+num(x.value):'')+'<small>'+esc((PSTAGES.filter(function(s){return s[0]===x.stage;})[0]||['',x.stage])[1])+'</small></div></div>';});
+  L.forEach(function(x){var late=x.due&&x.due<today(),ag=ageDays(stageAt(x)),stl=(x.stage==='lead'||x.stage==='call')&&ag!=null&&ag>=2;h+='<div class="deal'+(late||stl?' late':'')+'"><div><div class="w">'+esc(x.who)+(ag!=null?'<span class="age'+(stl?' stale':'')+'">'+ag+'d</span>':'')+(x.owner?' <span class="own">'+esc(x.owner)+'</span>':'')+'</div><div class="n">'+(x.next?'Next: <b>'+esc(x.next)+'</b>':'')+(x.due?' . '+(late?'<b>late, '+esc(fmtD(x.due))+'</b>':'by '+esc(fmtD(x.due))):'')+'</div></div><div class="v">'+(x.value?'US$'+num(x.value):'')+'<small>'+esc((PSTAGES.filter(function(s){return s[0]===x.stage;})[0]||['',x.stage])[1])+'</small></div></div>';});
   return h+'</div>';
 }
 
@@ -927,22 +947,99 @@ function contentHTML(){
 }
 
 function postedWeek(mon,sun){var C=stat('content',[]);if(!Array.isArray(C))return 0;return C.filter(function(x){if(x.stage!=='posted')return false;var k=String(x.kind||'');if(!/reel|trial/i.test(k))return false;var at=String(x.updatedAt||x.due||'').slice(0,10);return at>=mon&&at<=sun;}).length;}
+/* ---------- Scoreboard v2 + Desks feed (Level 7 move 3, Nov 8 2026) ----------
+   Reads only what already exists: deals, content, queue cards, money:<YYYY-MM>, plus
+   feed = [{at,desk,who,ev,next}] (mirror of Drive doc "00 LIVE FEED", written by the Feed mirror routine)
+   and db:feed:log:<ts>-<desk> rows (routines may write events straight into the sheet).
+   scoreboard:<monday> = snapshot the Sunday routine writes; the page prefers its own live math. */
+function feed(){
+  var out=[],F=stat('feed',[]);if(Array.isArray(F))F.forEach(function(x){if(x&&x.at)out.push(x);});
+  var st=(S.data&&S.data.stats)||{};Object.keys(st).forEach(function(k){if(k.indexOf('db:feed:log:')!==0)return;try{var v=JSON.parse(st[k].value||'{}');if(v&&v.at)out.push(v);}catch(e){}});
+  var seen={};out=out.filter(function(x){var id=String(x.at).slice(0,16)+'|'+String(x.desk)+'|'+String(x.who||'')+'|'+String(x.ev||'');if(seen[id])return false;seen[id]=1;return true;});
+  return out.sort(function(a,b){return String(b.at).localeCompare(String(a.at));});
+}
+function inWeek(iso,mon,sun){var k=String(iso||'').slice(0,10);return k>=mon&&k<=sun;}
+function weekStats(mon){
+  var sun=addDays(mon,6),D=deals(true),C=stat('content',[]),F=feed(),out={};
+  if(!Array.isArray(C))C=[];
+  out.reels=C.filter(function(x){return x.stage==='posted'&&/reel|trial/i.test(String(x.kind||''))&&inWeek(x.updatedAt||x.due,mon,sun);}).length;
+  var fs=0;for(var i=0;i<7;i++){var k=addDays(mon,i),f=stat('filmstate:'+k,{}),n=Object.keys(f).filter(function(x){return f[x];}).length;fs+=n||(tasksOn(k).film?1:0);}out.reels=Math.max(out.reels,fs);
+  out.dms=0;q().forEach(function(r){var at=String(r.sentAt||r.decidedAt||'');if((r.status==='sent'||r.status==='approved')&&inWeek(at,mon,sun))out.dms++;});
+  out.dms=Math.max(out.dms,F.filter(function(x){return /^(DM|SENT)$/i.test(String(x.ev))&&inWeek(x.at,mon,sun);}).length);
+  out.leads=D.filter(function(x){return inWeek(x.leadAt||x.createdAt||(x.stage==='lead'?x.due:''),mon,sun);}).length;
+  out.leads=Math.max(out.leads,F.filter(function(x){return /^NEW$/i.test(String(x.ev))&&inWeek(x.at,mon,sun);}).length);
+  out.booked=D.filter(function(x){return inWeek(x.callAt||x.bookedAt||(x.stage==='call'?x.due:''),mon,sun);}).length;
+  out.booked=Math.max(out.booked,F.filter(function(x){return /^BOOKED$/i.test(String(x.ev))&&inWeek(x.at,mon,sun);}).length);
+  out.held=D.filter(function(x){return inWeek(x.heldAt,mon,sun);}).length;
+  out.held=Math.max(out.held,F.filter(function(x){return /^CALL DONE$/i.test(String(x.ev))&&inWeek(x.at,mon,sun);}).length);
+  var isGuide=function(x){return x.kind==='guide'||(Number(x.value)>0&&Number(x.value)<100);};
+  var paidAll=D.filter(function(x){return (x.stage==='paid'||x.stage==='onboarded'||x.stage==='renewal')&&inWeek(x.paidAt,mon,sun);}),paid=paidAll.filter(function(x){return !isGuide(x);}),guides=paidAll.filter(isGuide);
+  out.paid=paid.length;out.usd=paid.reduce(function(a,x){return a+(Number(x.value)||0);},0);out.guides=guides.length;out.guideUsd=guides.reduce(function(a,x){return a+(Number(x.value)||0);},0);
+  out.lost=D.filter(function(x){return x.stage==='lost'&&inWeek(x.lostAt||x.stageAt||x.updatedAt,mon,sun);}).length;
+  var fp=F.filter(function(x){return /^(PAID|WON)$/i.test(String(x.ev))&&inWeek(x.at,mon,sun);});
+  if(fp.length>out.paid){out.paid=fp.length;out.usd=Math.max(out.usd,fp.reduce(function(a,x){return a+(Number(String(x.usd||x.next||'').replace(/[^0-9.]/g,''))||0);},0));}
+  out.show=out.booked?Math.round(out.held/out.booked*100):0;out.close=out.held?Math.round(out.paid/out.held*100):0;out.perCall=out.held?Math.round(out.usd/out.held):0;
+  return out;
+}
+function stageAt(x){return x.stageAt||x.updatedAt||x.callAt||x.paidAt||x.leadAt||'';}
+function ageDays(iso){if(!iso)return null;var t=Date.parse(iso);if(isNaN(t)){var k=String(iso).slice(0,10);if(/^\d{4}-\d{2}-\d{2}$/.test(k))t=Date.parse(k+'T12:00:00Z');}if(isNaN(t))return null;return Math.max(0,Math.floor((Date.now()-t)/864e5));}
+function staleDeals(){return deals().filter(function(x){if(x.stage!=='lead'&&x.stage!=='call')return false;var a=ageDays(stageAt(x)||x.due);return (a!=null&&a>=2)||(x.due&&x.due<today());});}
 function weekHTML(){
   var mon=monday(),days=[];for(var i=0;i<7;i++)days.push(addDays(mon,i));
   var T=stat('targets',{reels:35,dms:50,calls:5,usd:25000});
-  var reels=0,dmsN=0,calls=0,filmDays=0;
-  days.forEach(function(k){var f=stat('film:'+k,null),fs=stat('filmstate:'+k,{}),n=Object.keys(fs).filter(function(x){return fs[x];}).length;var t=tasksOn(k);if(t.film)filmDays++;reels+=n||(t.film?(f&&f.shots?0:1):0);if(t.calls)calls++;});reels=Math.max(reels,postedWeek(mon,days[6]));
-  q().forEach(function(r){var at=String(r.sentAt||r.decidedAt||'').slice(0,10);if((r.status==='sent'||r.status==='approved')&&at>=mon&&at<=days[6])dmsN++;});
+  var W=weekStats(mon),P=weekStats(addDays(mon,-7)),snap=stat('scoreboard:'+mon,null);
+  var filmDays=0;days.forEach(function(k){if(tasksOn(k).film)filmDays++;});
   var row=(S.data.stats||{})['money:'+today().slice(0,7)],usd=row?Number(String(row.value).replace(/[^0-9.]/g,'')):0;
   var di=(days.indexOf(today())+1)||7,pace=function(v,t){return Math.round(t*di/7)<=v;};
-  function card(k,label,v,t,fmtv){var p=t?Math.min(100,Math.round(v/t*100)):0;return '<div class="sc'+(v>=t?' hit':'')+'"><small>'+label+'</small><b>'+(fmtv?fmtv(v):v)+' <em>/ '+(fmtv?fmtv(t):t)+'</em></b><div class="track"><i style="width:'+p+'%"></i></div><div class="pace">'+(v>=t?'Target hit':pace(v,t)?'On pace':'Behind pace, day '+di+' of 7')+'</div></div>';}
-  var h='<h2 style="margin-top:14px">This week<small>'+esc(new Intl.DateTimeFormat('en-US',{timeZone:'UTC',month:'short',day:'numeric'}).format(new Date(mon+'T12:00:00Z')))+' to '+esc(new Intl.DateTimeFormat('en-US',{timeZone:'UTC',month:'short',day:'numeric'}).format(new Date(days[6]+'T12:00:00Z')))+'</small></h2><div class="score">';
-  h+=card('reels','Reels filmed',reels,T.reels)+card('dms','DMs sent',dmsN,T.dms)+card('calls','Call days',calls,T.calls)+card('usd','US$ this month',usd,T.usd,function(v){return 'US$'+short(v);});
-  h+='</div><div class="streakrow"><span class="chipx">Film streak '+filmStreak()+' day'+(filmStreak()===1?'':'s')+'</span><span class="chipx">'+filmDays+' of '+di+' days filmed</span></div>';
+  function card(label,v,t,fmtv){var p=t?Math.min(100,Math.round(v/t*100)):0;return '<div class="sc'+(v>=t?' hit':'')+'"><small>'+label+'</small><b>'+(fmtv?fmtv(v):v)+' <em>/ '+(fmtv?fmtv(t):t)+'</em></b><div class="track"><i style="width:'+p+'%"></i></div><div class="pace">'+(v>=t?'Target hit':pace(v,t)?'On pace':'Behind pace, day '+di+' of 7')+'</div></div>';}
+  var h='<h2 style="margin-top:14px">Scoreboard<small>'+esc(fmtD(mon))+' to '+esc(fmtD(days[6]))+'</small></h2><div class="score">';
+  h+=card('Reels posted',W.reels,T.reels)+card('DMs sent',W.dms,T.dms)+card('Calls held',W.held,T.calls)+card('US$ this month',usd,T.usd,function(v){return 'US$'+short(v);});
+  h+='</div>';
+  /* funnel: this week vs last week. The leak = the biggest drop between steps. */
+  function delta(a,b,pct){if(!b&&!a)return '<span class="dl fl">same</span>';if(!b)return '<span class="dl up">new</span>';var d=a-b;if(!d)return '<span class="dl fl">same</span>';return '<span class="dl '+(d>0?'up':'dn')+'">'+(d>0?'+':'')+(pct?d+' pts':d)+'</span>';}
+  var rows=[['Reels posted','content that starts it',W.reels,P.reels],['DMs sent','conversations opened',W.dms,P.dms],['New leads','people with a buying signal',W.leads,P.leads],['Calls booked','fit calls on the calendar',W.booked,P.booked],['Calls held','showed up',W.held,P.held],['Paid','money seen at the source',W.paid,P.paid]];
+  h+='<div class="funnel"><div class="fr"><span>Step</span><span>This wk</span><span>Last wk</span><span>Change</span></div>';
+  rows.forEach(function(r){h+='<div class="fr"><span class="nm">'+r[0]+'<small>'+r[1]+'</small></span><b>'+r[2]+'</b><span class="lw">'+r[3]+'</span>'+delta(r[2],r[3])+'</div>';});
+  h+='<div class="fr"><span class="nm">Show rate<small>held / booked</small></span><b>'+W.show+'%</b><span class="lw">'+P.show+'%</span>'+delta(W.show,P.show,true)+'</div>';
+  h+='<div class="fr"><span class="nm">Close rate<small>paid / held</small></span><b>'+W.close+'%</b><span class="lw">'+P.close+'%</span>'+delta(W.close,P.close,true)+'</div>';
+  h+='<div class="fr"><span class="nm">US$ closed<small>US$'+num(W.perCall)+' per call held</small></span><b>US$'+short(W.usd)+'</b><span class="lw">US$'+short(P.usd)+'</span>'+delta(W.usd,P.usd)+'</div></div>';
+  /* pace to US$100K a month: about US$23K a week. Calls needed next week = gap / (US$ per call held, or US$600 default) */
+  var wkTarget=Math.round(100000*7/30.4),gap=Math.max(0,wkTarget-W.usd),perCall=W.perCall||P.perCall||600,callsNeeded=Math.ceil(gap/perCall);
+  h+='<div class="funnel" style="margin-top:8px"><div class="fr" style="grid-template-columns:1fr auto"><span>Pace</span><span>US$100K a month = US$'+short(wkTarget)+' a week</span></div>';
+  h+='<div class="fr" style="grid-template-columns:1fr auto;background:#fff;font-size:13px"><span class="nm">Calls to hold next week to stay on pace<small>at US$'+num(perCall)+' per call held'+(W.perCall?'':' (no closes yet, using US$600)')+'</small></span><b>'+callsNeeded+'</b></div>';
+  if(W.guides)h+='<div class="fr" style="grid-template-columns:1fr auto;background:#fff;font-size:13px"><span class="nm">Guides sold<small>US$49.97 buyers, warm list for coaching</small></span><b>'+W.guides+' <em style="font-style:normal;font-size:12px;color:var(--muted)">US$'+num(W.guideUsd)+'</em></b></div>';
+  if(W.lost)h+='<div class="fr" style="grid-template-columns:1fr auto;background:#fff;font-size:13px"><span class="nm">Lost<small>closed with a reason</small></span><b>'+W.lost+'</b></div>';
+  h+='</div>';
+  /* the leak: where the most people fell out this week */
+  var steps=[['reels',W.reels,'DMs',W.dms,'Reels are posting but DMs are not opening. More CTAs that ask for a reply, and Hunter sweeps every comment.'],['DMs',W.dms,'leads',W.leads,'DMs go out but few turn into leads. Check the funnel questions, and that the sweep reads every reply.'],['leads',W.leads,'calls booked',W.booked,'Leads are not booking. Offer 2 to 3 same-day times in their zone, every time.'],['calls booked',W.booked,'calls held',W.held,'People book and do not show. Confirm the morning of, and send the Meet link twice.'],['calls held',W.held,'paid',W.paid,'Calls happen but do not close. Review the Fathom notes: price objection or fit? Follow up within 24h.']];
+  var leak=null;steps.forEach(function(st){if(st[1]>0){var drop=st[1]-st[3];if(!leak||drop>leak.drop)leak={drop:drop,s:st};}});
+  var stale=staleDeals();
+  if(leak&&leak.drop>0)h+='<div class="leak"><small>Biggest leak this week</small><b>'+leak.s[1]+' '+leak.s[0]+' became '+leak.s[3]+' '+leak.s[2]+'.</b><span>'+leak.s[4]+'</span></div>';
+  else if(!W.reels&&!W.dms&&!W.leads&&!W.booked&&!W.held&&!W.paid)h+='<div class="leak"><small>Scoreboard</small><b>No numbers logged yet this week.</b><span>Desks log to the live feed and the deals row. Sunday night the review writes itself from them.</span></div>';
+  h+='<div class="streakrow"><span class="chipx">Film streak '+filmStreak()+' day'+(filmStreak()===1?'':'s')+'</span><span class="chipx">'+filmDays+' of '+di+' days filmed</span><span class="chipx'+(stale.length?' warn':'')+'">'+stale.length+' deal'+(stale.length===1?'':'s')+' need a push</span></div>';
+  if(stale.length){h+='<h2>Needs a push<small>2+ days with no step</small></h2><div class="cards">';stale.slice(0,8).forEach(function(x){var a=ageDays(stageAt(x)||x.due);h+='<div class="deal late"><div><div class="w">'+esc(x.who)+'<span class="age stale">'+(a==null?'no date':a+'d')+'</span></div><div class="n">'+(x.next?'Next: <b>'+esc(x.next)+'</b>':'<b>No next step logged</b>')+(x.owner?' . '+esc(x.owner):'')+'</div></div><div class="v">'+(x.value?'US$'+num(x.value):'')+'<small>'+esc((PSTAGES.filter(function(s){return s[0]===x.stage;})[0]||['',x.stage])[1])+'</small></div></div>';});h+='</div>';}
+  var FF=feed(),lastF=FF[0]?fmtWhen(FF[0].at):'never',noNext=deals().filter(function(x){return (x.stage==='lead'||x.stage==='call')&&!x.next;}).length,sy=stat('deals:sync',null);
+  h+='<p class="dupnote">Data: deals synced '+(sy&&sy.at?esc(fmtWhen(sy.at)):'not yet')+' . feed updated '+esc(lastF)+' . '+noNext+' open deal'+(noNext===1?'':'s')+' with no next step. Missing numbers show as 0 until the desks and routines log them.</p>';
   var R=stat('review:'+mon,null)||stat('review:'+addDays(mon,-7),null);
-  h+='<div class="review"><small>'+(R?'Sunday review':'Sunday review')+'</small>';
-  if(R){if(R.text)h+='<p>'+esc(R.text)+'</p>';if(R.more||R.less)h+='<div class="rvrow"><div class="more"><b>More of this</b>'+esc(R.more||'')+'</div><div class="less"><b>Less of this</b>'+esc(R.less||'')+'</div></div>';}
-  else h+='<p class="sub" style="margin-top:6px">Sterling writes this every Sunday night from Vault views and the week\'s numbers: what to do more of, and what to drop.</p>';
+  h+='<div class="review"><small>Sunday review</small>';
+  if(R){if(R.text)h+='<p>'+esc(R.text)+'</p>';if(R.more||R.less)h+='<div class="rvrow"><div class="more"><b>More of this</b>'+esc(R.more||'')+'</div><div class="less"><b>Less of this</b>'+esc(R.less||'')+'</div></div>';if(R.move)h+='<p style="margin-top:10px"><b>This week, do this:</b> '+esc(R.move)+'</p>';if(R.at)h+='<p class="sub" style="margin-top:8px;font-size:11.5px">Written '+esc(fmtWhen(R.at))+'</p>';}
+  else h+='<p class="sub" style="margin-top:6px">Writes itself every Sunday 8pm from this scoreboard, the deals row and the desk feed: what to do more of, what to drop, one move for next week.</p>';
+  return h+'</div>';
+}
+var DESKS=[['Sterling','ops'],['Hunter','sales'],['Grace','clients'],['Ledger','money'],['Sage','content'],['Blair','brand'],['Haven','personal'],['Router','auto']];
+function desksHTML(){
+  var F=feed(),now=Date.now();
+  var h='<h2 style="margin-top:14px">Desks, live<small>'+F.length+' events</small></h2><p class="sub">Every desk logs what it starts, books, closes or gets stuck on. Newest first. Tap a desk to filter.</p>';
+  h+='<div class="deskrow">';
+  DESKS.forEach(function(d){var L=F.filter(function(x){return String(x.desk||'').toLowerCase()===d[0].toLowerCase();}),last=L[0],age=last?(now-Date.parse(last.at)):null,stuck=L.slice(0,5).some(function(x){return /STUCK/i.test(String(x.ev));});
+    var when=last?(age<3600e3?Math.max(1,Math.round(age/60e3))+'m ago':age<86400e3?Math.round(age/3600e3)+'h ago':Math.round(age/86400e3)+'d ago'):'quiet';
+    h+='<button data-desk="'+d[0]+'" aria-pressed="'+(S.desk===d[0])+'" class="'+(age==null||age>48*3600e3?'quiet':'')+(stuck?' stuck':'')+'"><b>'+d[0]+'</b><span>'+when+(stuck?' . stuck':'')+'</span></button>';});
+  h+='</div>';
+  var L=F.filter(function(x){return !S.desk||String(x.desk||'').toLowerCase()===S.desk.toLowerCase();}).slice(0,60);
+  if(!L.length)return h+'<div class="empty">No events yet. Desks write to the live feed doc; the mirror pulls it in here every hour.</div>';
+  h+='<div class="feed">';
+  L.forEach(function(x){var ev=String(x.ev||'').toUpperCase(),cls=/STUCK|OWED|LOST/.test(ev)?'bad':/PAID|WON|WIN|BOOKED|POSTED/.test(ev)?'ok':'';
+    h+='<div class="fe"><span class="dk">'+esc(x.desk||'')+'</span><div><div class="ev"><span class="ty '+cls+'">'+esc(ev)+'</span>'+(x.who?' <b>'+esc(x.who)+'</b>':'')+(x.next?' . '+esc(x.next):'')+'</div><div class="wh">'+esc(fmtWhen(x.at))+(x.link?' . <a href="'+esc(x.link)+'" target="_blank" rel="noopener">open</a>':'')+'</div></div></div>';});
   return h+'</div>';
 }
 
@@ -1136,6 +1233,7 @@ document.addEventListener('click',function(e){
   if(t.dataset.goto){if(S.view==='home'&&isDesk()){S.tab=t.dataset.goto;S.sel={};S.editing=null;S.kf=0;render();var c2=document.querySelector('.dc2');if(c2)c2.scrollIntoView({block:'start',behavior:'smooth'});return;}go('approve',t.dataset.goto);return;}
   if(t.dataset.home){if(S.view==='home'&&isDesk()){var sec=$('dsk-'+t.dataset.home);if(sec)sec.scrollIntoView({block:'start',behavior:'smooth'});return;}go('home',t.dataset.home);return;}
   if(t.dataset.pstage!==undefined){S.pstage=S.pstage===t.dataset.pstage?'':t.dataset.pstage;render();return;}
+  if(t.dataset.desk!==undefined){S.desk=S.desk===t.dataset.desk?'':t.dataset.desk;render();return;}
   if(t.dataset.cstage!==undefined){S.cstage=S.cstage===t.dataset.cstage?'':t.dataset.cstage;render();return;}
   if(t.dataset.blk){S.rsOpen=t.dataset.blk;render();var el=document.querySelector('details.blk');if(el)el.scrollIntoView({block:'start',behavior:'smooth'});return;}
   if(t.dataset.rs){var k='runstate:'+today(),cur=stat(k,{});cur[t.dataset.rs]=!cur[t.dataset.rs];buzz();S.rsOpen=t.dataset.rs.split('.')[0];setStat(k,cur);
@@ -1210,7 +1308,7 @@ var PAL={items:[],on:0};
 function palItems(qs){
   var out=[['Home','home'],['Approve','approve'],['Brands','brands'],['Links','links'],['Done','done']].map(function(x){return {t:x[0],k:'Page',run:function(){go(x[1]);}};});
   TABS.forEach(function(tb){out.push({t:'Approve: '+tb[1],k:waiting(tb[0]).length+' waiting',run:function(){go('approve',tb[0]);}});});
-  out.push({t:'Idea box',k:'Links',run:function(){S.kind='idea';go('links');}},{t:'Film Mode',k:'Page',run:function(){go('film');}},{t:'Pipeline',k:'Home',run:function(){go('home','pipeline');}},{t:'Content pipeline',k:'Home',run:function(){go('home','content');}},{t:'Week scoreboard',k:'Home',run:function(){go('home','week');}});
+  out.push({t:'Idea box',k:'Links',run:function(){S.kind='idea';go('links');}},{t:'Film Mode',k:'Page',run:function(){go('film');}},{t:'Pipeline',k:'Home',run:function(){go('home','pipeline');}},{t:'Content pipeline',k:'Home',run:function(){go('home','content');}},{t:'Scoreboard',k:'Home',run:function(){go('home','week');}},{t:'Desks live feed',k:'Home',run:function(){go('home','desks');}});
   out.push({t:"David's Day",k:'Page',run:function(){location.href='../day/';}},{t:'Business Maxing',k:'Page',run:function(){location.href='../maxing/';}},{t:'Content Vault',k:'Page',run:function(){location.href='../vault/';}});
   if(S.data){
     waiting().forEach(function(r){out.push({t:r.who,k:(TABS.filter(function(x){return x[0]===r.tab;})[0]||['',r.tab])[1],run:function(){go('approve',r.tab);}});});
