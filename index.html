@@ -352,6 +352,26 @@ p.dk-slogan,small.dk-slogan{font-size:15px!important}
 .dk-prow .p{flex:none;text-align:right;font-size:16px;font-weight:800;color:var(--beige);white-space:nowrap}
 .dk-prow .p small{display:block;font-size:11px;font-weight:600;color:rgba(237,230,220,.7)}
 @media (min-width:860px){.dk-pgrid{grid-template-columns:.95fr 1.05fr;gap:18px;align-items:start}}
+.dk-wins{margin-top:26px}
+.dk-wins .k{font-size:10.5px;font-weight:800;letter-spacing:.24em;text-transform:uppercase;color:var(--beige)}
+.dk-wins h2{font-size:clamp(22px,5vw,30px);font-weight:800;line-height:1.1;letter-spacing:-.02em;color:var(--white);margin-top:6px}
+.dk-wgrid{display:grid;gap:12px;margin-top:16px}
+.dk-win{padding:18px 18px 16px;border-radius:18px;background:rgba(237,230,220,.05);border:1px solid rgba(201,181,156,.22)}
+.dk-win .who{font-size:10.5px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--beige)}
+.dk-win .big{display:block;font-size:30px;font-weight:800;line-height:1;color:var(--white);margin-top:8px;letter-spacing:-.02em}
+.dk-win p{margin-top:8px;font-size:14px;line-height:1.5;color:rgba(237,230,220,.82)}
+.dk-faq{margin-top:26px}
+.dk-faq .k{font-size:10.5px;font-weight:800;letter-spacing:.24em;text-transform:uppercase;color:var(--beige)}
+.dk-faq h2{font-size:clamp(22px,5vw,30px);font-weight:800;line-height:1.1;letter-spacing:-.02em;color:var(--white);margin-top:6px}
+.dk-faq details{margin-top:10px;border-radius:16px;background:rgba(237,230,220,.05);border:1px solid rgba(201,181,156,.22);padding:0 16px}
+.dk-faq summary{cursor:pointer;list-style:none;padding:15px 0;font-size:15px;font-weight:700;color:var(--white);display:flex;justify-content:space-between;gap:12px}
+.dk-faq summary::-webkit-details-marker{display:none}
+.dk-faq summary::after{content:"+";color:var(--beige);font-weight:800;flex:none}
+.dk-faq details[open] summary::after{content:"\2013"}
+.dk-faq details p{padding:0 0 15px;font-size:14px;line-height:1.55;color:rgba(237,230,220,.82)}
+.dk-faq .contact{margin-top:14px;font-size:13.5px;color:rgba(237,230,220,.72)}
+.dk-faq .contact a{color:var(--beige);text-decoration:none;font-weight:700}
+@media (min-width:860px){.dk-wgrid{grid-template-columns:repeat(3,1fr);gap:14px}.dk-win .big{font-size:34px}}
 </style>
 <link rel="stylesheet" href="assets/seoul.css"><style>.dk-sv-wrap{display:block!important;padding:18px!important}.dk-sv-wrap .dk-sv{margin-top:0}.stat.wide.dk-sv-wrap b,.stat.wide.dk-sv-wrap span{display:inline;font-size:inherit;color:inherit;margin:0;letter-spacing:normal;line-height:inherit;font-weight:inherit}.stat.wide.dk-sv-wrap .dk-sv-line b,.stat.wide.dk-sv-wrap .dk-sv-row b{font-weight:800;color:var(--beige)}.stat.wide.dk-sv-wrap .dk-sv-row b{font-size:15px}.stat.wide.dk-sv-wrap .dk-sv-save b{font-size:30px;font-weight:800;color:var(--beige);line-height:1}.stat.wide.dk-sv-wrap .dk-sv-asof{font-size:.8em}</style>
 </head>
@@ -414,7 +434,7 @@ p.dk-slogan,small.dk-slogan{font-size:15px!important}
             <li>A clear plan for your next trip, travel or content</li>
           </ul>
           <a class="btn btn-em" href="https://stan.store/digitalwithdavidk/p/1-hour-consultation-l4btmsgu" target="_blank" rel="noopener">Book my call, US$147 <span class="arrow">&rarr;</span></a>
-          <p class="note">Pick your time and pay on the booking page. Only a few spots each week.</p>
+          <p class="note">Pick your time and pay on the booking page. Calls run 12pm to 8pm Central.</p>
         </div>
         <div class="dk-plist">
           <a class="dk-prow" href="https://stan.store/digitalwithdavidk/p/get-my-travel-hack-blueprint-now" target="_blank" rel="noopener"><span><b>The Travel Hacking Blueprint</b><span class="d">My full playbook. Lounges, cheaper business class, hotel perks.</span></span><span class="p">US$49.97<small>instant download</small></span></a>
@@ -424,6 +444,27 @@ p.dk-slogan,small.dk-slogan{font-size:15px!important}
           <a class="dk-prow" href="https://stan.store/digitalwithdavidk" target="_blank" rel="noopener"><span><b>Founders Circle Waitlist</b><span class="d">Get first access when my private community opens.</span></span><span class="p">Free<small>waitlist</small></span></a>
         </div>
       </div>
+    </section>
+    <section class="dk-wins" id="wins" aria-label="Client results">
+      <p class="k">Client results</p>
+      <h2>What clients walked away with</h2>
+      <div class="dk-wgrid">
+        <div class="dk-win"><span class="who">3 month client, Florian</span><b class="big">48,000 points</b><p>Business class, Frankfurt to New York, for 48,000 points plus US$547 in taxes. Cash price that day: CA$7,733.</p></div>
+        <div class="dk-win"><span class="who">1 hour client</span><b class="big">US$855 saved</b><p>Paid off a US$1,362 card live on a US$147 call. Skipped 5 years of minimum payments and US$855 in interest.</p></div>
+        <div class="dk-win"><span class="who">Blueprint reader, Trevor</span><b class="big">A suite</b><p>Sent one email with a tip from the Blueprint and got a suite at the W Fort Lauderdale.</p></div>
+      </div>
+    </section>
+    <section class="dk-faq" id="faq" aria-label="Questions">
+      <p class="k">Questions</p>
+      <h2>Before you book</h2>
+      <details><summary>Who is this for?</summary><p>Busy professionals in Canada or the US who spend money every month and want it to turn into business class flights and better trips. Good credit habits first, cards second.</p></details>
+      <details><summary>Canada or US?</summary><p>Both. I hold Canadian and US cards and build the plan around where you live and bank.</p></details>
+      <details><summary>Do I need good credit?</summary><p>No. If your credit needs work, we fix that first and pick the cards you can get now. Several clients started with zero cards or collections.</p></details>
+      <details><summary>What happens in the hour?</summary><p>One 60 minute video call. We go through your cards and spending live, pick your next card, and map your next trip or your first videos. You get your next steps written up after.</p></details>
+      <details><summary>Can I move or cancel a call?</summary><p>Yes. Move or cancel up to 24 hours before and keep your spot for another time. Inside 24 hours the call is used.</p></details>
+      <details><summary>Refunds?</summary><p>Guides are instant downloads, so no refunds. The hour is credited toward 3 Months if you start within 7 days. Coaching can be paid in full or in payments. No refunds after the first session.</p></details>
+      <details><summary>How fast do results show?</summary><p>Your card plan is ready on the call. Approvals usually take days. Welcome bonuses land in 1 to 3 months, which is when the first business class booking becomes possible.</p></details>
+      <p class="contact">Questions before you book: <a href="mailto:hello@digitalwithdavidk.com">hello@digitalwithdavidk.com</a></p>
     </section>
     <div class="dk-mission" id="mission" aria-label="Our mission">
       <p class="k">Our mission</p>
@@ -474,7 +515,7 @@ p.dk-slogan,small.dk-slogan{font-size:15px!important}
           <img src="images/site/about-david.jpg" alt="David Duong">
           <div>
             <h4>I take every call myself.</h4>
-            <p>No team, no bots. Just me and your plan. I only open a few call spots each week.</p>
+            <p>Every call is with me, live on video. Just me and your plan.</p>
           </div>
         </div>
         <div class="stats reveal" id="stats">
@@ -491,6 +532,8 @@ p.dk-slogan,small.dk-slogan{font-size:15px!important}
     <div class="fine">
       <button type="button" id="retake">Retake the quiz</button>
       <a href="https://www.instagram.com/digitalwithdavidk/" target="_blank" rel="noopener">Instagram @digitalwithdavidk</a>
+      <a href="#faq">Questions and refunds</a>
+      <a href="mailto:hello@digitalwithdavidk.com">hello@digitalwithdavidk.com</a>
       <a href="media-kit.html">For brands: media kit</a>
       <a href="hotel-packages.html">For hotels: packages</a>
     </div>
@@ -512,7 +555,7 @@ p.dk-slogan,small.dk-slogan{font-size:15px!important}
       <aside class="side">
         <div class="david reveal">
           <img src="images/site/about-david.jpg" alt="David Duong">
-          <div><h4>I take every call myself.</h4><p>Only a few spots each week.</p></div>
+          <div><h4>I take every call myself.</h4><p>Every call is with me, live on video.</p></div>
         </div>
         <div class="stats reveal">
           <div class="stat"><b>49.5K</b><span>Instagram followers</span></div>
@@ -523,6 +566,8 @@ p.dk-slogan,small.dk-slogan{font-size:15px!important}
       </aside>
     </div>
     <div class="fine"><a href="https://www.instagram.com/digitalwithdavidk/" target="_blank" rel="noopener">Instagram @digitalwithdavidk</a>
+      <a href="#faq">Questions and refunds</a>
+      <a href="mailto:hello@digitalwithdavidk.com">hello@digitalwithdavidk.com</a>
       <a href="media-kit.html">For brands: media kit</a>
       <a href="hotel-packages.html">For hotels: packages</a></div>
     <p class="dk-slogan">Make it look effortless.</p>
