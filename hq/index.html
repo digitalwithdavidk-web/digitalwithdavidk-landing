@@ -899,7 +899,7 @@ function fmtTime(hm){var p=String(hm).split(':'),h=Number(p[0]),m=p[1]||'00';ret
 function defaultRun(){
   /* David, Nov 11 2026: daily = post the main reel, post 5 trial reels, post the UGC. Filming is only a task when the buffer is below 3 (see bufferInfo). */
   return {blocks:[
-    {id:'post',time:'11:00',end:'12:00',title:'Post',kind:'post',todos:[{id:'p1',t:'Post the main reel (content creation CTA)'},{id:'p2',t:'Post the 5 trial reels (1 of the main, 4 remixes)'}]},
+    {id:'post',time:'11:00',end:'12:00',title:'Post',kind:'post',todos:[{id:'p1',t:'Post the main reel (content creation CTA)'},{id:'p2',t:'Post the 5 trial reels (1 of the main, 4 remixes)'},{id:'p3',t:'Post the carousel (CTA: comment HELP)'}]},
     {id:'ugc',time:'14:00',end:'17:00',title:'Post UGC',kind:'ugc',todos:[{id:'u1',t:'Post UGC: Yaay #1'},{id:'u2',t:'Post UGC: Yaay #2'},{id:'u3',t:'Post UGC: Vessi'},{id:'u4',t:'Post UGC: Odenson'}]}
   ]};
 }
