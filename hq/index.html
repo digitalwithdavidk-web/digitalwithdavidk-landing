@@ -795,9 +795,9 @@ function oneHTML(){
   var h='<div class="hdrow"><div><h1>'+greet()+', David</h1><p class="sub">'+esc(dateLabel)+'</p></div><img class="ava" src="../images/hero-business-class.jpg" alt=""></div>';
   h+=northBarHTML(st);
   var money=L.filter(function(x){return x.stage<3;}).length;
-  var lab={1:'1. Film, edit, post',2:'2. Clients',3:'3. Decisions'};
+  var lab={1:'1. Film, edit, post',2:'2. Clients',3:'3. Business optimization, unlocked'};
   if(!cur){
-    h+='<div class="empty" style="margin-top:14px"><b>Everything is done.</b><br>Film one extra for the buffer, or rest. Nothing is waiting on you.</div>';
+    h+='<div class="empty" style="margin-top:14px"><b>Everything is done.</b><br>Daily list done. Business optimization is unlocked.</div>';
   } else {
     h+='<h2>'+lab[cur.stage]+'<small>'+(cur.stage<3?money+' left':'optional, money tasks are done')+'</small></h2>';
     if(cur.card){h+='<div class="cards">'+cardHTML(cur.card,{noSelect:true})+'</div>';}
@@ -888,13 +888,11 @@ function fmtTime(hm){var p=String(hm).split(':'),h=Number(p[0]),m=p[1]||'00';ret
 
 /* default day in money-gate order. Sterling can overwrite with run:<date>. */
 function defaultRun(){
+  /* David's fixed daily list (Nov 11 2026): 1 main reel, 5 trials (1 of the main + 4 remixes), 1 carousel, all UGC deliverables. All CTAs = content creation. */
   return {blocks:[
-    {id:'film',time:'09:00',end:'11:00',title:'Film',kind:'film',todos:[{id:'f1',t:'Main reel (1 take, hook first)'},{id:'f2',t:'5 trial reels'},{id:'f3',t:'Carousel photos'},{id:'f4',t:'Drop files in DK Video Editor',go:'film'}]},
-    {id:'post',time:'11:00',end:'11:30',title:'Post',kind:'post',todos:[{id:'p1',t:'Post main reel + caption'},{id:'p2',t:'Post carousel'},{id:'p3',t:'Story with today\'s CTA'}]},
-    {id:'sweep',time:'12:34',end:'13:00',title:'48h follow-up sweep',kind:'dms',todos:[{id:'s1',t:'Send every follow-up card in Approve',go:'approve:dms'},{id:'s2',t:'Reply to hot leads first',go:'approve:dms'}]},
-    {id:'calls',time:'14:00',end:'16:00',title:'Calls',kind:'calls',todos:[{id:'c1',t:'Take booked calls'},{id:'c2',t:'Offer 2 same-day times to every warm lead'}]},
-    {id:'trials',time:'16:00',end:'17:00',title:'Trial reels + UGC',kind:'ugc',todos:[{id:'t1',t:'Post 5 trial reels'},{id:'t2',t:'Approve UGC drafts',go:'approve:ugc'}]},
-    {id:'close',time:'20:00',end:'20:30',title:'Close the day',kind:'close',todos:[{id:'e1',t:'Approve emails + China pitches',go:'approve:emails'},{id:'e2',t:'Tick money tasks',go:'home:today'}]}
+    {id:'film',time:'09:00',end:'11:00',title:'Film',kind:'film',todos:[{id:'f1',t:'Film 1 main reel (content creation CTA)'},{id:'f2',t:'Film 1 trial of the main reel'},{id:'f3',t:'Film 4 remix trial reels'},{id:'f4',t:'Shoot 1 carousel (CTA: comment HELP)'},{id:'f5',t:'Drop every file in DK Video Editor',go:'film'}]},
+    {id:'post',time:'11:00',end:'12:00',title:'Download and post',kind:'post',todos:[{id:'p1',t:'Post the main reel'},{id:'p2',t:'Post the 5 trial reels'},{id:'p3',t:'Post the carousel'}]},
+    {id:'ugc',time:'14:00',end:'17:00',title:'UGC deliverables',kind:'ugc',todos:[{id:'u1',t:'UGC: Yaay #1'},{id:'u2',t:'UGC: Yaay #2'},{id:'u3',t:'UGC: Vessi'},{id:'u4',t:'UGC: Odenson'}]}
   ]};
 }
 function runToday(){var r=stat('run:'+today(),null);if(!r||!r.blocks)r=defaultRun();var st=stat('runstate:'+today(),{});r.blocks.forEach(function(b){b.todos.forEach(function(t){t.done=!!st[b.id+'.'+t.id];});b.n=b.todos.filter(function(t){return t.done;}).length;b.done=b.n===b.todos.length;});return r;}
@@ -1329,7 +1327,7 @@ document.addEventListener('click',function(e){
   if(t.dataset.cstage!==undefined){S.cstage=S.cstage===t.dataset.cstage?'':t.dataset.cstage;render();return;}
   if(t.dataset.blk){S.rsOpen=t.dataset.blk;render();var el=document.querySelector('details.blk');if(el)el.scrollIntoView({block:'start',behavior:'smooth'});return;}
   if(t.dataset.rs){var k='runstate:'+today(),cur=stat(k,{});cur[t.dataset.rs]=!cur[t.dataset.rs];buzz();S.rsOpen=t.dataset.rs.split('.')[0];setStat(k,cur);
-    var PM={'post.p1':/^Main reel|^Reel/i,'post.p2':/^Carousel/i,'trials.t1':/^Trial/i},pm=PM[t.dataset.rs];
+    var PM={'post.p1':/^Main reel|^Reel/i,'post.p2':/^Trial/i,'post.p3':/^Carousel/i},pm=PM[t.dataset.rs];
     if(pm)syncShots(filmToday().shots.filter(function(x){return pm.test(String(x.kind||''));}),'posted',!!cur[t.dataset.rs]);return;}
   if(t.dataset.hw){var hk='hwstate:'+today(),hc=stat(hk,{});hc[t.dataset.hw]=!hc[t.dataset.hw];buzz();setStat(hk,hc);return;}
   if(t.dataset.fs){var fk='filmstate:'+today(),fc=stat(fk,{});fc[t.dataset.fs]=!fc[t.dataset.fs];buzz();setStat(fk,fc);
