@@ -773,9 +773,15 @@ function homeHTML(){
 /* ---------- ONE TASK AT A TIME (David, Nov 11 2026) ----------
    Order: 1 film/edit/post (main reels, trial reels, carousels, UGC), 2 client calls + follow-ups, 3 decisions (only after 1 and 2).
    Desks qualify the DMs; HQ only surfaces a booked call. Everything else stays one tap away under "More". */
+function moneyNum(x){
+  if(x==null||x==='')return 0;
+  if(typeof x==='number')return isFinite(x)?x:0;
+  var t=String(x);try{var j=JSON.parse(t);if(j&&typeof j==='object')x=j.total!=null?j.total:(j.collected!=null?j.collected:(j.usd!=null?j.usd:j.value));else x=j;if(typeof x==='number')return isFinite(x)?x:0;t=String(x==null?'':x);}catch(e){}
+  var m=t.replace(/,/g,'').match(/\d+(\.\d+)?/);return m?Number(m[0]):0;
+}
 function northBarHTML(st){
-  var ym=today().slice(0,7), row=st['money:'+ym], v=row?Number(String(row.value).replace(/[^0-9.]/g,'')):0, T=100000, p=Math.min(100,Math.round(v/T*100));
-  var sp=stat('moneysplit:'+ym,null), rec=sp?Number(sp.recurring)||0:0, one=sp?Number(sp.oneoff)||0:0;
+  var ym=today().slice(0,7), row=st['money:'+ym], v=moneyNum(row&&row.value), T=100000, p=Math.min(100,Math.round(v/T*100));
+  var sp=stat('moneysplit:'+ym,null), rec=sp?moneyNum(sp.recurring):0, one=sp?moneyNum(sp.oneoff):0;
   var h='<div class="bar"><div class="barh"><span>Road to US$100,000 a month</span><b class="num">US$'+num(Math.round(v))+'</b></div><div class="track"><i style="width:'+Math.max(p,v?2:0)+'%"></i></div>';
   h+='<small><b>'+p+'%</b> of goal. US$'+num(Math.max(0,Math.round(T-v)))+' to go.</small>';
   if(sp)h+='<small style="display:block;margin-top:4px">Recurring US$'+num(Math.round(rec))+' . One-off US$'+num(Math.round(one))+'</small>';
