@@ -1,0 +1,64 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Out of Office Creators waitlist | Digital with David K</title>
+<meta name="description" content="Out of Office Creators opens soon. Join the waitlist to learn content creation and make money while you travel.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&display=swap">
+<style>
+:root{--bg:#EDE6DC;--panel:#F6F1E9;--fg:#111;--mute:#4a4f4a;--line:#d3c8b8;--em:#0E2F24;--onem:#EDE6DC;--beige:#C9B59C;--err:#a3261b;--font:'Montserrat',system-ui,sans-serif}
+@media (prefers-color-scheme:dark){:root{--bg:#0b1d17;--panel:#10281f;--fg:#EDE6DC;--mute:#b9b2a6;--line:#2a4a3f;--em:#C9B59C;--onem:#0E2F24;--err:#ff8f84;color-scheme:dark}}
+*{box-sizing:border-box}[hidden]{display:none!important}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--font);font-size:16px;line-height:1.55;padding:0 max(16px,env(safe-area-inset-right)) 40px max(16px,env(safe-area-inset-left))}
+.wrap{max-width:520px;margin:0 auto}
+.brand{padding:34px 0 26px;font-weight:600;font-size:11px;letter-spacing:.22em;line-height:1.3}
+h1{font-weight:300;font-size:clamp(28px,7vw,40px);letter-spacing:.08em;text-transform:uppercase;line-height:1.15;margin:0 0 14px;text-wrap:balance}
+.lede{color:var(--mute);margin:0 0 26px}
+form,.ok{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px}
+label.l{display:block;font-weight:600;font-size:14px;margin:0 0 7px}
+input[type=text],input[type=email]{width:100%;font:inherit;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:13px 14px;margin-bottom:16px}
+input:focus-visible,button:focus-visible{outline:2px solid var(--em);outline-offset:2px}
+.consent{display:flex;gap:10px;align-items:flex-start;font-size:14px;margin:4px 0 18px}
+.consent input{margin-top:4px;width:18px;height:18px;flex:none}
+button{width:100%;font:inherit;font-weight:600;letter-spacing:.14em;text-transform:uppercase;font-size:13px;padding:16px;border-radius:999px;border:0;background:var(--em);color:var(--onem);cursor:pointer}
+button[disabled]{opacity:.6;cursor:default}
+.msg{min-height:20px;margin:12px 0 0;font-size:14px;color:var(--err)}
+.hp{position:absolute;left:-9999px;height:0;overflow:hidden}
+.small{color:var(--mute);font-size:12px;margin-top:18px}
+.ok h2{font-weight:800;font-size:13px;letter-spacing:.18em;text-transform:uppercase;margin:0 0 10px}
+.ok p{margin:0;color:var(--mute)}
+</style></head><body><div class="wrap">
+<div class="brand">DIGITAL<br>WITH DAVID K.</div>
+<h1>Out of Office Creators opens soon</h1>
+<p class="lede">Learn content creation and make money while you travel. Join the waitlist and you will hear from me first when the doors open.</p>
+<form id="f" novalidate>
+ <label class="l" for="fn">First name</label>
+ <input type="text" id="fn" name="fn" autocomplete="given-name" required>
+ <label class="l" for="em">Email</label>
+ <input type="email" id="em" name="em" autocomplete="email" inputmode="email" required>
+ <div class="hp" aria-hidden="true"><label>Leave empty<input type="text" id="hp" tabindex="-1" autocomplete="off"></label></div>
+ <label class="consent"><input type="checkbox" id="co" required><span>Yes, email me when Out of Office Creators opens</span></label>
+ <button id="go" type="submit">Join the waitlist</button>
+ <p class="msg" id="msg" role="alert"></p>
+</form>
+<div class="ok" id="ok" hidden><h2>You are on the list</h2><p>Thank you. I will email you the moment Out of Office Creators opens.</p></div>
+<p class="small">No spam. Unsubscribe any time.</p>
+</div>
+<script>
+/* Sign-ups go to a small Google Apps Script (waitlist/backend/Code.gs) that adds the contact to Brevo list 5.
+   The Brevo key lives in the script's Script Properties, never on this page. Paste the deployed /exec URL here. */
+var WAITLIST_API='';
+var f=document.getElementById('f'),msg=document.getElementById('msg'),go=document.getElementById('go');
+function say(t){msg.textContent=t||'';}
+f.addEventListener('submit',function(e){
+  e.preventDefault();say('');
+  var fn=document.getElementById('fn').value.trim(),em=document.getElementById('em').value.trim();
+  if(!fn){say('Please add your first name.');return;}
+  if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em)){say('Please enter a valid email.');return;}
+  if(!document.getElementById('co').checked){say('Please tick the box so I can email you.');return;}
+  if(document.getElementById('hp').value){return;}
+  if(!WAITLIST_API){say('Sign-ups are not open yet. Please check back soon.');return;}
+  go.disabled=true;go.textContent='Joining...';
+  fetch(WAITLIST_API,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({firstName:fn,email:em,consent:true})})
+   .then(function(r){return r.json();})
+   .then(function(d){if(d&&d.ok){f.hidden=true;document.getElementById('ok').hidden=false;}else{throw new Error('fail');}})
+   .catch(function(){say('Something went wrong. Please try again in a minute.');go.disabled=false;go.textContent='Join the waitlist';});
+});
+</script></body></html>
