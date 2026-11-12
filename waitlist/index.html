@@ -44,7 +44,7 @@ button[disabled]{opacity:.6;cursor:default}
 <script>
 /* Sign-ups go to a small Google Apps Script (waitlist/backend/Code.gs) that adds the contact to Brevo list 5.
    The Brevo key lives in the script's Script Properties, never on this page. Paste the deployed /exec URL here. */
-var WAITLIST_API='';
+var WAITLIST_API='https://script.google.com/macros/s/AKfycbzjMDKMhQ9Hj4cuoxtM0Rfr-AF_01TyyE1iQDOr8PhYXoMbWjuASpPTH8OvzMm2yJhS-w/exec';
 var f=document.getElementById('f'),msg=document.getElementById('msg'),go=document.getElementById('go');
 function say(t){msg.textContent=t||'';}
 f.addEventListener('submit',function(e){

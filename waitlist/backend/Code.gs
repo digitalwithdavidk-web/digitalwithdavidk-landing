@@ -8,7 +8,8 @@ function doPost(e) {
     var email = String(b.email || '').trim().toLowerCase();
     var first = String(b.firstName || '').trim().slice(0, 60);
     if (!b.consent || !first || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return out({ ok: false, error: 'invalid' });
-    var key = PropertiesService.getScriptProperties().getProperty('BREVO_API_KEY');
+    var props = PropertiesService.getScriptProperties();
+    var key = props.getProperty('BREVO_API_KEY') || props.getProperty('BREVO-API-KEY');
     if (!key) return out({ ok: false, error: 'no key' });
     var r = UrlFetchApp.fetch('https://api.brevo.com/v3/contacts', {
       method: 'post', contentType: 'application/json', muteHttpExceptions: true,
