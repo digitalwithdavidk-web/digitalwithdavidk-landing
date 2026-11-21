@@ -28,28 +28,28 @@ button{width:100%;font:inherit;font-weight:800;letter-spacing:.02em;font-size:17
 button[disabled]{opacity:.6;cursor:default}
 .msg{min-height:20px;margin:12px 0 0;font-size:14px;color:var(--err)}
 .hp{position:absolute;left:-9999px;height:0;overflow:hidden}
-.ok h2{font-weight:800;font-size:22px;margin:0 0 8px}.ok p{margin:0;color:var(--mute)}
+.ok h2{font-weight:800;font-size:22px;margin:0 0 8px}.ok p{margin:0 0 14px;color:var(--mute)}.dl{display:block;text-align:center;font-weight:800;font-size:17px;padding:15px;border-radius:999px;background:var(--gold);color:#0E2F24;text-decoration:none}
 .small{color:var(--mute);font-size:13px;margin:12px 0 0;text-align:center}
 footer{padding:20px 0 36px;text-align:center;color:var(--mute);font-size:12px}
 @media(max-width:600px){.brand{padding:12px 0 8px;font-size:11px}h1{font-size:clamp(26px,7.4vw,34px);margin:0 0 6px}.lede{font-size:15px;margin:0 0 12px}form,.ok{padding:12px 14px;border-radius:16px}label.l{font-size:12px;margin:0 0 3px}input[type=text],input[type=email]{padding:9px 12px;margin-bottom:8px}.consent{font-size:12.5px;margin:0 0 10px;line-height:1.3}button{padding:12px;font-size:16px}.small{font-size:12px;margin:8px 0 0}.list{margin:14px 0 0;gap:7px}.list li{font-size:13.5px;padding-left:18px;line-height:1.3}.list li:before{width:7px;height:7px;top:.45em}footer{padding:12px 0 18px}.msg{min-height:0;margin:6px 0 0}}
 </style></head><body><div class="bg"></div><div class="shade"></div>
 <div class="wrap stage">
 <div class="brand">DIGITAL WITH DAVID K.</div>
-<h1>Out of Office <em>Creators</em> opens soon</h1>
-<p class="lede">Learn content creation and make money while you travel.</p>
+<h1>Get my free guide, <em>The One-Camera Studio</em></h1>
+<p class="lede">Join the waitlist for Out of Office Creators and get my free guide right away: how I set up my camera, light and seat to film. Doors open Sun Nov 22 at 9am CT, US$7/mo for 48 hours only.</p>
 <form id="f" novalidate>
  <label class="l" for="fn">First name</label>
  <input type="text" id="fn" name="fn" autocomplete="given-name" required>
  <label class="l" for="em">Email</label>
  <input type="email" id="em" name="em" autocomplete="email" inputmode="email" required>
  <div class="hp" aria-hidden="true"><label>Leave empty<input type="text" id="hp" tabindex="-1" autocomplete="off"></label></div>
- <label class="consent"><input type="checkbox" id="co" required><span>Yes, email me when Out of Office Creators opens</span></label>
- <button id="go" type="submit">Join the waitlist</button>
+ <label class="consent"><input type="checkbox" id="co" required><span>Yes, send me the free guide and email me when Out of Office Creators opens</span></label>
+ <button id="go" type="submit">Get the free guide</button>
  <p class="msg" id="msg" role="alert"></p>
 </form>
-<div class="ok" id="ok" hidden><h2>You are on the list</h2><p>Thank you. I will email you the moment Out of Office Creators opens.</p></div>
+<div class="ok" id="ok" hidden><h2>You are on the list</h2><p>Here is your free guide. I will email you the link the moment Out of Office Creators opens, Sun Nov 22 at 9am CT.</p><a class="dl" href="https://digitalwithdavidk.com/media/free-guide-one-camera-studio.pdf" target="_blank" rel="noopener">Download The One-Camera Studio</a></div>
 <p class="small">No spam. Unsubscribe any time.</p>
-<ul class="list"><li>Brand, niche and hooks that grow your page</li><li>Editing, photo and video made simple</li><li>Live Q&amp;A every 2 weeks and bonus guides</li><li>Built by a creator who went from 200 to 50K followers in 4 months</li></ul>
+<ul class="list"><li>Brand, niche and hooks that grow your page</li><li>Editing, photo and video made simple</li><li>Live Q&amp;A every 2 weeks and bonus guides</li><li>Built by a creator who went from 200 to 200K followers in 19 weeks</li></ul>
 <footer>Digital with David K. Winnipeg, Canada</footer>
 </div>
 <script>
@@ -70,6 +70,6 @@ f.addEventListener('submit',function(e){
   fetch(WAITLIST_API,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({firstName:fn,email:em,consent:true})})
    .then(function(r){return r.json();})
    .then(function(d){if(d&&d.ok){f.hidden=true;document.getElementById('ok').hidden=false;}else{throw new Error('fail');}})
-   .catch(function(){say('Something went wrong. Please try again in a minute.');go.disabled=false;go.textContent='Join the waitlist';});
+   .catch(function(){say('Something went wrong. Please try again in a minute.');go.disabled=false;go.textContent='Get the free guide';});
 });
 </script></body></html>
