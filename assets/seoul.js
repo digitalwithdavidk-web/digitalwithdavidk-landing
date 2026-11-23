@@ -1,6 +1,6 @@
 /* Seoul value bar data. Reads seoul.json (same fields as prices/seoul.json on the landing repo). Numbers in the HTML are the fallback. */
 (function(){
-  var D = {points:59200, cash:3239, today:5096, asof:'2026-11-22'};
+  var D = {points:59200, cash:3239, today:4896, asof:'2026-11-23'};
   function money(n){ return 'CA$' + Math.round(n).toLocaleString('en-US'); }
   function asof(s){ var a=s.split('-'), m=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']; return m[+a[1]-1]+' '+(+a[2])+', '+a[0]; }
   function apply(){
