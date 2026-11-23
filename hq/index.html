@@ -468,6 +468,35 @@ textarea.myin{min-height:96px;resize:vertical;line-height:1.4}
 .mydays .bd p{margin:4px 0 0;white-space:pre-wrap}
 .mymore{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:22px}
 @media (max-width:360px){.mysub{padding-left:2px}.mybxs .mybx{min-width:40px;padding:0 8px}}
+/* Round 2 (Nov 23): Needs you, money bar + stats, Week tab */
+.myneed{background:#fff;border-radius:22px;box-shadow:var(--shadow);padding:10px 12px 8px;margin-top:12px;border:2px solid var(--emerald)}
+.myneed h3{margin:0 0 4px;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);font-weight:800;display:flex;align-items:center}
+.myneed h3 small{margin-left:auto;letter-spacing:0;text-transform:none;color:var(--muted);font-weight:700;font-size:11.5px}
+.mynl{display:flex;align-items:center;gap:8px;padding:6px 0;border-top:1px solid #eef1ec}
+.mynl:first-of-type{border-top:0}
+.mynl .rk{flex:none;width:24px;height:24px;border-radius:8px;background:var(--stone);color:var(--emerald);font-weight:800;font-size:12px;display:flex;align-items:center;justify-content:center}
+.mynl .rk.top{background:var(--emerald);color:#fff}
+.mynl .tx{flex:1;min-width:0;font-size:13.5px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mynl .ok{flex:none;height:30px;border-radius:999px;border:1px solid var(--accent);background:#fff;color:var(--accent);font-weight:800;font-size:11.5px;padding:0 10px}
+.mynd{display:block;width:100%;text-align:left;border:0;background:#f4f6f2;border-radius:12px;padding:8px 10px;margin-top:6px;font-size:12.5px;color:var(--fg);font-weight:600;line-height:1.35}
+.mynd b{color:var(--accent)}
+.mystats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin-top:8px}
+.mystats div{background:#fff;border-radius:14px;box-shadow:var(--shadow);padding:9px 6px;text-align:center;min-width:0}
+.mystats b{display:block;font-size:16px;font-weight:800;color:var(--accent);letter-spacing:-.02em;font-variant-numeric:tabular-nums;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mystats b.nt{font-size:11px;color:var(--muted);font-weight:700;letter-spacing:0;padding:3px 0 2px}
+.mystats span{display:block;font-size:9.5px;font-weight:700;color:var(--muted);margin-top:2px;line-height:1.25}
+.mywk{background:#fff;border-radius:22px;box-shadow:var(--shadow);padding:14px 16px;margin-top:10px}
+.mywk .wh{display:flex;align-items:baseline;gap:8px;font-size:12px;color:var(--muted);font-weight:700}
+.mywk .wh b{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent)}
+.mywk .wh span{margin-left:auto}
+.mywk .mn{font-size:30px;font-weight:800;color:var(--emerald);letter-spacing:-.02em;margin-top:6px;font-variant-numeric:tabular-nums}
+.mywk .mn small{font-size:12px;color:var(--muted);font-weight:700;letter-spacing:0;margin-left:6px}
+.mywk .gr{display:grid;grid-template-columns:1fr;gap:6px 16px;margin-top:10px}@media (min-width:520px){.mywk .gr{grid-template-columns:1fr 1fr}}
+.mywk .gr div{display:flex;justify-content:space-between;gap:8px;font-size:12.5px;border-top:1px solid #eef1ec;padding-top:6px}
+.mywk .gr div span{color:var(--muted);font-weight:600}
+.mywk .gr div b{font-weight:800;text-align:right;font-variant-numeric:tabular-nums}
+.mywk .gr div b.nt{color:var(--muted);font-weight:600;font-size:11.5px}
+.mywk .src{font-size:11px;color:var(--muted);margin-top:10px;line-height:1.4}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
@@ -540,7 +569,7 @@ var MONEY = [
   ['calls','Calls','Take booked calls, book new ones']
 ];
 var VIEWS = {home:'CEO Dashboard',approve:'Approve',brands:'Brands',links:'Links',done:'Done',film:'Film Mode'};
-var HOMES=[['my','My day'],['one','Now'],['today','Today'],['pipeline','Pipeline'],['content','Content'],['week','Scoreboard'],['desks','Desks']];
+var HOMES=[['my','My day'],['wk','Week'],['one','Now'],['today','Today'],['pipeline','Pipeline'],['content','Content'],['week','Scoreboard'],['desks','Desks']];
 /* S.base = last snapshot from the server. S.data = S.base with every not-yet-saved change on top (what you see). */
 var S = {base:null, data:null, view:'home', home:'one', pstage:'', cstage:'', tab:'dms', sel:{}, editing:null, kind:'idea', vault:null, bf:'active', bq:'', bopen:{}, kf:0};
 S.home='my'; /* My day is the first page (Nov 23 2026). Now is one tap away. */
@@ -783,6 +812,7 @@ function render(){
   var h;
   if(S.view==='film')h=filmHTML();
   else if(S.view==='home'&&S.home==='my')h=myHTML();
+  else if(S.view==='home'&&S.home==='wk')h=myWeeksHTML();
   else if(S.view==='home'&&S.home==='one')h=oneHTML();
   else if(S.view==='home')h=isDesk()?deskHomeHTML():homeHTML();
   else if(S.view==='approve')h=approveHTML();
@@ -798,7 +828,7 @@ function render(){
   var g=$('hqGlobe'),anchor=v.querySelector('.strip4');
   if(S.view==='home'&&S.home==='today'&&anchor&&anchor.nextSibling)anchor.parentNode.insertBefore(g,anchor.nextSibling);
   document.body.classList.toggle('infilm',S.view==='film');
-  var one=S.view==='home'&&(S.home==='one'||S.home==='my');var inbox=!one&&(S.view==='approve'||(S.view==='home'&&isDesk()));v.classList.toggle('isdsk',!one&&S.view==='home'&&isDesk());
+  var one=S.view==='home'&&(S.home==='one'||S.home==='my'||S.home==='wk');var inbox=!one&&(S.view==='approve'||(S.view==='home'&&isDesk()));v.classList.toggle('isdsk',!one&&S.view==='home'&&isDesk());
   var sel=inbox?selectedIds().length:0;
   $('bulk').classList.toggle('hidden',!sel);
   $('bulkSend').textContent='Send '+sel+' selected';$('bulkSkip').textContent='Skip '+sel+' selected';
@@ -964,6 +994,8 @@ function setStat(k,obj){enqueue('setStat',{k:k,value:JSON.stringify(obj)});}
    db:brain:dump:<date>        {text:"",at}                            11:30pm brain dump
    db:brain:open               [{id,rank,title,owner:"David"|"team",added,by}]  still open, rank 1 = most money
    db:brain:done:<date>        [{id,rank,title,owner,doneAt,by}]       finished that day
+   db:stats:skool {members,paid,trials,at,src}   db:stats:telegram {subs,at,src}   (stat tiles; missing = not tracked yet)
+   db:week:<YYYY-Www>  one Sunday recap per week, written by sterling-sunday-scoreboard (Week tab)
    How-to for desks: DWDK Local/Local Claude desks/sterling/HQ TODAY PAGE - how it works.md */
 var MYL=[
   {id:'gratitude',t:'Write 3 gratitudes',box:'grat'},
@@ -1009,8 +1041,9 @@ function myHTML(){
   var dateLabel=new Intl.DateTimeFormat('en-US',{timeZone:'UTC',weekday:'long',month:'long',day:'numeric'}).format(new Date(T+'T12:00:00Z'));
   var h='<div class="my"><div class="hdrow"><div><h1>'+greet()+', David</h1><p class="sub">'+esc(dateLabel)+'. Your day in one look.</p></div><img class="ava" src="../images/hero-business-class.jpg" alt=""></div>';
   h+='<div class="hseg">'+HOMES.map(function(x){return '<button data-home="'+x[0]+'" aria-pressed="'+(S.home===x[0])+'">'+x[1]+'</button>';}).join('')+'</div>';
+  h+=myNeedHTML(T,tk,n,N)+myStatsHTML(T);
   /* 1. non-negotiables */
-  h+='<h2>Today\'s non-negotiables<small>'+n+'/'+N+'</small></h2>';
+  h+='<h2 id="my-list">Today\'s non-negotiables<small>'+n+'/'+N+'</small></h2>';
   h+='<div class="myprog"><b>'+n+'/'+N+'</b><div class="trk"><i style="width:'+Math.round(n/N*100)+'%"></i></div><span>'+(n>=N?'All done today':(N-n)+' to go')+'</span></div>';
   h+='<div class="mystreak" aria-label="Last 7 days">';
   for(var i=-6;i<=0;i++){var k=myDay(i),c=myCount(k);h+='<div'+(i===0?' class="now"':'')+'><small>'+esc(myWeek(k).toUpperCase())+'</small><i class="'+(c>=N?'f':c>0?'p':'')+'"></i><span>'+c+'/'+N+'</span></div>';}
@@ -1091,6 +1124,83 @@ document.addEventListener('toggle',function(e){var d=e.target;if(d&&d.dataset&&d
 var myAutoT=0;
 document.addEventListener('input',function(e){var el=e.target;if(!(el&&el.dataset&&el.dataset.mysave))return;clearTimeout(myAutoT);var kind=el.dataset.mysave;myAutoT=setTimeout(function(){mySaveField(kind);},1500);});
 document.addEventListener('focusout',function(e){var el=e.target;if(!(el&&el.dataset&&el.dataset.mysave))return;setTimeout(function(){if(!S.myStale)return;var a=document.activeElement;if(a&&a.dataset&&a.dataset.mysave)return;S.myStale=false;render();},60);});
+
+/* ---------- Round 2 (Nov 23): Needs you box, money bar + stats, Week tab ---------- */
+function myNeedHTML(T,tk,n,N){
+  var mine=mySort(myOpenList()).filter(function(x){return myOwner(x.owner)==='David';}),show=mine.slice(0,5);
+  var h='<div class="myneed"><h3>Needs you<small>'+mine.length+' open</small></h3>';
+  if(!show.length)h+='<div class="mynl"><span class="tx" style="font-weight:600;color:var(--muted)">Nothing needs your hand right now.</span></div>';
+  show.forEach(function(x){var r=Number(x.rank)||'';h+='<div class="mynl"><span class="rk'+(r===1?' top':'')+'">'+esc(r||'-')+'</span><span class="tx">'+esc(x.title||'')+'</span><button class="ok" data-myok="'+esc(x.id)+'">Done</button></div>';});
+  if(mine.length>show.length)h+='<div class="mynl"><span class="tx" style="font-weight:600;color:var(--muted)">+'+(mine.length-show.length)+' more in Still open below</span></div>';
+  var left=[];MYL.forEach(function(x){if(x.multi){if(!x.multi.every(function(m){return tk[m[0]];}))left.push(x.t);}else if(!tk[x.id])left.push(x.t);});
+  h+='<button class="mynd" data-myjump="1"><b>Daily tasks '+n+'/'+N+'.</b> '+(left.length?'Next: '+esc(left.slice(0,3).join(', ')):'All done today.')+'</button></div>';
+  return h;
+}
+function myLatestFollowers(){
+  var st=(S.data&&S.data.stats)||{},best=null;
+  Object.keys(st).forEach(function(k){var m=k.match(/^db:maxing:days:(\d{4}-\d{2}-\d{2})$/);if(!m)return;var o=stat(k,null);if(o&&Number(o.followers)>0&&(!best||m[1]>best.d))best={d:m[1],n:Number(o.followers)};});
+  return best;
+}
+function myPostedToday(T){
+  var st=(S.data&&S.data.stats)||{},c={post:0,trial:0};
+  Object.keys(st).forEach(function(k){if(k.indexOf('db:maxing:log:')!==0)return;var o=stat(k,null);if(!o||o.day!==T)return;if(o.type==='post'||o.type==='trial')c[o.type]+=Math.max(1,Number(o.n)||1);});
+  return c;
+}
+function myTile(v,label,nt){return '<div>'+(nt?'<b class="nt">not tracked yet</b>':'<b>'+v+'</b>')+'<span>'+label+'</span></div>';}
+function myStatsHTML(T){
+  var st=(S.data&&S.data.stats)||{},ym=T.slice(0,7),mrow=st['money:'+ym],has=mrow&&mrow.value!=null&&mrow.value!=='',mv=moneyNum(mrow&&mrow.value);
+  var f=myLatestFollowers(),p=myPostedToday(T),sk=stat('db:stats:skool',null),tg=stat('db:stats:telegram',null);
+  var h=northBarHTML(st)+'<div class="mystats">';
+  h+=myTile('US$'+short(mv),'money this month',!has);
+  h+=myTile(f?short(f.n):'',f?'followers, '+esc(fmtD(f.d)):'followers',!f);
+  h+=myTile(p.post+' / '+p.trial,'mains / trials logged today',false);
+  h+=myTile(sk&&sk.members!=null?num(sk.members):'','Skool members'+(sk&&sk.paid!=null?', '+num(sk.paid)+' paid':''),!(sk&&sk.members!=null));
+  h+=myTile(tg&&tg.subs!=null?num(tg.subs):'','Telegram subs',!(tg&&tg.subs!=null));
+  h+=myTile(US_WEEK_PACE(T),'of this week\'s US$23K pace',false);
+  return h+'</div>';
+}
+function US_WEEK_PACE(T){
+  var st=(S.data&&S.data.stats)||{},mon=monday(new Date(T+'T18:00:00Z')),usd=0;
+  Object.keys(st).forEach(function(k){if(k.indexOf('db:maxing:log:')!==0)return;var o=stat(k,null);if(o&&o.type==='money'&&o.day>=mon&&o.day<=T)usd+=Number(o.amount)||0;});
+  return Math.round(usd/23000*100)+'%';
+}
+function myWeekKeyLabel(k){var m=k.match(/(\d{4})-W(\d{2})/);return m?'Week '+Number(m[2])+', '+m[1]:k;}
+function myWeeksHTML(){
+  var st=(S.data&&S.data.stats)||{};
+  var dateLabel=new Intl.DateTimeFormat('en-US',{timeZone:'UTC',weekday:'long',month:'long',day:'numeric'}).format(new Date(myDay(0)+'T12:00:00Z'));
+  var h='<div class="my"><div class="hdrow"><div><h1>Week recap</h1><p class="sub">'+esc(dateLabel)+'. Money first. North star US$100K a month.</p></div></div>';
+  h+='<div class="hseg">'+HOMES.map(function(x){return '<button data-home="'+x[0]+'" aria-pressed="'+(S.home===x[0])+'">'+x[1]+'</button>';}).join('')+'</div>';
+  var ks=Object.keys(st).filter(function(k){return /^db:week:\d{4}-W\d{2}$/.test(k)&&st[k]&&st[k].value;}).sort().reverse();
+  h+='<h2>Every week<small>'+ks.length+' recap'+(ks.length===1?'':'s')+', newest first</small></h2>';
+  if(!ks.length)h+='<div class="myempty">The first recap shows up here on Sunday night.</div>';
+  ks.forEach(function(k){
+    var w=stat(k,{})||{},usd=Number(w.usd),hasU=w.usd!=null&&isFinite(usd),pace=hasU?Math.round(usd/23000*100):null;
+    function v(x){return x!=null&&x!=='';}
+    function row(label,val,fmt){return '<div><span>'+label+'</span>'+(v(val)?'<b>'+(fmt?fmt(val):esc(val))+'</b>':'<b class="nt">not tracked</b>')+'</div>';}
+    h+='<div class="mywk"><div class="wh"><b>'+esc(myWeekKeyLabel(k))+'</b><span>'+(w.start?esc(fmtD(w.start))+' to '+esc(fmtD(w.end||'')):'')+'</span></div>';
+    h+='<div class="mn">'+(hasU?'US$'+num(Math.round(usd*100)/100):'<span style="font-size:16px;color:var(--muted)">Money not tracked</span>')+(hasU?'<small>earned</small>':'')+'</div>';
+    if(hasU)h+='<div class="track"><i style="width:'+Math.max(2,Math.min(100,pace))+'%"></i></div><small style="font-size:12px;color:var(--muted);font-weight:600">'+pace+'% of the US$23K weekly pace to US$100K a month</small>';
+    h+='<div class="gr">';
+    h+=row('Clients closed',w.clients);
+    h+=row('UGC/brand deals',w.ugcDeals);
+    h+=row('Skool paid',w.skoolPaid);
+    h+=row('Skool trial to paid',w.skoolTrialToPaid);
+    h+=row('Telegram subs gained',w.telegramGained,function(x){return '+'+num(x);});
+    h+=row('Followers gained',w.followersGained,function(x){return '+'+num(x);});
+    h+=row('Mains posted',w.mains);
+    h+=row('Trials posted',w.trials);
+    h+=row('Calls booked',w.callsBooked);
+    h+=row('Calls held',w.callsHeld);
+    h+=row('Blueprint sales',w.blueprintSales,function(x){return esc(x)+(v(w.blueprintUsd)?' (US$'+num(w.blueprintUsd)+')':'');});
+    h+=row('Followers at end',w.followersEnd,function(x){return num(x);});
+    h+='</div>';
+    if(w.src||w.note)h+='<div class="src">'+esc(w.note||'')+(w.note&&w.src?' ':'')+(w.src?'Source: '+esc(w.src):'')+'</div>';
+    h+='</div>';
+  });
+  h+='<div class="mymore"><button class="btn ghost" style="padding:0 18px" data-home="my">Back to My day</button></div></div>';
+  return h;
+}
+document.addEventListener('click',function(e){var t=e.target.closest('[data-myjump]');if(!t)return;e.stopImmediatePropagation();var el=$('my-list');if(el)el.scrollIntoView({block:'start',behavior:'smooth'});},true);
 function nowHM(){return new Intl.DateTimeFormat('en-GB',{timeZone:TZ,hour:'2-digit',minute:'2-digit',hour12:false}).format(new Date());}
 function monday(d){d=d||new Date();var k=dayKey(d),dt=new Date(k+'T12:00:00Z'),w=(dt.getUTCDay()+6)%7;dt.setUTCDate(dt.getUTCDate()-w);return dt.toISOString().slice(0,10);}
 function addDays(k,n){var dt=new Date(k+'T12:00:00Z');dt.setUTCDate(dt.getUTCDate()+n);return dt.toISOString().slice(0,10);}
@@ -1538,7 +1648,7 @@ document.addEventListener('click',function(e){
   if(t.closest('nav')){go(t.dataset.v);return;}
   if(t.closest('#pal'))return;
   if(t.dataset.goto){if(S.view==='home'&&isDesk()){S.tab=t.dataset.goto;S.sel={};S.editing=null;S.kf=0;render();var c2=document.querySelector('.dc2');if(c2)c2.scrollIntoView({block:'start',behavior:'smooth'});return;}go('approve',t.dataset.goto);return;}
-  if(t.dataset.home){if(t.dataset.home==='one'||t.dataset.home==='my'){go('home',t.dataset.home);return;}if(S.view==='home'&&isDesk()){var sec=$('dsk-'+t.dataset.home);if(sec){S.dskOpen=t.dataset.home;if(sec.tagName==='DETAILS')sec.open=true;sec.scrollIntoView({block:'start',behavior:'smooth'});}return;}go('home',t.dataset.home);return;}
+  if(t.dataset.home){if(t.dataset.home==='one'||t.dataset.home==='my'||t.dataset.home==='wk'){go('home',t.dataset.home);return;}if(S.view==='home'&&isDesk()){var sec=$('dsk-'+t.dataset.home);if(sec){S.dskOpen=t.dataset.home;if(sec.tagName==='DETAILS')sec.open=true;sec.scrollIntoView({block:'start',behavior:'smooth'});}return;}go('home',t.dataset.home);return;}
   if(t.dataset.pstage!==undefined){S.pstage=S.pstage===t.dataset.pstage?'':t.dataset.pstage;render();return;}
   if(t.dataset.desk!==undefined){S.desk=S.desk===t.dataset.desk?'':t.dataset.desk;render();return;}
   if(t.dataset.cstage!==undefined){S.cstage=S.cstage===t.dataset.cstage?'':t.dataset.cstage;render();return;}
