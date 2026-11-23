@@ -408,6 +408,66 @@ body.infilm header,body.infilm nav,body.infilm #hqGlobe{display:none}
   .toast{left:232px;bottom:24px}
   body.infilm{display:block}
 }
+/* ---------- My day: first page (Nov 23 2026). Checklist, open and done lists, brain. ---------- */
+.my{max-width:720px;margin:0 auto}
+.mycard{background:#fff;border-radius:22px;box-shadow:var(--shadow);padding:6px 12px;margin-top:10px}
+.myrow{display:flex;align-items:center;gap:12px;padding:10px 2px;border-top:1px solid #eef1ec;min-height:54px}
+.myrow:first-child{border-top:0}
+.myrow .tl{flex:1;min-width:0;font-weight:700;font-size:14.5px;line-height:1.3}
+.myrow .tl small{display:block;font-size:12px;color:var(--muted);font-weight:500;margin-top:2px}
+.myrow.on>.tl{color:var(--muted);text-decoration:line-through}
+.mybx{width:34px;height:34px;flex:none;border-radius:50%;border:2px solid var(--accent);background:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px;color:#fff;padding:0}
+.mybx.on{background:var(--accent)}
+.mybxs{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.mybxs .mybx{width:auto;min-width:44px;height:34px;border-radius:999px;padding:0 10px;font-size:12px;color:var(--accent);gap:4px}
+.mybxs .mybx.on{color:#fff}
+.myin{width:100%;font:inherit;font-size:14px;border:1px solid var(--line2);border-radius:12px;padding:10px 12px;background:#f9faf8;color:var(--fg);margin-top:6px}
+textarea.myin{min-height:96px;resize:vertical;line-height:1.4}
+.myin:focus{outline:2px solid var(--accent);outline-offset:0;background:#fff}
+.mysub{padding:0 2px 10px 48px}
+.myprog{display:flex;align-items:center;gap:12px;margin-top:12px;background:var(--accent);color:#fff;border-radius:22px;padding:14px 16px;box-shadow:var(--shadow)}
+.myprog b{font-size:30px;font-weight:800;letter-spacing:-.02em;font-variant-numeric:tabular-nums;line-height:1}
+.myprog span{font-size:12.5px;color:#d6dfd8;font-weight:600}
+.myprog .trk{flex:1;height:8px;border-radius:999px;background:rgba(255,255,255,.18);overflow:hidden;min-width:60px}
+.myprog .trk i{display:block;height:100%;background:var(--beige);border-radius:999px}
+.mystreak{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-top:10px}
+.mystreak div{background:#fff;border-radius:14px;box-shadow:var(--shadow);padding:8px 2px;text-align:center}
+.mystreak small{display:block;font-size:10px;font-weight:800;color:var(--muted);letter-spacing:.06em}
+.mystreak i{display:block;width:22px;height:22px;border-radius:50%;margin:5px auto 3px;border:2px solid var(--accent);background:#fff}
+.mystreak i.p{background:linear-gradient(0deg,var(--beige) 50%,#fff 50%)}
+.mystreak i.f{background:var(--accent)}
+.mystreak span{font-size:10.5px;font-weight:700;color:var(--fg);font-variant-numeric:tabular-nums}
+.mystreak div.now{outline:2px solid var(--beige)}
+.myitem{display:flex;align-items:center;gap:10px;padding:10px 2px;border-top:1px solid #eef1ec}
+.myitem:first-child{border-top:0}
+.myitem .rk{flex:none;width:30px;height:30px;border-radius:10px;background:var(--stone);color:var(--emerald);font-weight:800;font-size:14px;display:flex;align-items:center;justify-content:center}
+.myitem .rk.top{background:var(--emerald);color:#fff}
+.myitem .tx{flex:1;min-width:0;font-size:14px;font-weight:600;line-height:1.35}
+.myitem .who{display:inline-block;font-size:10.5px;font-weight:800;border-radius:999px;padding:2px 8px;margin-top:4px;background:#eef1ec;color:var(--accent)}
+.myitem .who.team{background:var(--stone);color:#6b5a43}
+.myitem .ok{flex:none;height:36px;border-radius:999px;border:1px solid var(--accent);background:#fff;color:var(--accent);font-weight:800;font-size:12.5px;padding:0 12px}
+.myitem .ok.back{border-color:var(--line2);color:var(--muted)}
+.myitem.dn .tx{color:var(--muted)}
+.myitem.dn .rk{background:var(--accent);color:#fff}
+.myempty{color:var(--muted);font-size:13px;padding:14px 2px;text-align:center}
+.mybrain{background:var(--emerald);color:#fff;border-radius:22px;padding:14px 16px;box-shadow:var(--shadow);margin-top:10px}
+.mybrain small{display:block;font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--beige);font-weight:700;margin-top:10px}
+.mybrain small:first-child{margin-top:0}
+.mybrain ol{margin:6px 0 0;padding-left:20px;font-size:14px;line-height:1.45}
+.mybrain p{margin:6px 0 0;font-size:14px;line-height:1.45;white-space:pre-wrap;color:#eef1ec}
+.mydays details{background:#fff;border-radius:16px;box-shadow:var(--shadow);margin-top:6px}
+.mydays summary{list-style:none;display:flex;align-items:center;gap:10px;padding:12px 14px;cursor:pointer;min-height:50px}
+.mydays summary::-webkit-details-marker{display:none}
+.mydays summary b{flex:1;font-size:14px;font-weight:800}
+.mydays summary span{font-size:12px;color:var(--muted);font-weight:700}
+.mydays summary:after{content:'+';font-weight:800;color:var(--accent);font-size:18px}
+.mydays details[open] summary:after{content:'-'}
+.mydays .bd{padding:0 14px 12px;font-size:13.5px;line-height:1.45}
+.mydays .bd small{display:block;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);font-weight:800;margin-top:10px}
+.mydays .bd ol,.mydays .bd ul{margin:4px 0 0;padding-left:20px}
+.mydays .bd p{margin:4px 0 0;white-space:pre-wrap}
+.mymore{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:22px}
+@media (max-width:360px){.mysub{padding-left:2px}.mybxs .mybx{min-width:40px;padding:0 8px}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
@@ -480,9 +540,10 @@ var MONEY = [
   ['calls','Calls','Take booked calls, book new ones']
 ];
 var VIEWS = {home:'CEO Dashboard',approve:'Approve',brands:'Brands',links:'Links',done:'Done',film:'Film Mode'};
-var HOMES=[['one','Now'],['today','Today'],['pipeline','Pipeline'],['content','Content'],['week','Scoreboard'],['desks','Desks']];
+var HOMES=[['my','My day'],['one','Now'],['today','Today'],['pipeline','Pipeline'],['content','Content'],['week','Scoreboard'],['desks','Desks']];
 /* S.base = last snapshot from the server. S.data = S.base with every not-yet-saved change on top (what you see). */
 var S = {base:null, data:null, view:'home', home:'one', pstage:'', cstage:'', tab:'dms', sel:{}, editing:null, kind:'idea', vault:null, bf:'active', bq:'', bopen:{}, kf:0};
+S.home='my'; /* My day is the first page (Nov 23 2026). Now is one tap away. */
 
 function store(k,v){try{if(v===undefined)return localStorage.getItem(k);if(v===null)localStorage.removeItem(k);else localStorage.setItem(k,v);}catch(e){return null;}}
 function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
@@ -711,6 +772,7 @@ function filmStreak(){
 function render(){
   syncUI();
   var d=S.data;if(!d)return;
+  var mya=document.activeElement;if(S.view==='home'&&S.home==='my'&&mya&&mya.dataset&&mya.dataset.mysave){S.myStale=true;return;}
   $('undoBtn').disabled=!(d.canUndo||OB.length);$('undoBtn').title=d.undoLabel?('Undo '+d.undoLabel):'Undo';
   $('redoBtn').disabled=!d.canRedo;
   var w=waiting().length;$('navBadge').textContent=w;$('navBadge').classList.toggle('hidden',!w);
@@ -720,6 +782,7 @@ function render(){
   var v=$('view'), ae=document.activeElement, bqFocus=ae&&ae.id==='bq', bqPos=bqFocus?ae.selectionStart:0;
   var h;
   if(S.view==='film')h=filmHTML();
+  else if(S.view==='home'&&S.home==='my')h=myHTML();
   else if(S.view==='home'&&S.home==='one')h=oneHTML();
   else if(S.view==='home')h=isDesk()?deskHomeHTML():homeHTML();
   else if(S.view==='approve')h=approveHTML();
@@ -735,7 +798,7 @@ function render(){
   var g=$('hqGlobe'),anchor=v.querySelector('.strip4');
   if(S.view==='home'&&S.home==='today'&&anchor&&anchor.nextSibling)anchor.parentNode.insertBefore(g,anchor.nextSibling);
   document.body.classList.toggle('infilm',S.view==='film');
-  var one=S.view==='home'&&S.home==='one';var inbox=!one&&(S.view==='approve'||(S.view==='home'&&isDesk()));v.classList.toggle('isdsk',!one&&S.view==='home'&&isDesk());
+  var one=S.view==='home'&&(S.home==='one'||S.home==='my');var inbox=!one&&(S.view==='approve'||(S.view==='home'&&isDesk()));v.classList.toggle('isdsk',!one&&S.view==='home'&&isDesk());
   var sel=inbox?selectedIds().length:0;
   $('bulk').classList.toggle('hidden',!sel);
   $('bulkSend').textContent='Send '+sel+' selected';$('bulkSkip').textContent='Skip '+sel+' selected';
@@ -820,7 +883,7 @@ function oneHTML(){
     }
     if(nxt)h+='<p class="sub" style="margin-top:12px">Next: '+esc(nxt.t||('Reply to '+nxt.card.who))+'</p>';
   }
-  h+='<p style="margin-top:22px;text-align:center"><button class="btn ghost" data-go="home:today">More: pipeline, content, numbers</button></p>';
+  h+='<p style="margin-top:22px;text-align:center"><button class="btn ghost" data-go="home:today">More: pipeline, content, numbers</button></p><p style="margin-top:8px;text-align:center"><button class="btn ghost" style="padding:0 18px" data-home="my">My day: checklist and brain</button></p>';
   return h;
 }
 function moneyGateHTML(st,t){
@@ -861,7 +924,7 @@ function needsYouHTML(){
 function deskHomeHTML(){
   var d=S.data, st=d.stats||{}, t=tasksToday();
   var dateLabel=new Intl.DateTimeFormat('en-US',{timeZone:TZ,weekday:'long',month:'long',day:'numeric'}).format(new Date());
-  var h='<div class="dsk"><section class="dc1"><div class="hdrow"><div><h1>'+greet()+', David</h1><p class="sub">'+esc(dateLabel)+'. Your 3 jobs: film, calls, send.</p></div></div>';
+  var h='<div class="dsk"><section class="dc1"><div class="hdrow"><div><h1>'+greet()+', David</h1><p class="sub">'+esc(dateLabel)+'. Your 3 jobs: film, calls, send.</p></div><button class="btn ghost" style="padding:0 16px;height:40px" data-home="my">My day</button></div>';
   h+=needsYouHTML()+runHTML();
   var done=MONEY.filter(function(m){return t[m[0]];}).length;
   h+='<details class="bmini" style="margin-top:12px"'+(done<MONEY.length?' open':'')+'><summary><div class="mn"><b>Money gate '+done+' of '+MONEY.length+'</b><small>'+(done<MONEY.length?'Next money task below':'Done for today. Unlocked.')+'</small></div></summary><div style="padding:0 2px 4px">'+moneyGateHTML(st,t)+'</div></details></section>';
@@ -894,6 +957,140 @@ function normUrl(u){u=String(u||'').trim();var m=u.match(/instagram\.com\/(?:[^\
 function thumbFor(u){var T=stat('linkthumbs',{});return (T&&u)?(T[normUrl(u)]||''):'';}
 function stat(k,fb){var r=S.data&&S.data.stats&&S.data.stats[k];if(!r||r.value==null||r.value==='')return fb;try{return JSON.parse(r.value);}catch(e){return fb;}}
 function setStat(k,obj){enqueue('setStat',{k:k,value:JSON.stringify(obj)});}
+/* ---------- MY DAY: the first page (David, Nov 23 2026) ----------
+   Day keys use Central time, fixed UTC-6. Rows (stats tab, value = JSON):
+   db:today:<date>             {ticks:{id:true},learned:"",at}         daily checklist, resets each day
+   db:brain:gratitude:<date>   {items:["","",""],at}                   3 gratitudes
+   db:brain:dump:<date>        {text:"",at}                            11:30pm brain dump
+   db:brain:open               [{id,rank,title,owner:"David"|"team",added,by}]  still open, rank 1 = most money
+   db:brain:done:<date>        [{id,rank,title,owner,doneAt,by}]       finished that day
+   How-to for desks: DWDK Local/Local Claude desks/sterling/HQ TODAY PAGE - how it works.md */
+var MYL=[
+  {id:'gratitude',t:'Write 3 gratitudes',box:'grat'},
+  {id:'gym',t:'Gym'},
+  {id:'film',t:'Film'},
+  {id:'reels',t:'1 main reel + 1 trial reel posted'},
+  {id:'carousel',t:'1 carousel'},
+  {id:'remixes',t:'30 trial remixes built',s:'Team'},
+  {multi:[['proj1','1'],['proj2','2']],t:'Finish 2 projects'},
+  {id:'learn',t:'Learn 1 new thing',box:'learn'},
+  {id:'plan',t:'Plan tomorrow tonight'},
+  {id:'dump',t:'11:30pm brain dump',box:'dump'},
+  {multi:[['meal11','11am'],['meal3','3pm'],['meal8','8pm'],['water','Water']],t:'Meals and water'}
+];
+var MYIDS=[];MYL.forEach(function(x){if(x.multi)x.multi.forEach(function(m){MYIDS.push(m[0]);});else MYIDS.push(x.id);});
+S.myDraft={};S.myOpen={};
+function myDay(off){var d=new Date(Date.now()-6*3600e3+(off||0)*864e5);return d.toISOString().slice(0,10);}
+function myToday(k){var o=stat('db:today:'+k,null);if(!o||typeof o!=='object')o={};if(!o.ticks||typeof o.ticks!=='object')o.ticks={};return o;}
+function myCount(k){var t=myToday(k).ticks;return MYIDS.filter(function(id){return t[id];}).length;}
+function myOpenList(){var L=stat('db:brain:open',[]);return Array.isArray(L)?L:[];}
+function myDone(k){var L=stat('db:brain:done:'+k,[]);return Array.isArray(L)?L:[];}
+function myGrat(k){var o=stat('db:brain:gratitude:'+k,null);var a=(o&&Array.isArray(o.items))?o.items:[];return [a[0]||'',a[1]||'',a[2]||''];}
+function myDump(k){var o=stat('db:brain:dump:'+k,null);return (o&&o.text)||'';}
+function myVal(id,v){return S.myDraft.hasOwnProperty(id)?S.myDraft[id]:v;}
+function myWeek(k){return new Intl.DateTimeFormat('en-US',{timeZone:'UTC',weekday:'short'}).format(new Date(k+'T12:00:00Z'));}
+function myLong(k){return new Intl.DateTimeFormat('en-US',{timeZone:'UTC',weekday:'short',month:'short',day:'numeric'}).format(new Date(k+'T12:00:00Z'));}
+function myOwner(o){return /^team$/i.test(String(o||''))?'team':'David';}
+function mySort(L){return L.slice().sort(function(a,b){return (Number(a.rank)||99)-(Number(b.rank)||99);});}
+function myItemHTML(x,mode){
+  var r=Number(x.rank)||'', own=myOwner(x.owner);
+  var h='<div class="myitem'+(mode==='open'?'':' dn')+'"><span class="rk'+(r===1&&mode==='open'?' top':'')+'">'+(mode==='open'?esc(r||'-'):'&#10003;')+'</span><div class="tx">'+esc(x.title||x.text||'')+'<br><span class="who'+(own==='team'?' team':'')+'">'+(own==='team'?'Team':'David')+'</span></div>';
+  if(mode==='open')h+='<button class="ok" data-myok="'+esc(x.id)+'" aria-label="Mark done">Done</button>';
+  else if(mode==='today')h+='<button class="ok back" data-myback="'+esc(x.id)+'" aria-label="Put back on open list">Put back</button>';
+  return h+'</div>';
+}
+function myPastDays(T){
+  var seen={},st=(S.data&&S.data.stats)||{};
+  Object.keys(st).forEach(function(k){var m=k.match(/^db:(?:today|brain:gratitude|brain:dump|brain:done):(\d{4}-\d{2}-\d{2})$/);if(m&&m[1]<T&&st[k]&&st[k].value)seen[m[1]]=1;});
+  return Object.keys(seen).sort().reverse().slice(0,30);
+}
+function myHTML(){
+  var T=myDay(0),Y=myDay(-1),td=myToday(T),tk=td.ticks,n=myCount(T),N=MYIDS.length;
+  var dateLabel=new Intl.DateTimeFormat('en-US',{timeZone:'UTC',weekday:'long',month:'long',day:'numeric'}).format(new Date(T+'T12:00:00Z'));
+  var h='<div class="my"><div class="hdrow"><div><h1>'+greet()+', David</h1><p class="sub">'+esc(dateLabel)+'. Your day in one look.</p></div><img class="ava" src="../images/hero-business-class.jpg" alt=""></div>';
+  h+='<div class="hseg">'+HOMES.map(function(x){return '<button data-home="'+x[0]+'" aria-pressed="'+(S.home===x[0])+'">'+x[1]+'</button>';}).join('')+'</div>';
+  /* 1. non-negotiables */
+  h+='<h2>Today\'s non-negotiables<small>'+n+'/'+N+'</small></h2>';
+  h+='<div class="myprog"><b>'+n+'/'+N+'</b><div class="trk"><i style="width:'+Math.round(n/N*100)+'%"></i></div><span>'+(n>=N?'All done today':(N-n)+' to go')+'</span></div>';
+  h+='<div class="mystreak" aria-label="Last 7 days">';
+  for(var i=-6;i<=0;i++){var k=myDay(i),c=myCount(k);h+='<div'+(i===0?' class="now"':'')+'><small>'+esc(myWeek(k).toUpperCase())+'</small><i class="'+(c>=N?'f':c>0?'p':'')+'"></i><span>'+c+'/'+N+'</span></div>';}
+  h+='</div><div class="mycard">';
+  MYL.forEach(function(x){
+    if(x.multi){
+      var all=x.multi.every(function(m){return tk[m[0]];});
+      h+='<div class="myrow'+(all?' on':'')+'"><span class="tl">'+esc(x.t)+'</span><span class="mybxs">';
+      x.multi.forEach(function(m){var on=!!tk[m[0]];h+='<button class="mybx'+(on?' on':'')+'" data-mytick="'+m[0]+'" aria-pressed="'+on+'">'+(on?'&#10003; ':'')+esc(m[1])+'</button>';});
+      h+='</span></div>';return;
+    }
+    var on=!!tk[x.id];
+    h+='<div class="myrow'+(on?' on':'')+'"><button class="mybx'+(on?' on':'')+'" data-mytick="'+x.id+'" aria-pressed="'+on+'" aria-label="'+esc(x.t)+'">'+(on?'&#10003;':'')+'</button><span class="tl">'+esc(x.t)+(x.s?'<small>'+esc(x.s)+'</small>':'')+'</span></div>';
+    if(x.box==='grat'){var g=myGrat(T);h+='<div class="mysub">';for(var j=0;j<3;j++)h+='<input class="myin" id="my-g'+j+'" data-mysave="grat" placeholder="'+(j+1)+'. I am grateful for" value="'+esc(myVal('my-g'+j,g[j]))+'" autocomplete="off">';h+='</div>';}
+    if(x.box==='learn')h+='<div class="mysub"><input class="myin" id="my-learn" data-mysave="learn" placeholder="What I learned today" value="'+esc(myVal('my-learn',td.learned||''))+'" autocomplete="off"></div>';
+    if(x.box==='dump')h+='<div class="mysub"><textarea class="myin" id="my-dump" data-mysave="dump" placeholder="Everything on your mind. Tomorrow morning you read it here.">'+esc(myVal('my-dump',myDump(T)))+'</textarea></div>';
+  });
+  h+='</div>';
+  /* 2. finished yesterday + still open */
+  var dy=myDone(Y),dyK=Y;
+  if(!dy.length){var past=myPastDays(T).filter(function(k){return myDone(k).length;});if(past.length){dyK=past[0];dy=myDone(dyK);}}
+  h+='<h2>'+(dyK===Y?'Finished yesterday':'Last finished, '+esc(myLong(dyK)))+'<small>'+dy.length+'</small></h2><div class="mycard">';
+  h+=dy.length?mySort(dy).map(function(x){return myItemHTML(x,'done');}).join(''):'<div class="myempty">Nothing logged yet.</div>';
+  h+='</div>';
+  var op=mySort(myOpenList()),dt=myDone(T);
+  h+='<h2>Still open<small>'+op.length+' left, 1 = most money</small></h2><div class="mycard">';
+  h+=op.length?op.map(function(x){return myItemHTML(x,'open');}).join(''):'<div class="myempty">Nothing open. Clean slate.</div>';
+  h+='</div>';
+  if(dt.length)h+='<h2>Done today<small>'+dt.length+'</small></h2><div class="mycard">'+dt.map(function(x){return myItemHTML(x,'today');}).join('')+'</div>';
+  /* 3. brain */
+  var yg=myGrat(Y).filter(function(s){return s.trim();}),yd=myDump(Y),yl=myToday(Y).learned||'';
+  h+='<h2>Brain<small>'+esc(myLong(Y))+'</small></h2><div class="mybrain">';
+  h+='<small>Yesterday\'s gratitudes</small>'+(yg.length?'<ol>'+yg.map(function(s){return '<li>'+esc(s)+'</li>';}).join('')+'</ol>':'<p>None saved.</p>');
+  if(yl)h+='<small>What I learned</small><p>'+esc(yl)+'</p>';
+  h+='<small>Last night\'s brain dump</small><p>'+(yd?esc(yd):'None saved.')+'</p></div>';
+  var days=myPastDays(T);
+  h+='<h2>Past days<small>'+days.length+'</small></h2><div class="mydays">';
+  if(!days.length)h+='<div class="myempty">Past days show up here.</div>';
+  days.forEach(function(k){
+    var g=myGrat(k).filter(function(s){return s.trim();}),du=myDump(k),dn=myDone(k),ln=myToday(k).learned||'',c=myCount(k);
+    h+='<details data-myday="'+k+'"'+(S.myOpen[k]?' open':'')+'><summary><b>'+esc(myLong(k))+'</b><span>'+c+'/'+N+(dn.length?' . '+dn.length+' done':'')+'</span></summary><div class="bd">';
+    h+='<small>Gratitudes</small>'+(g.length?'<ol>'+g.map(function(s){return '<li>'+esc(s)+'</li>';}).join('')+'</ol>':'<p>None saved.</p>');
+    if(ln)h+='<small>Learned</small><p>'+esc(ln)+'</p>';
+    h+='<small>Brain dump</small><p>'+(du?esc(du):'None saved.')+'</p>';
+    if(dn.length)h+='<small>Finished</small><ul>'+mySort(dn).map(function(x){return '<li>'+esc(x.title||'')+' ('+myOwner(x.owner)+')</li>';}).join('')+'</ul>';
+    h+='</div></details>';
+  });
+  h+='</div><div class="mymore"><button class="btn ghost" style="padding:0 18px" data-home="one">Now: one task at a time</button><button class="btn ghost" style="padding:0 18px" data-go="home:today">Pipeline, content, numbers</button></div></div>';
+  return h;
+}
+function myTick(id){var T=myDay(0),o=myToday(T);o.ticks[id]=!o.ticks[id];if(!o.ticks[id])delete o.ticks[id];o.at=new Date().toISOString();buzz();setStat('db:today:'+T,o);}
+function mySaveField(kind){
+  var T=myDay(0),now=new Date().toISOString();
+  if(kind==='grat'){var a=[0,1,2].map(function(j){var e=$('my-g'+j);return e?e.value.trim():'';});setStat('db:brain:gratitude:'+T,{items:a,at:now});[0,1,2].forEach(function(j){delete S.myDraft['my-g'+j];});}
+  else if(kind==='learn'){var o=myToday(T),e=$('my-learn');o.learned=e?e.value.trim():'';o.at=now;setStat('db:today:'+T,o);delete S.myDraft['my-learn'];}
+  else if(kind==='dump'){var d=$('my-dump');setStat('db:brain:dump:'+T,{text:d?d.value:'',at:now});delete S.myDraft['my-dump'];}
+}
+function myMoveDone(id){
+  var T=myDay(0),L=myOpenList(),it=L.filter(function(x){return String(x.id)===id;})[0];if(!it)return;
+  var D=myDone(T).concat([Object.assign({},it,{doneAt:new Date().toISOString(),by:'David in HQ'})]);
+  buzz();setStat('db:brain:done:'+T,D);setStat('db:brain:open',L.filter(function(x){return String(x.id)!==id;}));toast('Moved to done today',false);
+}
+function myMoveBack(id){
+  var T=myDay(0),D=myDone(T),it=D.filter(function(x){return String(x.id)===id;})[0];if(!it)return;
+  var back=Object.assign({},it);delete back.doneAt;delete back.by;
+  buzz();setStat('db:brain:open',myOpenList().concat([back]));setStat('db:brain:done:'+T,D.filter(function(x){return String(x.id)!==id;}));toast('Back on the open list',false);
+}
+document.addEventListener('click',function(e){
+  var t=e.target.closest('[data-mytick],[data-myok],[data-myback]');if(!t)return;
+  e.stopImmediatePropagation();
+  if(t.dataset.mytick)myTick(t.dataset.mytick);
+  else if(t.dataset.myok)myMoveDone(t.dataset.myok);
+  else if(t.dataset.myback)myMoveBack(t.dataset.myback);
+},true);
+document.addEventListener('input',function(e){var el=e.target;if(el&&el.dataset&&el.dataset.mysave)S.myDraft[el.id]=el.value;});
+document.addEventListener('change',function(e){var el=e.target;if(el&&el.dataset&&el.dataset.mysave)mySaveField(el.dataset.mysave);});
+document.addEventListener('toggle',function(e){var d=e.target;if(d&&d.dataset&&d.dataset.myday){if(d.open)S.myOpen[d.dataset.myday]=1;else delete S.myOpen[d.dataset.myday];}},true);
+var myAutoT=0;
+document.addEventListener('input',function(e){var el=e.target;if(!(el&&el.dataset&&el.dataset.mysave))return;clearTimeout(myAutoT);var kind=el.dataset.mysave;myAutoT=setTimeout(function(){mySaveField(kind);},1500);});
+document.addEventListener('focusout',function(e){var el=e.target;if(!(el&&el.dataset&&el.dataset.mysave))return;setTimeout(function(){if(!S.myStale)return;var a=document.activeElement;if(a&&a.dataset&&a.dataset.mysave)return;S.myStale=false;render();},60);});
 function nowHM(){return new Intl.DateTimeFormat('en-GB',{timeZone:TZ,hour:'2-digit',minute:'2-digit',hour12:false}).format(new Date());}
 function monday(d){d=d||new Date();var k=dayKey(d),dt=new Date(k+'T12:00:00Z'),w=(dt.getUTCDay()+6)%7;dt.setUTCDate(dt.getUTCDate()-w);return dt.toISOString().slice(0,10);}
 function addDays(k,n){var dt=new Date(k+'T12:00:00Z');dt.setUTCDate(dt.getUTCDate()+n);return dt.toISOString().slice(0,10);}
@@ -1341,7 +1538,7 @@ document.addEventListener('click',function(e){
   if(t.closest('nav')){go(t.dataset.v);return;}
   if(t.closest('#pal'))return;
   if(t.dataset.goto){if(S.view==='home'&&isDesk()){S.tab=t.dataset.goto;S.sel={};S.editing=null;S.kf=0;render();var c2=document.querySelector('.dc2');if(c2)c2.scrollIntoView({block:'start',behavior:'smooth'});return;}go('approve',t.dataset.goto);return;}
-  if(t.dataset.home){if(t.dataset.home==='one'){go('home','one');return;}if(S.view==='home'&&isDesk()){var sec=$('dsk-'+t.dataset.home);if(sec){S.dskOpen=t.dataset.home;if(sec.tagName==='DETAILS')sec.open=true;sec.scrollIntoView({block:'start',behavior:'smooth'});}return;}go('home',t.dataset.home);return;}
+  if(t.dataset.home){if(t.dataset.home==='one'||t.dataset.home==='my'){go('home',t.dataset.home);return;}if(S.view==='home'&&isDesk()){var sec=$('dsk-'+t.dataset.home);if(sec){S.dskOpen=t.dataset.home;if(sec.tagName==='DETAILS')sec.open=true;sec.scrollIntoView({block:'start',behavior:'smooth'});}return;}go('home',t.dataset.home);return;}
   if(t.dataset.pstage!==undefined){S.pstage=S.pstage===t.dataset.pstage?'':t.dataset.pstage;render();return;}
   if(t.dataset.desk!==undefined){S.desk=S.desk===t.dataset.desk?'':t.dataset.desk;render();return;}
   if(t.dataset.cstage!==undefined){S.cstage=S.cstage===t.dataset.cstage?'':t.dataset.cstage;render();return;}
